@@ -3,4 +3,42 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+body {
+  @apply bg-gray-100;
+}
+.radio-title {
+  @apply text-sm;
+}
+.radio-toolbar input[type='radio'] {
+  @apply opacity-0 fixed w-0 inline-flex;
+}
+.radio-toolbar label {
+  @apply inline-block bg-gray-100 py-1 text-center text-xs w-40 md:w-32 border-2 border-solid border-gray-800 cursor-pointer;
+}
+.radio-toolbar label:hover {
+  @apply bg-gray-300;
+}
+.radio-toolbar input[type='radio']:checked + label {
+  @apply bg-gray-800 text-white;
+}
+select {
+  @apply bg-white rounded border border-gray-400 h-7 pl-2 m-2 text-sm;
+}
+.advance-select {
+  @apply w-40 my-3;
+}
+.black-btn {
+  @apply bg-gray-800 text-white w-20 m-2 my-3 py-1;
+}
+
 @tailwind utilities;
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  background-image: url(../../public/img/select-arrow.svg);
+  background-position: 97% center;
+  background-repeat: no-repeat;
+}
