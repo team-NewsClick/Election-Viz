@@ -69,14 +69,9 @@ export const stateCoordinates = [
     longitude: 77.16659704
   },
   {
-    state: "Jammu",
-    latitude: 34.29995933,
-    longitude: 74.46665849
-  },
-  {
-    state: "Kashmir",
-    latitude: 34.29995933,
-    longitude: 74.46665849
+    state: "Jammu & Kashmir",
+    latitude: 34.083656,
+    longitude: 74.797371
   },
   {
     state: "Jharkhand",
@@ -92,6 +87,11 @@ export const stateCoordinates = [
     state: "Kerala",
     latitude: 10.850516,
     longitude: 76.27108
+  },
+  {
+    state: "Ladakh",
+    latitude: 34.209515,
+    longitude: 77.615112
   },
   {
     state: "Lakshadweep",
