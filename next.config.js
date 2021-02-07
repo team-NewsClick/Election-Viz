@@ -6,5 +6,7 @@ module.exports = {
     config.resolve.alias["~"] = path.resolve(__dirname, "src")
     return config
   },
-  env: {}
+  env: {
+    MAPBOX_BOX_ACCESS_TOKEN: process.env.MAPBOX_BOX_ACCESS_TOKEN
+  }
 }
