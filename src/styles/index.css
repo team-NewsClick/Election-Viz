@@ -1,8 +1,3 @@
-/*
-ABBREVIATIONS USED
-apst = alliance party stats table
-*/
-
 @tailwind base;
 @tailwind components;
 
@@ -41,50 +36,44 @@ select {
 details {
   @apply w-full bg-gray-300;
 }
+summary {
+  @apply md:flex py-2 md:h-12 items-center border-b-2 border-gray-400 cursor-pointer relative;
+}
 summary::-webkit-details-marker {
   @apply hidden;
 }
-.table-title {
+.widget-title {
   @apply font-bold text-center pt-8 text-2xl px-3;
 }
 .details-list {
   @apply md:flex bg-gray-200 border-b-2 border-gray-300 py-2;
 }
 .table-head {
-  @apply hidden md:flex pl-4 h-12 items-center bg-gray-200 font-bold border-b-2 border-black;
+  @apply hidden md:flex px-4 h-12 items-center bg-gray-200 font-bold border-b-2 border-black;
 }
-.apst-summary {
-  @apply md:flex py-2 md:h-12 items-center border-b-2 border-gray-400 cursor-pointer relative;
+.sub-summary {
+  @apply md:w-1/5 pl-4 py-1 flex border-b-2 border-gray-400 md:border-0 font-bold md:font-normal;
 }
-.apst-sub-summary {
-  @apply md:w-1/5 pl-4 py-1 flex border-b-2 border-gray-400 md:border-0 font-bold md:font-normal md:pl-8;
-}
-.apst-summary-head {
+.summary-head {
   @apply w-2/3 md:w-1/5 pl-4 py-1 flex font-bold md:font-normal;
 }
-.apst-details-head {
+.details-head {
   @apply pl-4 py-2 border-b-2 border-gray-400 md:hidden;
 }
-.apst-details-head-param-title {
-  @apply w-2/3 font-bold;
-}
-.apst-details-list-body {
+.details-list-body {
   @apply md:w-4/5 md:flex pl-4 md:pl-0 pt-2;
 }
-.apst-details-param {
-  @apply md:w-1/6 flex md:text-right;
+.details-param {
+  @apply flex md:text-right;
 }
-.apst-details-param-title {
+.details-param-title {
   @apply w-2/3 md:hidden font-bold;
 }
-.apst-details-param-data {
+.details-param-data {
   @apply w-1/3 md:w-full;
 }
-.apst-summary-head-param {
+.summary-head-param {
   @apply w-4/5 hidden md:flex;
-}
-.apst-summary-head-data {
-  @apply w-1/6 text-right;
 }
 
 @tailwind utilities;
