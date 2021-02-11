@@ -98,3 +98,7 @@ details[open] summary::after {
   transform: rotate(180deg);
   transform-origin: 47% 35%;
 }
+.rv-xy-plot {
+  stroke: #888;
+  stroke-width: 0.35;
+}
