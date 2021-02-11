@@ -40,7 +40,7 @@ const VoteCountPartyLastThreeElections = () => {
   return (
     <div>
       <div className="widget-title">
-        Number of Constituencies Won by Aliances in last three elections
+        Number of Votes Party-Wise In Last Three Elections
       </div>
       <XYPlot
         xType="ordinal"
