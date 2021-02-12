@@ -75,6 +75,9 @@ summary::-webkit-details-marker {
 .summary-head-param {
   @apply w-4/5 hidden md:flex;
 }
+.state-alliance-constituencies-container {
+  @apply flex flex-wrap w-1/5 justify-center border-l border-r border-gray-300;
+}
 
 @tailwind utilities;
 
@@ -101,4 +104,5 @@ details[open] summary::after {
 .rv-xy-plot {
   stroke: #888;
   stroke-width: 0.35;
+  font-size: 0.75rem;
 }

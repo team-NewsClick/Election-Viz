@@ -5,8 +5,16 @@ import {
   HorizontalGridLines,
   VerticalBarSeries,
 } from "react-vis"
+import { useState, useEffect } from "react"
 
 const ConstituenciesNumberLastThreeElections = () => {
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth)
+    return () => {}
+  }, [])
+  const [windowWidth, setWindowWidth] = useState(null)
+
   const ndaData = [
     { x: "2009", y: 68 },
     { x: "2014", y: 76 },
@@ -44,24 +52,24 @@ const ConstituenciesNumberLastThreeElections = () => {
       </div>
       <XYPlot
         xType="ordinal"
-        width={650}
-        height={450}
-        xDistance={50}
-        className="mx-auto my-10"
+        width={windowWidth*0.98}
+        height={windowWidth*0.7}
+        className="mx-auto mt-10"
       >
         <HorizontalGridLines />
         <XAxis />
         <YAxis />
-        <VerticalBarSeries data={ndaData} color={"#F97D09"} stroke={"#fff"} />
-        <VerticalBarSeries data={bspData} color={"#BD0026"} stroke={"#fff"} />
+        <VerticalBarSeries data={ndaData} color={"#f97d09"} stroke={"#fff"} />
+        <VerticalBarSeries data={bspData} color={"#bd0026"} stroke={"#fff"} />
         <VerticalBarSeries data={incData} color={"#138808"} stroke={"#fff"} />
         <VerticalBarSeries data={indData} color={"#000"} stroke={"#fff"} />
         <VerticalBarSeries
           data={othersData}
-          color={"#A6A6A6"}
+          color={"#a6a6a6"}
           stroke={"#fff"}
         />
-        <div className="flex justify-between w-8/12 my-4 mx-auto">
+      </XYPlot>
+      <div className="flex justify-between w-10/12 mt-4 mx-auto">
           <div className="grid justify-items-center ">
             <div
               className="w-10 h-2"
@@ -95,7 +103,6 @@ const ConstituenciesNumberLastThreeElections = () => {
             <div>Others</div>
           </div>
         </div>
-      </XYPlot>
     </div>
   )
 }

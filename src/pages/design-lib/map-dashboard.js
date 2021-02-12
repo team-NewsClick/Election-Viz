@@ -26,7 +26,7 @@ const MapDashboard = () => {
               id="general"
               name="election"
               value="general"
-              onChange={(e) => console.log('general')}
+              onChange={(e) => console.log("general")}
             />
             <label htmlFor="general">General Elections</label>
             <input
@@ -35,7 +35,7 @@ const MapDashboard = () => {
               name="election"
               value="assembly"
               defaultChecked
-              onChange={(e) => console.log('assembly')}
+              onChange={(e) => console.log("assembly")}
             />
             <label htmlFor="assembly">Assembly Elections</label>
           </div>
@@ -45,7 +45,7 @@ const MapDashboard = () => {
               id="party"
               name="group"
               value="party"
-              onChange={(e) => console.log('party')}
+              onChange={(e) => console.log("party")}
             />
             <label htmlFor="party">Party</label>
             <input
@@ -54,15 +54,15 @@ const MapDashboard = () => {
               name="group"
               value="alliance"
               defaultChecked
-              onChange={(e) => console.log('alliance')}
+              onChange={(e) => console.log("alliance")}
             />
             <label htmlFor="alliance">Alliance</label>
           </div>
           <div>
             <select
               name="year"
-              onChange={console.log('year')}
-              onClick={console.log('year')}
+              onChange={console.log("year")}
+              onClick={console.log("year")}
               id="year"
               className="w-28 md:w-64"
             >
@@ -101,8 +101,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
@@ -118,8 +118,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
@@ -131,8 +131,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
@@ -145,8 +145,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
@@ -158,8 +158,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
@@ -174,8 +174,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
@@ -187,8 +187,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
@@ -200,8 +200,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
@@ -213,8 +213,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
@@ -226,8 +226,8 @@ const MapDashboard = () => {
               <div>
                 <select
                   name="year"
-                  onChange={console.log('year')}
-                  onClick={console.log('year')}
+                  onChange={console.log("year")}
+                  onClick={console.log("year")}
                   id="year"
                   className="advance-select"
                 >
