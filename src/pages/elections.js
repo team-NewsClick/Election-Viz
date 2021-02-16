@@ -1,48 +1,87 @@
 import { useEffect, useState } from "react"
-import { csvParse } from 'd3-dsv'
-import MapDashboard from "../components/maps/MapDashboard"
-import TableWidget from "../components/table/TableWidget"
+import { promises as fs } from "fs"
+import path from "path"
+import { csvParse, autoType } from "d3-dsv"
+
+// import MapDashboard from "../components/maps/MapDashboard"
+// import { getCSVdata } from "../lib/loadCSV"
+
+export async function getStaticProps() {
+  // const allCSVData = await getCSVdata()
+  const csvDirectory = path.join(process.cwd(), "/data/csv")
+  const fileNames = await fs.readdir(csvDirectory)
+
+  const allCSVData = fileNames.map(async (fileName) => {
+    // const allCSVData = fileNames.map(async (fileName) => {
+    const filePath = path.join(csvDirectory, fileName)
+    const fileContents = await fs.readFile(filePath, "utf-8")
+    // const fileContents = await fs.readFile(filePath, "utf-8")
+    const csvData = csvParse(fileContents)
+    return {
+      fileName,
+      content: csvData
+    }
+  })
+
+  console.log("Data: ", allCSVData)
+  const data = JSON.stringify(allCSVData)
+
+  return {
+    props: {
+      // data: await Promise.all(allCSVData)
+      allCSVData: data
+    }
+  }
+
+  // const fileContents = await fs.readFile(
+  //   "/home/mvs/Workspace/Office/dataviz/elections/election-viz/data/csv/assembly_2014.csv",
+  //   "utf-8"
+  // )
+  // // console.log(fileContents)
+  // const csvData = csvParse(fileContents)
+  // // console.log(csvData)
+
+  // return {
+  //   props: {
+  //     allCSVData: JSON.stringify(csvData)
+  //   }
+  // }
+}
 
 /**
  * Map Page
  * @return {JSX.Element} Map Page
  */
-const Elections = () => {
+const Elections = ({ allCSVData }) => {
   const [stateGeojson, setStateGeojson] = useState([])
   const [districtGeojson, setDistrictGeojson] = useState([])
-  const [assemblyData, setAssemblyData] = useState([])
+
+  console.log("Inside Page Function: ", allCSVData)
 
   useEffect(() => {
     const fetchStateGeojson = () => {
-      fetch(`/data/geojson/states.geojson`)
+      fetch(`/geojson/states.geojson`)
         .then((res) => res.json())
         .then(setStateGeojson)
     }
     const fetchDistrictGeojson = () => {
-      fetch(`/data/geojson/districts.geojson`)
+      fetch(`/geojson/districts.geojson`)
         .then((res) => res.json())
         .then(setDistrictGeojson)
     }
-    const fetchTableCsvData = () => {
-      fetch(`/data/csv/assembly_2014.csv`)
-        .then((res) => res.text())
-        .then(csvParse)
-        .then(setAssemblyData)
-    }
     fetchStateGeojson()
     fetchDistrictGeojson()
-    fetchTableCsvData()
   }, [])
-  if (stateGeojson.length === 0 || districtGeojson.length === 0 || assemblyData.length === 0) {
+  if (stateGeojson.length === 0 || districtGeojson.length === 0) {
     return <h1>Loading</h1>
   } else {
     return (
       <div>
-        <TableWidget assemblyData={assemblyData} />
-        <MapDashboard
+        {allCSVData}
+        {/* <MapDashboard
           stateGeojson={stateGeojson}
           districtGeojson={districtGeojson}
-        />
+        /> */}
       </div>
     )
   }
