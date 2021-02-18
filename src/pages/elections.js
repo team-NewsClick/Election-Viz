@@ -1,62 +1,27 @@
+import { getJsonData } from "../lib/loadCSV"
 import { useEffect, useState } from "react"
-import { promises as fs } from "fs"
-import path from "path"
-import { csvParse, autoType } from "d3-dsv"
-
 // import MapDashboard from "../components/maps/MapDashboard"
-// import { getCSVdata } from "../lib/loadCSV"
 
+/**
+ * Generate Static Props
+ * @return {Array.<Object>} Array of JSON Objects
+ */
 export async function getStaticProps() {
-  // const allCSVData = await getCSVdata()
-  const csvDirectory = path.join(process.cwd(), "/data/csv")
-  const fileNames = await fs.readdir(csvDirectory)
-
-  const allCSVData = fileNames.map(async (fileName) => {
-    // const allCSVData = fileNames.map(async (fileName) => {
-    const filePath = path.join(csvDirectory, fileName)
-    const fileContents = await fs.readFile(filePath, "utf-8")
-    // const fileContents = await fs.readFile(filePath, "utf-8")
-    const csvData = csvParse(fileContents)
-    return {
-      fileName,
-      content: csvData
-    }
-  })
-
-  console.log("Data: ", allCSVData)
-  const data = JSON.stringify(allCSVData)
-
+  const allJsonData = await getJsonData()
   return {
     props: {
-      // data: await Promise.all(allCSVData)
-      allCSVData: data
+      allJsonData
     }
   }
-
-  // const fileContents = await fs.readFile(
-  //   "/home/mvs/Workspace/Office/dataviz/elections/election-viz/data/csv/assembly_2014.csv",
-  //   "utf-8"
-  // )
-  // // console.log(fileContents)
-  // const csvData = csvParse(fileContents)
-  // // console.log(csvData)
-
-  // return {
-  //   props: {
-  //     allCSVData: JSON.stringify(csvData)
-  //   }
-  // }
 }
 
 /**
  * Map Page
  * @return {JSX.Element} Map Page
  */
-const Elections = ({ allCSVData }) => {
+const Elections = ({ allJsonData }) => {
   const [stateGeojson, setStateGeojson] = useState([])
   const [districtGeojson, setDistrictGeojson] = useState([])
-
-  console.log("Inside Page Function: ", allCSVData)
 
   useEffect(() => {
     const fetchStateGeojson = () => {
@@ -77,7 +42,7 @@ const Elections = ({ allCSVData }) => {
   } else {
     return (
       <div>
-        {allCSVData}
+        {console.log("Inside Page Function: ", allJsonData)}
         {/* <MapDashboard
           stateGeojson={stateGeojson}
           districtGeojson={districtGeojson}
