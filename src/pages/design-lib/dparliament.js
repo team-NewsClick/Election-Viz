@@ -63,10 +63,10 @@ const DParliament = () => {
       seats: 16,
     },
   ]
-  const width = 400
-  const height = 200
-  const svg = d3.select('svg').attr('width', width).attr('height', height)
-  const parliament = d3parliament
+  // const width = 400
+  // const height = 200
+  // const svg = d3.select('svg').attr('width', width).attr('height', height)
+  // const parliament = d3parliament
   // console.log(parliament.render)
   // parliament.width(500).height(500).innerRadiusCoef(0.4)
   // parliament.enter.fromCenter(true).smallToBig(true)
