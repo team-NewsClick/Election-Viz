@@ -1,72 +1,55 @@
-import { useState, useEffect } from "react"
-import Highcharts from "highcharts"
-import HighchartsReact from "highcharts-react-official"
-import ItemSeries from "highcharts/modules/item-series"
+import parliamentSVG from "parliament-svg"
+import stringify from "virtual-dom-stringify"
+import parse from "html-react-parser"
 
-if (typeof Highcharts === "object") {
-  ItemSeries(Highcharts)
-}
-
-const RegionSummary = () => {
-  const [options, setOptions] = useState({
-    chart: {
-      type: "item",
-      width: null,
-      height: 200,
-      backgroundColor: "transparent",
+const HighCharts = () => {
+  const data = {
+    NDA: {
+      seats: 78,
+      colour: "#f97d09",
     },
-    title: {
-      text: "",
+    BSP: {
+      seats: 11,
+      colour: "#bd0026",
     },
-    subtitle: {
-      enabled: false,
+    INC: {
+      seats: 38,
+      colour: "#138808",
     },
-    series: [
-      {
-        name: "Constituencies",
-        keys: ["name", "y", "color", "label"],
-        data: [
-          ["NDA", 56, "#f97d09", "BJP"],
-          ["BSP", 11, "#bd0026", "BSP"],
-          ["INC", 38, "#138808", "INC"],
-          ["IND", 6, "#000", "IND"],
-          ["Others", 4, "#a6a6a6", "Others"]
-        ],
-        dataLabels: {
-          enabled: false,
-          format: "{point.label}",
-        },
-
-        // Circular options
-        center: ["34%", "115%"],
-        size: "250%",
-        startAngle: -90,
-        endAngle: 90,
-      },
-    ],
-
-    legend: {
-      enabled: false,
+    IND: {
+      seats: 6,
+      colour: "#333",
     },
-  })
+    Others: {
+      seats: 4,
+      colour: "#a6a6a6",
+    },
+  }
+  const virtualNodeSemicircle = parliamentSVG(data, true)
+  const semicircle = stringify(virtualNodeSemicircle)
 
   const regionType = "state"
+  const totalConstituencies = 137
+
   return (
-    <div className="">
+    <div>
       <div className="bg-gray-50 max-w-lg rounded border border-gray-300 py-0.5">
+        {totalConstituencies > 2 ? (
+          <div>
+            <div className="max-w-3xl px-4 pt-5">{parse(semicircle)}</div>
+          </div>
+        ) : (
+          <div className="flex justify-center h-64 mt-4">
+            <svg height="100" width="100" className="m-auto">
+              <circle cx="50" cy="50" r="50" fill="#f97d09" />
+            </svg>
+            <svg height="100" width="100" className="m-auto">
+              <circle cx="50" cy="50" r="50" fill="#f97d09" />
+            </svg>
+          </div>
+        )}
         {regionType == "state" ? (
           <div>
-            <div className="flex justify-center mt-8">
-              <HighchartsReact
-                highcharts={Highcharts}
-                constructorType={"chart"}
-                options={options}
-                allowChartUpdate={true}
-                immutable={false}
-                updateArgs={[true, true, true]}
-                containerProps={{ className: "chartContainer" }}
-              />
-            </div>
             <div className="flex justify-between mx-4 mt-9 mb-10">
               <div className="grid justify-items-center ">
                 <div
@@ -204,4 +187,4 @@ const RegionSummary = () => {
   )
 }
 
-export default RegionSummary
+export default HighCharts
