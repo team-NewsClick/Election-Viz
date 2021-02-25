@@ -1,4 +1,34 @@
 /**
+ * Drop Down Data
+ */
+export const dropDownOptions = [
+  {
+    value: "2019",
+    label: "2019"
+  },
+  {
+    value: "2016",
+    label: "2016"
+  },
+  {
+    value: "2015",
+    label: "2015"
+  },
+  {
+    value: "2014",
+    label: "2014"
+  }
+]
+
+/**
+ * Drop Down default selections
+ */
+export const dropDownDefaultSelect = {
+  value: "2019",
+  label: "2019"
+}
+
+/**
  * State Names and Coordinates
  */
 export const stateCoordinates = [
