@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { csvParse } from "d3-dsv"
 import DropDown from "./DropDown"
+import { InfographicsSettings } from "./infographics"
 
 /**
  * Dashboard Component
@@ -38,6 +39,7 @@ const Dashboard = () => {
   return (
     <div>
       <DropDown onChange={_handleSelectChange} />
+      <InfographicsSettings />
     </div>
   )
 }

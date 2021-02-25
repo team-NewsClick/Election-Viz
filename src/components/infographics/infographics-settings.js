@@ -1,4 +1,4 @@
-const MapDashboard = () => {
+const InfographicsSettings = () => {
     const showHideAdvanceOptionsWeb = () => {
       const options = document.getElementById("advanceOptionsWeb")
       const btnText = document.getElementById("showHideAdvance-btn")
@@ -261,5 +261,5 @@ const MapDashboard = () => {
     )
   }
   
-  export default MapDashboard
+  export default InfographicsSettings
   

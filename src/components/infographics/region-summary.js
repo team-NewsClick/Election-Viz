@@ -2,7 +2,7 @@ import parliamentSVG from "parliament-svg"
 import stringify from "virtual-dom-stringify"
 import parse from "html-react-parser"
 
-const HighCharts = () => {
+const RegionSummary = () => {
   const data = {
     NDA: {
       seats: 78,
@@ -187,4 +187,4 @@ const HighCharts = () => {
   )
 }
 
-export default HighCharts
+export default RegionSummary

@@ -1,4 +1,4 @@
-const VotersTurnout = () => {
+const ConstituencyConstestantsStats = () => {
   return (
     <div className="my-2">
       <div className="widget-title">Voters Turnout Stats</div>
@@ -154,4 +154,4 @@ const VotersTurnout = () => {
   )
 }
 
-export default VotersTurnout
+export default ConstituencyConstestantsStats
