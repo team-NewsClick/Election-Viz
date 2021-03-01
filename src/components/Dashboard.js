@@ -14,32 +14,34 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchCSV = () => {
-      fetch(`/data/csv/assembly_${selectedYear}.csv`)
+      fetch(`${process.env.API_URL_CSV}assembly_${selectedYear}.csv`)
+      // fetch(`/data/csv/assembly_${selectedYear}.csv`)
         .then((res) => res.text())
         .then(csvParse)
         .then(setSelectedYearData)
     }
     if (selectedYear) {
       fetchCSV()
+      console.log(selectedYearData)
     }
   }, [selectedYear])
 
   const _handleSelectChange = (e) => {
     if (e) {
       setSelectedYear(e)
-      if (selectedYearData.length !== 0) {
-        setAllYearsData([
-          ...allYearsData,
-          { year: selectedYear, data: selectedYearData }
-        ])
-      }
-      console.log("All Data: ", allYearsData)
+      // if (selectedYearData.length !== 0) {
+      //   setAllYearsData([
+      //     ...allYearsData,
+      //     { year: selectedYear, data: selectedYearData }
+      //   ])
+      // }
+      // console.log("All Data: ", allYearsData)
     }
   }
   return (
     <div>
       <DropDown onChange={_handleSelectChange} />
-      <InfographicsSettings />
+      {/* <InfographicsSettings /> */}
     </div>
   )
 }
