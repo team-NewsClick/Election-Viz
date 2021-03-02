@@ -1,6 +1,6 @@
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
-import { dropDownOptions } from "../constants"
+import { dropDownOptions, dropDownDefaultSelect } from "../constants"
 
 const DropDown = (props) => {
   const { onChange } = props
@@ -17,6 +17,7 @@ const DropDown = (props) => {
             name="selectOptions"
             onChange={_handleChange}
             options={dropDownOptions}
+            defaultValue={dropDownDefaultSelect}
             isSearchable
           />
         </div>

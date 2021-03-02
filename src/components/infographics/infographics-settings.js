@@ -1,4 +1,5 @@
-const InfographicsSettings = () => {
+const InfographicsSettings = ({selectedYear, selectedYearData }) => {
+    console.log("Inforgraphics", selectedYearData)
     const showHideAdvanceOptionsWeb = () => {
       const options = document.getElementById("advanceOptionsWeb")
       const btnText = document.getElementById("showHideAdvance-btn")
