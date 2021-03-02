@@ -1,7 +1,15 @@
 /**
- * Drop Down Data
+ * Default Selection for Year
  */
-export const dropDownOptions = [
+export const yearDefaultSelect = {
+  value: "2019",
+  label: "2019"
+}
+
+/**
+ * Options for Year
+ */
+export const yearOptions = [
   {
     value: "2019",
     label: "2019"
@@ -21,12 +29,361 @@ export const dropDownOptions = [
 ]
 
 /**
- * Drop Down default selections
+ * Options for Region
  */
-export const dropDownDefaultSelect = {
-  value: "2019",
-  label: "2019"
-}
+export const regionOptions = [
+  {
+    value: "all-regions",
+    label: "All Regions"
+  },
+  {
+    value: "hindi-heartland",
+    label: "Hindi Heartland"
+  },
+  {
+    value: "north",
+    label: "North"
+  },
+  {
+    value: "east",
+    label: "East"
+  },
+  {
+    value: "north-east",
+    label: "North-East"
+  },
+  {
+    value: "south",
+    label: "South"
+  },
+  {
+    value: "west",
+    label: "West"
+  }
+]
+
+/**
+ * Options for States & UT
+ */
+export const stateUTOptions = [
+  {
+    value: "all-states-ut",
+    label: "All States & UT"
+  },
+  {
+    value: "andaman-nicobar",
+    label: "Andaman & Nicobar Island"
+  },
+  {
+    value: "andhra-pradesh",
+    label: "Andhra Pradesh"
+  },
+  {
+    value: "arunachal-pradesh",
+    label: "Arunachal Pradesh"
+  },
+  {
+    value: "assam",
+    label: "Assam"
+  },
+  {
+    value: "bihar",
+    label: "Bihar",
+  },
+  {
+    value: "chandigarh",
+    label: "Chandigarh"
+  },
+  {
+    value: "chhattisgarh",
+    label: "Chhattisgarh"
+  },
+  {
+    value: "dadra-nagar-haveli",
+    label: "Dadra & Nagar Haveli"
+  },
+  {
+    value: "nct-of-delhi",
+    label: "NCT of Delhi"
+  },
+  {
+    value: "gujarat",
+    label: "Gujarat"
+  },
+  {
+    value: "goa",
+    label: "Goa"
+  },
+  {
+    value: "haryana",
+    label: "Haryana"
+  },
+  {
+    value: "himachal-pradesh",
+    label: "Himachal Pradesh"
+  },
+  {
+    value: "jammu-kashmir",
+    label: "Jammu & Kashmir"
+  },
+  {
+    value: "jharkhand",
+    label: "Jharkhand"
+  },
+  {
+    value: "karnataka",
+    label: "Karnataka"
+  },
+  {
+    value: "kerela",
+    label: "Kerala"
+  },
+  {
+    value: "ladakh",
+    label: "Ladakh"
+  },
+  {
+    value: "lakshwadeep",
+    label: "Lakshadweep"
+  },
+  {
+    value: "madhya-pradesh",
+    label: "Madhya Pradesh"
+  },
+  {
+    value: "maharashtra",
+    label: "Maharashtra",
+  },
+  {
+    value: "manipur",
+    label: "Manipur"
+  },
+  {
+    value: "meghalaya",
+    label: "Meghalaya"
+  },
+  {
+    value: "mizoram",
+    label: "Mizoram"
+  },
+  {
+    value: "nagaland",
+    label: "Nagaland"
+  },
+  {
+    value: "odisha",
+    label: "Odisha"
+  },
+  {
+    value: "puducherry",
+    label: "Puducherry"
+  },
+  {
+    value: "punjab",
+    label: "Punjab"
+  },
+  {
+    value: "rajasthan",
+    label: "Rajasthan"
+  },
+  {
+    value: "sikkim",
+    label: "Sikkim"
+  },
+  {
+    value: "tamil-nadu",
+    label: "Tamil Nadu"
+  },
+  {
+    value: "telangana",
+    label: "Telangana"
+  },
+  {
+    value: "tripura",
+    label: "Tripura"
+  },
+  {
+    value: "uttar-pradesh",
+    label: "Uttar Pradesh"
+  },
+  {
+    value: "uttaranchal",
+    label: "Uttaranchal"
+  },
+  {
+    value: "west-bengal",
+    label: "West Bengal"
+  }
+]
+
+/**
+ * Options for Locality
+ */
+export const localityOptions = [
+  {
+    value: "all-localities",
+    label: "All Localities"
+  },
+  {
+    value: "urban",
+    label: "Urban"
+  },
+  {
+    value: "semi-urban",
+    label: "Semi-Urban"
+  },
+  {
+    value: "rural",
+    label: "Rural"
+  }
+]
+
+/**
+ * Options for Community
+ */
+export const communityOptions = [
+  {
+    value: "all-communities",
+    label: "All Communitites"
+  },
+  {
+    value: "general",
+    label: "General"
+  },
+  {
+    value: "sc",
+    label: "SC"
+  },
+  {
+    value: "st",
+    label: "ST"
+  },
+  {
+    value: "obc",
+    label: "OBC"
+  },
+  {
+    value: "other-communities",
+    label: "Other Communities"
+  }
+]
+
+/**
+ * Options for Gender
+ */
+export const genderOptions = [
+  {
+    value: "all-genders",
+    label: "All Genders"
+  },
+  {
+    value: "male",
+    label: "Male"
+  },
+  {
+    value: "female",
+    label: "Female"
+  }
+]
+
+/**
+ * Options for Education
+ */
+export const educationOptions = [
+  {
+    value: "all-education-levels",
+    label: "All Education Levels"
+  },
+  {
+    value: "graduates",
+    label: "Graduates"
+  },
+  {
+    value: "non-graduates",
+    label: "Non-Graduates"
+  }
+]
+
+/**
+ * Options for experience
+ */
+export const experienceOptions = [
+  {
+    value: "all-experiences",
+    label: "All Experiences"
+  },
+  {
+    value: "experienced",
+    label: "experienced"
+  },
+  {
+    value: "fresher",
+    label: "Fresher"
+  }
+]
+
+/**
+ * Options for Criminality
+ */
+export const crimianalityOptions = [
+  {
+    value: "all-criminality",
+    label: "All Criminality"
+  },
+  {
+    value: "criminal-record",
+    label: "Criminal Record"
+  },
+  {
+    value: "no-criminal-record",
+    label: "No Criminal Record"
+  }
+]
+
+/**
+ * Options for Seat Type
+ */
+export const seatTypeOptions = [
+  {
+    value: "all-seat-type",
+    label: "All Seats Type"
+  },
+  {
+    value: "gained",
+    label: "Gained"
+  },
+  {
+    value: "reserved",
+    label: "Reserved"
+  },
+  {
+    value: "lost",
+    label: "Lost"
+  }
+]
+
+/**
+ * Options for Voters Turnout
+ */
+export const votersTurnoutOptions = [
+  {
+    value: "vt-age",
+    label: "Age"
+  },
+  {
+    value: "vt-gender",
+    label: "Gender"
+  },
+  {
+    value: "vt-education",
+    label: "Education"
+  },
+  {
+    value: "vt-employement",
+    label: "Employement"
+  },
+]
+
 
 /**
  * State Names and Coordinates
