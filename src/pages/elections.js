@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Dashboard from "../components/Dashboard"
+import { InfographicsSettings } from "../components/infographics"
 // import MapDashboard from "../components/maps/MapDashboard"
 
 /**
@@ -12,12 +12,12 @@ const Elections = () => {
 
   useEffect(() => {
     const fetchStateGeojson = () => {
-      fetch(`/geojson/states.geojson`)
+      fetch(`/data/geojson/states.geojson`)
         .then((res) => res.json())
         .then(setStateGeojson)
     }
     const fetchDistrictGeojson = () => {
-      fetch(`/geojson/districts.geojson`)
+      fetch(`/data/geojson/districts.geojson`)
         .then((res) => res.json())
         .then(setDistrictGeojson)
     }
@@ -30,11 +30,11 @@ const Elections = () => {
   } else {
     return (
       <div>
+        <InfographicsSettings />
         {/* <MapDashboard
           stateGeojson={stateGeojson}
           districtGeojson={districtGeojson}
         /> */}
-        <Dashboard />
       </div>
     )
   }

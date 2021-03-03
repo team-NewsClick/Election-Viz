@@ -12,11 +12,11 @@ import {
   experienceOptions,
   crimianalityOptions,
   seatTypeOptions,
-  yearDefaultSelect,
+  yearDefaultSelect
 } from "../../constants"
+import PartyAllianceTable from "./party-alliance-table"
 
 const InfographicsSettings = () => {
-
   const [selectedYear, setSelectedYear] = useState(yearDefaultSelect.value)
   const [selectedYearData, setSelectedYearData] = useState([])
 
@@ -27,7 +27,6 @@ const InfographicsSettings = () => {
     })
   }, [selectedYear])
 
-  console.log("selectedYearData: ", selectedYearData)
   const showHideAdvanceOptionsWeb = () => {
     const options = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -75,7 +74,7 @@ const InfographicsSettings = () => {
     console.log(v)
   }
 
-  if (selectedYear.length !== 0) {
+  if (selectedYearData.length !== 0) {
     return (
       <div>
         <div className="h-10" />
@@ -327,6 +326,7 @@ const InfographicsSettings = () => {
             </div>
           </div>
         </div>
+        <PartyAllianceTable selectedYearData={selectedYearData} />
       </div>
     )
   } else {
