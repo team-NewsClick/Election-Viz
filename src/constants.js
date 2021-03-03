@@ -22,6 +22,7 @@ export const yearOptions = [
 
 /**
  * Default Selection for Year
+ * Default selection for year should be at yearOptions[0]
  */
 export const yearDefaultSelect = yearOptions[0]
 
@@ -61,167 +62,14 @@ export const regionOptions = [
 
 /**
  * Default Selection for Region
+ * Default selection for region should be at regionOptions[0]
  */
 export const regionDefaultSelect = regionOptions[0]
 
 /**
- * Options for States & UT
- */
-export const stateUTOptions = [
-  {
-    value: "All States & UT",
-    label: "All States & UT"
-  },
-  {
-    value: "Andaman & Nicobar Island",
-    label: "Andaman & Nicobar Island"
-  },
-  {
-    value: "Andhra Pradesh",
-    label: "Andhra Pradesh"
-  },
-  {
-    value: "Arunachal Pradesh",
-    label: "Arunachal Pradesh"
-  },
-  {
-    value: "Assam",
-    label: "Assam"
-  },
-  {
-    value: "Bihar",
-    label: "Bihar",
-  },
-  {
-    value: "Chandigarh",
-    label: "Chandigarh"
-  },
-  {
-    value: "Chhattisgarh",
-    label: "Chhattisgarh"
-  },
-  {
-    value: "Dadra & Nagar Haveli",
-    label: "Dadra & Nagar Haveli"
-  },
-  {
-    value: "NCT of Delhi",
-    label: "NCT of Delhi"
-  },
-  {
-    value: "Gujarat",
-    label: "Gujarat"
-  },
-  {
-    value: "Goa",
-    label: "Goa"
-  },
-  {
-    value: "Haryana",
-    label: "Haryana"
-  },
-  {
-    value: "Himachal Pradesh",
-    label: "Himachal Pradesh"
-  },
-  {
-    value: "Jammu & Kashmir",
-    label: "Jammu & Kashmir"
-  },
-  {
-    value: "Jharkhand",
-    label: "Jharkhand"
-  },
-  {
-    value: "Karnataka",
-    label: "Karnataka"
-  },
-  {
-    value: "Kerala",
-    label: "Kerala"
-  },
-  {
-    value: "Ladakh",
-    label: "Ladakh"
-  },
-  {
-    value: "Lakshadweep",
-    label: "Lakshadweep"
-  },
-  {
-    value: "Madhya Pradesh",
-    label: "Madhya Pradesh"
-  },
-  {
-    value: "Maharashtra",
-    label: "Maharashtra",
-  },
-  {
-    value: "Manipur",
-    label: "Manipur"
-  },
-  {
-    value: "Meghalaya",
-    label: "Meghalaya"
-  },
-  {
-    value: "Mizoram",
-    label: "Mizoram"
-  },
-  {
-    value: "Nagaland",
-    label: "Nagaland"
-  },
-  {
-    value: "Odisha",
-    label: "Odisha"
-  },
-  {
-    value: "Puducherry",
-    label: "Puducherry"
-  },
-  {
-    value: "Punjab",
-    label: "Punjab"
-  },
-  {
-    value: "Rajasthan",
-    label: "Rajasthan"
-  },
-  {
-    value: "Sikkim",
-    label: "Sikkim"
-  },
-  {
-    value: "Tamil Nadu",
-    label: "Tamil Nadu"
-  },
-  {
-    value: "Telangana",
-    label: "Telangana"
-  },
-  {
-    value: "Tripura",
-    label: "Tripura"
-  },
-  {
-    value: "Uttar Pradesh",
-    label: "Uttar Pradesh"
-  },
-  {
-    value: "Uttaranchal",
-    label: "Uttaranchal"
-  },
-  {
-    value: "West Bengal",
-    label: "West Bengal"
-  }
-]
-
-/**
  * Default Selection for Region
  */
-export const stateUTDefaultSelect = stateUTOptions[0]
+export const stateUTDefaultSelect = "All States & UT"
 
 /**
  * Options for Locality

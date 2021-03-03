@@ -5,8 +5,6 @@ import {
   yearOptions,
   yearDefaultSelect,
   regionOptions,
-  regionDefaultSelect,
-  stateUTOptions,
   stateUTDefaultSelect,
   localityOptions,
   communityOptions,
@@ -18,37 +16,42 @@ import {
 } from "../../constants"
 import PartyAllianceTable from "./party-alliance-table"
 import ConstituencyConstestantsStats from "./constituency-contestants-stats"
-import { processByStateUT } from "../../utils"
+import { dataStateUT, dataConstituency, getStateUTs, getConstituencies, getConstituencyContestantsStatsData } from "../../utils"
+
+/**
+ * Controls/Settings for the visualization of infographics
+ */
 const InfographicsSettings = () => {
   const [selectedYear, setSelectedYear] = useState(yearDefaultSelect.value)
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect.value)
-  const [selectedStateUTData, setSelectedStateUTData] = useState(null)
+  const [selectedConstituency, setSelectedConstituency] = useState("All Constituencies")
 
   useEffect(() => {
     axios.get(`/data/csv/assembly_${selectedYear}.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setSelectedYearData(parsedData)
-      const temp = processByStateUT(selectedYearData, selectedStateUT)
-      setSelectedStateUTData(temp)
     })
   }, [selectedYear, selectedStateUT])
-
-  console.log("Year: ", selectedYearData)
-  console.log("State/UT: ", selectedStateUTData)
-
+  
   const showHideAdvanceOptionsWeb = () => {
     const options = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
     const btnIcon = document.getElementById("showHideAdvance-btn-icon")
     options.style.display === "none"
-      ? ((options.style.display = "block"),
-        (btnText.innerHTML = "Hide Advance Options"),
-        (btnIcon.style.transform = "rotate(180deg)"))
-      : ((options.style.display = "none"),
-        (btnText.innerHTML = "Show Advance Options"),
-        (btnIcon.style.transform = "rotate(0deg)"))
+    ? ((options.style.display = "block"),
+    (btnText.innerHTML = "Hide Advance Options"),
+    (btnIcon.style.transform = "rotate(180deg)"))
+    : ((options.style.display = "none"),
+    (btnText.innerHTML = "Show Advance Options"),
+    (btnIcon.style.transform = "rotate(0deg)"))
   }
+  
+  const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
+  const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency)
+  const stateUTOptions = getStateUTs(selectedYearData)
+  const constituencyOptions = getConstituencies(selectedStateUTData)
+  const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
 
   const _handleSelectedYear = (v) => {
     setSelectedYear(v)
@@ -63,7 +66,7 @@ const InfographicsSettings = () => {
     console.log(v)
   }
   const _handleSelectedConstituency = (v) => {
-    console.log(v)
+    setSelectedConstituency(v)
   }
   const _handleSelectedCommunity = (v) => {
     console.log(v)
@@ -204,8 +207,8 @@ const InfographicsSettings = () => {
                   className="advance-select"
                 >
                   {stateUTOptions.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
+                    <option key={index} value={d}>
+                      {d}
                     </option>
                   ))}
                 </select>
@@ -231,11 +234,14 @@ const InfographicsSettings = () => {
                   id="constituency"
                   className="advance-select"
                 >
-                  <option value="all-constituencies">All Constituencies</option>
-                  <option value="gorakhpur">Gorakhpur</option>
-                  <option value="others">Coming soon...</option>
+                  {constituencyOptions.map((d, index) => (
+                    <option key={index} value={d}>
+                      {d}
+                    </option>
+                  ))}
                 </select>
               </div>
+
               <div>
                 <select
                   name="community"
@@ -337,7 +343,9 @@ const InfographicsSettings = () => {
           </div>
         </div>
         {/* <PartyAllianceTable selectedYearData={selectedYearData} /> */}
-        <ConstituencyConstestantsStats />
+        {constituencyContestantsStatsData !== null &&
+        <ConstituencyConstestantsStats constituencyContestantsStatsData={constituencyContestantsStatsData} />
+        }
       </div>
     )
   } else {
