@@ -1,7 +1,7 @@
 const ConstituencyConstestantsStats = () => {
   return (
     <div className="my-2">
-      <div className="widget-title">Voters Turnout Stats</div>
+      <div className="widget-title">Constituency’s Contestants Votes Stats</div>
       <div className="table-dim">
         <div className="table-head">
           <div className="w-1/5">Candidate"s Name</div>
