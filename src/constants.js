@@ -1,12 +1,4 @@
 /**
- * Default Selection for Year
- */
-export const yearDefaultSelect = {
-  value: "2019",
-  label: "2019"
-}
-
-/**
  * Options for Year
  */
 export const yearOptions = [
@@ -29,211 +21,226 @@ export const yearOptions = [
 ]
 
 /**
+ * Default Selection for Year
+ */
+export const yearDefaultSelect = yearOptions[0]
+
+/**
  * Options for Region
  */
 export const regionOptions = [
   {
-    value: "all-regions",
+    value: "All Regions",
     label: "All Regions"
   },
   {
-    value: "hindi-heartland",
+    value: "Hindi Heartland",
     label: "Hindi Heartland"
   },
   {
-    value: "north",
+    value: "North",
     label: "North"
   },
   {
-    value: "east",
+    value: "East",
     label: "East"
   },
   {
-    value: "north-east",
+    value: "North-East",
     label: "North-East"
   },
   {
-    value: "south",
+    value: "South",
     label: "South"
   },
   {
-    value: "west",
+    value: "West",
     label: "West"
   }
 ]
+
+/**
+ * Default Selection for Region
+ */
+export const regionDefaultSelect = regionOptions[0]
 
 /**
  * Options for States & UT
  */
 export const stateUTOptions = [
   {
-    value: "all-states-ut",
+    value: "All States & UT",
     label: "All States & UT"
   },
   {
-    value: "andaman-nicobar",
+    value: "Andaman & Nicobar Island",
     label: "Andaman & Nicobar Island"
   },
   {
-    value: "andhra-pradesh",
+    value: "Andhra Pradesh",
     label: "Andhra Pradesh"
   },
   {
-    value: "arunachal-pradesh",
+    value: "Arunachal Pradesh",
     label: "Arunachal Pradesh"
   },
   {
-    value: "assam",
+    value: "Assam",
     label: "Assam"
   },
   {
-    value: "bihar",
+    value: "Bihar",
     label: "Bihar",
   },
   {
-    value: "chandigarh",
+    value: "Chandigarh",
     label: "Chandigarh"
   },
   {
-    value: "chhattisgarh",
+    value: "Chhattisgarh",
     label: "Chhattisgarh"
   },
   {
-    value: "dadra-nagar-haveli",
+    value: "Dadra & Nagar Haveli",
     label: "Dadra & Nagar Haveli"
   },
   {
-    value: "nct-of-delhi",
+    value: "NCT of Delhi",
     label: "NCT of Delhi"
   },
   {
-    value: "gujarat",
+    value: "Gujarat",
     label: "Gujarat"
   },
   {
-    value: "goa",
+    value: "Goa",
     label: "Goa"
   },
   {
-    value: "haryana",
+    value: "Haryana",
     label: "Haryana"
   },
   {
-    value: "himachal-pradesh",
+    value: "Himachal Pradesh",
     label: "Himachal Pradesh"
   },
   {
-    value: "jammu-kashmir",
+    value: "Jammu & Kashmir",
     label: "Jammu & Kashmir"
   },
   {
-    value: "jharkhand",
+    value: "Jharkhand",
     label: "Jharkhand"
   },
   {
-    value: "karnataka",
+    value: "Karnataka",
     label: "Karnataka"
   },
   {
-    value: "kerela",
+    value: "Kerala",
     label: "Kerala"
   },
   {
-    value: "ladakh",
+    value: "Ladakh",
     label: "Ladakh"
   },
   {
-    value: "lakshwadeep",
+    value: "Lakshadweep",
     label: "Lakshadweep"
   },
   {
-    value: "madhya-pradesh",
+    value: "Madhya Pradesh",
     label: "Madhya Pradesh"
   },
   {
-    value: "maharashtra",
+    value: "Maharashtra",
     label: "Maharashtra",
   },
   {
-    value: "manipur",
+    value: "Manipur",
     label: "Manipur"
   },
   {
-    value: "meghalaya",
+    value: "Meghalaya",
     label: "Meghalaya"
   },
   {
-    value: "mizoram",
+    value: "Mizoram",
     label: "Mizoram"
   },
   {
-    value: "nagaland",
+    value: "Nagaland",
     label: "Nagaland"
   },
   {
-    value: "odisha",
+    value: "Odisha",
     label: "Odisha"
   },
   {
-    value: "puducherry",
+    value: "Puducherry",
     label: "Puducherry"
   },
   {
-    value: "punjab",
+    value: "Punjab",
     label: "Punjab"
   },
   {
-    value: "rajasthan",
+    value: "Rajasthan",
     label: "Rajasthan"
   },
   {
-    value: "sikkim",
+    value: "Sikkim",
     label: "Sikkim"
   },
   {
-    value: "tamil-nadu",
+    value: "Tamil Nadu",
     label: "Tamil Nadu"
   },
   {
-    value: "telangana",
+    value: "Telangana",
     label: "Telangana"
   },
   {
-    value: "tripura",
+    value: "Tripura",
     label: "Tripura"
   },
   {
-    value: "uttar-pradesh",
+    value: "Uttar Pradesh",
     label: "Uttar Pradesh"
   },
   {
-    value: "uttaranchal",
+    value: "Uttaranchal",
     label: "Uttaranchal"
   },
   {
-    value: "west-bengal",
+    value: "West Bengal",
     label: "West Bengal"
   }
 ]
+
+/**
+ * Default Selection for Region
+ */
+export const stateUTDefaultSelect = stateUTOptions[0]
 
 /**
  * Options for Locality
  */
 export const localityOptions = [
   {
-    value: "all-localities",
+    value: "All Localities",
     label: "All Localities"
   },
   {
-    value: "urban",
+    value: "Urban",
     label: "Urban"
   },
   {
-    value: "semi-urban",
+    value: "Semi-Urban",
     label: "Semi-Urban"
   },
   {
-    value: "rural",
+    value: "Rural",
     label: "Rural"
   }
 ]
@@ -243,27 +250,27 @@ export const localityOptions = [
  */
 export const communityOptions = [
   {
-    value: "all-communities",
+    value: "All Communitites",
     label: "All Communitites"
   },
   {
-    value: "general",
+    value: "General",
     label: "General"
   },
   {
-    value: "sc",
+    value: "SC",
     label: "SC"
   },
   {
-    value: "st",
+    value: "ST",
     label: "ST"
   },
   {
-    value: "obc",
+    value: "OBC",
     label: "OBC"
   },
   {
-    value: "other-communities",
+    value: "Other Communities",
     label: "Other Communities"
   }
 ]
@@ -273,15 +280,15 @@ export const communityOptions = [
  */
 export const genderOptions = [
   {
-    value: "all-genders",
+    value: "All Genders",
     label: "All Genders"
   },
   {
-    value: "male",
+    value: "Male",
     label: "Male"
   },
   {
-    value: "female",
+    value: "Female",
     label: "Female"
   }
 ]
@@ -291,15 +298,15 @@ export const genderOptions = [
  */
 export const educationOptions = [
   {
-    value: "all-education-levels",
+    value: "All Education Levels",
     label: "All Education Levels"
   },
   {
-    value: "graduates",
+    value: "Graduates",
     label: "Graduates"
   },
   {
-    value: "non-graduates",
+    value: "Non-Graduates",
     label: "Non-Graduates"
   }
 ]
@@ -309,15 +316,15 @@ export const educationOptions = [
  */
 export const experienceOptions = [
   {
-    value: "all-experiences",
+    value: "All Experiences",
     label: "All Experiences"
   },
   {
-    value: "experienced",
-    label: "experienced"
+    value: "Experienced",
+    label: "Experienced"
   },
   {
-    value: "fresher",
+    value: "Fresher",
     label: "Fresher"
   }
 ]
@@ -327,15 +334,15 @@ export const experienceOptions = [
  */
 export const crimianalityOptions = [
   {
-    value: "all-criminality",
+    value: "All Criminality",
     label: "All Criminality"
   },
   {
-    value: "criminal-record",
+    value: "Criminal Record",
     label: "Criminal Record"
   },
   {
-    value: "no-criminal-record",
+    value: "No Criminal Record",
     label: "No Criminal Record"
   }
 ]
@@ -345,19 +352,19 @@ export const crimianalityOptions = [
  */
 export const seatTypeOptions = [
   {
-    value: "all-seat-type",
+    value: "All Seats Type",
     label: "All Seats Type"
   },
   {
-    value: "gained",
+    value: "Gained",
     label: "Gained"
   },
   {
-    value: "reserved",
+    value: "Reserved",
     label: "Reserved"
   },
   {
-    value: "lost",
+    value: "Lost",
     label: "Lost"
   }
 ]

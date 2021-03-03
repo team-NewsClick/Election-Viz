@@ -3,8 +3,11 @@ import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
   yearOptions,
+  yearDefaultSelect,
   regionOptions,
+  regionDefaultSelect,
   stateUTOptions,
+  stateUTDefaultSelect,
   localityOptions,
   communityOptions,
   genderOptions,
@@ -12,20 +15,27 @@ import {
   experienceOptions,
   crimianalityOptions,
   seatTypeOptions,
-  yearDefaultSelect
 } from "../../constants"
 import PartyAllianceTable from "./party-alliance-table"
-
+import ConstituencyConstestantsStats from "./constituency-contestants-stats"
+import { processByStateUT } from "../../utils"
 const InfographicsSettings = () => {
   const [selectedYear, setSelectedYear] = useState(yearDefaultSelect.value)
   const [selectedYearData, setSelectedYearData] = useState([])
+  const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect.value)
+  const [selectedStateUTData, setSelectedStateUTData] = useState(null)
 
   useEffect(() => {
     axios.get(`/data/csv/assembly_${selectedYear}.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setSelectedYearData(parsedData)
+      const temp = processByStateUT(selectedYearData, selectedStateUT)
+      setSelectedStateUTData(temp)
     })
-  }, [selectedYear])
+  }, [selectedYear, selectedStateUT])
+
+  console.log("Year: ", selectedYearData)
+  console.log("State/UT: ", selectedStateUTData)
 
   const showHideAdvanceOptionsWeb = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -47,7 +57,7 @@ const InfographicsSettings = () => {
     console.log(v)
   }
   const _handleSelectedStateUT = (v) => {
-    console.log(v)
+    setSelectedStateUT(v)
   }
   const _handleSelectedLocality = (v) => {
     console.log(v)
@@ -326,7 +336,8 @@ const InfographicsSettings = () => {
             </div>
           </div>
         </div>
-        <PartyAllianceTable selectedYearData={selectedYearData} />
+        {/* <PartyAllianceTable selectedYearData={selectedYearData} /> */}
+        <ConstituencyConstestantsStats />
       </div>
     )
   } else {
