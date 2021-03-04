@@ -23,7 +23,7 @@ export const yearOptions = [
 /**
  * Default Selection for Year
  */
-export const yearDefaultSelect = 2019
+export const yearDefaultSelect = "2019"
 
 /**
  * Options for Region

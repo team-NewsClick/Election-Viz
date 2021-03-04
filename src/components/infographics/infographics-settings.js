@@ -33,9 +33,14 @@ const InfographicsSettings = () => {
       const parsedData = csvParse(response.data)
       setSelectedYearData(parsedData)
     })
-  }, [selectedYear, selectedStateUT])
+  }, [selectedYear])
+
+  useEffect(() => {
+    setSelectedStateUT(stateUTOptions.indexOf(selectedStateUT) > -1 ? selectedStateUT : stateUTOptions[0])
+    setSelectedConstituency(constituencyOptions.indexOf(selectedConstituency) > -1 ? selectedConstituency : constituencyOptions[0])
+  }, [selectedYearData])
   
-  const showHideAdvanceOptionsWeb = () => {
+  const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
     const btnIcon = document.getElementById("showHideAdvance-btn-icon")
@@ -146,7 +151,7 @@ const InfographicsSettings = () => {
             </select>
           </div>
           <div
-            onClick={showHideAdvanceOptionsWeb}
+            onClick={showHideAdvanceOptions}
             className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm"
           >
             <div id="showHideAdvance-btn" className="my-auto mx-3">
@@ -174,7 +179,7 @@ const InfographicsSettings = () => {
             <div className="font-bold">Advance Options</div>
             <div
               className="absolute top-8 right-6 cursor-pointer"
-              onClick={showHideAdvanceOptionsWeb}
+              onClick={showHideAdvanceOptions}
             >
               <img
                 id="showHideAdvance-btn-icon"
@@ -206,6 +211,7 @@ const InfographicsSettings = () => {
                   onChange={(e) => _handleSelectedStateUT(e.target.value)}
                   id="state-ut"
                   className="advance-select"
+                  value={selectedStateUT}
                 >
                   {stateUTOptions.map((d, index) => (
                     <option key={index} value={d}>
@@ -234,6 +240,7 @@ const InfographicsSettings = () => {
                   onChange={(e) => _handleSelectedConstituency(e.target.value)}
                   id="constituency"
                   className="advance-select"
+                  value={selectedConstituency}
                 >
                   {constituencyOptions.map((d, index) => (
                     <option key={index} value={d}>
@@ -336,7 +343,7 @@ const InfographicsSettings = () => {
                 <input
                   type="button"
                   value="OK"
-                  onClick={showHideAdvanceOptionsWeb}
+                  onClick={showHideAdvanceOptions}
                   className="black-btn"
                 />
               </div>
