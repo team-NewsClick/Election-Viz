@@ -22,9 +22,8 @@ export const yearOptions = [
 
 /**
  * Default Selection for Year
- * Default selection for year should be at yearOptions[0]
  */
-export const yearDefaultSelect = yearOptions[0]
+export const yearDefaultSelect = 2019
 
 /**
  * Options for Region
@@ -67,9 +66,14 @@ export const regionOptions = [
 export const regionDefaultSelect = regionOptions[0]
 
 /**
- * Default Selection for Region
+ * Default Selection for States/UTs
  */
 export const stateUTDefaultSelect = "All States & UT"
+
+/**
+ * Default Selection for Constituencies
+ */
+export const constituenciesDefaultSelect = "All Constituencies"
 
 /**
  * Options for Locality

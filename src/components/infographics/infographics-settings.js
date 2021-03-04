@@ -6,6 +6,7 @@ import {
   yearDefaultSelect,
   regionOptions,
   stateUTDefaultSelect,
+  constituenciesDefaultSelect,
   localityOptions,
   communityOptions,
   genderOptions,
@@ -22,10 +23,10 @@ import { dataStateUT, dataConstituency, getStateUTs, getConstituencies, getConst
  * Controls/Settings for the visualization of infographics
  */
 const InfographicsSettings = () => {
-  const [selectedYear, setSelectedYear] = useState(yearDefaultSelect.value)
+  const [selectedYear, setSelectedYear] = useState(yearDefaultSelect)
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect.value)
-  const [selectedConstituency, setSelectedConstituency] = useState("All Constituencies")
+  const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect)
+  const [selectedConstituency, setSelectedConstituency] = useState(constituenciesDefaultSelect)
 
   useEffect(() => {
     axios.get(`/data/csv/assembly_${selectedYear}.csv`).then((response) => {

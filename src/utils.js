@@ -115,7 +115,6 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
     stats.map((d) => {
       return d.votesReceived === highest ? d.status= "won" : d.status= "lost"
     })
-    console.log(highest)
     return ({stats, totalStats})
   } else return null
 }
