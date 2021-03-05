@@ -138,7 +138,7 @@ summary::-webkit-details-marker {
 @tailwind utilities;
 
 * {
-  font-family: "Noto Sans", sans-serif;
+  font-family: 'Noto Sans', sans-serif;
 }
 select {
   -webkit-appearance: none;
@@ -196,6 +196,11 @@ details[open] summary::after {
 :root {
   font-size: 14px;
   line-height: 1.4285em;
+}
+#deckgl-overlay,
+#deckgl-wrapper,
+.deck-tooltip {
+  position: relative !important;
 }
 
 /* hamberger-menu start */

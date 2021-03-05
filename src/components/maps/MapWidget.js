@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react"
-import DeckGL from "deck.gl"
-import { GeoJsonLayer } from "@deck.gl/layers"
-import {
-  _MapContext as MapContext,
-  StaticMap,
-} from "react-map-gl"
-import { stateCoordinates } from "../../constants"
+import { useEffect, useState } from 'react'
+import DeckGL from 'deck.gl'
+import { GeoJsonLayer } from '@deck.gl/layers'
+import { _MapContext as MapContext, StaticMap } from 'react-map-gl'
+import { stateCoordinates } from '../../constants'
 
 /**
  * Plot Map and Deckgl Layers
@@ -14,16 +11,35 @@ import { stateCoordinates } from "../../constants"
  * @return {JSX.Element} Map Widget
  */
 const MapWidget = ({ stateGeojson, districtGeojson }) => {
-  const [stateName, setStateName] = useState("")
+  const windowWidth = window.innerWidth
+  const [stateName, setStateName] = useState('')
   const [districtData, setDistrictData] = useState(districtGeojson)
   const [stateData, setStateData] = useState(stateGeojson)
-  const [initialViewState, setInitialViewState] = useState({
-    latitude: 20.7,
-    longitude: 82.8,
-    zoom: 4.3,
-    pitch: 0,
-    bearing: 0
-  })
+  const [initialViewState, setInitialViewState] = useState(
+   windowWidth < 800
+      ?windowWidth > 700
+        ? {
+            latitude: 23,
+            longitude: 83,
+            zoom: 3.6,
+            pitch: 0,
+            bearing: 0,
+          }
+        : {
+            latitude: 23,
+            longitude: 82.5,
+            zoom: 3,
+            pitch: 0,
+            bearing: 0,
+          }
+      : {
+          latitude: 23,
+          longitude: 83,
+          zoom: 4.1,
+          pitch: 0,
+          bearing: 0,
+        }
+  )
 
   useEffect(() => {
     setDistrictData((districtGeojson) => ({ ...districtGeojson }))
@@ -42,7 +58,7 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
       ...initialViewState,
       latitude: stateObject[0].latitude,
       longitude: stateObject[0].longitude,
-      zoom: 6
+      zoom: 6,
     })
   }
 
@@ -62,7 +78,7 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
 
   const layers = [
     new GeoJsonLayer({
-      id: "state-geojson-layer",
+      id: 'state-geojson-layer',
       data: stateData,
       stroked: true,
       filled: true,
@@ -71,10 +87,10 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
       getLineColor: (d) => _fillStateLineColor(d),
       getLineWidth: 5,
       pickable: true,
-      onClick: ({ object }) => _handleMapState(object)
+      onClick: ({ object }) => _handleMapState(object),
     }),
     new GeoJsonLayer({
-      id: "district-geojson-layer",
+      id: 'district-geojson-layer',
       data: districtData,
       stroked: true,
       filled: false,
@@ -82,19 +98,42 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
       getFillColor: [255, 255, 255, 0],
       getLineColor: (d) => _drawDistrictLine(d),
       getLineWidth: 5,
-      pickable: true
-    })
+      pickable: true,
+    }),
   ]
 
   return (
-    <div>
+    <div
+      className="relative"
+      style={
+        windowWidth > 800
+          ? {
+              marginLeft: windowWidth * 0.15,
+              marginRight: windowWidth * 0.15,
+              marginTop: 25,
+            }
+          : { marginLeft: 0, marginRight: 0, marginTop: 25 }
+      }
+    >
       <DeckGL
         initialViewState={initialViewState}
         pickingRadius={5}
         controller={true}
         layers={layers}
-        width={window.innerWidth}
-        height={window.innerWidth * 1.25}
+        width={
+          windowWidth < 800
+            ? windowWidth > 700
+              ? windowWidth * 0.67
+              : windowWidth * 0.9
+            : windowWidth * 0.4
+        }
+        height={
+          windowWidth < 800
+            ? windowWidth > 700
+              ? windowWidth * 0.8
+              : windowWidth * 1.15
+            : windowWidth * 0.44
+        }
         ContextProvider={MapContext.Provider}
       >
         <StaticMap

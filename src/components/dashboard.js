@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react"
-import axios from "axios"
-import { csvParse } from "d3-dsv"
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { csvParse } from 'd3-dsv'
 import {
   yearOptions,
   yearDefaultSelect,
@@ -14,19 +14,28 @@ import {
   experienceOptions,
   crimianalityOptions,
   seatTypeOptions,
-} from "../../constants"
-import PartyAllianceTable from "./party-alliance-table"
-import ConstituencyConstestantsStats from "./constituency-contestants-stats"
-import { dataStateUT, dataConstituency, getStateUTs, getConstituencies, getConstituencyContestantsStatsData } from "../../utils"
+} from '../constants'
+import PartyAllianceTable from './infographics/party-alliance-table'
+import ConstituencyConstestantsStats from './infographics/constituency-contestants-stats'
+import MapWidget from '../components/maps/MapWidget'
+import {
+  dataStateUT,
+  dataConstituency,
+  getStateUTs,
+  getConstituencies,
+  getConstituencyContestantsStatsData,
+} from '../utils'
 
 /**
  * Controls/Settings for the visualization of infographics
  */
-const InfographicsSettings = () => {
+const Dashboard = () => {
   const [selectedYear, setSelectedYear] = useState(yearDefaultSelect)
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect)
-  const [selectedConstituency, setSelectedConstituency] = useState(constituenciesDefaultSelect)
+  const [selectedConstituency, setSelectedConstituency] = useState(
+    constituenciesDefaultSelect
+  )
 
   useEffect(() => {
     axios.get(`/data/csv/assembly_${selectedYear}.csv`).then((response) => {
@@ -36,28 +45,42 @@ const InfographicsSettings = () => {
   }, [selectedYear])
 
   useEffect(() => {
-    setSelectedStateUT(stateUTOptions.indexOf(selectedStateUT) > -1 ? selectedStateUT : stateUTOptions[0])
-    setSelectedConstituency(constituencyOptions.indexOf(selectedConstituency) > -1 ? selectedConstituency : constituencyOptions[0])
+    setSelectedStateUT(
+      stateUTOptions.indexOf(selectedStateUT) > -1
+        ? selectedStateUT
+        : stateUTOptions[0]
+    )
+    setSelectedConstituency(
+      constituencyOptions.indexOf(selectedConstituency) > -1
+        ? selectedConstituency
+        : constituencyOptions[0]
+    )
   }, [selectedYearData])
-  
+
   const showHideAdvanceOptions = () => {
-    const options = document.getElementById("advanceOptionsWeb")
-    const btnText = document.getElementById("showHideAdvance-btn")
-    const btnIcon = document.getElementById("showHideAdvance-btn-icon")
-    options.style.display === "none"
-    ? ((options.style.display = "block"),
-    (btnText.innerHTML = "Hide Advance Options"),
-    (btnIcon.style.transform = "rotate(180deg)"))
-    : ((options.style.display = "none"),
-    (btnText.innerHTML = "Show Advance Options"),
-    (btnIcon.style.transform = "rotate(0deg)"))
+    const options = document.getElementById('advanceOptionsWeb')
+    const btnText = document.getElementById('showHideAdvance-btn')
+    const btnIcon = document.getElementById('showHideAdvance-btn-icon')
+    options.style.display === 'none'
+      ? ((options.style.display = 'block'),
+        (btnText.innerHTML = 'Hide Advance Options'),
+        (btnIcon.style.transform = 'rotate(180deg)'))
+      : ((options.style.display = 'none'),
+        (btnText.innerHTML = 'Show Advance Options'),
+        (btnIcon.style.transform = 'rotate(0deg)'))
   }
-  
+
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
-  const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency)
+  const selectedConstituencyData = dataConstituency(
+    selectedStateUTData,
+    selectedConstituency
+  )
   const stateUTOptions = getStateUTs(selectedYearData)
   const constituencyOptions = getConstituencies(selectedStateUTData)
-  const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
+  const constituencyContestantsStatsData = getConstituencyContestantsStatsData(
+    selectedConstituencyData,
+    selectedConstituency
+  )
 
   const _handleSelectedYear = (v) => {
     setSelectedYear(v)
@@ -104,7 +127,7 @@ const InfographicsSettings = () => {
               id="general"
               name="election"
               value="general"
-              onChange={(e) => console.log("general")}
+              onChange={(e) => console.log('general')}
             />
             <label htmlFor="general">General Elections</label>
             <input
@@ -113,7 +136,7 @@ const InfographicsSettings = () => {
               name="election"
               value="assembly"
               defaultChecked
-              onChange={(e) => console.log("assembly")}
+              onChange={(e) => console.log('assembly')}
             />
             <label htmlFor="assembly">Assembly Elections</label>
           </div>
@@ -123,7 +146,7 @@ const InfographicsSettings = () => {
               id="party"
               name="group"
               value="party"
-              onChange={(e) => console.log("party")}
+              onChange={(e) => console.log('party')}
             />
             <label htmlFor="party">Party</label>
             <input
@@ -132,7 +155,7 @@ const InfographicsSettings = () => {
               name="group"
               value="alliance"
               defaultChecked
-              onChange={(e) => console.log("alliance")}
+              onChange={(e) => console.log('alliance')}
             />
             <label htmlFor="alliance">Alliance</label>
           </div>
@@ -169,7 +192,7 @@ const InfographicsSettings = () => {
         </div>
         <div
           id="advanceOptionsWeb"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           className="bg-gray-100 z-10 h-full md:h-auto absolute md:relative inset-x-auto top-0 md:top-auto"
         >
           <div className="h-0.5 bg-gray-300 w-full max-w-4xl my-3.5 mx-auto hidden md:block">
@@ -351,9 +374,12 @@ const InfographicsSettings = () => {
           </div>
         </div>
         {/* <PartyAllianceTable selectedYearData={selectedYearData} /> */}
-        {constituencyContestantsStatsData !== null &&
-        <ConstituencyConstestantsStats constituencyContestantsStatsData={constituencyContestantsStatsData} />
-        }
+        {constituencyContestantsStatsData !== null && (
+          <ConstituencyConstestantsStats
+            constituencyContestantsStatsData={constituencyContestantsStatsData}
+          />
+        )}
+        <MapWidget />
       </div>
     )
   } else {
@@ -361,4 +387,4 @@ const InfographicsSettings = () => {
   }
 }
 
-export default InfographicsSettings
+export default Dashboard

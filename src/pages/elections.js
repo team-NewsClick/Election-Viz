@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { InfographicsSettings } from "../components/infographics"
+import { useEffect, useState } from 'react'
+import Dashboard from '../components/dashboard'
 // import MapDashboard from "../components/maps/MapDashboard"
 
 /**
@@ -29,12 +29,16 @@ const Elections = () => {
     return <h1>Loading</h1>
   } else {
     return (
-      <div>
-        <InfographicsSettings />
-        {/* <MapDashboard
+      <div className="grid grid-cols-12">
+        <div className="col-span-2 sm:inline-block hidden"></div>
+        <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0" >
+          <Dashboard/>
+          {/* <MapDashboard
           stateGeojson={stateGeojson}
           districtGeojson={districtGeojson}
         /> */}
+        </div>
+        <div className="col-span-2 sm:inline-block hidden"></div>
       </div>
     )
   }
