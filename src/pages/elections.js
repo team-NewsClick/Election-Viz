@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import Dashboard from '../components/dashboard'
-// import MapDashboard from "../components/maps/MapDashboard"
 
 /**
  * Map Page

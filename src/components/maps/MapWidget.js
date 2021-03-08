@@ -3,6 +3,7 @@ import DeckGL from 'deck.gl'
 import { GeoJsonLayer } from '@deck.gl/layers'
 import { _MapContext as MapContext, StaticMap } from 'react-map-gl'
 import { stateCoordinates } from '../../constants'
+import { RegionSummary } from '../infographics/index'
 
 /**
  * Plot Map and Deckgl Layers
@@ -16,8 +17,8 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
   const [districtData, setDistrictData] = useState(districtGeojson)
   const [stateData, setStateData] = useState(stateGeojson)
   const [initialViewState, setInitialViewState] = useState(
-   windowWidth < 800
-      ?windowWidth > 700
+    windowWidth < 800
+      ? windowWidth > 700
         ? {
             latitude: 23,
             longitude: 83,
@@ -35,7 +36,7 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
       : {
           latitude: 23,
           longitude: 83,
-          zoom: 4.1,
+          zoom: 4,
           pitch: 0,
           bearing: 0,
         }
@@ -103,18 +104,20 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
   ]
 
   return (
-    <div
-      className="relative"
-      style={
-        windowWidth > 800
-          ? {
-              marginLeft: windowWidth * 0.15,
-              marginRight: windowWidth * 0.15,
-              marginTop: 25,
-            }
-          : { marginLeft: 0, marginRight: 0, marginTop: 25 }
-      }
-    >
+    <div className="lg:flex lg:flex-row-reverse relative">
+      <div
+        className= {windowWidth > 800 ? "" : "widthImp100"}
+        style={
+          windowWidth < 800
+            ? windowWidth > 700
+              ? {  }
+              : { }
+            : { width: windowWidth * 0.28 }
+        }
+        className="lg:ml-2 mb-4 w-full"
+      >
+        <RegionSummary />
+      </div>
       <DeckGL
         initialViewState={initialViewState}
         pickingRadius={5}
@@ -125,14 +128,14 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
             ? windowWidth > 700
               ? windowWidth * 0.67
               : windowWidth * 0.9
-            : windowWidth * 0.4
+            : windowWidth * 0.38
         }
         height={
           windowWidth < 800
             ? windowWidth > 700
               ? windowWidth * 0.8
               : windowWidth * 1.15
-            : windowWidth * 0.44
+            : windowWidth * 0.42
         }
         ContextProvider={MapContext.Provider}
       >

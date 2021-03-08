@@ -202,7 +202,12 @@ details[open] summary::after {
 .deck-tooltip {
   position: relative !important;
 }
-
+.heightImp100 {
+  height: 100% !important;
+}
+.widthImp100 {
+  width: 100% !important;
+}
 /* hamberger-menu start */
 #menu {
   width: 25px;

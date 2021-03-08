@@ -373,13 +373,15 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+        <div className="py-8">
+          <MapWidget />
+        </div>
         {/* <PartyAllianceTable selectedYearData={selectedYearData} /> */}
         {constituencyContestantsStatsData !== null && (
           <ConstituencyConstestantsStats
             constituencyContestantsStatsData={constituencyContestantsStatsData}
           />
         )}
-        <MapWidget />
       </div>
     )
   } else {
