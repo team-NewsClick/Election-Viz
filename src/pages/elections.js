@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import Dashboard from '../components/dashboard'
+import { useEffect, useState } from "react"
+import Dashboard from "../components/dashboard"
 
 /**
  * Map Page
@@ -30,12 +30,11 @@ const Elections = () => {
     return (
       <div className="grid grid-cols-12">
         <div className="col-span-2 sm:inline-block hidden"></div>
-        <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0" >
-          <Dashboard/>
-          {/* <MapDashboard
-          stateGeojson={stateGeojson}
-          districtGeojson={districtGeojson}
-        /> */}
+        <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0">
+          <Dashboard
+            stateGeojson={stateGeojson}
+            districtGeojson={districtGeojson}
+          />
         </div>
         <div className="col-span-2 sm:inline-block hidden"></div>
       </div>

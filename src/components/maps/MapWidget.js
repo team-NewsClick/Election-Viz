@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import DeckGL from 'deck.gl'
-import { GeoJsonLayer } from '@deck.gl/layers'
-import { _MapContext as MapContext, StaticMap } from 'react-map-gl'
-import { stateCoordinates } from '../../constants'
-import { RegionSummary } from '../infographics/index'
+import { useEffect, useState } from "react"
+import DeckGL from "deck.gl"
+import { GeoJsonLayer } from "@deck.gl/layers"
+import { _MapContext as MapContext, StaticMap } from "react-map-gl"
+import { stateCoordinates } from "../../constants"
+import { RegionSummary } from "../infographics/index"
 
 /**
  * Plot Map and Deckgl Layers
@@ -13,7 +13,7 @@ import { RegionSummary } from '../infographics/index'
  */
 const MapWidget = ({ stateGeojson, districtGeojson }) => {
   const windowWidth = window.innerWidth
-  const [stateName, setStateName] = useState('')
+  const [stateName, setStateName] = useState("")
   const [districtData, setDistrictData] = useState(districtGeojson)
   const [stateData, setStateData] = useState(stateGeojson)
   const [initialViewState, setInitialViewState] = useState(
@@ -24,21 +24,21 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
             longitude: 83,
             zoom: 3.6,
             pitch: 0,
-            bearing: 0,
+            bearing: 0
           }
         : {
             latitude: 23,
             longitude: 82.5,
             zoom: 3,
             pitch: 0,
-            bearing: 0,
+            bearing: 0
           }
       : {
           latitude: 23,
           longitude: 83,
           zoom: 4,
           pitch: 0,
-          bearing: 0,
+          bearing: 0
         }
   )
 
@@ -59,7 +59,7 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
       ...initialViewState,
       latitude: stateObject[0].latitude,
       longitude: stateObject[0].longitude,
-      zoom: 6,
+      zoom: 6
     })
   }
 
@@ -79,7 +79,7 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
 
   const layers = [
     new GeoJsonLayer({
-      id: 'state-geojson-layer',
+      id: "state-geojson-layer",
       data: stateData,
       stroked: true,
       filled: true,
@@ -88,10 +88,10 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
       getLineColor: (d) => _fillStateLineColor(d),
       getLineWidth: 5,
       pickable: true,
-      onClick: ({ object }) => _handleMapState(object),
+      onClick: ({ object }) => _handleMapState(object)
     }),
     new GeoJsonLayer({
-      id: 'district-geojson-layer',
+      id: "district-geojson-layer",
       data: districtData,
       stroked: true,
       filled: false,
@@ -99,19 +99,19 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
       getFillColor: [255, 255, 255, 0],
       getLineColor: (d) => _drawDistrictLine(d),
       getLineWidth: 5,
-      pickable: true,
-    }),
+      pickable: true
+    })
   ]
 
   return (
     <div className="lg:flex lg:flex-row-reverse relative">
       <div
-        className= {windowWidth > 800 ? "" : "widthImp100"}
+        className={windowWidth > 800 ? "" : "widthImp100"}
         style={
           windowWidth < 800
             ? windowWidth > 700
-              ? {  }
-              : { }
+              ? {}
+              : {}
             : { width: windowWidth * 0.28 }
         }
         className="lg:ml-2 mb-4 w-full"

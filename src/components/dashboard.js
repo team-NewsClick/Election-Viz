@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import { csvParse } from 'd3-dsv'
+import { useState, useEffect } from "react"
+import axios from "axios"
+import { csvParse } from "d3-dsv"
 import {
   yearOptions,
   yearDefaultSelect,
@@ -13,23 +13,23 @@ import {
   educationOptions,
   experienceOptions,
   crimianalityOptions,
-  seatTypeOptions,
-} from '../constants'
-import PartyAllianceTable from './infographics/party-alliance-table'
-import ConstituencyConstestantsStats from './infographics/constituency-contestants-stats'
-import MapWidget from '../components/maps/MapWidget'
+  seatTypeOptions
+} from "../constants"
+import PartyAllianceTable from "./infographics/party-alliance-table"
+import ConstituencyConstestantsStats from "./infographics/constituency-contestants-stats"
+import MapWidget from "../components/maps/MapWidget"
 import {
   dataStateUT,
   dataConstituency,
   getStateUTs,
   getConstituencies,
-  getConstituencyContestantsStatsData,
-} from '../utils'
+  getConstituencyContestantsStatsData
+} from "../utils"
 
 /**
  * Controls/Settings for the visualization of infographics
  */
-const Dashboard = () => {
+const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [selectedYear, setSelectedYear] = useState(yearDefaultSelect)
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect)
@@ -58,16 +58,16 @@ const Dashboard = () => {
   }, [selectedYearData])
 
   const showHideAdvanceOptions = () => {
-    const options = document.getElementById('advanceOptionsWeb')
-    const btnText = document.getElementById('showHideAdvance-btn')
-    const btnIcon = document.getElementById('showHideAdvance-btn-icon')
-    options.style.display === 'none'
-      ? ((options.style.display = 'block'),
-        (btnText.innerHTML = 'Hide Advance Options'),
-        (btnIcon.style.transform = 'rotate(180deg)'))
-      : ((options.style.display = 'none'),
-        (btnText.innerHTML = 'Show Advance Options'),
-        (btnIcon.style.transform = 'rotate(0deg)'))
+    const options = document.getElementById("advanceOptionsWeb")
+    const btnText = document.getElementById("showHideAdvance-btn")
+    const btnIcon = document.getElementById("showHideAdvance-btn-icon")
+    options.style.display === "none"
+      ? ((options.style.display = "block"),
+        (btnText.innerHTML = "Hide Advance Options"),
+        (btnIcon.style.transform = "rotate(180deg)"))
+      : ((options.style.display = "none"),
+        (btnText.innerHTML = "Show Advance Options"),
+        (btnIcon.style.transform = "rotate(0deg)"))
   }
 
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
@@ -127,7 +127,7 @@ const Dashboard = () => {
               id="general"
               name="election"
               value="general"
-              onChange={(e) => console.log('general')}
+              onChange={(e) => console.log("general")}
             />
             <label htmlFor="general">General Elections</label>
             <input
@@ -136,7 +136,7 @@ const Dashboard = () => {
               name="election"
               value="assembly"
               defaultChecked
-              onChange={(e) => console.log('assembly')}
+              onChange={(e) => console.log("assembly")}
             />
             <label htmlFor="assembly">Assembly Elections</label>
           </div>
@@ -146,7 +146,7 @@ const Dashboard = () => {
               id="party"
               name="group"
               value="party"
-              onChange={(e) => console.log('party')}
+              onChange={(e) => console.log("party")}
             />
             <label htmlFor="party">Party</label>
             <input
@@ -155,7 +155,7 @@ const Dashboard = () => {
               name="group"
               value="alliance"
               defaultChecked
-              onChange={(e) => console.log('alliance')}
+              onChange={(e) => console.log("alliance")}
             />
             <label htmlFor="alliance">Alliance</label>
           </div>
@@ -192,7 +192,7 @@ const Dashboard = () => {
         </div>
         <div
           id="advanceOptionsWeb"
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
           className="bg-gray-100 z-10 h-full md:h-auto absolute md:relative inset-x-auto top-0 md:top-auto"
         >
           <div className="h-0.5 bg-gray-300 w-full max-w-4xl my-3.5 mx-auto hidden md:block">
@@ -374,7 +374,10 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="py-8">
-          <MapWidget />
+          <MapWidget
+            stateGeojson={stateGeojson}
+            districtGeojson={districtGeojson}
+          />
         </div>
         {/* <PartyAllianceTable selectedYearData={selectedYearData} /> */}
         {constituencyContestantsStatsData !== null && (
