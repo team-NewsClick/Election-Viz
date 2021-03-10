@@ -7,7 +7,7 @@ import {
 } from "react-vis"
 import { useState, useEffect } from "react"
 
-const VoteCountPartyLastThreeElections = () => {
+const ConstituencyVoteCountLastThreeElections = () => {
   useEffect(() => {
     setWindowWidth(window.innerWidth)
     return () => {}
@@ -46,12 +46,24 @@ const VoteCountPartyLastThreeElections = () => {
   return (
     <div>
       <div className="widget-title">
-        Number of Votes Party-Wise In Last Three Elections
+        Number of Votes Party-Wise In Last Three Elections in a Constituency
       </div>
       <XYPlot
         xType="ordinal"
-        width={windowWidth * 0.98}
-        height={windowWidth * 0.5}
+        width={
+          windowWidth < 800
+            ? windowWidth > 700
+              ? windowWidth * 0.67
+              : windowWidth * 0.9
+            : windowWidth * 0.67
+        }
+        height={
+          windowWidth < 800
+            ? windowWidth > 700
+              ? windowWidth * 0.35
+              : windowWidth * 0.5
+            : windowWidth * 0.35
+        }
         xDistance={50}
         className="mx-auto mt-10"
         margin={{left: 50}}
@@ -107,4 +119,4 @@ const VoteCountPartyLastThreeElections = () => {
   )
 }
 
-export default VoteCountPartyLastThreeElections
+export default ConstituencyVoteCountLastThreeElections

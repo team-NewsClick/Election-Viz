@@ -2,8 +2,9 @@ import ConstituenciesNumberLastThreeElections from "./constituencies-number-last
 import ConstituencyConstestantsStats from "./constituency-contestants-stats"
 import PartyAllianceTable from "./party-alliance-table"
 import RegionSummary from "./region-summary"
+import RegionStats from "./region-stats"
 import StateConstituenciesStats from "./state-constituencies-stats"
-import VoteCountPartyLastThreeElections from "./vote-count-party-last-three-elections"
+import ConstituencyVoteCountLastThreeElections from "./constituency-vote-count-last-three-elections"
 import VotersTurnout from "./voters-turnout"
 
 export {
@@ -11,7 +12,8 @@ export {
   ConstituencyConstestantsStats,
   PartyAllianceTable,
   RegionSummary,
+  RegionStats,
   StateConstituenciesStats,
-  VoteCountPartyLastThreeElections,
+  ConstituencyVoteCountLastThreeElections,
   VotersTurnout
 }
