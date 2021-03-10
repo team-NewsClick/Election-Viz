@@ -82,6 +82,9 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     selectedConstituency
   )
 
+  const _updatedRegion = (state) => {
+    setSelectedStateUT(state)
+  }
   const _handleSelectedYear = (v) => {
     setSelectedYear(v)
   }
@@ -374,10 +377,14 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
           </div>
         </div>
         <div className="py-8">
-          <MapWidget
-            stateGeojson={stateGeojson}
-            districtGeojson={districtGeojson}
-          />
+          {selectedStateUT && (
+            <MapWidget
+              stateGeojson={stateGeojson}
+              districtGeojson={districtGeojson}
+              onMapUpdate={_updatedRegion}
+              selectedStateUT={selectedStateUT}
+            />
+          )}
         </div>
         {/* <PartyAllianceTable selectedYearData={selectedYearData} /> */}
         {constituencyContestantsStatsData !== null && (

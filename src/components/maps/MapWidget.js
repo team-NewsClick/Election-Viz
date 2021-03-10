@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import { _MapContext as MapContext, StaticMap } from "react-map-gl"
-import { stateCoordinates } from "../../constants"
+import { stateCoordinates, stateUTDefaultSelect } from "../../constants"
 import { RegionSummary } from "../infographics/index"
 
 /**
@@ -11,7 +11,12 @@ import { RegionSummary } from "../infographics/index"
  * @param {Object} param0 - Dashboard Objects (GeoJSON)
  * @return {JSX.Element} Map Widget
  */
-const MapWidget = ({ stateGeojson, districtGeojson }) => {
+const MapWidget = ({
+  stateGeojson,
+  districtGeojson,
+  onMapUpdate,
+  selectedStateUT
+}) => {
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState("")
   const [districtData, setDistrictData] = useState(districtGeojson)
@@ -47,6 +52,26 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
     setStateData((stateGeojson) => ({ ...stateGeojson }))
   }, [stateName])
 
+  useEffect(() => {
+    const state = selectedStateUT
+    if (state !== stateUTDefaultSelect) {
+      const stateObject = stateCoordinates.filter((row) => {
+        if (state == row.state) {
+          return row
+        }
+      })
+      if (stateObject.length !== 0) {
+        setStateName(state)
+        setInitialViewState({
+          ...initialViewState,
+          latitude: stateObject[0].latitude,
+          longitude: stateObject[0].longitude,
+          zoom: 6
+        })
+      }
+    }
+  }, [selectedStateUT])
+
   const _handleMapState = (object) => {
     const state = object.properties.ST_NM
     const stateObject = stateCoordinates.filter((row) => {
@@ -61,6 +86,7 @@ const MapWidget = ({ stateGeojson, districtGeojson }) => {
       longitude: stateObject[0].longitude,
       zoom: 6
     })
+    onMapUpdate(state)
   }
 
   const _drawDistrictLine = (d) => {
