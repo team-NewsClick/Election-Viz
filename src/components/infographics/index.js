@@ -1,19 +1,21 @@
-import ConstituenciesNumberLastThreeElections from "./constituencies-number-last-three-elections"
-import ConstituencyConstestantsStats from "./constituency-contestants-stats"
-import PartyAllianceTable from "./party-alliance-table"
-import RegionSummary from "./region-summary"
-import RegionStats from "./region-stats"
-import StateConstituenciesStats from "./state-constituencies-stats"
-import ConstituencyVoteCountLastThreeElections from "./constituency-vote-count-last-three-elections"
-import VotersTurnout from "./voters-turnout"
+import ConstituenciesNumberLastThreeElections from "./ConstituenciesNumberLastThreeElections"
+import ConstituencyConstestantsStats from "./ConstituencyConstestantsStats"
+import PartyAllianceTable from "./PartyAllianceTable"
+import RegionSummary from "./RegionSummary"
+import StateConstituenciesStats from "./StateConstituenciesStats"
+import ConstituencyVoteCountLastThreeElections from "./ConstituencyVoteCountLastThreeElections"
+import VotersTurnout from "./VotersTurnout"
+import RegionStatsSVG from "./RegionStatsSVG"
+import RegionStatsTable from "./RegionStatsTable"
 
 export {
   ConstituenciesNumberLastThreeElections,
   ConstituencyConstestantsStats,
   PartyAllianceTable,
   RegionSummary,
-  RegionStats,
   StateConstituenciesStats,
   ConstituencyVoteCountLastThreeElections,
-  VotersTurnout
+  VotersTurnout,
+  RegionStatsSVG,
+  RegionStatsTable
 }

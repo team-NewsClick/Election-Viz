@@ -1,4 +1,4 @@
-import { votersTurnoutOptions } from '../../constants'
+import { votersTurnoutOptions } from "../../constants"
 
 const VotersTurnout = () => {
   const _handleVotersType = (v) => {

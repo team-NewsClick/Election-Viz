@@ -1,6 +1,6 @@
 /**
  * Returns a list of States and UTs that had election in a year
- * @param {Array.<Object>} data - Array of Objects having a year of data 
+ * @param {Array.<Object>} data - Array of Objects having a year of data
  * @return {Array} List of States and UTS that had election in a year
  */
 export const getStateUTs = (data) => {
@@ -18,8 +18,8 @@ export const getStateUTs = (data) => {
 
 /**
  * Returns a list of constituencies of a State/UT
- * @param {Array.<Object>} data - Data of a State/UT's election of a yeay
- * @return {Array} List of Constituencies in a State/UT 
+ * @param {Array.<Object>} data - Data of a State/UT's election of a year
+ * @return {Array} List of Constituencies in a State/UT
  */
 export const getConstituencies = (data) => {
   if (data === null) {

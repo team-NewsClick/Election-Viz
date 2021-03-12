@@ -13,23 +13,27 @@ import {
   educationOptions,
   experienceOptions,
   crimianalityOptions,
-  seatTypeOptions
+  seatTypeOptions,
 } from "../constants"
-import PartyAllianceTable from "./infographics/party-alliance-table"
-import ConstituencyConstestantsStats from "./infographics/constituency-contestants-stats"
+import {
+  ConstituencyConstestantsStats,
+  RegionStatsSVG,
+  RegionStatsTable,
+} from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
 import {
   dataStateUT,
   dataConstituency,
   getStateUTs,
   getConstituencies,
-  getConstituencyContestantsStatsData
+  getConstituencyContestantsStatsData,
 } from "../utils"
 
 /**
  * Controls/Settings for the visualization of infographics
  */
 const Dashboard = ({ stateGeojson, districtGeojson }) => {
+  const windowWidth = window.innerWidth
   const [selectedYear, setSelectedYear] = useState(yearDefaultSelect)
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect)
@@ -56,6 +60,13 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         : constituencyOptions[0]
     )
   }, [selectedYearData])
+
+  // let constituencyVoteCountLastThreeElectionsData = []
+  // console.log(selectedConstituency)
+  // if(selectedConstituency !== "All Constituencies") {
+  //   constituencyVoteCountLastThreeElectionsData = getConstituencyVoteCountLastThreeElectionsData(yearOptions, selectedConstituency)
+  //   console.log("constituencyVoteCountLastThreeElectionsData: ", constituencyVoteCountLastThreeElectionsData)
+  // }
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -376,17 +387,26 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
             </div>
           </div>
         </div>
-        <div className="py-8">
-          {selectedStateUT && (
-            <MapWidget
-              stateGeojson={stateGeojson}
-              districtGeojson={districtGeojson}
-              onMapUpdate={_updatedRegion}
-              selectedStateUT={selectedStateUT}
-            />
-          )}
+        <div className="lg:flex lg:flex-row-reverse relative py-8">
+          <div
+            className={windowWidth > 800 ? "" : "widthImp100 heightImp100"}
+            style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
+            className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 ml-2.5 "
+          >
+            <RegionStatsSVG />
+            <RegionStatsTable />
+          </div>
+          <div>
+            {selectedStateUT && (
+              <MapWidget
+                stateGeojson={stateGeojson}
+                districtGeojson={districtGeojson}
+                onMapUpdate={_updatedRegion}
+                selectedStateUT={selectedStateUT}
+              />
+            )}
+          </div>
         </div>
-        {/* <PartyAllianceTable selectedYearData={selectedYearData} /> */}
         {constituencyContestantsStatsData !== null && (
           <ConstituencyConstestantsStats
             constituencyContestantsStatsData={constituencyContestantsStatsData}

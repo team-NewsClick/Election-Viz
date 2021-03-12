@@ -3,7 +3,6 @@ import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import { _MapContext as MapContext, StaticMap } from "react-map-gl"
 import { stateCoordinates, stateUTDefaultSelect } from "../../constants"
-import { RegionSummary } from "../infographics/index"
 
 /**
  * Plot Map and Deckgl Layers
@@ -130,14 +129,7 @@ const MapWidget = ({
   ]
 
   return (
-    <div className="lg:flex lg:flex-row-reverse relative">
-      <div
-        className={windowWidth > 800 ? '' : 'widthImp100'}
-        style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
-        className="lg:ml-2 mb-4 w-full"
-      >
-        <RegionStats />
-      </div>
+    <div>
       <DeckGL
         initialViewState={initialViewState}
         pickingRadius={5}
