@@ -27,6 +27,7 @@ import {
   getStateUTs,
   getConstituencies,
   getConstituencyContestantsStatsData,
+  getRegionStatsData
 } from "../utils"
 
 /**
@@ -89,6 +90,10 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const stateUTOptions = getStateUTs(selectedYearData)
   const constituencyOptions = getConstituencies(selectedStateUTData)
   const constituencyContestantsStatsData = getConstituencyContestantsStatsData(
+    selectedConstituencyData,
+    selectedConstituency
+  )
+  const RegionStatsData = getRegionStatsData(
     selectedConstituencyData,
     selectedConstituency
   )
@@ -393,8 +398,8 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 ml-2.5 "
           >
-            <RegionStatsSVG />
-            <RegionStatsTable />
+            <RegionStatsSVG regionStatsSVGData={RegionStatsData}/>
+            <RegionStatsTable PartyAllianceTableData={RegionStatsData}/>
           </div>
           <div>
             {selectedStateUT && (
@@ -407,11 +412,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
             )}
           </div>
         </div>
-        {constituencyContestantsStatsData !== null && (
+        {/* {constituencyContestantsStatsData !== null && (
           <ConstituencyConstestantsStats
             constituencyContestantsStatsData={constituencyContestantsStatsData}
           />
-        )}
+        )} */}
       </div>
     )
   } else {

@@ -2,10 +2,11 @@ import parliamentSVG from 'parliament-svg'
 import stringify from 'virtual-dom-stringify'
 import parse from 'html-react-parser'
 
-const RegionStatsSVG = () => {
+const RegionStatsSVG = ({regionStatsSVGData}) => {
+  console.log(regionStatsSVGData,'svg data')
   const data = {
     NDA: {
-      seats: 78,
+      seats: 10,
       colour: '#f97d09',
     },
     BSP: {

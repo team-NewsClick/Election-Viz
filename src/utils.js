@@ -1,3 +1,5 @@
+import { parse } from "postcss"
+
 /**
  * Returns a list of States and UTs that had election in a year
  * @param {Array.<Object>} data - Array of Objects having a year of data
@@ -110,11 +112,83 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
     }
     let highest = 0
     stats.map((d) => {
-      highest = d.votesReceived > highest ? d.votesReceived :highest
+      highest = d.votesReceived > highest ? d.votesReceived : highest
     })
     stats.map((d) => {
-      return d.votesReceived === highest ? d.status= "won" : d.status= "lost"
+      return d.votesReceived === highest ? d.status = "won" : d.status = "lost"
     })
-    return ({stats, totalStats})
+    return ({ stats, totalStats })
   } else return null
+}
+
+export const getRegionStatsData = (data, constituency) => {
+  let pc_list = new Set()
+  let candidate = new Set()
+  let total_parties = new Set()
+  data.map((row) => {
+    pc_list.add(row.PC_NO)
+    candidate.add(row.CANDIDATE)
+    total_parties.add(row.PARTY)
+  })
+  pc_list = [...pc_list]
+  candidate = [...candidate]
+  total_parties = [...total_parties]
+  console.log(pc_list.length)
+  let stats = []
+  pc_list.map((p) => {
+    let totalVotes = 0
+    let pc_data = []
+    candidate.map((c) => {
+      let votes = 0
+      let party = "--"
+      data.map((d) => {
+        if (d.PC_NO === p && d.CANDIDATE === c) {
+          votes = votes + parseInt(d.VOTES)
+          party = d.PARTY
+        }
+      })
+      pc_data.push({
+        PC_NO: p,
+        party: party,
+        candidate: c,
+        Votes: votes
+      })
+    })
+    stats.push([...pc_data])
+  })
+
+  let final_data = []
+  stats.map((d) => {
+    let highest = 0
+    d.map((h) => {
+      highest = h.Votes > highest ? h.Votes : highest
+    })
+    d.map((col) => {
+      col.Votes === highest ? col.status = "won" : col.status = "lost"
+      if (col.Votes !== 0) {
+        final_data.push({
+          party: col.party,
+          status: col.status
+        })
+      }
+    })
+  })
+  const final_result = []
+  total_parties.map((p) => {
+    let total_seats = 0
+    let unique_party = ''
+    final_data.map((d) => {
+      if (d.party === p && d.status === 'won') {
+        total_seats += 1
+        d.totalSeats = total_seats
+        unique_party = d
+      }
+    })
+    if (unique_party) {
+      final_result.push(unique_party)
+    }
+  })
+  // final_result.total_constituencies = parseInt(pc_list.length)
+  console.log(final_result.flat())
+  return final_result
 }

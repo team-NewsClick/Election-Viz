@@ -1,4 +1,5 @@
-const PartyAllianceTable = () => {
+const PartyAllianceTable = (PartyAllianceTableData) => {
+  console.log(PartyAllianceTableData)
   return (
     <div>
       <div className="widget-title">
