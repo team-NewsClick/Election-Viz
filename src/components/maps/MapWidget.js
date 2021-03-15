@@ -14,7 +14,8 @@ const MapWidget = ({
   stateGeojson,
   districtGeojson,
   onMapUpdate,
-  selectedStateUT
+  selectedStateUT,
+  StateUTMapDataPC
 }) => {
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState('')
@@ -127,6 +128,8 @@ const MapWidget = ({
       pickable: true,
     }),
   ]
+
+  console.log("From MapWidget: ", StateUTMapDataPC)
 
   return (
     <div>

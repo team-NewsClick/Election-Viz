@@ -1,4 +1,5 @@
 import { parse } from "postcss"
+import { stateUTDefaultSelect } from "./constants"
 
 /**
  * Returns a list of States and UTs that had election in a year
@@ -191,4 +192,69 @@ export const getRegionStatsData = (data, constituency) => {
   // final_result.total_constituencies = parseInt(pc_list.length)
   console.log(final_result.flat())
   return final_result
+}
+
+/**
+ * Returns Data for Map as a List of Constituencies in a State/UT and top four candidates in an Array respectively
+ * @param {Array<Object>} data - Election Data of a year
+ * @param {String} stateUT - Key Name of a State/UT
+ * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
+ */
+export const getStateUTMapDataPC = (data, stateUT) => {
+  if(stateUT === stateUTDefaultSelect) {
+    return null
+  }
+  let stateData = []
+  let parliamentConstituenciesList = new Set()
+  stateData = data.filter((row) => row.ST_NAME === stateUT)
+  stateData.map((row) => {
+    parliamentConstituenciesList.add(row.PC_NAME)
+  });
+  let parliamentConstituencies = [...parliamentConstituenciesList].map((pc) => {
+    let constituencyData = stateData.filter((row) => row.PC_NAME == pc)
+    let candidates = new Set()
+    constituencyData.map((row) => candidates.add(row.CANDIDATE));
+    let constituencyStatsTemp = [...candidates].map((c) => {
+      let votesReceived = 0
+      let candidate = null
+      let party = null
+      constituencyData.map((row) => {
+        if(row.CANDIDATE === c) {
+            candidate = c
+            party = row.PARTY
+            votesReceived = votesReceived + parseInt(row.VOTES)           
+        }
+      })
+      return {
+        candidate: candidate,
+        party: party,
+        votesReceived: votesReceived,
+      }
+    })
+    let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
+      const A = a.votesReceived
+      const B = b.votesReceived
+      let comparison = 0;
+      if (A > B) {
+        comparison = -1;
+      } else if (A < B) {
+        comparison = 1;
+      }
+      return comparison;
+    })
+    let constituencyStats = []
+    if(constituencyStatsSorted.length < 5) {
+      constituencyStats = constituencyStatsSorted
+    } else {
+      constituencyStatsSorted.map((row, index) => {
+        index < 4
+          ? constituencyStats[index] = row
+          : (constituencyStats[3].candidate = "Others",
+            constituencyStats[3].party = "Others",
+            constituencyStats[3].votesReceived = 0 + constituencyStatsSorted[index].votesReceived)
+      })
+    }
+    return({PC_NAME: pc, stats: constituencyStats})
+  })
+  return {stateUT: stateUT, parliamentConstituencies: parliamentConstituencies}
 }

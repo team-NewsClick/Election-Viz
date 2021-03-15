@@ -27,7 +27,8 @@ import {
   getStateUTs,
   getConstituencies,
   getConstituencyContestantsStatsData,
-  getRegionStatsData
+  getRegionStatsData,
+  getStateUTMapDataPC
 } from "../utils"
 
 /**
@@ -89,14 +90,15 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   )
   const stateUTOptions = getStateUTs(selectedYearData)
   const constituencyOptions = getConstituencies(selectedStateUTData)
-  const constituencyContestantsStatsData = getConstituencyContestantsStatsData(
-    selectedConstituencyData,
-    selectedConstituency
-  )
+  // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(
+  //   selectedConstituencyData,
+  //   selectedConstituency
+  // )
   const RegionStatsData = getRegionStatsData(
     selectedConstituencyData,
     selectedConstituency
   )
+  const StateUTMapDataPC = getStateUTMapDataPC(selectedYearData, selectedStateUT)  
 
   const _updatedRegion = (state) => {
     setSelectedStateUT(state)
@@ -440,6 +442,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 districtGeojson={districtGeojson}
                 onMapUpdate={_updatedRegion}
                 selectedStateUT={selectedStateUT}
+                StateUTMapDataPC= {StateUTMapDataPC}
               />
             )}
           </div>

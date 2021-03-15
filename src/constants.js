@@ -68,7 +68,7 @@ export const regionDefaultSelect = regionOptions[0]
 /**
  * Default Selection for States/UTs
  */
-export const stateUTDefaultSelect = "All States & UT"
+export const stateUTDefaultSelect = "All States & UTs"
 
 /**
  * Default Selection for Constituencies
