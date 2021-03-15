@@ -183,7 +183,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               name="year"
               onChange={(e) => _handleSelectedYear(e.target.value)}
               id="year"
-              className="w-28 md:w-64"
+              className="w-40 md:w-64"
             >
               {yearOptions.map((d, index) => (
                 <option key={index} value={d.value}>
@@ -192,7 +192,40 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               ))}
             </select>
           </div>
-          <div
+          </div>
+          <div className="flex flex-wrap justify-center mx-auto">
+            <div>
+              <select
+                name="state-ut"
+                onChange={(e) => _handleSelectedStateUT(e.target.value)}
+                id="state-ut"
+                className="advance-select w-40 md:w-64"
+                value={selectedStateUT}
+              >
+                {stateUTOptions.map((d, index) => (
+                  <option key={index} value={d}>
+                    {d}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select
+                name="constituency"
+                onChange={(e) => _handleSelectedConstituency(e.target.value)}
+                id="constituency"
+                className="advance-select w-40 md:w-64"
+                value={selectedConstituency}
+              >
+                {constituencyOptions.map((d, index) => (
+                  <option key={index} value={d}>
+                    {d}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          {/* <div
             onClick={showHideAdvanceOptions}
             className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm"
           >
@@ -207,9 +240,9 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 className="w-3 h-3 md:ml-14 m-1.5"
               />
             </div>
-          </div>
-        </div>
-        <div
+          </div> */}
+        {/* </div> */}
+        {/* <div
           id="advanceOptionsWeb"
           style={{ display: "none" }}
           className="bg-gray-100 z-10 h-full md:h-auto absolute md:relative inset-x-auto top-0 md:top-auto"
@@ -291,7 +324,6 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   ))}
                 </select>
               </div>
-
               <div>
                 <select
                   name="community"
@@ -391,12 +423,12 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="lg:flex lg:flex-row-reverse relative py-8">
           <div
             className={windowWidth > 800 ? "" : "widthImp100 heightImp100"}
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
-            className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 ml-2.5 "
+            className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
             <RegionStatsSVG regionStatsSVGData={RegionStatsData}/>
             <RegionStatsTable PartyAllianceTableData={RegionStatsData}/>
