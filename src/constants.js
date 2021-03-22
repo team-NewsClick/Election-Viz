@@ -431,223 +431,225 @@ export const stateCoordinates = [
   }
 ]
 
-
+/**
+ * Parties color
+ */
 export const partyColor = [
-  {
-    "Colour": "#F97D09",
-    "Party": "BJP"
+ {
+   party: 'BJP',
+   color: '#F97D09'
   },
-  {
-    "Colour": "#FE6161",
-    "Party": "SP"
+ {
+   party: 'SP',
+   color: '#FE6161'
   },
-  {
-    "Colour": "#0000FF",
-    "Party": "BSP"
+ {
+   party: 'BSP',
+   color: '#0000FF'
   },
-  {
-    "Colour": "#FF0000",
-    "Party": "RLD"
+ {
+   party: 'RLD',
+   color: '#FF0000'
   },
-  {
-    "Colour": "#00FF00",
-    "Party": "IUML"
+ {
+   party: 'IUML',
+   color: '#00FF00'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "KC(J)"
+ {
+   party: 'KC(J)',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "TRS"
+ {
+   party: 'TRS',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "KC(M)"
+ {
+   party: 'KC(M)',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "AGP"
+ {
+   party: 'AGP',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "KC(B)"
+ {
+   party: 'KC(B)',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "AINRCongress"
+ {
+   party: 'AINRCongress',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#FF0000",
-    "Party": "CMPKSC"
+ {
+   party: 'CMPKSC',
+   color: '#FF0000'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "BPF"
+ {
+   party: 'BPF',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#008D3C",
-    "Party": "ADMK"
+ {
+   party: 'ADMK',
+   color: '#008D3C'
   },
-  {
-    "Colour": "#008D3C",
-    "Party": "AITC"
+ {
+   party: 'AITC',
+   color: '#008D3C'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "Congress(Secular)"
+ {
+   party: 'Congress(Secular)',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#008D3C",
-    "Party": "JDS"
+ {
+   party: 'JDS',
+   color: '#008D3C'
   },
-  {
-    "Colour": "#138808",
-    "Party": "INC"
+ {
+   party: 'INC',
+   color: '#138808'
   },
-  {
-    "Colour": "#DE0000",
-    "Party": "CPI(M)"
+ {
+   party: 'CPI(M)',
+   color: '#DE0000'
   },
-  {
-    "Colour": "#DE0000",
-    "Party": "CPM"
+ {
+   party: 'CPM',
+   color: '#DE0000'
   },
-  {
-    "Colour": "#DE0000",
-    "Party": "CPIM"
+ {
+   party: 'CPIM',
+   color: '#DE0000'
   },
-  {
-    "Colour": "#008D3C",
-    "Party": "AIFB"
+ {
+   party: 'AIFB',
+   color: '#008D3C'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "GJM"
+ {
+   party: 'GJM',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#FF0000",
-    "Party": "RSP"
+ {
+   party: 'RSP',
+   color: '#FF0000'
   },
-  {
-    "Colour": "#A6A6A6",
-    "Party": "IND"
+ {
+   party: 'IND',
+   color: '#A6A6A6'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "DMK"
+ {
+   party: 'DMK',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "NCP"
+ {
+   party: 'NCP',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#DE0000",
-    "Party": "CPI"
+ {
+   party: 'CPI',
+   color: '#DE0000'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "AIUDF"
+ {
+   party: 'AIUDF',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "NSC"
+ {
+   party: 'NSC',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#FFA500",
-    "Party": "AD"
+ {
+   party: 'AD',
+   color: '#FFA500'
   },
-  {
-    "Colour": "#ffff99",
-    "Party": "AAP"
+ {
+   party: 'AAP',
+   color: '#ffff99'
   },
-  {
-    "Colour": "#ffff99",
-    "Party": "AAAP"
+ {
+   party: 'AAAP',
+   color: '#ffff99'
   },
-  {
-    "Colour": "#BD0026",
-    "Party": "SBSP"
+ {
+   party: 'SBSP',
+   color: '#BD0026'
   },
-  {
-    "Colour": "#008D3C",
-    "Party": "AD(S)"
+ {
+   party: 'AD(S)',
+   color: '#008D3C'
   },
-  {
-    "Colour": "#DEDE05",
-    "Party": "TDP"
+ {
+   party: 'TDP',
+   color: '#DEDE05'
   },
-  {
-    "Colour": "#084202",
-    "Party": "YSRCP"
+ {
+   party: 'YSRCP',
+   color: '#084202'
   },
-  {
-    "Colour": "#FF6634",
-    "Party": "SHS"
+ {
+   party: 'SHS',
+   color: '#FF6634'
   },
-  {
-    "Colour": "#008000",
-    "Party": "RJD"
+ {
+   party: 'RJD',
+   color: '#008000'
   },
-  {
-    "Colour": "#006400",
-    "Party": "BJD"
+ {
+   party: 'BJD',
+   color: '#006400'
   },
-  {
-    "Colour": "#FFA500",
-    "Party": "SAD"
+ {
+   party: 'SAD',
+   color: '#FFA500'
   },
-  {
-    "Colour": "#28ECF3",
-    "Party": "LJP"
+ {
+   party: 'LJP',
+   color: '#28ECF3'
   },
-  {
-    "Colour": "#28F361",
-    "Party": "JD(U)"
+ {
+   party: 'JD(U)',
+   color: '#28F361'
   },
-  {
-    "Colour": "#008000",
-    "Party": "RLSP"
+ {
+   party: 'RLSP',
+   color: '#008000'
   },
-  {
-    "Colour": "#008000",
-    "Party": "BLSP"
+ {
+   party: 'BLSP',
+   color: '#008000'
   },
-  {
-    "Colour": "#084202",
-    "Party": "JKPDP"
+ {
+   party: 'JKPDP',
+   color: '#084202'
   },
-  {
-    "Colour": "#006400",
-    "Party": "JMM"
+ {
+   party: 'JMM',
+   color: '#006400'
   },
-  {
-    "Colour": "#E92415",
-    "Party": "JKNC"
+ {
+   party: 'JKNC',
+   color: '#E92415'
   },
-  {
-    "Colour": "#006400",
-    "Party": "INLD"
+ {
+   party: 'INLD',
+   color: '#006400'
   },
-  {
-    "Colour": "#006400",
-    "Party": "JD(S)"
+ {
+   party: 'JD(S)',
+   color: '#006400'
   },
-  {
-    "Colour": "#F97D09",
-    "Party": "BJP+"
-  },
-  {
-    "Colour": "#138808",
-    "Party": "INC+"
-  },
-  {
-    "Colour": "#0000FF",
-    "Party": "BSP-SP-RLD"
-  },
-  {
-    "Colour": "#DE0000",
-    "Party": "LEFT"
+ {
+   party: 'BJP+',
+   color: '#F97D09'}
+   , 
+ {
+   party: 'INC+',
+   color: '#138808'}
+   , 
+ {
+   party: 'BSP-SP-RLD',
+   color: '#0000FF'}
+   , 
+ {
+   party: 'LEFT',
+   color: '#DE0000'
   }
 ]
 

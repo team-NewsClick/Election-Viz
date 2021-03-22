@@ -140,6 +140,10 @@ summary::-webkit-details-marker {
 * {
   font-family: 'Noto Sans', sans-serif;
 }
+.seatNumber {
+  font-family: 'Noto Sans', sans-serif !important;
+  padding-top: 2rem;
+}
 select {
   -webkit-appearance: none;
   -moz-appearance: none;

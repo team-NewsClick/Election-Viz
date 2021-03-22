@@ -122,7 +122,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
   } else return null
 }
 
-export const getRegionStatsData = (data, constituency) => {
+export const getRegionStatsSVGData = (data) => {
   let pc_list = new Set()
   let candidate = new Set()
   let total_parties = new Set()
@@ -173,7 +173,7 @@ export const getRegionStatsData = (data, constituency) => {
       }
     })
   })
-  const total_seats_party_wise = []
+  const preFinal = []
   total_parties.map((p) => {
     let total_seats = 0
     let unique_party = ''
@@ -185,30 +185,17 @@ export const getRegionStatsData = (data, constituency) => {
       }
     })
     if (unique_party) {
-      total_seats_party_wise.push(unique_party)
+      preFinal.push(unique_party)
     }
   })
-
-  const mapPartyColourdata = mapPartyColour(total_seats_party_wise)
-
-  const return_data = {
-    total_seats_won: total_seats_party_wise,
-    total_constituencies: pc_list.length
-  }
-
-  return return_data
-}
-
-
-export const mapPartyColour = (data) => {
-  partyColor.map((colour) => {
-    data.map((d) => {
-      if (colour.Party === d.party) {
-        d.partyColourCode = colour.Colour
-      }
-    })
+  const finalData = new Object()
+  preFinal.map((row) => {
+    finalData[row.party] = {
+      seats : row.totalSeats,
+      colour: partyColor.find(e => e.party == row.party) == undefined ? "#000000" : partyColor.find(e => e.party == row.party).color
+    }
   })
-  return data
+  return finalData
 }
 
 /**
