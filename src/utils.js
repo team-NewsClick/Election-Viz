@@ -1,5 +1,5 @@
 import { parse } from "postcss"
-import { stateUTDefaultSelect } from "./constants"
+import { stateUTDefaultSelect, partyColor } from "./constants"
 
 /**
  * Returns a list of States and UTs that had election in a year
@@ -122,7 +122,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
   } else return null
 }
 
-export const getRegionStatsData = (data, constituency) => {
+export const getRegionStatsSVGData = (data) => {
   let pc_list = new Set()
   let candidate = new Set()
   let total_parties = new Set()
@@ -134,7 +134,6 @@ export const getRegionStatsData = (data, constituency) => {
   pc_list = [...pc_list]
   candidate = [...candidate]
   total_parties = [...total_parties]
-  console.log(pc_list.length)
   let stats = []
   pc_list.map((p) => {
     let totalVotes = 0
@@ -174,7 +173,7 @@ export const getRegionStatsData = (data, constituency) => {
       }
     })
   })
-  const final_result = []
+  const preFinal = []
   total_parties.map((p) => {
     let total_seats = 0
     let unique_party = ''
@@ -186,12 +185,17 @@ export const getRegionStatsData = (data, constituency) => {
       }
     })
     if (unique_party) {
-      final_result.push(unique_party)
+      preFinal.push(unique_party)
     }
   })
-  // final_result.total_constituencies = parseInt(pc_list.length)
-  console.log(final_result.flat())
-  return final_result
+  const finalData = new Object()
+  preFinal.map((row) => {
+    finalData[row.party] = {
+      seats : row.totalSeats,
+      colour: partyColor.find(e => e.party == row.party) == undefined ? "#000000" : partyColor.find(e => e.party == row.party).color
+    }
+  })
+  return finalData
 }
 
 /**

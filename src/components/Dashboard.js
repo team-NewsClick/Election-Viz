@@ -27,7 +27,7 @@ import {
   getStateUTs,
   getConstituencies,
   getConstituencyContestantsStatsData,
-  getRegionStatsData,
+  getRegionStatsSVGData,
   getStateUTMapDataPC
 } from "../utils"
 
@@ -39,9 +39,8 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [selectedYear, setSelectedYear] = useState(yearDefaultSelect)
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect)
-  const [selectedConstituency, setSelectedConstituency] = useState(
-    constituenciesDefaultSelect
-  )
+  const [selectedConstituency, setSelectedConstituency] = useState(constituenciesDefaultSelect)
+  const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
 
   useEffect(() => {
     axios.get(`/data/csv/assembly_${selectedYear}.csv`).then((response) => {
@@ -61,7 +60,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         ? selectedConstituency
         : constituencyOptions[0]
     )
-  }, [selectedYearData])
+  }, [selectedYearData, selectedStateUT])
+
+  useEffect(() => {
+    setRegionStatsSVGData(getRegionStatsSVGData(selectedConstituency === constituenciesDefaultSelect ? selectedStateUTData : selectedConstituencyData))
+  }, [selectedYear, selectedStateUT, selectedConstituency])
 
   // let constituencyVoteCountLastThreeElectionsData = []
   // console.log(selectedConstituency)
@@ -84,21 +87,12 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }
 
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
-  const selectedConstituencyData = dataConstituency(
-    selectedStateUTData,
-    selectedConstituency
-  )
+  const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency)
   const stateUTOptions = getStateUTs(selectedYearData)
   const constituencyOptions = getConstituencies(selectedStateUTData)
-  // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(
-  //   selectedConstituencyData,
-  //   selectedConstituency
-  // )
-  const RegionStatsData = getRegionStatsData(
-    selectedConstituencyData,
-    selectedConstituency
-  )
-  const StateUTMapDataPC = getStateUTMapDataPC(selectedYearData, selectedStateUT)  
+  const StateUTMapDataPC = getStateUTMapDataPC(selectedYearData, selectedStateUT)
+
+  // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
 
   const _updatedRegion = (state) => {
     setSelectedStateUT(state)
@@ -432,8 +426,8 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
-            <RegionStatsSVG regionStatsSVGData={RegionStatsData}/>
-            <RegionStatsTable PartyAllianceTableData={RegionStatsData}/>
+            <RegionStatsSVG regionStatsSVGData={regionStatsSVGData} selectedConstituency={selectedConstituency}/>
+            <RegionStatsTable PartyAllianceTableData={regionStatsSVGData}/>
           </div>
           <div>
             {selectedStateUT && (
