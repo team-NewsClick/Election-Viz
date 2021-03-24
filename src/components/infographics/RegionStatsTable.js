@@ -1,7 +1,6 @@
 const RegionStatsTable = ({PartyAllianceTableData}) => {
   const tableData = Object.entries(PartyAllianceTableData).map((e) => ({ party: e[0], seats: e[1].seats }))
-  Object.entries(PartyAllianceTableData).map((e) => console.log(e))
-
+  
   return tableData.length === 0
     ? <div />
     : <div className="text-sm md:text-base">
