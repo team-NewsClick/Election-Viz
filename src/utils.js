@@ -134,60 +134,18 @@ export const getRegionStatsSVGData = (data) => {
   pc_list = [...pc_list]
   candidate = [...candidate]
   total_parties = [...total_parties]
-  let stats = []
-  pc_list.map((p) => {
-    let totalVotes = 0
-    let pc_data = []
-    candidate.map((c) => {
-      let votes = 0
-      let party = "--"
-      data.map((d) => {
-        if (d.PC_NO === p && d.CANDIDATE === c) {
-          votes = votes + parseInt(d.VOTES)
-          party = d.PARTY
-        }
-      })
-      pc_data.push({
-        PC_NO: p,
-        party: party,
-        candidate: c,
-        Votes: votes
-      })
-    })
-    stats.push([...pc_data])
+  const finalList = getConstituencyResults(data,candidate,pc_list)
+  const partiesCount = finalList.reduce( (acc, o) => (acc[o.party] = (acc[o.party] || 0)+1, acc), {} )
+  let keys = Object.keys(partiesCount)
+  const preFinal = []
+  keys.map((key) => {
+    let values = {
+      party: key,
+      totalSeats: partiesCount[key]
+    }
+  preFinal.push(values)
   })
 
-  let final_data = []
-  stats.map((d) => {
-    let highest = 0
-    d.map((h) => {
-      highest = h.Votes > highest ? h.Votes : highest
-    })
-    d.map((col) => {
-      col.Votes === highest ? col.status = "won" : col.status = "lost"
-      if (col.Votes !== 0) {
-        final_data.push({
-          party: col.party,
-          status: col.status
-        })
-      }
-    })
-  })
-  const preFinal = []
-  total_parties.map((p) => {
-    let total_seats = 0
-    let unique_party = ''
-    final_data.map((d) => {
-      if (d.party === p && d.status === 'won') {
-        total_seats += 1
-        d.totalSeats = total_seats
-        unique_party = d
-      }
-    })
-    if (unique_party) {
-      preFinal.push(unique_party)
-    }
-  })
   const finalData = new Object()
   preFinal.map((row) => {
     finalData[row.party] = {
@@ -196,6 +154,49 @@ export const getRegionStatsSVGData = (data) => {
     }
   })
   return finalData
+}
+
+/**
+ * Returns Data for Map as a List of Constituencies in a State/UT and top four candidates in an Array respectively
+ * @param {Array<Object>} data - Election Data of a year
+ * @param {Array} Candidate - Candidates List
+ * @param {Array} pc_list - Parliamentary Constituency list
+ * @return {Object} - List of Constituencies with respective party who won the election
+ */
+export const getConstituencyResults = (data,candidates,pc_list) => {
+  let candidateVotes = []
+  candidates.map((cand) => {
+    let votes = 0
+    let party = '--'
+    let pc_no = 0
+    data.map((da) => {
+      if (da.CANDIDATE === cand){
+        votes = votes+parseInt(da.VOTES)
+        party = da.PARTY
+        pc_no = da.PC_NO
+      }
+    })
+    candidateVotes.push({
+      pc_no : pc_no,
+      party:party,
+      Votes: votes,
+      candidate: cand
+    })
+  })
+  let finalList = []
+  pc_list.map((pc) => {
+    let highest = 0
+    candidateVotes.map((ex) => {
+      if (pc === ex.pc_no) {
+        highest = ex.Votes > highest ? ex.Votes : highest
+      }
+    })
+  const electedCandidates = candidateVotes.find((ele) => {
+      return ele.Votes === highest 
+    })
+    finalList.push(electedCandidates)
+  })
+return finalList
 }
 
 /**
