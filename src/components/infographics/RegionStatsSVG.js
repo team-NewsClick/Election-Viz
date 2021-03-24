@@ -40,7 +40,16 @@ const RegionStatsSVG = ({regionStatsSVGData, selectedConstituency}) => {
           </div>
           {totalConstituencies > 0 ?
             selectedConstituency == constituenciesDefaultSelect && <div className="text-4xl text-center pt-12">{totalConstituencies}</div> :
-            <div className="text-2xl text-center md:pt-24 pt-32">Please Select a State/UT or a Constituency for a Detailed View</div>}
+            <div className="md:text-xl text-lg px-10 md:pt-60 pt-6">
+              Please select a region for a detailed view. <br /><br />
+              It's easy, you can try one of the following:<br /><br />
+              <div className="pl-6">
+                <ul style={{ listStyleType: "disc" }} >
+                  <li>Click on the map</li>
+                  <li>Select from the menu above</li>
+                </ul>
+              </div>
+            </div>}
         </div>
       )}
         <div className="lg:pb-2">
