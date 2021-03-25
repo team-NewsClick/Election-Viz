@@ -123,14 +123,6 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
 }
 
 export const getRegionStatsSVGData = (data) => {
-  let pc_list = new Set()
-  let candidate = new Set()
-  data.map((row) => {
-    pc_list.add(row.PC_NO)
-    candidate.add(row.CANDIDATE)
-  })
-  pc_list = [...pc_list]
-  candidate = [...candidate]
   const finalList = getConstituencyResults(data)
   const partiesCount = finalList.reduce( (acc, o) => (acc[o.party] = (acc[o.party] || 0)+1, acc), {} )
   let keys = Object.keys(partiesCount)
