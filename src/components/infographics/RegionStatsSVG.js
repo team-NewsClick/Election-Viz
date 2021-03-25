@@ -1,7 +1,7 @@
 import parliamentSVG from 'parliament-svg'
 import stringify from 'virtual-dom-stringify'
 import parse from 'html-react-parser'
-import { constituenciesDefaultSelect } from "../../constants"
+import { CONSTITUENCIES_DEFAULT_SELECT } from "../../constants"
 
 const RegionStatsSVG = ({regionStatsSVGData, selectedConstituency}) => {
   let altSVG = []
@@ -39,7 +39,7 @@ const RegionStatsSVG = ({regionStatsSVGData, selectedConstituency}) => {
           )}
           </div>
           {totalConstituencies > 0 ?
-            selectedConstituency == constituenciesDefaultSelect && <div className="text-4xl text-center pt-12">{totalConstituencies}</div> :
+            selectedConstituency == CONSTITUENCIES_DEFAULT_SELECT && <div className="text-4xl text-center pt-12">{totalConstituencies}</div> :
             <div className="md:text-xl text-lg px-10 md:pt-60 pt-6">
               Please select a region for a detailed view. <br /><br />
               It's easy, you can try one of the following:<br /><br />

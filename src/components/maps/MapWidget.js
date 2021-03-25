@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import { _MapContext as MapContext, StaticMap } from "react-map-gl"
-import { stateCoordinates, stateUTDefaultSelect } from "../../constants"
+import { STATE_COORDINATES, STATE_UT_DEFAULT_SELECT } from "../../constants"
 
 /**
  * Plot Map and Deckgl Layers
@@ -54,8 +54,8 @@ const MapWidget = ({
 
   useEffect(() => {
     const state = selectedStateUT
-    if (state !== stateUTDefaultSelect) {
-      const stateObject = stateCoordinates.filter((row) => {
+    if (state !== STATE_UT_DEFAULT_SELECT) {
+      const stateObject = STATE_COORDINATES.filter((row) => {
         if (state == row.state) {
           return row
         }
@@ -74,7 +74,7 @@ const MapWidget = ({
 
   const _handleMapState = (object) => {
     const state = object.properties.ST_NM
-    const stateObject = stateCoordinates.filter((row) => {
+    const stateObject = STATE_COORDINATES.filter((row) => {
       if (state == row.state) {
         return row
       }

@@ -2,23 +2,23 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
-  yearOptions,
-  yearDefaultSelect,
-  regionOptions,
-  stateUTDefaultSelect,
-  constituenciesDefaultSelect,
-  localityOptions,
-  communityOptions,
-  genderOptions,
-  educationOptions,
-  experienceOptions,
-  crimianalityOptions,
-  seatTypeOptions,
+  YEAR_OPTIONS,
+  YEAR_DEFAULT_SELECT,
+  REGION_OPTIONS,
+  STATE_UT_DEFAULT_SELECT,
+  CONSTITUENCIES_DEFAULT_SELECT,
+  LOCALITY_OPTIONS,
+  COMMUNITY_OPTIONS,
+  GENDER_OPTIONS,
+  EDUCATION_OPTIONS,
+  EXPERIENCE_OPTIONS,
+  CRIMINALITY_OPTIONS,
+  SEAT_TYPE_OPTIONS
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
   RegionStatsSVG,
-  RegionStatsTable,
+  RegionStatsTable
 } from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
 import {
@@ -28,7 +28,8 @@ import {
   getConstituencies,
   getConstituencyContestantsStatsData,
   getRegionStatsSVGData,
-  getStateUTMapDataPC
+  getStateUTMapDataPC,
+  getConstituencyResults
 } from "../utils"
 
 /**
@@ -36,10 +37,12 @@ import {
  */
 const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const windowWidth = window.innerWidth
-  const [selectedYear, setSelectedYear] = useState(yearDefaultSelect)
+  const [selectedYear, setSelectedYear] = useState(YEAR_DEFAULT_SELECT)
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect)
-  const [selectedConstituency, setSelectedConstituency] = useState(constituenciesDefaultSelect)
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedConstituency, setSelectedConstituency] = useState(
+    CONSTITUENCIES_DEFAULT_SELECT
+  )
   const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
 
   useEffect(() => {
@@ -63,13 +66,19 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
-    setRegionStatsSVGData(getRegionStatsSVGData(selectedConstituency === constituenciesDefaultSelect ? selectedStateUTData : selectedConstituencyData))
+    setRegionStatsSVGData(
+      getRegionStatsSVGData(
+        selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+          ? selectedStateUTData
+          : selectedConstituencyData
+      )
+    )
   }, [selectedYear, selectedStateUT, selectedConstituency])
 
   // let constituencyVoteCountLastThreeElectionsData = []
   // console.log(selectedConstituency)
   // if(selectedConstituency !== "All Constituencies") {
-  //   constituencyVoteCountLastThreeElectionsData = getConstituencyVoteCountLastThreeElectionsData(yearOptions, selectedConstituency)
+  //   constituencyVoteCountLastThreeElectionsData = getConstituencyVoteCountLastThreeElectionsData(YEAR_OPTIONS, selectedConstituency)
   //   console.log("constituencyVoteCountLastThreeElectionsData: ", constituencyVoteCountLastThreeElectionsData)
   // }
 
@@ -87,11 +96,22 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }
 
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
-  const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency)
+  const selectedConstituencyData = dataConstituency(
+    selectedStateUTData,
+    selectedConstituency
+  )
   const stateUTOptions = getStateUTs(selectedYearData)
   const constituencyOptions = getConstituencies(selectedStateUTData)
-  const StateUTMapDataPC = getStateUTMapDataPC(selectedYearData, selectedStateUT)
-
+  const StateUTMapDataPC = getStateUTMapDataPC(
+    selectedYearData,
+    selectedStateUT
+  )
+  const constituencyResults = getConstituencyResults(
+    selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+      ? selectedStateUTData
+      : selectedConstituencyData
+  )
+  console.log("Const Results: ", constituencyResults)
   // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
 
   const _updatedRegion = (state) => {
@@ -181,47 +201,47 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               id="year"
               className="w-40 md:w-64"
             >
-              {yearOptions.map((d, index) => (
+              {YEAR_OPTIONS.map((d, index) => (
                 <option key={index} value={d.value}>
                   {d.label}
                 </option>
               ))}
             </select>
           </div>
+        </div>
+        <div className="flex flex-wrap justify-center mx-auto">
+          <div>
+            <select
+              name="state-ut"
+              onChange={(e) => _handleSelectedStateUT(e.target.value)}
+              id="state-ut"
+              className="advance-select w-40 md:w-64"
+              value={selectedStateUT}
+            >
+              {stateUTOptions.map((d, index) => (
+                <option key={index} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="flex flex-wrap justify-center mx-auto">
-            <div>
-              <select
-                name="state-ut"
-                onChange={(e) => _handleSelectedStateUT(e.target.value)}
-                id="state-ut"
-                className="advance-select w-40 md:w-64"
-                value={selectedStateUT}
-              >
-                {stateUTOptions.map((d, index) => (
-                  <option key={index} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <select
-                name="constituency"
-                onChange={(e) => _handleSelectedConstituency(e.target.value)}
-                id="constituency"
-                className="advance-select w-40 md:w-64"
-                value={selectedConstituency}
-              >
-                {constituencyOptions.map((d, index) => (
-                  <option key={index} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div>
+            <select
+              name="constituency"
+              onChange={(e) => _handleSelectedConstituency(e.target.value)}
+              id="constituency"
+              className="advance-select w-40 md:w-64"
+              value={selectedConstituency}
+            >
+              {constituencyOptions.map((d, index) => (
+                <option key={index} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
           </div>
-          {/* <div
+        </div>
+        {/* <div
             onClick={showHideAdvanceOptions}
             className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm"
           >
@@ -269,7 +289,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="region"
                   className="advance-select"
                 >
-                  {regionOptions.map((d, index) => (
+                  {REGION_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -298,7 +318,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="locality"
                   className="advance-select"
                 >
-                  {localityOptions.map((d, index) => (
+                  {LOCALITY_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -327,7 +347,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="community"
                   className="advance-select"
                 >
-                  {communityOptions.map((d, index) => (
+                  {COMMUNITY_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -341,7 +361,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="gender"
                   className="advance-select"
                 >
-                  {genderOptions.map((d, index) => (
+                  {GENDER_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -355,7 +375,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="education"
                   className="advance-select"
                 >
-                  {crimianalityOptions.map((d, index) => (
+                  {CRIMINALITY_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -369,7 +389,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="experience"
                   className="advance-select"
                 >
-                  {experienceOptions.map((d, index) => (
+                  {EXPERIENCE_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -383,7 +403,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="criminality"
                   className="advance-select"
                 >
-                  {educationOptions.map((d, index) => (
+                  {EDUCATION_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -397,7 +417,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="seatType"
                   className="advance-select"
                 >
-                  {seatTypeOptions.map((d, index) => (
+                  {SEAT_TYPE_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -426,8 +446,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
-            <RegionStatsSVG regionStatsSVGData={regionStatsSVGData} selectedConstituency={selectedConstituency}/>
-            <RegionStatsTable PartyAllianceTableData={regionStatsSVGData}/>
+            <RegionStatsSVG
+              regionStatsSVGData={regionStatsSVGData}
+              selectedConstituency={selectedConstituency}
+            />
+            <RegionStatsTable PartyAllianceTableData={regionStatsSVGData} />
           </div>
           <div>
             {selectedStateUT && (
@@ -436,7 +459,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 districtGeojson={districtGeojson}
                 onMapUpdate={_updatedRegion}
                 selectedStateUT={selectedStateUT}
-                StateUTMapDataPC= {StateUTMapDataPC}
+                StateUTMapDataPC={StateUTMapDataPC}
               />
             )}
           </div>
