@@ -2,25 +2,26 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
-  electionTypeDefaultSelect,
-  generalYearOptions,
-  assemblyYearOptions,
-  yearDefaultSelect,
-  regionOptions,
-  stateUTDefaultSelect,
-  constituenciesDefaultSelect,
-  localityOptions,
-  communityOptions,
-  genderOptions,
-  educationOptions,
-  experienceOptions,
-  crimianalityOptions,
-  seatTypeOptions,
+  ELECTION_TYPE_DEFAULT,
+  GENERAL_YEAR_OPTIONS,
+  ASSEMBLY_YEAR_OPTIONS,
+  YEAR_OPTIONS,
+  YEAR_DEFAULT_SELECT,
+  REGION_OPTIONS,
+  STATE_UT_DEFAULT_SELECT,
+  CONSTITUENCIES_DEFAULT_SELECT,
+  LOCALITY_OPTIONS,
+  COMMUNITY_OPTIONS,
+  GENDER_OPTIONS,
+  EDUCATION_OPTIONS,
+  EXPERIENCE_OPTIONS,
+  CRIMINALITY_OPTIONS,
+  SEAT_TYPE_OPTIONS
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
   RegionStatsSVG,
-  RegionStatsTable,
+  RegionStatsTable
 } from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
 import {
@@ -30,7 +31,8 @@ import {
   getConstituencies,
   getConstituencyContestantsStatsData,
   getRegionStatsSVGData,
-  getStateUTMapDataPC
+  getStateUTMapDataPC,
+  getConstituencyResults
 } from "../utils"
 
 /**
@@ -38,13 +40,18 @@ import {
  */
 const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const windowWidth = window.innerWidth
-  const [electionType, setElectionType] = useState(electionTypeDefaultSelect)
-  const [yearOptions, setYearOptions] = useState(generalYearOptions)
+  const [electionType, setElectionType] = useState(ELECTION_TYPE_DEFAULT)
+  const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect)
-  const [selectedConstituency, setSelectedConstituency] = useState(constituenciesDefaultSelect)
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
+
+  useEffect(() => {
+    setYearOptions(electionType == "general" ? GENERAL_YEAR_OPTIONS : ASSEMBLY_YEAR_OPTIONS)
+    setSelectedYear(yearOptions.indexOf(selectedYear) > -1 ? selectedYear : yearOptions[0])
+  }, [electionType, yearOptions])
 
   useEffect(() => {
     axios.get(`/data/csv/${electionType}_${selectedYear}.csv`).then((response) => {
@@ -52,7 +59,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       setSelectedYearData(parsedData)
     })
   }, [selectedYear])
-  
+
   useEffect(() => {
     setSelectedStateUT(
       stateUTOptions.indexOf(selectedStateUT) > -1
@@ -63,18 +70,10 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         constituencyOptions.indexOf(selectedConstituency) > -1
         ? selectedConstituency
         : constituencyOptions[0]
-        )
-      }, [electionType, selectedYearData, selectedStateUT])
-      
-  useEffect(() => {
-    setRegionStatsSVGData(getRegionStatsSVGData(selectedConstituency === constituenciesDefaultSelect ? selectedStateUTData : selectedConstituencyData))
-  }, [selectedYear, selectedStateUT, selectedConstituency])
+      )
+    setRegionStatsSVGData(getRegionStatsSVGData(selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ? selectedStateUTData : selectedConstituencyData))
+  }, [electionType, yearOptions, selectedYearData, selectedStateUT, selectedConstituency])
 
-  useEffect(() => {
-    setYearOptions(electionType == "general" ? generalYearOptions : assemblyYearOptions)
-    setSelectedYear(yearOptions.indexOf(selectedYear) > -1 ? selectedYear : yearOptions[0])
-  }, [electionType, yearOptions])
-  
   // let constituencyVoteCountLastThreeElectionsData = []
   // console.log(selectedConstituency)
   // if(selectedConstituency !== "All Constituencies") {
@@ -101,6 +100,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const constituencyOptions = getConstituencies(selectedStateUTData)
   const StateUTMapDataPC = getStateUTMapDataPC(selectedYearData, selectedStateUT)
   
+  const constituencyResults = getConstituencyResults(
+    selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+      ? selectedStateUTData
+      : selectedConstituencyData
+  )
   // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
     
   const _handleElectionType = (v) => {
@@ -148,9 +152,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       <div>
         <div className="h-10" />
         <div className="flex flex-wrap justify-center mx-auto">
-          <div 
-            className="radio-toolbar md:mx-2 my-2"
-            >
+          <div className="radio-toolbar md:mx-2 my-2">
             <input
               type="radio"
               id="general"
@@ -313,7 +315,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="locality"
                   className="advance-select"
                 >
-                  {localityOptions.map((d, index) => (
+                  {LOCALITY_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -342,7 +344,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="community"
                   className="advance-select"
                 >
-                  {communityOptions.map((d, index) => (
+                  {COMMUNITY_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -356,7 +358,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="gender"
                   className="advance-select"
                 >
-                  {genderOptions.map((d, index) => (
+                  {GENDER_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -370,7 +372,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="education"
                   className="advance-select"
                 >
-                  {crimianalityOptions.map((d, index) => (
+                  {CRIMINALITY_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -384,7 +386,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="experience"
                   className="advance-select"
                 >
-                  {experienceOptions.map((d, index) => (
+                  {EXPERIENCE_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -398,7 +400,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="criminality"
                   className="advance-select"
                 >
-                  {educationOptions.map((d, index) => (
+                  {EDUCATION_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
@@ -412,7 +414,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="seatType"
                   className="advance-select"
                 >
-                  {seatTypeOptions.map((d, index) => (
+                  {SEAT_TYPE_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>

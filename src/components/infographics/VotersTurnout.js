@@ -1,4 +1,4 @@
-import { votersTurnoutOptions } from "../../constants"
+import { VOTERS_TRUNOUT_OPTIONS } from "../../constants"
 
 const VotersTurnout = () => {
   const _handleVotersType = (v) => {
@@ -10,7 +10,7 @@ const VotersTurnout = () => {
       <div className="widget-title">Voters Turnout Stats</div>
       <div className=" hidden md:flex flex-wrap justify-center mx-auto my-6">
         <div className="flex flex-wrap radio-toolbar justify-center md:mx-2 my-2">
-          {votersTurnoutOptions.map((d, index) => (
+          {VOTERS_TRUNOUT_OPTIONS.map((d, index) => (
           <div key={index}>
             <input
               type="radio"
@@ -33,7 +33,7 @@ const VotersTurnout = () => {
           id="voters-type"
           className="w-72"
         >
-          {votersTurnoutOptions.map((d, index) => (
+          {VOTERS_TRUNOUT_OPTIONS.map((d, index) => (
             <option key={index} value={d.value}>
               {d.label}
             </option>

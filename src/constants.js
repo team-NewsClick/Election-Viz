@@ -1,22 +1,22 @@
 /**
  * Default selection from general or assembly election
  */
-export const electionTypeDefaultSelect = "general"
+export const ELECTION_TYPE_DEFAULT = "general"
 
 /**
  * Options for Year for Assembly Elections
  */
-export const assemblyYearOptions = ["2016", "2015"]
+export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015"]
 
 /**
  * Options for Year for General Elections
  */
- export const generalYearOptions = ["2019", "2014"]
+ export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
 
 /**
  * Options for Region
  */
-export const regionOptions = [
+export const REGION_OPTIONS = [
   {
     value: "All Regions",
     label: "All Regions"
@@ -49,24 +49,24 @@ export const regionOptions = [
 
 /**
  * Default Selection for Region
- * Default selection for region should be at regionOptions[0]
+ * Default selection for region should be at REGION_OPTIONS[0]
  */
-export const regionDefaultSelect = regionOptions[0]
+export const REGION_DEFAULT_SELECT = REGION_OPTIONS[0]
 
 /**
  * Default Selection for States/UTs
  */
-export const stateUTDefaultSelect = "All States & UTs"
+export const STATE_UT_DEFAULT_SELECT = "All States & UTs"
 
 /**
  * Default Selection for Constituencies
  */
-export const constituenciesDefaultSelect = "All Constituencies"
+export const CONSTITUENCIES_DEFAULT_SELECT = "All Constituencies"
 
 /**
  * Options for Locality
  */
-export const localityOptions = [
+export const LOCALITY_OPTIONS = [
   {
     value: "All Localities",
     label: "All Localities"
@@ -88,7 +88,7 @@ export const localityOptions = [
 /**
  * Options for Community
  */
-export const communityOptions = [
+export const COMMUNITY_OPTIONS = [
   {
     value: "All Communitites",
     label: "All Communitites"
@@ -118,7 +118,7 @@ export const communityOptions = [
 /**
  * Options for Gender
  */
-export const genderOptions = [
+export const GENDER_OPTIONS = [
   {
     value: "All Genders",
     label: "All Genders"
@@ -136,7 +136,7 @@ export const genderOptions = [
 /**
  * Options for Education
  */
-export const educationOptions = [
+export const EDUCATION_OPTIONS = [
   {
     value: "All Education Levels",
     label: "All Education Levels"
@@ -154,7 +154,7 @@ export const educationOptions = [
 /**
  * Options for experience
  */
-export const experienceOptions = [
+export const EXPERIENCE_OPTIONS = [
   {
     value: "All Experiences",
     label: "All Experiences"
@@ -172,7 +172,7 @@ export const experienceOptions = [
 /**
  * Options for Criminality
  */
-export const crimianalityOptions = [
+export const CRIMINALITY_OPTIONS = [
   {
     value: "All Criminality",
     label: "All Criminality"
@@ -190,7 +190,7 @@ export const crimianalityOptions = [
 /**
  * Options for Seat Type
  */
-export const seatTypeOptions = [
+export const SEAT_TYPE_OPTIONS = [
   {
     value: "All Seats Type",
     label: "All Seats Type"
@@ -212,7 +212,7 @@ export const seatTypeOptions = [
 /**
  * Options for Voters Turnout
  */
-export const votersTurnoutOptions = [
+export const VOTERS_TRUNOUT_OPTIONS = [
   {
     value: "vt-age",
     label: "Age"
@@ -235,7 +235,7 @@ export const votersTurnoutOptions = [
 /**
  * State Names and Coordinates
  */
-export const stateCoordinates = [
+export const STATE_COORDINATES = [
   {
     state: "Andaman & Nicobar Island",
     latitude: 11.667,
@@ -422,7 +422,7 @@ export const stateCoordinates = [
 /**
  * Parties color
  */
-export const partyColor = [
+export const PARTY_COLOR = [
  {
    party: 'BJP',
    color: '#F97D09'

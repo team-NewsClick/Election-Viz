@@ -1,5 +1,5 @@
 import { parse } from "postcss"
-import { stateUTDefaultSelect, partyColor } from "./constants"
+import { STATE_UT_DEFAULT_SELECT, PARTY_COLOR } from "./constants"
 
 /**
  * Returns a list of States and UTs that had election in a year
@@ -122,19 +122,26 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
   } else return null
 }
 
+/**
+ * Find Party color
+ * @param {*} data - Array of Party and Total Seats
+ * @returns - Hex Color
+ */
+const assignPartyColor = (data) => {
+  if (data.PARTY) {
+    return PARTY_COLOR.find(e => e.party == data.PARTY) == undefined ? "#000000" : PARTY_COLOR.find(e => e.party == data.PARTY).color
+  } else {
+    return PARTY_COLOR.find(e => e.party == data.party) == undefined ? "#000000" : PARTY_COLOR.find(e => e.party == data.party).color
+  }
+}
+
+/**
+ * 
+ * @param {*} data 
+ * @returns 
+ */
 export const getRegionStatsSVGData = (data) => {
-  let pc_list = new Set()
-  let candidate = new Set()
-  let total_parties = new Set()
-  data.map((row) => {
-    pc_list.add(row.PC_NO)
-    candidate.add(row.CANDIDATE)
-    total_parties.add(row.PARTY)
-  })
-  pc_list = [...pc_list]
-  candidate = [...candidate]
-  total_parties = [...total_parties]
-  const finalList = getConstituencyResults(data,candidate,pc_list)
+  const finalList = getConstituencyResults(data)
   const partiesCount = finalList.reduce( (acc, o) => (acc[o.party] = (acc[o.party] || 0)+1, acc), {} )
   let keys = Object.keys(partiesCount)
   const preFinal = []
@@ -150,7 +157,7 @@ export const getRegionStatsSVGData = (data) => {
   preFinal.map((row) => {
     finalData[row.party] = {
       seats : row.totalSeats,
-      colour: partyColor.find(e => e.party == row.party) == undefined ? "#000000" : partyColor.find(e => e.party == row.party).color
+      colour: assignPartyColor(row)
     }
   })
   return finalData
@@ -163,24 +170,38 @@ export const getRegionStatsSVGData = (data) => {
  * @param {Array} pc_list - Parliamentary Constituency list
  * @return {Object} - List of Constituencies with respective party who won the election
  */
-export const getConstituencyResults = (data,candidates,pc_list) => {
+export const getConstituencyResults = (data) => {
+  let pc_list = new Set()
+  let candidates = new Set()
+  data.map((row) => {
+    pc_list.add(row.PC_NO)
+    candidates.add(row.CANDIDATE)
+  })
+  pc_list = [...pc_list]
+  candidates = [...candidates]
   let candidateVotes = []
-  candidates.map((cand) => {
+  candidates.map((candidate) => {
     let votes = 0
     let party = '--'
     let pc_no = 0
-    data.map((da) => {
-      if (da.CANDIDATE === cand){
-        votes = votes+parseInt(da.VOTES)
-        party = da.PARTY
-        pc_no = da.PC_NO
+    let pc_name = ""
+    let color = ""
+    data.map((row) => {
+      if (row.CANDIDATE === candidate){
+        votes = votes+parseInt(row.VOTES)
+        party = row.PARTY
+        pc_no = row.PC_NO
+        pc_name = row.PC_NAME,
+        color = assignPartyColor(row)
       }
     })
     candidateVotes.push({
-      pc_no : pc_no,
-      party:party,
-      Votes: votes,
-      candidate: cand
+      pc_no,
+      pc_name,
+      party,
+      candidate,
+      color,
+      Votes: votes
     })
   })
   let finalList = []
@@ -206,7 +227,7 @@ return finalList
  * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
  */
 export const getStateUTMapDataPC = (data, stateUT) => {
-  if (stateUT === stateUTDefaultSelect) {
+  if (stateUT === STATE_UT_DEFAULT_SELECT) {
     return null
   }
   let stateData = []
