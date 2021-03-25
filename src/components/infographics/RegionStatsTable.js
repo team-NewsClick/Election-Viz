@@ -15,8 +15,8 @@ const RegionStatsTable = ({PartyAllianceTableData}) => {
             <img src="img/plus-minus.svg" className="float-right" />
           </div>
         </div>
-        {tableData.map((row) =>       
-          <div className="flex bg-gray-200 border-b border-gray-400">
+        {tableData.map((row, index) =>       
+          <div key={index} className="flex bg-gray-200 border-b border-gray-400">
             <div className="w-2/12 border-r border-gray-400 pl-1.5 py-2">{row.party}</div>
             <div className="w-3/12 px-1 py-2 text-center">{row.seats}</div>
             <div className="flex flex-row-reverse w-2/12 border-r border-gray-400 py-2 px-3">

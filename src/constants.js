@@ -1,29 +1,17 @@
 /**
- * Options for Year
+ * Default selection from general or assembly election
  */
-export const yearOptions = [
-  {
-    value: "2019",
-    label: "2019"
-  },
-  {
-    value: "2016",
-    label: "2016"
-  },
-  {
-    value: "2015",
-    label: "2015"
-  },
-  {
-    value: "2014",
-    label: "2014"
-  }
-]
+export const electionTypeDefaultSelect = "general"
 
 /**
- * Default Selection for Year
+ * Options for Year for Assembly Elections
  */
-export const yearDefaultSelect = "2019"
+export const assemblyYearOptions = ["2016", "2015"]
+
+/**
+ * Options for Year for General Elections
+ */
+ export const generalYearOptions = ["2019", "2014"]
 
 /**
  * Options for Region
@@ -493,7 +481,7 @@ export const partyColor = [
   },
  {
    party: 'AITC',
-   color: '#008D3C'
+   color: '#69B800'
   },
  {
    party: 'Congress(Secular)',

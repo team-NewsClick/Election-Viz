@@ -91,7 +91,7 @@ const MapWidget = ({
 
   const _drawDistrictLine = (d) => {
     if (d.properties.State === stateName) {
-      return [255, 255, 0, 255]
+      return [175, 175, 175, 255]
     }
     return [0, 0, 0, 0]
   }

@@ -2,7 +2,9 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
-  yearOptions,
+  electionTypeDefaultSelect,
+  generalYearOptions,
+  assemblyYearOptions,
   yearDefaultSelect,
   regionOptions,
   stateUTDefaultSelect,
@@ -36,64 +38,74 @@ import {
  */
 const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const windowWidth = window.innerWidth
-  const [selectedYear, setSelectedYear] = useState(yearDefaultSelect)
+  const [electionType, setElectionType] = useState(electionTypeDefaultSelect)
+  const [yearOptions, setYearOptions] = useState(generalYearOptions)
+  const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(stateUTDefaultSelect)
   const [selectedConstituency, setSelectedConstituency] = useState(constituenciesDefaultSelect)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
 
   useEffect(() => {
-    axios.get(`/data/csv/assembly_${selectedYear}.csv`).then((response) => {
+    axios.get(`/data/csv/${electionType}_${selectedYear}.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setSelectedYearData(parsedData)
     })
   }, [selectedYear])
-
+  
   useEffect(() => {
     setSelectedStateUT(
       stateUTOptions.indexOf(selectedStateUT) > -1
-        ? selectedStateUT
-        : stateUTOptions[0]
-    )
-    setSelectedConstituency(
-      constituencyOptions.indexOf(selectedConstituency) > -1
+      ? selectedStateUT
+      : stateUTOptions[0]
+      )
+      setSelectedConstituency(
+        constituencyOptions.indexOf(selectedConstituency) > -1
         ? selectedConstituency
         : constituencyOptions[0]
-    )
-  }, [selectedYearData, selectedStateUT])
-
+        )
+      }, [electionType, selectedYearData, selectedStateUT])
+      
   useEffect(() => {
     setRegionStatsSVGData(getRegionStatsSVGData(selectedConstituency === constituenciesDefaultSelect ? selectedStateUTData : selectedConstituencyData))
   }, [selectedYear, selectedStateUT, selectedConstituency])
 
+  useEffect(() => {
+    setYearOptions(electionType == "general" ? generalYearOptions : assemblyYearOptions)
+    setSelectedYear(yearOptions.indexOf(selectedYear) > -1 ? selectedYear : yearOptions[0])
+  }, [electionType, yearOptions])
+  
   // let constituencyVoteCountLastThreeElectionsData = []
   // console.log(selectedConstituency)
   // if(selectedConstituency !== "All Constituencies") {
-  //   constituencyVoteCountLastThreeElectionsData = getConstituencyVoteCountLastThreeElectionsData(yearOptions, selectedConstituency)
-  //   console.log("constituencyVoteCountLastThreeElectionsData: ", constituencyVoteCountLastThreeElectionsData)
-  // }
-
+    //   constituencyVoteCountLastThreeElectionsData = getConstituencyVoteCountLastThreeElectionsData(yearOptions, selectedConstituency)
+    //   console.log("constituencyVoteCountLastThreeElectionsData: ", constituencyVoteCountLastThreeElectionsData)
+    // }
+    
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
     const btnIcon = document.getElementById("showHideAdvance-btn-icon")
     options.style.display === "none"
-      ? ((options.style.display = "block"),
-        (btnText.innerHTML = "Hide Advance Options"),
-        (btnIcon.style.transform = "rotate(180deg)"))
-      : ((options.style.display = "none"),
-        (btnText.innerHTML = "Show Advance Options"),
-        (btnIcon.style.transform = "rotate(0deg)"))
+    ? ((options.style.display = "block"),
+    (btnText.innerHTML = "Hide Advance Options"),
+    (btnIcon.style.transform = "rotate(180deg)"))
+    : ((options.style.display = "none"),
+    (btnText.innerHTML = "Show Advance Options"),
+    (btnIcon.style.transform = "rotate(0deg)"))
   }
-
+  
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
   const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency)
   const stateUTOptions = getStateUTs(selectedYearData)
   const constituencyOptions = getConstituencies(selectedStateUTData)
   const StateUTMapDataPC = getStateUTMapDataPC(selectedYearData, selectedStateUT)
-
+  
   // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
-
+    
+  const _handleElectionType = (v) => {
+    setElectionType(v)
+  }
   const _updatedRegion = (state) => {
     setSelectedStateUT(state)
   }
@@ -101,7 +113,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     setSelectedYear(v)
   }
   const _handleSelectedRegion = (v) => {
-    console.log(v)
+  console.log(v)
   }
   const _handleSelectedStateUT = (v) => {
     setSelectedStateUT(v)
@@ -136,13 +148,16 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       <div>
         <div className="h-10" />
         <div className="flex flex-wrap justify-center mx-auto">
-          <div className="radio-toolbar md:mx-2 my-2">
+          <div 
+            className="radio-toolbar md:mx-2 my-2"
+            >
             <input
               type="radio"
               id="general"
               name="election"
               value="general"
-              onChange={(e) => console.log("general")}
+              defaultChecked
+              onChange={(e) => _handleElectionType(e.currentTarget.value)}
             />
             <label htmlFor="general">General Elections</label>
             <input
@@ -150,8 +165,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               id="assembly"
               name="election"
               value="assembly"
-              defaultChecked
-              onChange={(e) => console.log("assembly")}
+              onChange={(e) => _handleElectionType(e.currentTarget.value)}
             />
             <label htmlFor="assembly">Assembly Elections</label>
           </div>
@@ -180,10 +194,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               onChange={(e) => _handleSelectedYear(e.target.value)}
               id="year"
               className="w-40 md:w-64"
+              value={selectedYear}
             >
               {yearOptions.map((d, index) => (
-                <option key={index} value={d.value}>
-                  {d.label}
+                <option key={index} value={d}>
+                  {d}
                 </option>
               ))}
             </select>
