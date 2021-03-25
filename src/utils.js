@@ -125,16 +125,13 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
 export const getRegionStatsSVGData = (data) => {
   let pc_list = new Set()
   let candidate = new Set()
-  let total_parties = new Set()
   data.map((row) => {
     pc_list.add(row.PC_NO)
     candidate.add(row.CANDIDATE)
-    total_parties.add(row.PARTY)
   })
   pc_list = [...pc_list]
   candidate = [...candidate]
-  total_parties = [...total_parties]
-  const finalList = getConstituencyResults(data,candidate,pc_list)
+  const finalList = getConstituencyResults(data)
   const partiesCount = finalList.reduce( (acc, o) => (acc[o.party] = (acc[o.party] || 0)+1, acc), {} )
   let keys = Object.keys(partiesCount)
   const preFinal = []
@@ -163,7 +160,15 @@ export const getRegionStatsSVGData = (data) => {
  * @param {Array} pc_list - Parliamentary Constituency list
  * @return {Object} - List of Constituencies with respective party who won the election
  */
-export const getConstituencyResults = (data,candidates,pc_list) => {
+export const getConstituencyResults = (data) => {
+  let pc_list = new Set()
+  let candidates = new Set()
+  data.map((row) => {
+    pc_list.add(row.PC_NO)
+    candidates.add(row.CANDIDATE)
+  })
+  pc_list = [...pc_list]
+  candidates = [...candidates]
   let candidateVotes = []
   candidates.map((cand) => {
     let votes = 0
