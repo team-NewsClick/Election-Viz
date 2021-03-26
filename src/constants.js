@@ -1,29 +1,17 @@
 /**
- * Options for Year
+ * Default selection from general or assembly election
  */
-export const YEAR_OPTIONS = [
-  {
-    value: "2019",
-    label: "2019"
-  },
-  {
-    value: "2016",
-    label: "2016"
-  },
-  {
-    value: "2015",
-    label: "2015"
-  },
-  {
-    value: "2014",
-    label: "2014"
-  }
-]
+export const ELECTION_TYPE_DEFAULT = "general"
 
 /**
- * Default Selection for Year
+ * Options for Year for Assembly Elections
  */
-export const YEAR_DEFAULT_SELECT = "2019"
+export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015"]
+
+/**
+ * Options for Year for General Elections
+ */
+export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
 
 /**
  * Options for Region
@@ -240,7 +228,7 @@ export const VOTERS_TRUNOUT_OPTIONS = [
   {
     value: "vt-employement",
     label: "Employement"
-  },
+  }
 ]
 
 /**
@@ -302,8 +290,7 @@ export const STATE_COORDINATES = [
   {
     state: "Gujarat",
     latitude: 22.309425,
-    longitude: 72.136230
-
+    longitude: 72.13623
   },
   {
     state: "Goa",
@@ -441,221 +428,220 @@ export const STATE_COORDINATES = [
  * Parties color
  */
 export const PARTY_COLOR = [
- {
-   party: 'BJP',
-   color: '#F97D09'
+  {
+    party: "BJP",
+    color: "#F97D09"
   },
- {
-   party: 'SP',
-   color: '#FE6161'
+  {
+    party: "SP",
+    color: "#FE6161"
   },
- {
-   party: 'BSP',
-   color: '#0000FF'
+  {
+    party: "BSP",
+    color: "#0000FF"
   },
- {
-   party: 'RLD',
-   color: '#FF0000'
+  {
+    party: "RLD",
+    color: "#FF0000"
   },
- {
-   party: 'IUML',
-   color: '#00FF00'
+  {
+    party: "IUML",
+    color: "#00FF00"
   },
- {
-   party: 'KC(J)',
-   color: '#BD0026'
+  {
+    party: "KC(J)",
+    color: "#BD0026"
   },
- {
-   party: 'TRS',
-   color: '#BD0026'
+  {
+    party: "TRS",
+    color: "#BD0026"
   },
- {
-   party: 'KC(M)',
-   color: '#BD0026'
+  {
+    party: "KC(M)",
+    color: "#BD0026"
   },
- {
-   party: 'AGP',
-   color: '#BD0026'
+  {
+    party: "AGP",
+    color: "#BD0026"
   },
- {
-   party: 'KC(B)',
-   color: '#BD0026'
+  {
+    party: "KC(B)",
+    color: "#BD0026"
   },
- {
-   party: 'AINRCongress',
-   color: '#BD0026'
+  {
+    party: "AINRCongress",
+    color: "#BD0026"
   },
- {
-   party: 'CMPKSC',
-   color: '#FF0000'
+  {
+    party: "CMPKSC",
+    color: "#FF0000"
   },
- {
-   party: 'BPF',
-   color: '#BD0026'
+  {
+    party: "BPF",
+    color: "#BD0026"
   },
- {
-   party: 'ADMK',
-   color: '#008D3C'
+  {
+    party: "ADMK",
+    color: "#008D3C"
   },
- {
-   party: 'AITC',
-   color: '#008D3C'
+  {
+    party: "AITC",
+    color: "#69B800"
   },
- {
-   party: 'Congress(Secular)',
-   color: '#BD0026'
+  {
+    party: "Congress(Secular)",
+    color: "#BD0026"
   },
- {
-   party: 'JDS',
-   color: '#008D3C'
+  {
+    party: "JDS",
+    color: "#008D3C"
   },
- {
-   party: 'INC',
-   color: '#138808'
+  {
+    party: "INC",
+    color: "#138808"
   },
- {
-   party: 'CPI(M)',
-   color: '#DE0000'
+  {
+    party: "CPI(M)",
+    color: "#DE0000"
   },
- {
-   party: 'CPM',
-   color: '#DE0000'
+  {
+    party: "CPM",
+    color: "#DE0000"
   },
- {
-   party: 'CPIM',
-   color: '#DE0000'
+  {
+    party: "CPIM",
+    color: "#DE0000"
   },
- {
-   party: 'AIFB',
-   color: '#008D3C'
+  {
+    party: "AIFB",
+    color: "#008D3C"
   },
- {
-   party: 'GJM',
-   color: '#BD0026'
+  {
+    party: "GJM",
+    color: "#BD0026"
   },
- {
-   party: 'RSP',
-   color: '#FF0000'
+  {
+    party: "RSP",
+    color: "#FF0000"
   },
- {
-   party: 'IND',
-   color: '#A6A6A6'
+  {
+    party: "IND",
+    color: "#A6A6A6"
   },
- {
-   party: 'DMK',
-   color: '#BD0026'
+  {
+    party: "DMK",
+    color: "#BD0026"
   },
- {
-   party: 'NCP',
-   color: '#BD0026'
+  {
+    party: "NCP",
+    color: "#BD0026"
   },
- {
-   party: 'CPI',
-   color: '#DE0000'
+  {
+    party: "CPI",
+    color: "#DE0000"
   },
- {
-   party: 'AIUDF',
-   color: '#BD0026'
+  {
+    party: "AIUDF",
+    color: "#BD0026"
   },
- {
-   party: 'NSC',
-   color: '#BD0026'
+  {
+    party: "NSC",
+    color: "#BD0026"
   },
- {
-   party: 'AD',
-   color: '#FFA500'
+  {
+    party: "AD",
+    color: "#FFA500"
   },
- {
-   party: 'AAP',
-   color: '#ffff99'
+  {
+    party: "AAP",
+    color: "#ffff99"
   },
- {
-   party: 'AAAP',
-   color: '#ffff99'
+  {
+    party: "AAAP",
+    color: "#ffff99"
   },
- {
-   party: 'SBSP',
-   color: '#BD0026'
+  {
+    party: "SBSP",
+    color: "#BD0026"
   },
- {
-   party: 'AD(S)',
-   color: '#008D3C'
+  {
+    party: "AD(S)",
+    color: "#008D3C"
   },
- {
-   party: 'TDP',
-   color: '#DEDE05'
+  {
+    party: "TDP",
+    color: "#DEDE05"
   },
- {
-   party: 'YSRCP',
-   color: '#084202'
+  {
+    party: "YSRCP",
+    color: "#084202"
   },
- {
-   party: 'SHS',
-   color: '#FF6634'
+  {
+    party: "SHS",
+    color: "#FF6634"
   },
- {
-   party: 'RJD',
-   color: '#008000'
+  {
+    party: "RJD",
+    color: "#008000"
   },
- {
-   party: 'BJD',
-   color: '#006400'
+  {
+    party: "BJD",
+    color: "#006400"
   },
- {
-   party: 'SAD',
-   color: '#FFA500'
+  {
+    party: "SAD",
+    color: "#FFA500"
   },
- {
-   party: 'LJP',
-   color: '#28ECF3'
+  {
+    party: "LJP",
+    color: "#28ECF3"
   },
- {
-   party: 'JD(U)',
-   color: '#28F361'
+  {
+    party: "JD(U)",
+    color: "#28F361"
   },
- {
-   party: 'RLSP',
-   color: '#008000'
+  {
+    party: "RLSP",
+    color: "#008000"
   },
- {
-   party: 'BLSP',
-   color: '#008000'
+  {
+    party: "BLSP",
+    color: "#008000"
   },
- {
-   party: 'JKPDP',
-   color: '#084202'
+  {
+    party: "JKPDP",
+    color: "#084202"
   },
- {
-   party: 'JMM',
-   color: '#006400'
+  {
+    party: "JMM",
+    color: "#006400"
   },
- {
-   party: 'JKNC',
-   color: '#E92415'
+  {
+    party: "JKNC",
+    color: "#E92415"
   },
- {
-   party: 'INLD',
-   color: '#006400'
+  {
+    party: "INLD",
+    color: "#006400"
   },
- {
-   party: 'JD(S)',
-   color: '#006400'
+  {
+    party: "JD(S)",
+    color: "#006400"
   },
- {
-   party: 'BJP+',
-   color: '#F97D09'}
-   , 
- {
-   party: 'INC+',
-   color: '#138808'}
-   , 
- {
-   party: 'BSP-SP-RLD',
-   color: '#0000FF'}
-   , 
- {
-   party: 'LEFT',
-   color: '#DE0000'
+  {
+    party: "BJP+",
+    color: "#F97D09"
+  },
+  {
+    party: "INC+",
+    color: "#138808"
+  },
+  {
+    party: "BSP-SP-RLD",
+    color: "#0000FF"
+  },
+  {
+    party: "LEFT",
+    color: "#DE0000"
   }
 ]
-

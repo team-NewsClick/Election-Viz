@@ -2,6 +2,9 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
+  ELECTION_TYPE_DEFAULT,
+  GENERAL_YEAR_OPTIONS,
+  ASSEMBLY_YEAR_OPTIONS,
   YEAR_OPTIONS,
   YEAR_DEFAULT_SELECT,
   REGION_OPTIONS,
@@ -37,19 +40,34 @@ import {
  */
 const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const windowWidth = window.innerWidth
-  const [selectedYear, setSelectedYear] = useState(YEAR_DEFAULT_SELECT)
+  const [electionType, setElectionType] = useState(ELECTION_TYPE_DEFAULT)
+  const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
+  const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedStateUT, setSelectedStateUT] = useState(
+    STATE_UT_DEFAULT_SELECT
+  )
   const [selectedConstituency, setSelectedConstituency] = useState(
     CONSTITUENCIES_DEFAULT_SELECT
   )
   const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
 
   useEffect(() => {
-    axios.get(`/data/csv/assembly_${selectedYear}.csv`).then((response) => {
-      const parsedData = csvParse(response.data)
-      setSelectedYearData(parsedData)
-    })
+    setYearOptions(
+      electionType == "general" ? GENERAL_YEAR_OPTIONS : ASSEMBLY_YEAR_OPTIONS
+    )
+    setSelectedYear(
+      yearOptions.indexOf(selectedYear) > -1 ? selectedYear : yearOptions[0]
+    )
+  }, [electionType, yearOptions])
+
+  useEffect(() => {
+    axios
+      .get(`/data/csv/${electionType}_${selectedYear}.csv`)
+      .then((response) => {
+        const parsedData = csvParse(response.data)
+        setSelectedYearData(parsedData)
+      })
   }, [selectedYear])
 
   useEffect(() => {
@@ -63,9 +81,6 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         ? selectedConstituency
         : constituencyOptions[0]
     )
-  }, [selectedYearData, selectedStateUT])
-
-  useEffect(() => {
     setRegionStatsSVGData(
       getRegionStatsSVGData(
         selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
@@ -73,12 +88,18 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
           : selectedConstituencyData
       )
     )
-  }, [selectedYear, selectedStateUT, selectedConstituency])
+  }, [
+    electionType,
+    yearOptions,
+    selectedYearData,
+    selectedStateUT,
+    selectedConstituency
+  ])
 
   // let constituencyVoteCountLastThreeElectionsData = []
   // console.log(selectedConstituency)
   // if(selectedConstituency !== "All Constituencies") {
-  //   constituencyVoteCountLastThreeElectionsData = getConstituencyVoteCountLastThreeElectionsData(YEAR_OPTIONS, selectedConstituency)
+  //   constituencyVoteCountLastThreeElectionsData = getConstituencyVoteCountLastThreeElectionsData(yearOptions, selectedConstituency)
   //   console.log("constituencyVoteCountLastThreeElectionsData: ", constituencyVoteCountLastThreeElectionsData)
   // }
 
@@ -106,6 +127,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     selectedYearData,
     selectedStateUT
   )
+
   const constituencyResults = getConstituencyResults(
     selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
       ? selectedStateUTData
@@ -113,6 +135,9 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   )
   // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
 
+  const _handleElectionType = (v) => {
+    setElectionType(v)
+  }
   const _updatedRegion = (state) => {
     setSelectedStateUT(state)
   }
@@ -161,7 +186,8 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               id="general"
               name="election"
               value="general"
-              onChange={(e) => console.log("general")}
+              defaultChecked
+              onChange={(e) => _handleElectionType(e.currentTarget.value)}
             />
             <label htmlFor="general">General Elections</label>
             <input
@@ -169,8 +195,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               id="assembly"
               name="election"
               value="assembly"
-              defaultChecked
-              onChange={(e) => console.log("assembly")}
+              onChange={(e) => _handleElectionType(e.currentTarget.value)}
             />
             <label htmlFor="assembly">Assembly Elections</label>
           </div>
@@ -199,10 +224,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               onChange={(e) => _handleSelectedYear(e.target.value)}
               id="year"
               className="w-40 md:w-64"
+              value={selectedYear}
             >
-              {YEAR_OPTIONS.map((d, index) => (
-                <option key={index} value={d.value}>
-                  {d.label}
+              {yearOptions.map((d, index) => (
+                <option key={index} value={d}>
+                  {d}
                 </option>
               ))}
             </select>
@@ -288,7 +314,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                   id="region"
                   className="advance-select"
                 >
-                  {REGION_OPTIONS.map((d, index) => (
+                  {regionOptions.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>

@@ -99,7 +99,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
         candidate: c,
         party: party,
         alliance: "--",
-        votesReceived: votes,
+        votesReceived: votes
       })
     })
     stats.map((row) => {
@@ -109,16 +109,18 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
       candidates: candidates.length,
       parties: totalParties,
       alliances: "--",
-      votes: totalVotes,
+      votes: totalVotes
     }
     let highest = 0
     stats.map((d) => {
       highest = d.votesReceived > highest ? d.votesReceived : highest
     })
     stats.map((d) => {
-      return d.votesReceived === highest ? d.status = "won" : d.status = "lost"
+      return d.votesReceived === highest
+        ? (d.status = "won")
+        : (d.status = "lost")
     })
-    return ({ stats, totalStats })
+    return { stats, totalStats }
   } else return null
 }
 
@@ -129,20 +131,27 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
  */
 const assignPartyColor = (data) => {
   if (data.PARTY) {
-    return PARTY_COLOR.find(e => e.party == data.PARTY) == undefined ? "#000000" : PARTY_COLOR.find(e => e.party == data.PARTY).color
+    return PARTY_COLOR.find((e) => e.party == data.PARTY) == undefined
+      ? "#000000"
+      : PARTY_COLOR.find((e) => e.party == data.PARTY).color
   } else {
-    return PARTY_COLOR.find(e => e.party == data.party) == undefined ? "#000000" : PARTY_COLOR.find(e => e.party == data.party).color
+    return PARTY_COLOR.find((e) => e.party == data.party) == undefined
+      ? "#000000"
+      : PARTY_COLOR.find((e) => e.party == data.party).color
   }
 }
 
 /**
- * 
- * @param {*} data 
- * @returns 
+ *
+ * @param {*} data
+ * @returns
  */
 export const getRegionStatsSVGData = (data) => {
   const finalList = getConstituencyResults(data)
-  const partiesCount = finalList.reduce( (acc, o) => (acc[o.party] = (acc[o.party] || 0)+1, acc), {} )
+  const partiesCount = finalList.reduce(
+    (acc, o) => ((acc[o.party] = (acc[o.party] || 0) + 1), acc),
+    {}
+  )
   let keys = Object.keys(partiesCount)
   const preFinal = []
   keys.map((key) => {
@@ -150,13 +159,13 @@ export const getRegionStatsSVGData = (data) => {
       party: key,
       totalSeats: partiesCount[key]
     }
-  preFinal.push(values)
+    preFinal.push(values)
   })
 
   const finalData = new Object()
   preFinal.map((row) => {
     finalData[row.party] = {
-      seats : row.totalSeats,
+      seats: row.totalSeats,
       colour: assignPartyColor(row)
     }
   })
@@ -182,17 +191,16 @@ export const getConstituencyResults = (data) => {
   let candidateVotes = []
   candidates.map((candidate) => {
     let votes = 0
-    let party = '--'
+    let party = "--"
     let pc_no = 0
     let pc_name = ""
     let color = ""
     data.map((row) => {
-      if (row.CANDIDATE === candidate){
-        votes = votes+parseInt(row.VOTES)
+      if (row.CANDIDATE === candidate) {
+        votes = votes + parseInt(row.VOTES)
         party = row.PARTY
         pc_no = row.PC_NO
-        pc_name = row.PC_NAME,
-        color = assignPartyColor(row)
+        ;(pc_name = row.PC_NAME), (color = assignPartyColor(row))
       }
     })
     candidateVotes.push({
@@ -212,12 +220,12 @@ export const getConstituencyResults = (data) => {
         highest = ex.Votes > highest ? ex.Votes : highest
       }
     })
-  const electedCandidates = candidateVotes.find((ele) => {
-      return ele.Votes === highest 
+    const electedCandidates = candidateVotes.find((ele) => {
+      return ele.Votes === highest
     })
     finalList.push(electedCandidates)
   })
-return finalList
+  return finalList
 }
 
 /**
@@ -235,11 +243,11 @@ export const getStateUTMapDataPC = (data, stateUT) => {
   stateData = data.filter((row) => row.ST_NAME === stateUT)
   stateData.map((row) => {
     parliamentConstituenciesList.add(row.PC_NAME)
-  });
+  })
   let parliamentConstituencies = [...parliamentConstituenciesList].map((pc) => {
     let constituencyData = stateData.filter((row) => row.PC_NAME == pc)
     let candidates = new Set()
-    constituencyData.map((row) => candidates.add(row.CANDIDATE));
+    constituencyData.map((row) => candidates.add(row.CANDIDATE))
     let constituencyStatsTemp = [...candidates].map((c) => {
       let votesReceived = 0
       let candidate = null
@@ -254,19 +262,19 @@ export const getStateUTMapDataPC = (data, stateUT) => {
       return {
         candidate: candidate,
         party: party,
-        votesReceived: votesReceived,
+        votesReceived: votesReceived
       }
     })
     let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
       const A = a.votesReceived
       const B = b.votesReceived
-      let comparison = 0;
+      let comparison = 0
       if (A > B) {
-        comparison = -1;
+        comparison = -1
       } else if (A < B) {
-        comparison = 1;
+        comparison = 1
       }
-      return comparison;
+      return comparison
     })
     let constituencyStats = []
     if (constituencyStatsSorted.length < 5) {
@@ -274,13 +282,17 @@ export const getStateUTMapDataPC = (data, stateUT) => {
     } else {
       constituencyStatsSorted.map((row, index) => {
         index < 4
-          ? constituencyStats[index] = row
-          : (constituencyStats[3].candidate = "Others",
-            constituencyStats[3].party = "Others",
-            constituencyStats[3].votesReceived = 0 + constituencyStatsSorted[index].votesReceived)
+          ? (constituencyStats[index] = row)
+          : ((constituencyStats[3].candidate = "Others"),
+            (constituencyStats[3].party = "Others"),
+            (constituencyStats[3].votesReceived =
+              0 + constituencyStatsSorted[index].votesReceived))
       })
     }
-    return ({ PC_NAME: pc, stats: constituencyStats })
+    return { PC_NAME: pc, stats: constituencyStats }
   })
-  return { stateUT: stateUT, parliamentConstituencies: parliamentConstituencies }
+  return {
+    stateUT: stateUT,
+    parliamentConstituencies: parliamentConstituencies
+  }
 }

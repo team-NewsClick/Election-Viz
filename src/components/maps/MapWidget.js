@@ -98,8 +98,8 @@ const MapWidget = ({
   }
 
   const _drawDistrictLine = (d) => {
-    if (d.properties.ST_NAME === stateName) {
-      return [255, 255, 0, 255]
+    if (d.properties.State === stateName) {
+      return [175, 175, 175, 255]
     }
     return [0, 0, 0, 0]
   }
