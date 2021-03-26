@@ -7,7 +7,8 @@ import {
   STATE_UT_DEFAULT_SELECT,
   DEFAULT_STATE_FILL_COLOR,
   DEFAULT_DISTRICT_FILL_COLOR,
-  DEFAULT_STATE_LINE_COLOR
+  DEFAULT_STATE_LINE_COLOR,
+  DEFAULT_DISTRICT_LINE_COLOR
 } from "../../constants"
 import hexRgb from "hex-rgb"
 
@@ -97,13 +98,6 @@ const MapWidget = ({
     onMapUpdate(state)
   }
 
-  const _drawDistrictLine = (d) => {
-    if (d.properties.State === stateName) {
-      return [175, 175, 175, 255]
-    }
-    return [0, 0, 0, 0]
-  }
-
   const _fillParliamentColor = (d) => {
     const sortByKey = d.properties.PC_NAME
     const results = constituencyResults.find((row) => {
@@ -135,7 +129,7 @@ const MapWidget = ({
       filled: true,
       lineWidthScale: 200,
       getFillColor: (d) => _fillParliamentColor(d),
-      getLineColor: (d) => _drawDistrictLine(d),
+      getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
       getLineWidth: 5,
       pickable: true
     }),
