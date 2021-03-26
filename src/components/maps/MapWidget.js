@@ -130,7 +130,7 @@ const MapWidget = ({
       lineWidthScale: 200,
       getFillColor: (d) => _fillParliamentColor(d),
       getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
-      getLineWidth: 5,
+      getLineWidth: 10,
       pickable: true
     }),
     new GeoJsonLayer({
