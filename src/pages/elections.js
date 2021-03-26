@@ -16,7 +16,7 @@ const Elections = () => {
         .then(setStateGeojson)
     }
     const fetchDistrictGeojson = () => {
-      fetch(`/data/geojson/districts.geojson`)
+      fetch(`/data/geojson/parliament.geojson`)
         .then((res) => res.json())
         .then(setDistrictGeojson)
     }

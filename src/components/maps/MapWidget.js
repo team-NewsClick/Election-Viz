@@ -2,7 +2,14 @@ import { useEffect, useState } from "react"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import { _MapContext as MapContext, StaticMap } from "react-map-gl"
-import { STATE_COORDINATES, STATE_UT_DEFAULT_SELECT } from "../../constants"
+import {
+  STATE_COORDINATES,
+  STATE_UT_DEFAULT_SELECT,
+  DEFAULT_STATE_FILL_COLOR,
+  DEFAULT_DISTRICT_FILL_COLOR,
+  DEFAULT_STATE_LINE_COLOR
+} from "../../constants"
+import hexRgb from "hex-rgb"
 
 /**
  * Plot Map and Deckgl Layers
@@ -15,10 +22,11 @@ const MapWidget = ({
   districtGeojson,
   onMapUpdate,
   selectedStateUT,
-  StateUTMapDataPC
+  StateUTMapDataPC,
+  constituencyResults
 }) => {
   const windowWidth = window.innerWidth
-  const [stateName, setStateName] = useState('')
+  const [stateName, setStateName] = useState("")
   const [districtData, setDistrictData] = useState(districtGeojson)
   const [stateData, setStateData] = useState(stateGeojson)
   const [initialViewState, setInitialViewState] = useState(
@@ -29,21 +37,21 @@ const MapWidget = ({
             longitude: 83,
             zoom: 3.6,
             pitch: 0,
-            bearing: 0,
+            bearing: 0
           }
         : {
             latitude: 23,
             longitude: 82.5,
             zoom: 3,
             pitch: 0,
-            bearing: 0,
+            bearing: 0
           }
       : {
           latitude: 23,
           longitude: 83,
           zoom: 4,
           pitch: 0,
-          bearing: 0,
+          bearing: 0
         }
   )
 
@@ -84,20 +92,36 @@ const MapWidget = ({
       ...initialViewState,
       latitude: stateObject[0].latitude,
       longitude: stateObject[0].longitude,
-      zoom: 6,
+      zoom: 6
     })
     onMapUpdate(state)
   }
 
   const _drawDistrictLine = (d) => {
-    if (d.properties.State === stateName) {
+    if (d.properties.ST_NAME === stateName) {
       return [255, 255, 0, 255]
     }
     return [0, 0, 0, 0]
   }
-  const _fillStateLineColor = (d) => {
+
+  const _fillParliamentColor = (d) => {
+    const sortByKey = d.properties.PC_NAME
+    const results = constituencyResults.find((row) => {
+      if (sortByKey == row.pc_name) {
+        return row
+      }
+    })
+    if (results) {
+      const hexColor = hexRgb(results.color)
+      return [hexColor.red, hexColor.green, hexColor.blue]
+    } else {
+      return DEFAULT_DISTRICT_FILL_COLOR
+    }
+  }
+
+  const _fillStateLineColor = () => {
     if (stateName) {
-      return [255, 255, 255, 255]
+      return DEFAULT_STATE_LINE_COLOR
     } else {
       return [220, 220, 220, 255]
     }
@@ -105,32 +129,29 @@ const MapWidget = ({
 
   const layers = [
     new GeoJsonLayer({
-      id: 'state-geojson-layer',
-      data: stateData,
-      stroked: true,
-      filled: true,
-      lineWidthScale: 600,
-      getFillColor: [255, 255, 255, 0],
-      getLineColor: (d) => _fillStateLineColor(d),
-      getLineWidth: 5,
-      pickable: true,
-      onClick: ({ object }) => _handleMapState(object),
-    }),
-    new GeoJsonLayer({
-      id: 'district-geojson-layer',
+      id: "district-geojson-layer",
       data: districtData,
       stroked: true,
-      filled: false,
+      filled: true,
       lineWidthScale: 200,
-      getFillColor: [255, 255, 255, 0],
+      getFillColor: (d) => _fillParliamentColor(d),
       getLineColor: (d) => _drawDistrictLine(d),
       getLineWidth: 5,
-      pickable: true,
+      pickable: true
     }),
+    new GeoJsonLayer({
+      id: "state-geojson-layer",
+      data: stateData,
+      stroked: true,
+      filled: false,
+      lineWidthScale: 600,
+      getFillColor: DEFAULT_STATE_FILL_COLOR,
+      getLineColor: _fillStateLineColor,
+      getLineWidth: 5,
+      pickable: true,
+      onClick: ({ object }) => _handleMapState(object)
+    })
   ]
-
-  console.log("From MapWidget: ", StateUTMapDataPC)
-
   return (
     <div>
       <DeckGL

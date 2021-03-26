@@ -17,6 +17,7 @@
     "axios": "^0.21.1",
     "d3-dsv": "^2.0.0",
     "deck.gl": "^8.4.9",
+    "hex-rgb": "^4.2.0",
     "html-react-parser": "^1.2.4",
     "next": "10.0.6",
     "next-on-netlify": "^2.8.6",

@@ -111,7 +111,6 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       ? selectedStateUTData
       : selectedConstituencyData
   )
-  console.log("Const Results: ", constituencyResults)
   // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
 
   const _updatedRegion = (state) => {
@@ -460,6 +459,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 onMapUpdate={_updatedRegion}
                 selectedStateUT={selectedStateUT}
                 StateUTMapDataPC={StateUTMapDataPC}
+                constituencyResults={constituencyResults}
               />
             )}
           </div>
