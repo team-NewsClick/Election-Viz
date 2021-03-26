@@ -140,8 +140,8 @@ const MapWidget = ({
       filled: false,
       lineWidthScale: 600,
       getFillColor: DEFAULT_STATE_FILL_COLOR,
-      getLineColor: _fillStateLineColor,
-      getLineWidth: 5,
+      getLineColor: DEFAULT_STATE_LINE_COLOR,
+      getLineWidth: 2.5,
       pickable: true,
       onClick: ({ object }) => _handleMapState(object)
     })
