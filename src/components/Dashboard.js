@@ -85,7 +85,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       getRegionStatsSVGData(
         selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
-          : selectedConstituencyData
+          : selectedConstituencyData, electionType
       )
     )
   }, [

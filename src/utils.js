@@ -143,13 +143,12 @@ const assignPartyColor = (data) => {
 
 /**
  *
- * @param {*} data
+ * @param {Array} data
  * @returns
  */
-export const getRegionStatsSVGData = (data) => {
-  const finalList = getConstituencyResults(data)
-  const partiesCount = finalList.reduce(
-    (acc, o) => ((acc[o.party] = (acc[o.party] || 0) + 1), acc),
+export const partySeatsCount = (data) => {
+  const partiesCount = data.reduce(
+    (acc, o) => ((acc[o.party || o.PARTY] = (acc[o.party || o.PARTY] || 0) + 1), acc),
     {}
   )
   let keys = Object.keys(partiesCount)
@@ -161,13 +160,46 @@ export const getRegionStatsSVGData = (data) => {
     }
     preFinal.push(values)
   })
-
   const finalData = new Object()
-  preFinal.map((row) => {
-    finalData[row.party] = {
-      seats: row.totalSeats,
-      colour: assignPartyColor(row)
-    }
+    preFinal.map((row) => {
+      finalData[row.party] = {
+        seats: row.totalSeats,
+        colour: assignPartyColor(row)
+      }
+    })
+  return finalData
+}
+
+/**
+ *
+ * @param {Array} data
+ * @param {string} electionType
+ * @returns
+ */
+export const getRegionStatsSVGData = (data, electionType) => {
+  if (electionType === 'general') {
+    const finalList = getConstituencyResults(data)
+    const partiesCount = partySeatsCount(finalList)
+    return partiesCount
+  } else {
+    const electedCandidates = getAssemblyResults(data)
+    const partiesCount = partySeatsCount(electedCandidates)
+    return partiesCount
+  }
+}
+
+/**
+ *
+ * @param {Array} data
+ * @returns
+ */
+export const getAssemblyResults = (data) => {
+  const finalData = []
+  const electedCandidates = data.filter((candidates) => (candidates.POSITION === '1')).map((row) => {
+    row.PARTY=row.PARTYABBRE
+    delete row.PARTYABBRE
+    row.colour = assignPartyColor(row)
+    finalData.push(row)
   })
   return finalData
 }
@@ -200,7 +232,7 @@ export const getConstituencyResults = (data) => {
         votes = votes + parseInt(row.VOTES)
         party = row.PARTY
         pc_no = row.PC_NO
-        ;(pc_name = row.PC_NAME), (color = assignPartyColor(row))
+          ; (pc_name = row.PC_NAME), (color = assignPartyColor(row))
       }
     })
     candidateVotes.push({
