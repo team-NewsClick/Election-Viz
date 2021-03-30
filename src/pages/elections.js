@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Dashboard from "../components/Dashboard"
+import Loading from "../components/Loading"
 
 /**
  * Map Page
@@ -25,7 +26,7 @@ const Elections = () => {
   }, [])
 
   if (stateGeojson.length === 0 || districtGeojson.length === 0) {
-    return <h1>Loading</h1>
+    return <Loading />
   } else {
     return (
       <div className="grid grid-cols-12">

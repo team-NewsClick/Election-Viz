@@ -276,3 +276,28 @@ details[open] summary::after {
   display: block;
 }
 /* hamberger-menu end */
+
+/* Loading Spinner Start */
+.loading-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+.loading-spinner {
+  opacity: 0.8;
+  width: 10em;
+  height: 10em;
+  border-top: 1em solid #0D3554;
+  border-right: 1em solid #c8c8c8;
+  border-bottom: 1em solid #D34743;
+  border-left: 1em solid #c8c8c8;
+  animation: spinner 1s linear infinite;
+  border-radius: 50%;
+  margin: auto;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* Loading Spinner End */

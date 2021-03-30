@@ -24,6 +24,7 @@ import {
   RegionStatsTable
 } from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
+import Loading from "../components/Loading"
 import {
   dataStateUT,
   dataConstituency,
@@ -498,7 +499,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       </div>
     )
   } else {
-    return <h1>Loading...</h1>
+    return <Loading />
   }
 }
 
