@@ -161,12 +161,12 @@ export const partySeatsCount = (data) => {
     preFinal.push(values)
   })
   const finalData = new Object()
-    preFinal.map((row) => {
-      finalData[row.party] = {
-        seats: row.totalSeats,
-        colour: assignPartyColor(row)
-      }
-    })
+  preFinal.map((row) => {
+    finalData[row.party] = {
+      seats: row.totalSeats,
+      colour: assignPartyColor(row)
+    }
+  })
   return finalData
 }
 
@@ -195,8 +195,8 @@ export const getRegionStatsSVGData = (data, electionType) => {
  */
 export const getAssemblyResults = (data) => {
   const finalData = []
-  const electedCandidates = data.filter((candidates) => (candidates.POSITION === '1')).map((row) => {
-    row.PARTY=row.PARTYABBRE
+  data.filter((candidates) => (candidates.POSITION === '1')).map((row) => {
+    row.PARTY = row.PARTYABBRE
     delete row.PARTYABBRE
     row.colour = assignPartyColor(row)
     finalData.push(row)
@@ -215,7 +215,7 @@ export const getConstituencyResults = (data) => {
   let pc_list = new Set()
   let candidates = new Set()
   data.map((row) => {
-    pc_list.add(row.PC_NO)
+    pc_list.add(row.PC_NAME)
     candidates.add(row.CANDIDATE)
   })
   pc_list = [...pc_list]
@@ -248,7 +248,7 @@ export const getConstituencyResults = (data) => {
   pc_list.map((pc) => {
     let highest = 0
     candidateVotes.map((ex) => {
-      if (pc === ex.pc_no) {
+      if (pc === ex.pc_name) {
         highest = ex.Votes > highest ? ex.Votes : highest
       }
     })
