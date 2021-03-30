@@ -11,6 +11,7 @@ import {
   DEFAULT_DISTRICT_LINE_COLOR
 } from "../../constants"
 import hexRgb from "hex-rgb"
+import Loading from "../Loading"
 
 /**
  * Plot Map and Deckgl Layers
@@ -146,6 +147,8 @@ const MapWidget = ({
       onClick: ({ object }) => _handleMapState(object)
     })
   ]
+
+  
   return (
     <div>
       <DeckGL
@@ -169,11 +172,16 @@ const MapWidget = ({
         }
         ContextProvider={MapContext.Provider}
       >
+        {
+          constituencyResults.length === 0 ? <div className="h-full" >
+          <Loading />
+          </div> :
         <StaticMap
           reuseMaps
           mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
           preventStyleDiffing={true}
         />
+          }
       </DeckGL>
     </div>
   )

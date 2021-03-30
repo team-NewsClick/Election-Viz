@@ -1,8 +1,10 @@
+import Loading from "../Loading"
+
 const RegionStatsTable = ({PartyAllianceTableData}) => {
   const tableData = Object.entries(PartyAllianceTableData).map((e) => ({ party: e[0], seats: e[1].seats }))
   
   return tableData.length === 0
-    ? <div />
+    ? <div className="h-1/2"><Loading /></div> 
     : <div className="text-sm md:text-base">
         <div className="flex bg-gray-300 border-b border-gray-400 font-semibold">
           <div className="w-2/12 border-r border-gray-400 px-1 py-2"></div>

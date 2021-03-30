@@ -2,6 +2,7 @@ import parliamentSVG from 'parliament-svg'
 import stringify from 'virtual-dom-stringify'
 import parse from 'html-react-parser'
 import { CONSTITUENCIES_DEFAULT_SELECT } from "../../constants"
+import Loading from "../Loading"
 
 const RegionStatsSVG = ({regionStatsSVGData, selectedConstituency}) => {
   let altSVG = []
@@ -23,11 +24,11 @@ const RegionStatsSVG = ({regionStatsSVGData, selectedConstituency}) => {
   const virtualNodeSemicircle = totalConstituencies > 2 && parliamentSVG(data, true)
   const semicircle = totalConstituencies > 2 && stringify(virtualNodeSemicircle)
 
-  return (
+  return Object.keys(regionStatsSVGData).length == 0 ? <div className="h-1/2"><Loading /></div> : (
     <div>
       {totalConstituencies > 2 ? (
         <div>
-          <div className="max-w-3xl px-4 pt-5">{parse(semicircle)}</div>
+          <div className="max-w-3xl px-4 pt-5 mx-auto">{parse(semicircle)}</div>
         </div>
       ) : (
         <div className="h-64 mt-4">

@@ -499,7 +499,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       </div>
     )
   } else {
-    return <Loading />
+    return (   
+      <div className="h-screen">
+        <Loading/>
+      </div>
+    )
   }
 }
 
