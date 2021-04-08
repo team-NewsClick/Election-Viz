@@ -267,17 +267,14 @@ export const getConstituencyResults = (data) => {
  * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
  */
 export const getStateUTMapDataPC = (data, stateUT) => {
-  if (stateUT === STATE_UT_DEFAULT_SELECT) {
-    return null
-  }
   let stateData = []
   let parliamentConstituenciesList = new Set()
-  stateData = data.filter((row) => row.ST_NAME === stateUT)
+  stateData = stateUT === STATE_UT_DEFAULT_SELECT ? data : data.filter((row) => row.ST_NAME === stateUT)
   stateData.map((row) => {
     parliamentConstituenciesList.add(row.PC_NAME)
   })
   let parliamentConstituencies = [...parliamentConstituenciesList].map((pc) => {
-    let constituencyData = stateData.filter((row) => row.PC_NAME == pc)
+    let constituencyData = stateData.filter((row) => row.PC_NAME === pc)
     let candidates = new Set()
     constituencyData.map((row) => candidates.add(row.CANDIDATE))
     let constituencyStatsTemp = [...candidates].map((c) => {
@@ -285,11 +282,11 @@ export const getStateUTMapDataPC = (data, stateUT) => {
       let candidate = null
       let party = null
       constituencyData.map((row) => {
-        if (row.CANDIDATE === c) {
-          candidate = c
-          party = row.PARTY
+        row.CANDIDATE === c && (
+          candidate = c,
+          party = row.PARTY,
           votesReceived = votesReceived + parseInt(row.VOTES)
-        }
+        )
       })
       return {
         candidate: candidate,
@@ -298,29 +295,17 @@ export const getStateUTMapDataPC = (data, stateUT) => {
       }
     })
     let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
-      const A = a.votesReceived
-      const B = b.votesReceived
-      let comparison = 0
-      if (A > B) {
-        comparison = -1
-      } else if (A < B) {
-        comparison = 1
-      }
-      return comparison
+      return a.votesReceived > b.votesReceived && -1 || 1
     })
     let constituencyStats = []
-    if (constituencyStatsSorted.length < 5) {
-      constituencyStats = constituencyStatsSorted
-    } else {
-      constituencyStatsSorted.map((row, index) => {
-        index < 4
-          ? (constituencyStats[index] = row)
-          : ((constituencyStats[3].candidate = "Others"),
-            (constituencyStats[3].party = "Others"),
-            (constituencyStats[3].votesReceived =
-              0 + constituencyStatsSorted[index].votesReceived))
+    constituencyStatsSorted.length < 5 && (constituencyStats = constituencyStatsSorted)
+    constituencyStatsSorted.length >= 5 && constituencyStatsSorted.map((row, index) => {
+        index < 4 && (constituencyStats[index] = row) || (
+          constituencyStats[3].candidate = "Others",
+          constituencyStats[3].party = "Others",
+          constituencyStats[3].votesReceived += constituencyStatsSorted[index].votesReceived
+        )
       })
-    }
     return { PC_NAME: pc, stats: constituencyStats }
   })
   return {

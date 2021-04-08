@@ -45,13 +45,10 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(
-    STATE_UT_DEFAULT_SELECT
-  )
-  const [selectedConstituency, setSelectedConstituency] = useState(
-    CONSTITUENCIES_DEFAULT_SELECT
-  )
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
+  const [constituencyResults, setConstituencyResults] = useState()
 
   useEffect(() => {
     setYearOptions(
@@ -60,7 +57,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     setSelectedYear(
       yearOptions.indexOf(selectedYear) > -1 ? selectedYear : yearOptions[0]
     )
-  }, [electionType, yearOptions])
+  }, [electionType])
 
   useEffect(() => {
     axios
@@ -84,25 +81,28 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     )
     setRegionStatsSVGData(
       getRegionStatsSVGData(
-        selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+        selectedStateUT === STATE_UT_DEFAULT_SELECT
+         ? selectedYearData
+         : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
           : selectedConstituencyData, electionType
       )
     )
+    setConstituencyResults(getConstituencyResults(
+      selectedStateUT === STATE_UT_DEFAULT_SELECT
+      ? selectedYearData
+      : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+        ? selectedStateUTData
+        : selectedConstituencyData
+    ))
   }, [
+    selectedYear,
     electionType,
     yearOptions,
     selectedYearData,
     selectedStateUT,
     selectedConstituency
   ])
-
-  // let constituencyVoteCountLastThreeElectionsData = []
-  // console.log(selectedConstituency)
-  // if(selectedConstituency !== "All Constituencies") {
-  //   constituencyVoteCountLastThreeElectionsData = getConstituencyVoteCountLastThreeElectionsData(yearOptions, selectedConstituency)
-  //   console.log("constituencyVoteCountLastThreeElectionsData: ", constituencyVoteCountLastThreeElectionsData)
-  // }
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -129,11 +129,13 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     selectedStateUT
   )
 
-  const constituencyResults = getConstituencyResults(
-    selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-      ? selectedStateUTData
-      : selectedConstituencyData
-  )
+  // const constituencyResults = getConstituencyResults(
+  //   selectedStateUT === STATE_UT_DEFAULT_SELECT
+  //   ? selectedYearData
+  //   : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+  //     ? selectedStateUTData
+  //     : selectedConstituencyData
+  // )
   // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
 
   const _handleElectionType = (v) => {
@@ -484,6 +486,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 stateGeojson={stateGeojson}
                 districtGeojson={districtGeojson}
                 onMapUpdate={_updatedRegion}
+                electionType={electionType}
                 selectedStateUT={selectedStateUT}
                 StateUTMapDataPC={StateUTMapDataPC}
                 constituencyResults={constituencyResults}

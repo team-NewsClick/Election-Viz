@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
-import { _MapContext as MapContext, StaticMap } from "react-map-gl"
+import { _MapContext as MapContext, StaticMap, NavigationControl } from "react-map-gl"
 import {
   STATE_COORDINATES,
   STATE_UT_DEFAULT_SELECT,
@@ -23,6 +23,7 @@ const MapWidget = ({
   stateGeojson,
   districtGeojson,
   onMapUpdate,
+  electionType,
   selectedStateUT,
   StateUTMapDataPC,
   constituencyResults
@@ -60,7 +61,7 @@ const MapWidget = ({
   useEffect(() => {
     setDistrictData((districtGeojson) => ({ ...districtGeojson }))
     setStateData((stateGeojson) => ({ ...stateGeojson }))
-  }, [stateName])
+  }, [stateName, electionType])
 
   useEffect(() => {
     const state = selectedStateUT
@@ -79,8 +80,35 @@ const MapWidget = ({
           zoom: 6
         })
       }
+    } else {
+      setStateName(state)
+      setInitialViewState(
+        windowWidth < 800
+        ? windowWidth > 700
+          ? {
+              latitude: 23,
+              longitude: 83,
+              zoom: 3.6,
+              pitch: 0,
+              bearing: 0
+            }
+          : {
+              latitude: 23,
+              longitude: 82.5,
+              zoom: 3,
+              pitch: 0,
+              bearing: 0
+            }
+        : {
+            latitude: 23,
+            longitude: 83,
+            zoom: 4,
+            pitch: 0,
+            bearing: 0
+          }
+      )
     }
-  }, [selectedStateUT])
+  }, [selectedStateUT, electionType])
 
   const _handleMapState = (object) => {
     const state = object.properties.ST_NM
@@ -114,14 +142,6 @@ const MapWidget = ({
     }
   }
 
-  const _fillStateLineColor = () => {
-    if (stateName) {
-      return DEFAULT_STATE_LINE_COLOR
-    } else {
-      return [220, 220, 220, 255]
-    }
-  }
-
   const layers = [
     new GeoJsonLayer({
       id: "district-geojson-layer",
@@ -148,7 +168,6 @@ const MapWidget = ({
     })
   ]
 
-  
   return (
     <div>
       <DeckGL
@@ -172,6 +191,9 @@ const MapWidget = ({
         }
         ContextProvider={MapContext.Provider}
       >
+        <div style={{ position: "absolute", right: 30, top: 0, zIndex: 1 }}>
+          <NavigationControl />
+        </div>
         {
           constituencyResults.length === 0 ? <div className="h-full" >
           <Loading />
