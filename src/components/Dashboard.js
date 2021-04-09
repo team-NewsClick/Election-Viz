@@ -57,7 +57,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     setSelectedYear(
       yearOptions.indexOf(selectedYear) > -1 ? selectedYear : yearOptions[0]
     )
-  }, [electionType])
+  }, [electionType, yearOptions])
 
   useEffect(() => {
     axios
