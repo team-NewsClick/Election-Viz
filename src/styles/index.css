@@ -278,12 +278,6 @@ details[open] summary::after {
 /* hamberger-menu end */
 
 /* Loading Spinner Start */
-.loading-container {
-  display: flex;
-  height: 100%;
-  overflow: hidden;
-  margin: auto;
-}
 .loading-spinner {
   opacity: 0.8;
   width: 10em;
@@ -300,5 +294,11 @@ details[open] summary::after {
   to {
     transform: rotate(360deg);
   }
+}
+.loading-container {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  margin: auto;
 }
 /* Loading Spinner End */

@@ -501,7 +501,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     )
   } else {
     return (   
-      <div className="h-screen">
+      <div style={{height: "100vh"}} >
         <Loading/>
       </div>
     )
