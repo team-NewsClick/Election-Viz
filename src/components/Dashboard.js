@@ -92,7 +92,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
          ? selectedYearData
          : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
-          : selectedConstituencyData, electionType
+          : selectedConstituencyData, electionType, selectedStateUT
       )
     )
   }, [
@@ -123,20 +123,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     selectedConstituency
   )
   const stateUTOptions = getStateUTs(selectedYearData)
-  const constituencyOptions = getConstituencies(selectedStateUTData)
+  const constituencyOptions = getConstituencies(selectedStateUTData, electionType)
   const StateUTMapDataPC = getStateUTMapDataPC(
     selectedYearData,
     selectedStateUT
   )
-
-  // const constituencyResults = getConstituencyResults(
-  //   selectedStateUT === STATE_UT_DEFAULT_SELECT
-  //   ? selectedYearData
-  //   : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-  //     ? selectedStateUTData
-  //     : selectedConstituencyData
-  // )
-  // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
 
   const _handleElectionType = (v) => {
     setElectionType(v)
@@ -474,11 +465,18 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
-            <RegionStatsSVG
+            {electionType === "assembly" && selectedStateUT === STATE_UT_DEFAULT_SELECT
+            ? <div className="flex h-full">
+                <div className="text-center m-auto text-xl px-4">Please select a region from the drop-down or by clicking on the map.</div>
+             </div>
+            : <div> 
+              <RegionStatsSVG
               regionStatsSVGData={regionStatsSVGData}
               selectedConstituency={selectedConstituency}
-            />
-            <RegionStatsTable PartyAllianceTableData={regionStatsSVGData} />
+              />
+              <RegionStatsTable PartyAllianceTableData={regionStatsSVGData} />
+             </div>
+          }
           </div>
           <div>
             {selectedStateUT && (

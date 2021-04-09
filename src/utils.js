@@ -1,5 +1,5 @@
 import { parse } from "postcss"
-import { STATE_UT_DEFAULT_SELECT, PARTY_COLOR } from "./constants"
+import { STATE_UT_DEFAULT_SELECT, PARTY_COLOR, CONSTITUENCIES_DEFAULT_SELECT } from "./constants"
 
 /**
  * Returns a list of States and UTs that had election in a year
@@ -24,14 +24,14 @@ export const getStateUTs = (data) => {
  * @param {Array.<Object>} data - Data of a State/UT's election of a year
  * @return {Array} List of Constituencies in a State/UT
  */
-export const getConstituencies = (data) => {
+export const getConstituencies = (data, electionType) => {
   if (data === null) {
     return null
   } else {
     let constituencies = new Set()
     constituencies.add("All Constituencies")
     data.map((row) => {
-      constituencies.add(row.PC_NAME)
+      constituencies.add(electionType === "general" ? row.PC_NAME : row.AC_NAME)
     })
     return [...constituencies]
   }
@@ -64,7 +64,7 @@ export const dataConstituency = (data, constituency) => {
     return data
   } else {
     return data.filter((row) => {
-      return row.PC_NAME === constituency
+      return row.PC_NAME || row.AC_NAME === constituency
     })
   }
 }
@@ -176,12 +176,15 @@ export const partySeatsCount = (data) => {
  * @param {string} electionType
  * @returns
  */
-export const getRegionStatsSVGData = (data, electionType) => {
+export const getRegionStatsSVGData = (data, electionType, selectedStateUT) => {
   if (electionType === 'general') {
     const finalList = getConstituencyResults(data)
     const partiesCount = partySeatsCount(finalList)
     return partiesCount
-  } else {
+  } else if(selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+    return []
+  } 
+  else {
     const electedCandidates = getAssemblyResults(data)
     const partiesCount = partySeatsCount(electedCandidates)
     return partiesCount
@@ -196,9 +199,6 @@ export const getRegionStatsSVGData = (data, electionType) => {
 export const getAssemblyResults = (data) => {
   const finalData = []
   data.filter((candidates) => (candidates.POSITION === '1')).map((row) => {
-    row.PARTY = row.PARTYABBRE
-    delete row.PARTYABBRE
-    row.colour = assignPartyColor(row)
     finalData.push(row)
   })
   return finalData
