@@ -79,6 +79,13 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         ? selectedConstituency
         : constituencyOptions[0]
     )
+    setConstituencyResults(getConstituencyResults(
+      selectedStateUT === STATE_UT_DEFAULT_SELECT
+      ? selectedYearData
+      : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+        ? selectedStateUTData
+        : selectedConstituencyData
+    ))
     setRegionStatsSVGData(
       getRegionStatsSVGData(
         selectedStateUT === STATE_UT_DEFAULT_SELECT
@@ -88,13 +95,6 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
           : selectedConstituencyData, electionType
       )
     )
-    setConstituencyResults(getConstituencyResults(
-      selectedStateUT === STATE_UT_DEFAULT_SELECT
-      ? selectedYearData
-      : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-        ? selectedStateUTData
-        : selectedConstituencyData
-    ))
   }, [
     selectedYear,
     electionType,
