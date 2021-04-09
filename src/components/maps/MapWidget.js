@@ -61,7 +61,7 @@ const MapWidget = ({
   useEffect(() => {
     setDistrictData((districtGeojson) => ({ ...districtGeojson }))
     setStateData((stateGeojson) => ({ ...stateGeojson }))
-  }, [stateName, electionType])
+  }, [stateName, constituencyResults])
 
   useEffect(() => {
     const state = selectedStateUT
@@ -108,7 +108,7 @@ const MapWidget = ({
           }
       )
     }
-  }, [selectedStateUT, electionType])
+  }, [selectedStateUT, electionType, constituencyResults])
 
   const _handleMapState = (object) => {
     const state = object.properties.ST_NM
