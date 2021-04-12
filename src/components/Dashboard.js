@@ -45,13 +45,10 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(
-    STATE_UT_DEFAULT_SELECT
-  )
-  const [selectedConstituency, setSelectedConstituency] = useState(
-    CONSTITUENCIES_DEFAULT_SELECT
-  )
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
+  const [constituencyResults, setConstituencyResults] = useState()
 
   useEffect(() => {
     setYearOptions(
@@ -82,27 +79,31 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         ? selectedConstituency
         : constituencyOptions[0]
     )
+    setConstituencyResults(getConstituencyResults(
+      selectedStateUT === STATE_UT_DEFAULT_SELECT
+      ? selectedYearData
+      : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+        ? selectedStateUTData
+        : selectedConstituencyData
+    ))
     setRegionStatsSVGData(
       getRegionStatsSVGData(
-        selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+        selectedStateUT === STATE_UT_DEFAULT_SELECT
+         ? selectedYearData
+         : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
-          : selectedConstituencyData, electionType
+          : selectedConstituencyData
+        , electionType, selectedStateUT
       )
     )
   }, [
+    selectedYear,
     electionType,
     yearOptions,
     selectedYearData,
     selectedStateUT,
     selectedConstituency
   ])
-
-  // let constituencyVoteCountLastThreeElectionsData = []
-  // console.log(selectedConstituency)
-  // if(selectedConstituency !== "All Constituencies") {
-  //   constituencyVoteCountLastThreeElectionsData = getConstituencyVoteCountLastThreeElectionsData(yearOptions, selectedConstituency)
-  //   console.log("constituencyVoteCountLastThreeElectionsData: ", constituencyVoteCountLastThreeElectionsData)
-  // }
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -118,23 +119,13 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }
 
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
-  const selectedConstituencyData = dataConstituency(
-    selectedStateUTData,
-    selectedConstituency
-  )
+  const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency, electionType)
   const stateUTOptions = getStateUTs(selectedYearData)
-  const constituencyOptions = getConstituencies(selectedStateUTData)
+  const constituencyOptions = getConstituencies(selectedStateUTData, electionType)
   const StateUTMapDataPC = getStateUTMapDataPC(
     selectedYearData,
     selectedStateUT
   )
-
-  const constituencyResults = getConstituencyResults(
-    selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-      ? selectedStateUTData
-      : selectedConstituencyData
-  )
-  // const constituencyContestantsStatsData = getConstituencyContestantsStatsData(selectedConstituencyData, selectedConstituency)
 
   const _handleElectionType = (v) => {
     setElectionType(v)
@@ -472,11 +463,18 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
-            <RegionStatsSVG
+            {electionType === "assembly" && selectedStateUT === STATE_UT_DEFAULT_SELECT
+            ? <div className="flex h-full">
+                <div className="text-center m-auto text-xl px-4">Please select a region from the drop-down or by clicking on the map.</div>
+             </div>
+            : <div> 
+              <RegionStatsSVG
               regionStatsSVGData={regionStatsSVGData}
               selectedConstituency={selectedConstituency}
-            />
-            <RegionStatsTable PartyAllianceTableData={regionStatsSVGData} />
+              />
+              <RegionStatsTable PartyAllianceTableData={regionStatsSVGData} />
+             </div>
+          }
           </div>
           <div>
             {selectedStateUT && (
@@ -484,6 +482,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 stateGeojson={stateGeojson}
                 districtGeojson={districtGeojson}
                 onMapUpdate={_updatedRegion}
+                electionType={electionType}
                 selectedStateUT={selectedStateUT}
                 StateUTMapDataPC={StateUTMapDataPC}
                 constituencyResults={constituencyResults}

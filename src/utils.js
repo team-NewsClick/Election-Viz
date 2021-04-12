@@ -1,5 +1,5 @@
 import { parse } from "postcss"
-import { STATE_UT_DEFAULT_SELECT, PARTY_COLOR } from "./constants"
+import { STATE_UT_DEFAULT_SELECT, PARTY_COLOR, CONSTITUENCIES_DEFAULT_SELECT } from "./constants"
 
 /**
  * Returns a list of States and UTs that had election in a year
@@ -24,14 +24,14 @@ export const getStateUTs = (data) => {
  * @param {Array.<Object>} data - Data of a State/UT's election of a year
  * @return {Array} List of Constituencies in a State/UT
  */
-export const getConstituencies = (data) => {
+export const getConstituencies = (data, electionType) => {
   if (data === null) {
     return null
   } else {
     let constituencies = new Set()
     constituencies.add("All Constituencies")
     data.map((row) => {
-      constituencies.add(row.PC_NAME)
+      constituencies.add(electionType === "general" ? row.PC_NAME : row.AC_NAME)
     })
     return [...constituencies]
   }
@@ -59,13 +59,19 @@ export const dataStateUT = (data, stateUT) => {
  * @param {string} constituency - Name of Constituency
  * @return {Array.<Object>} Data of a election year for a Constituency
  */
-export const dataConstituency = (data, constituency) => {
+export const dataConstituency = (data, constituency, electionType) => {
   if (constituency === "All Constituencies") {
     return data
   } else {
-    return data.filter((row) => {
-      return row.PC_NAME === constituency
-    })
+    if(electionType === "general") {
+      return data.filter((row) => {
+        return row.PC_NAME === constituency
+      })
+    } else {
+      return data.filter((row) => {
+        return row.AC_NAME === constituency
+      })
+    }
   }
 }
 
@@ -176,15 +182,19 @@ export const partySeatsCount = (data) => {
  * @param {string} electionType
  * @returns
  */
-export const getRegionStatsSVGData = (data, electionType) => {
+export const getRegionStatsSVGData = (data, electionType, selectedStateUT) => {
   if (electionType === 'general') {
     const finalList = getConstituencyResults(data)
     const partiesCount = partySeatsCount(finalList)
     return partiesCount
   } else {
-    const electedCandidates = getAssemblyResults(data)
-    const partiesCount = partySeatsCount(electedCandidates)
-    return partiesCount
+    if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+      return []
+    } else {
+      const electedCandidates = getAssemblyResults(data)
+      const partiesCount = partySeatsCount(electedCandidates)
+      return partiesCount
+    }
   }
 }
 
@@ -196,9 +206,6 @@ export const getRegionStatsSVGData = (data, electionType) => {
 export const getAssemblyResults = (data) => {
   const finalData = []
   data.filter((candidates) => (candidates.POSITION === '1')).map((row) => {
-    row.PARTY = row.PARTYABBRE
-    delete row.PARTYABBRE
-    row.colour = assignPartyColor(row)
     finalData.push(row)
   })
   return finalData
@@ -267,17 +274,14 @@ export const getConstituencyResults = (data) => {
  * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
  */
 export const getStateUTMapDataPC = (data, stateUT) => {
-  if (stateUT === STATE_UT_DEFAULT_SELECT) {
-    return null
-  }
   let stateData = []
   let parliamentConstituenciesList = new Set()
-  stateData = data.filter((row) => row.ST_NAME === stateUT)
+  stateData = stateUT === STATE_UT_DEFAULT_SELECT ? data : data.filter((row) => row.ST_NAME === stateUT)
   stateData.map((row) => {
     parliamentConstituenciesList.add(row.PC_NAME)
   })
   let parliamentConstituencies = [...parliamentConstituenciesList].map((pc) => {
-    let constituencyData = stateData.filter((row) => row.PC_NAME == pc)
+    let constituencyData = stateData.filter((row) => row.PC_NAME === pc)
     let candidates = new Set()
     constituencyData.map((row) => candidates.add(row.CANDIDATE))
     let constituencyStatsTemp = [...candidates].map((c) => {
@@ -285,11 +289,11 @@ export const getStateUTMapDataPC = (data, stateUT) => {
       let candidate = null
       let party = null
       constituencyData.map((row) => {
-        if (row.CANDIDATE === c) {
-          candidate = c
-          party = row.PARTY
+        row.CANDIDATE === c && (
+          candidate = c,
+          party = row.PARTY,
           votesReceived = votesReceived + parseInt(row.VOTES)
-        }
+        )
       })
       return {
         candidate: candidate,
@@ -298,29 +302,17 @@ export const getStateUTMapDataPC = (data, stateUT) => {
       }
     })
     let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
-      const A = a.votesReceived
-      const B = b.votesReceived
-      let comparison = 0
-      if (A > B) {
-        comparison = -1
-      } else if (A < B) {
-        comparison = 1
-      }
-      return comparison
+      return a.votesReceived > b.votesReceived && -1 || 1
     })
     let constituencyStats = []
-    if (constituencyStatsSorted.length < 5) {
-      constituencyStats = constituencyStatsSorted
-    } else {
-      constituencyStatsSorted.map((row, index) => {
-        index < 4
-          ? (constituencyStats[index] = row)
-          : ((constituencyStats[3].candidate = "Others"),
-            (constituencyStats[3].party = "Others"),
-            (constituencyStats[3].votesReceived =
-              0 + constituencyStatsSorted[index].votesReceived))
+    constituencyStatsSorted.length < 5 && (constituencyStats = constituencyStatsSorted)
+    constituencyStatsSorted.length >= 5 && constituencyStatsSorted.map((row, index) => {
+        index < 4 && (constituencyStats[index] = row) || (
+          constituencyStats[3].candidate = "Others",
+          constituencyStats[3].party = "Others",
+          constituencyStats[3].votesReceived += constituencyStatsSorted[index].votesReceived
+        )
       })
-    }
     return { PC_NAME: pc, stats: constituencyStats }
   })
   return {
