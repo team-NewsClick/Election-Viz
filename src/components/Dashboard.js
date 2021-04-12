@@ -92,7 +92,8 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
          ? selectedYearData
          : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
-          : selectedConstituencyData, electionType, selectedStateUT
+          : selectedConstituencyData
+        , electionType, selectedStateUT
       )
     )
   }, [
@@ -118,10 +119,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }
 
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
-  const selectedConstituencyData = dataConstituency(
-    selectedStateUTData,
-    selectedConstituency
-  )
+  const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency, electionType)
   const stateUTOptions = getStateUTs(selectedYearData)
   const constituencyOptions = getConstituencies(selectedStateUTData, electionType)
   const StateUTMapDataPC = getStateUTMapDataPC(

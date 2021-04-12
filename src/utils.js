@@ -59,13 +59,19 @@ export const dataStateUT = (data, stateUT) => {
  * @param {string} constituency - Name of Constituency
  * @return {Array.<Object>} Data of a election year for a Constituency
  */
-export const dataConstituency = (data, constituency) => {
+export const dataConstituency = (data, constituency, electionType) => {
   if (constituency === "All Constituencies") {
     return data
   } else {
-    return data.filter((row) => {
-      return row.PC_NAME || row.AC_NAME === constituency
-    })
+    if(electionType === "general") {
+      return data.filter((row) => {
+        return row.PC_NAME === constituency
+      })
+    } else {
+      return data.filter((row) => {
+        return row.AC_NAME === constituency
+      })
+    }
   }
 }
 
@@ -181,13 +187,14 @@ export const getRegionStatsSVGData = (data, electionType, selectedStateUT) => {
     const finalList = getConstituencyResults(data)
     const partiesCount = partySeatsCount(finalList)
     return partiesCount
-  } else if(selectedStateUT === STATE_UT_DEFAULT_SELECT) {
-    return []
-  } 
-  else {
-    const electedCandidates = getAssemblyResults(data)
-    const partiesCount = partySeatsCount(electedCandidates)
-    return partiesCount
+  } else {
+    if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+      return []
+    } else {
+      const electedCandidates = getAssemblyResults(data)
+      const partiesCount = partySeatsCount(electedCandidates)
+      return partiesCount
+    }
   }
 }
 
