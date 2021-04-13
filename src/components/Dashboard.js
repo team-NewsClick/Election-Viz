@@ -49,6 +49,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
   const [constituencyResults, setConstituencyResults] = useState()
+  const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
 
   useEffect(() => {
     setYearOptions(
@@ -105,6 +106,10 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
     selectedConstituency
   ])
 
+  useEffect(() => {
+    setMapWidgetLoading(false)
+  }, [constituencyResults])
+
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -121,7 +126,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
   const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency, electionType)
   const stateUTOptions = getStateUTs(selectedYearData)
-  const constituencyOptions = getConstituencies(selectedStateUTData, electionType)
+  const constituencyOptions = getConstituencies(selectedStateUTData, selectedStateUT, electionType)
   const StateUTMapDataPC = getStateUTMapDataPC(
     selectedYearData,
     selectedStateUT
@@ -486,6 +491,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 selectedStateUT={selectedStateUT}
                 StateUTMapDataPC={StateUTMapDataPC}
                 constituencyResults={constituencyResults}
+                mapWidgetLoading = {mapWidgetLoading}
               />
             )}
           </div>
@@ -500,7 +506,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   } else {
     return (   
       <div style={{height: "100vh"}} >
-        <Loading/>
+        <Loading />
       </div>
     )
   }

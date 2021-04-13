@@ -26,7 +26,8 @@ const MapWidget = ({
   electionType,
   selectedStateUT,
   StateUTMapDataPC,
-  constituencyResults
+  constituencyResults,
+  mapWidgetLoading
 }) => {
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState("")
@@ -194,15 +195,15 @@ const MapWidget = ({
         <div style={{ position: "absolute", right: 30, top: 0, zIndex: 1 }}>
           <NavigationControl />
         </div>
-        {
-          constituencyResults.length === 0 ? <div className="h-full" >
-          <Loading />
-          </div> :
-        <StaticMap
-          reuseMaps
-          mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
-          preventStyleDiffing={true}
-        />
+        {mapWidgetLoading === true
+          ? <div className="h-full" >
+              <Loading />
+            </div>
+          : <StaticMap
+              reuseMaps
+              mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
+              preventStyleDiffing={true}
+            />
           }
       </DeckGL>
     </div>
