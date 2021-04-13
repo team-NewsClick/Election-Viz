@@ -11,14 +11,11 @@ export const getStateUTs = (data) => {
     return null
   } else {
     let stateUTs = new Set()
+    stateUTs.add("All States & UTs")
     data.map((row) => {
       stateUTs.add(row.ST_NAME)
     })
-    stateUTs = [...stateUTs]
-    if(stateUTs.length > 1){
-      stateUTs.unshift("All States & UTs")
-    }
-    return stateUTs
+    return [...stateUTs]
   }
 }
 
@@ -27,19 +24,15 @@ export const getStateUTs = (data) => {
  * @param {Array.<Object>} data - Data of a State/UT's election of a year
  * @return {Array} List of Constituencies in a State/UT
  */
-export const getConstituencies = (data, selectedStateUT, electionType) => {
-  let constituencies = new Set()
+export const getConstituencies = (data, electionType) => {
   if (data === null) {
     return null
   } else {
-    if(selectedStateUT === "All States & UTs") {
-      constituencies.add("First Select a State or UT")
-    } else {
-      constituencies.add("All Constituencies")
-      data.map((row) => {
-        constituencies.add(electionType === "general" ? row.PC_NAME : row.AC_NAME)
-      })
-    }
+    let constituencies = new Set()
+    constituencies.add("All Constituencies")
+    data.map((row) => {
+      constituencies.add(electionType === "general" ? row.PC_NAME : row.AC_NAME)
+    })
     return [...constituencies]
   }
 }
