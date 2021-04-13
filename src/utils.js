@@ -18,7 +18,6 @@ export const getStateUTs = (data) => {
     if(stateUTs.length > 1){
       stateUTs.unshift(STATE_UT_DEFAULT_SELECT)
     }
-    console.log("stateUTs: ", stateUTs)
     return stateUTs
   }
 }
@@ -44,7 +43,6 @@ export const getConstituencies = (data, selectedStateUT, electionType) => {
     if(constituencies.length > 1) {
       constituencies.unshift(CONSTITUENCIES_DEFAULT_SELECT)
     }
-    console.log("constituencies: ", constituencies)
     return constituencies
   }
 }
