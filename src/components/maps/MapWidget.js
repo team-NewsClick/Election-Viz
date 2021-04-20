@@ -26,7 +26,7 @@ const MapWidget = ({
   electionType,
   selectedStateUT,
   stateUTMapDataPC,
-  constituencyResults,
+  constituenciesResults,
   mapWidgetLoading
 }) => {
   const windowWidth = window.innerWidth
@@ -62,7 +62,7 @@ const MapWidget = ({
   useEffect(() => {
     setDistrictData((districtGeojson) => ({ ...districtGeojson }))
     setStateData((stateGeojson) => ({ ...stateGeojson }))
-  }, [stateName, constituencyResults])
+  }, [stateName, constituenciesResults])
 
   useEffect(() => {
     const state = selectedStateUT
@@ -109,7 +109,7 @@ const MapWidget = ({
           }
       )
     }
-  }, [selectedStateUT, electionType, constituencyResults])
+  }, [selectedStateUT, electionType, constituenciesResults])
 
   const _handleMapState = (object) => {
     const state = object.properties.ST_NM
@@ -130,7 +130,7 @@ const MapWidget = ({
 
   const _fillParliamentColor = (d) => {
     const sortByKey = d.properties.PC_NAME
-    const results = constituencyResults.find((row) => {
+    const results = constituenciesResults.find((row) => {
       if (sortByKey == row.pc_name) {
         return row
       }

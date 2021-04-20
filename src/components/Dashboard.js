@@ -33,7 +33,7 @@ import {
   getConstituencyContestantsStatsData,
   getRegionStatsSVGData,
   getStateUTMapDataPC,
-  getConstituencyResults
+  getConstituenciesResults
 } from "../utils"
 
 /**
@@ -49,7 +49,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [stateUTMapDataPC, setStateUTMapDataPC] = useState({})
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
-  const [constituencyResults, setConstituencyResults] = useState([])
+  const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
 
   useEffect(() => {
@@ -100,13 +100,13 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
-    setConstituencyResults(getConstituencyResults(stateUTMapDataPC, selectedConstituency))
+    setConstituenciesResults(getConstituenciesResults(stateUTMapDataPC, selectedConstituency))
   }, [stateUTMapDataPC, selectedConstituency, selectedStateUT, electionType])
 
   useEffect(() => {
     if(electionType === "general"){
       setRegionStatsSVGData(
-        getRegionStatsSVGData(constituencyResults, electionType)
+        getRegionStatsSVGData(constituenciesResults, electionType)
       )
     } else {
       setRegionStatsSVGData(
@@ -120,7 +120,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       ))
     }
     setMapWidgetLoading(false)
-  }, [constituencyResults])
+  }, [constituenciesResults])
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -503,7 +503,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 electionType={electionType}
                 selectedStateUT={selectedStateUT}
                 stateUTMapDataPC={stateUTMapDataPC}
-                constituencyResults={constituencyResults}
+                constituenciesResults={constituenciesResults}
                 mapWidgetLoading = {mapWidgetLoading}
               />
             )}

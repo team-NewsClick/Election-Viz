@@ -226,7 +226,7 @@ export const getAssemblyResults = (data) => {
  * @param {String} selectedConstituency Name of Selected Constituency
  * @returns {Array<Object>} - List of selected constituencies with respective winner data
  */
-export const getConstituencyResults = (data, selectedConstituency) => {
+export const getConstituenciesResults = (data, selectedConstituency) => {
   let result = []
   if(data.parliamentConstituencies){
     if(selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT || selectedConstituency === "First Select a State or UT") {
