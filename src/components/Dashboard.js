@@ -47,11 +47,13 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
   const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
-  const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
-  const [constituencyResults, setConstituencyResults] = useState()
+  const [stateUTMapDataPC, setStateUTMapDataPC] = useState({})
+  const [regionStatsSVGData, setRegionStatsSVGData] = useState()
+  const [constituencyResults, setConstituencyResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
 
   useEffect(() => {
+    setMapWidgetLoading(true)
     setYearOptions(
       electionType == "general" ? GENERAL_YEAR_OPTIONS : ASSEMBLY_YEAR_OPTIONS
     )
@@ -61,6 +63,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }, [electionType, yearOptions])
 
   useEffect(() => {
+    setMapWidgetLoading(true)
     axios
       .get(`/data/csv/${electionType}_${selectedYear}.csv`)
       .then((response) => {
@@ -80,33 +83,42 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         ? selectedConstituency
         : constituencyOptions[0]
     )
-    setConstituencyResults(getConstituencyResults(
-      selectedStateUT === STATE_UT_DEFAULT_SELECT
-      ? selectedYearData
-      : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-        ? selectedStateUTData
-        : selectedConstituencyData
-    ))
-    setRegionStatsSVGData(
-      getRegionStatsSVGData(
-        selectedStateUT === STATE_UT_DEFAULT_SELECT
-         ? selectedYearData
-         : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-          ? selectedStateUTData
-          : selectedConstituencyData
-        , electionType, selectedStateUT
-      )
-    )
   }, [
     selectedYear,
     electionType,
     yearOptions,
     selectedYearData,
     selectedStateUT,
-    selectedConstituency
+    selectedConstituency,
+    stateUTMapDataPC
   ])
 
   useEffect(() => {
+    if(selectedYearData != []){
+      setStateUTMapDataPC(getStateUTMapDataPC(selectedYearData, selectedStateUT))
+    }
+  }, [selectedYearData, selectedStateUT])
+
+  useEffect(() => {
+    setConstituencyResults(getConstituencyResults(stateUTMapDataPC, selectedConstituency))
+  }, [stateUTMapDataPC, selectedConstituency, selectedStateUT, electionType])
+
+  useEffect(() => {
+    if(electionType === "general"){
+      setRegionStatsSVGData(
+        getRegionStatsSVGData(constituencyResults, electionType)
+      )
+    } else {
+      setRegionStatsSVGData(
+        getRegionStatsSVGData(
+          selectedStateUT === STATE_UT_DEFAULT_SELECT
+          ? selectedYearData
+          : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+          ? selectedStateUTData
+          : selectedConstituencyData
+          , electionType, selectedStateUT,    
+      ))
+    }
     setMapWidgetLoading(false)
   }, [constituencyResults])
 
@@ -127,30 +139,31 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency, electionType)
   const stateUTOptions = getStateUTs(selectedYearData)
   const constituencyOptions = getConstituencies(selectedStateUTData, selectedStateUT, electionType)
-  const StateUTMapDataPC = getStateUTMapDataPC(
-    selectedYearData,
-    selectedStateUT
-  )
 
   const _handleElectionType = (v) => {
+    setMapWidgetLoading(true)
     setElectionType(v)
   }
   const _updatedRegion = (state) => {
+    setMapWidgetLoading(true)
     setSelectedStateUT(state)
   }
   const _handleSelectedYear = (v) => {
+    setMapWidgetLoading(true)
     setSelectedYear(v)
   }
   const _handleSelectedRegion = (v) => {
     console.log(v)
   }
   const _handleSelectedStateUT = (v) => {
+    setMapWidgetLoading(true)
     setSelectedStateUT(v)
   }
   const _handleSelectedLocality = (v) => {
     console.log(v)
   }
   const _handleSelectedConstituency = (v) => {
+    setMapWidgetLoading(true)
     setSelectedConstituency(v)
   }
   const _handleSelectedCommunity = (v) => {
@@ -489,7 +502,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 onMapUpdate={_updatedRegion}
                 electionType={electionType}
                 selectedStateUT={selectedStateUT}
-                StateUTMapDataPC={StateUTMapDataPC}
+                stateUTMapDataPC={stateUTMapDataPC}
                 constituencyResults={constituencyResults}
                 mapWidgetLoading = {mapWidgetLoading}
               />

@@ -25,7 +25,7 @@ const MapWidget = ({
   onMapUpdate,
   electionType,
   selectedStateUT,
-  StateUTMapDataPC,
+  stateUTMapDataPC,
   constituencyResults,
   mapWidgetLoading
 }) => {
