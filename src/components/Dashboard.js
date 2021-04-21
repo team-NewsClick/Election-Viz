@@ -54,8 +54,6 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
 
   useEffect(() => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setYearOptions(
       electionType == "general" ? GENERAL_YEAR_OPTIONS : ASSEMBLY_YEAR_OPTIONS
     )
@@ -65,8 +63,6 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }, [electionType, yearOptions])
 
   useEffect(() => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     axios
       .get(`/data/csv/${electionType}_${selectedYear}.csv`)
       .then((response) => {
@@ -109,6 +105,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }, [stateUTMapDataPC, selectedConstituency, selectedStateUT, electionType])
 
   useEffect(() => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
+  }, [electionType, selectedStateUT, selectedYear, selectedConstituency, selectedYear])
+
+  useEffect(() => {
     if(electionType === "general"){
       setRegionStatsSVGData(
         getRegionStatsSVGData(constituenciesResults, electionType)
@@ -148,34 +149,24 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const constituencyOptions = getConstituencies(selectedStateUTData, selectedStateUT, electionType)
 
   const _handleElectionType = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setElectionType(v)
   }
   const _updatedRegion = (state) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedStateUT(state)
   }
   const _handleSelectedYear = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedYear(v)
   }
   const _handleSelectedRegion = (v) => {
     console.log(v)
   }
   const _handleSelectedStateUT = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedStateUT(v)
   }
   const _handleSelectedLocality = (v) => {
     console.log(v)
   }
   const _handleSelectedConstituency = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedConstituency(v)
   }
   const _handleSelectedCommunity = (v) => {
