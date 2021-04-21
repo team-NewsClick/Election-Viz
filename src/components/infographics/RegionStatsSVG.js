@@ -4,7 +4,7 @@ import parse from 'html-react-parser'
 import { CONSTITUENCIES_DEFAULT_SELECT } from "../../constants"
 import Loading from "../Loading"
 
-const RegionStatsSVG = ({regionStatsSVGData, selectedConstituency}) => {
+const RegionStatsSVG = ({regionStatsSVGData, selectedConstituency, regionStatsLoading}) => {
   let altSVG = []
   let legends = []
   let totalConstituencies = 0
@@ -24,7 +24,7 @@ const RegionStatsSVG = ({regionStatsSVGData, selectedConstituency}) => {
   const virtualNodeSemicircle = totalConstituencies > 2 && parliamentSVG(data, true)
   const semicircle = totalConstituencies > 2 && stringify(virtualNodeSemicircle)
 
-  return Object.keys(regionStatsSVGData).length == 0 ? <div className="h-1/2"><Loading /></div> : (
+  return (Object.keys(regionStatsSVGData).length == 0 || regionStatsLoading == true) ? <div className="h-1/2 my-36"><Loading /></div> : (
     <div>
       {totalConstituencies > 2 ? (
         <div>

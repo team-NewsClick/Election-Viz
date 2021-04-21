@@ -51,9 +51,11 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
   const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
+  const [regionStatsLoading, setRegionStatsLoading] = useState(true)
 
   useEffect(() => {
     setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setYearOptions(
       electionType == "general" ? GENERAL_YEAR_OPTIONS : ASSEMBLY_YEAR_OPTIONS
     )
@@ -64,6 +66,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
 
   useEffect(() => {
     setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     axios
       .get(`/data/csv/${electionType}_${selectedYear}.csv`)
       .then((response) => {
@@ -73,6 +76,8 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }, [selectedYear])
 
   useEffect(() => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedStateUT(
       stateUTOptions.indexOf(selectedStateUT) > -1
         ? selectedStateUT
@@ -108,6 +113,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       setRegionStatsSVGData(
         getRegionStatsSVGData(constituenciesResults, electionType)
       )
+      
     } else {
       setRegionStatsSVGData(
         getRegionStatsSVGData(
@@ -120,6 +126,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       ))
     }
     setMapWidgetLoading(false)
+    setRegionStatsLoading(false)
   }, [constituenciesResults])
 
   const showHideAdvanceOptions = () => {
@@ -142,14 +149,17 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
 
   const _handleElectionType = (v) => {
     setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setElectionType(v)
   }
   const _updatedRegion = (state) => {
     setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedStateUT(state)
   }
   const _handleSelectedYear = (v) => {
     setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedYear(v)
   }
   const _handleSelectedRegion = (v) => {
@@ -157,6 +167,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }
   const _handleSelectedStateUT = (v) => {
     setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedStateUT(v)
   }
   const _handleSelectedLocality = (v) => {
@@ -164,6 +175,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }
   const _handleSelectedConstituency = (v) => {
     setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedConstituency(v)
   }
   const _handleSelectedCommunity = (v) => {
@@ -489,8 +501,12 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               <RegionStatsSVG
               regionStatsSVGData={regionStatsSVGData}
               selectedConstituency={selectedConstituency}
+              regionStatsLoading={regionStatsLoading}
               />
-              <RegionStatsTable PartyAllianceTableData={regionStatsSVGData} />
+              <RegionStatsTable
+              PartyAllianceTableData={regionStatsSVGData}
+              regionStatsLoading={regionStatsLoading}
+              />
              </div>
           }
           </div>
@@ -517,8 +533,12 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       </div>
     )
   } else {
-    return (   
-      <div style={{height: "100vh"}} >
+    return (
+      <div
+        className="h-full"
+        style={{paddingTop: "400px"}}
+        
+      >
         <Loading />
       </div>
     )
