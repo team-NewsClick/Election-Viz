@@ -109,7 +109,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
-    setConstituenciesResults(getConstituenciesResults(stateUTMapDataPC, selectedConstituency))
+    setConstituenciesResults(getConstituenciesResults(stateUTMapDataPC, selectedConstituency, groupType, partyAlliance))
   }, [stateUTMapDataPC, selectedConstituency, selectedStateUT, electionType, groupType])
 
   useEffect(() => {
@@ -122,7 +122,6 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       setRegionStatsSVGData(
         getRegionStatsSVGData(constituenciesResults, electionType, groupType, partyAlliance)
       )
-      
     } else {
       setRegionStatsSVGData(
         getRegionStatsSVGData(
