@@ -49,6 +49,8 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [stateUTMapDataPC, setStateUTMapDataPC] = useState({})
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
+  const [groupType, setGroupType] = useState("party")
+  const [partyAlliance, setPartyAlliance] = useState()
   const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
@@ -69,6 +71,12 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         const parsedData = csvParse(response.data)
         setSelectedYearData(parsedData)
       })
+    axios
+    .get(`/data/csv/party_alliance.csv`)
+    .then((response) => {
+      const parsedData = csvParse(response.data)
+      setPartyAlliance(parsedData)
+    })
   }, [selectedYear])
 
   useEffect(() => {
@@ -102,7 +110,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
 
   useEffect(() => {
     setConstituenciesResults(getConstituenciesResults(stateUTMapDataPC, selectedConstituency))
-  }, [stateUTMapDataPC, selectedConstituency, selectedStateUT, electionType])
+  }, [stateUTMapDataPC, selectedConstituency, selectedStateUT, electionType, groupType])
 
   useEffect(() => {
     setMapWidgetLoading(true)
@@ -112,7 +120,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   useEffect(() => {
     if(electionType === "general"){
       setRegionStatsSVGData(
-        getRegionStatsSVGData(constituenciesResults, electionType)
+        getRegionStatsSVGData(constituenciesResults, electionType, groupType, partyAlliance)
       )
       
     } else {
@@ -123,7 +131,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
           : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
           : selectedConstituencyData
-          , electionType, selectedStateUT,    
+          , electionType, groupType, partyAlliance, selectedStateUT,    
       ))
     }
     setMapWidgetLoading(false)
@@ -159,6 +167,9 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }
   const _handleSelectedRegion = (v) => {
     console.log(v)
+  }
+    const _handleGroupType = (v) => {
+    setGroupType(v)
   }
   const _handleSelectedStateUT = (v) => {
     setSelectedStateUT(v)
@@ -215,21 +226,21 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
           <div className="radio-toolbar md:mx-2 my-2">
             <input
               type="radio"
-              id="party"
-              name="group"
-              value="party"
-              onChange={(e) => console.log("party")}
-            />
-            <label htmlFor="party">Party</label>
-            <input
-              type="radio"
               id="alliance"
               name="group"
               value="alliance"
-              defaultChecked
-              onChange={(e) => console.log("alliance")}
+              onChange={(e) => _handleGroupType(e.currentTarget.value)}
             />
             <label htmlFor="alliance">Alliance</label>
+            <input
+              type="radio"
+              id="party"
+              name="group"
+              value="party"
+              defaultChecked
+              onChange={(e) => _handleGroupType(e.currentTarget.value)}
+            />
+            <label htmlFor="party">Party</label>
           </div>
           <div>
             <select
@@ -495,7 +506,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
               regionStatsLoading={regionStatsLoading}
               />
               <RegionStatsTable
-              PartyAllianceTableData={regionStatsSVGData}
+              partyAllianceTableData={regionStatsSVGData}
               regionStatsLoading={regionStatsLoading}
               />
              </div>

@@ -1,8 +1,8 @@
 import Loading from "../Loading"
 
-const RegionStatsTable = ({PartyAllianceTableData, regionStatsLoading}) => {
-  const tableData = Object.entries(PartyAllianceTableData).map((e) => ({ party: e[0], seats: e[1].seats }))
-  
+const RegionStatsTable = ({partyAllianceTableData, regionStatsLoading}) => {
+  const tableData = Object.entries(partyAllianceTableData).map((e) => ({ party: e[0], seats: e[1].seats }))
+
   return (tableData.length === 0 || regionStatsLoading == true)
     ? <div className="h-1/2 my-40"><Loading /></div> 
     : <div className="text-sm md:text-base">

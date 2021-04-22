@@ -146,15 +146,9 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
  * @returns - Hex Color
  */
 const assignPartyColor = (data) => {
-  if (data.PARTY) {
-    return PARTY_COLOR.find((e) => e.party == data.PARTY) == undefined
-      ? "#000000"
-      : PARTY_COLOR.find((e) => e.party == data.PARTY).color
-  } else {
-    return PARTY_COLOR.find((e) => e.party == data.party) == undefined
-      ? "#000000"
-      : PARTY_COLOR.find((e) => e.party == data.party).color
-  }
+  return PARTY_COLOR.find((e) => e.party == (data.party || data.alliance)) == undefined
+    ? "#000000"
+    : PARTY_COLOR.find((e) => e.party == (data.party || data.alliance)).color
 }
 
 /**
@@ -162,23 +156,45 @@ const assignPartyColor = (data) => {
  * @param {Array} data
  * @returns
  */
-export const partySeatsCount = (data) => {
+export const seatsCount = (data, groupType, partyAlliance) => {
   const partiesCount = data.reduce(
     (acc, o) => ((acc[o.party || o.PARTY] = (acc[o.party || o.PARTY] || 0) + 1), acc),
     {}
   )
-  let keys = Object.keys(partiesCount)
-  const preFinal = []
+  const keys = Object.keys(partiesCount)
+  const partyData = []
   keys.map((key) => {
-    let values = {
+    const values = {
       party: key,
       totalSeats: partiesCount[key]
     }
-    preFinal.push(values)
+    partyData.push(values)
   })
+  let preFinal= []
+  if(groupType === "party") {
+    preFinal = partyData
+  } else {
+    const allianceData = []
+    partyData.map((d) => {
+      const temp = partyAlliance.find(e => e.PARTY == d.party) ? partyAlliance.find(e => e.PARTY === d.party) : {"PARTY": "OTHERS", "ALLIANCE": "OTHERS"}
+      const tempIndex = allianceData.indexOf(allianceData.find(e => e.alliance === temp.ALLIANCE))
+      if(tempIndex > -1) {
+        allianceData[tempIndex] = {
+          alliance: allianceData[tempIndex].alliance,
+          totalSeats: allianceData[tempIndex].totalSeats + d.totalSeats
+        }
+      }else {
+        allianceData.push({
+          alliance: temp.ALLIANCE,
+          totalSeats: d.totalSeats
+        })
+      }
+    })
+    preFinal = allianceData
+  }
   const finalData = new Object()
   preFinal.map((row) => {
-    finalData[row.party] = {
+    finalData[(row.party || row.alliance)] = {
       seats: row.totalSeats,
       colour: assignPartyColor(row)
     }
@@ -192,16 +208,16 @@ export const partySeatsCount = (data) => {
  * @param {string} electionType
  * @returns
  */
-export const getRegionStatsSVGData = (data, electionType, selectedStateUT) => {
+export const getRegionStatsSVGData = (data, electionType, groupType, partyAlliance, selectedStateUT) => {
   if (electionType === 'general') {
-    const partiesCount = partySeatsCount(data)
+    const partiesCount = seatsCount(data, groupType, partyAlliance)
     return partiesCount
   } else {
     if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
       return []
     } else {
       const electedCandidates = getAssemblyResults(data)
-      const partiesCount = partySeatsCount(electedCandidates)
+      const partiesCount = seatsCount(electedCandidates, groupType, partyAlliance)
       return partiesCount
     }
   }
