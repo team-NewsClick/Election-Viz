@@ -536,9 +536,8 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   } else {
     return (
       <div
-        className="h-full"
-        style={{paddingTop: "400px"}}
-        
+        // className="min-h-screen my-auto"
+        style={{minHeight: screen.height, height: "100%", margin: "auto"}}
       >
         <Loading />
       </div>
