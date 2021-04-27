@@ -205,7 +205,10 @@ const MapWidget = ({
         </div>
         {mapWidgetLoading === true
           ? <div className="h-full" >
-              <Loading />
+              <div className=" w-full h-full bg-white opacity-70" ></div>
+              <div className="z-10 absolute" style={{top: "50%", left: "50%"}} >
+                <Loading />
+              </div>
             </div>
           : <StaticMap
               reuseMaps
