@@ -206,7 +206,7 @@ const MapWidget = ({
         {mapWidgetLoading === true
           ? <div className="h-full" >
               <div className=" w-full h-full bg-white opacity-70" ></div>
-              <div className="z-10 absolute" style={{top: "50%", left: "50%"}} >
+              <div className="absolute" style={{top: "50%", left: "50%"}} >
                 <Loading />
               </div>
             </div>
