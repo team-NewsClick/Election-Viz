@@ -28,6 +28,7 @@ const MapWidget = ({
   selectedStateUT,
   stateUTMapDataPC,
   constituenciesResults,
+  topSix,
   mapWidgetLoading
 }) => {
   const windowWidth = window.innerWidth
@@ -130,14 +131,32 @@ const MapWidget = ({
   }
 
   const _fillParliamentColor = (d) => {
-    const sortByKey = d.properties.PC_NAME
-    const results = constituenciesResults.find((row) => {
-      if (sortByKey == row.pc_name) {
-        return row
-      }
-    })
+    let results = null
+    let sortByKey = null
+    if(electionType === "general") {
+      sortByKey = d.properties.PC_NAME
+      results = constituenciesResults.find((row) => {
+        if (sortByKey == row.pc_name) {
+          return row
+        }
+      })
+    } else {
+      // console.log("d: ", d)
+      // sortByKey = d.properties.AC_NAME
+      // results = constituenciesResults.find((row) => {
+      //   if (sortByKey == row.ac_name) {
+      //     return row
+      //   }
+      // })
+    }
+
     if (results) {
-      const hexColor = hexRgb(results.color)
+      let hexColor = null
+      if(topSix.hasOwnProperty(results.party || results.alliance)) {
+        hexColor = hexRgb(results.color)
+      } else {
+        hexColor = {red: 23, green: 23, blue: 23}
+      }
       return [hexColor.red, hexColor.green, hexColor.blue]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR
@@ -148,11 +167,10 @@ const MapWidget = ({
     new GeoJsonLayer({
       id: "state-geojson-layer-1",
       data: stateData,
-      stroked: true,
+      stroked: false,
       filled: true,
       lineWidthScale: 600,
       getFillColor: TRANSPARENT_COLOR,
-      getLineWidth: 2.5,
       pickable: true,
       onClick: ({ object }) => _handleMapState(object)
     }),
@@ -173,7 +191,7 @@ const MapWidget = ({
       filled: false,
       lineWidthScale: 600,
       getLineColor: DEFAULT_STATE_LINE_COLOR,
-      getLineWidth: 2.5,
+      getLineWidth: 3,
     })
   ]
 
@@ -205,7 +223,7 @@ const MapWidget = ({
         </div>
         {mapWidgetLoading === true
           ? <div className="h-full" >
-              <div className=" w-full h-full bg-white opacity-70" ></div>
+              <div className=" w-full h-full bg-gray-200 opacity-70" ></div>
               <div className="absolute" style={{top: "50%", left: "50%"}} >
                 <Loading />
               </div>

@@ -1,4 +1,5 @@
 import { parse } from "postcss"
+import { sort } from "virtual-dom-stringify/lib/self-closing-tags"
 import { STATE_UT_DEFAULT_SELECT, PARTY_COLOR, CONSTITUENCIES_DEFAULT_SELECT } from "./constants"
 
 /**
@@ -147,7 +148,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
  */
 const assignColor = (data) => {
   return PARTY_COLOR.find((e) => e.party == (data.party || data.alliance)) == undefined
-    ? "#000000"
+    ? "#232323"
     : PARTY_COLOR.find((e) => e.party == (data.party || data.alliance)).color
 }
 
@@ -157,7 +158,7 @@ const assignColor = (data) => {
  * @returns
  */
 export const seatsCount = (data, groupType, partyAlliance) => {
-  let preFinal= []
+  let preSort= []
   if(groupType === "party") {
   const partiesCount = data.reduce(
     (acc, o) => ((acc[o.party || o.PARTY] = (acc[o.party || o.PARTY] || 0) + 1), acc),
@@ -172,7 +173,7 @@ export const seatsCount = (data, groupType, partyAlliance) => {
       }
       partyData.push(values)
     })
-    preFinal = partyData
+    preSort = partyData
   } else {
     const alliancesCount = data.reduce(
       (acc, o) => ((acc[o.alliance || o.ALLIANCE] = (acc[o.alliance || o.ALLIANCE] || 0) + 1), acc),
@@ -187,10 +188,30 @@ export const seatsCount = (data, groupType, partyAlliance) => {
       }
       allianceData.push(values)
     })
-    preFinal = allianceData
+    preSort = allianceData
   }
-  const finalData = new Object()
-  preFinal.map((row) => {
+  const sortedData = preSort.sort((a, b) => a.totalSeats < b.totalSeats ? 1 : b.totalSeats < a.totalSeats ? -1 : 0)
+  let topSix = []
+  if(sortedData.length <= 6) {
+    topSix = sortedData
+  } else {
+    sortedData.map((d, index) => {
+      if(index < 6) {
+        topSix.push(d)
+      }
+      if(index >= 6) {
+        groupType === "party" ? topSix[5].party = "OTHERS" : topSix[5].alliance = "OTHERS"
+        topSix[5].totalSeats += d.totalSeats
+      }
+    })
+  }
+  if(groupType === "alliance" && topSix.findIndex(d => (d.party || d.alliance) === "OTHERS") > -1) {
+    const temp = topSix[topSix.findIndex(d => (d.party || d.alliance) === "OTHERS")]
+    topSix.splice(topSix.findIndex(d => (d.party || d.alliance) === "OTHERS"), 1)
+    topSix.push(temp)
+  }
+  const finalData = {}
+  topSix.map((row) => {
     finalData[(row.party || row.alliance)] = {
       seats: row.totalSeats,
       colour: assignColor(row)
@@ -237,7 +258,7 @@ export const getAssemblyResults = (data, groupType, partyAlliance) => {
       finalData.push({
         candidate: row.CANDIDATE,
         color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                ? "#000000"
+                ? "#232323"
                 : PARTY_COLOR.find((e) => e.party == alliance).color,
         alliance: alliance,
         ac_name: row.AC_NAME,
@@ -254,53 +275,98 @@ export const getAssemblyResults = (data, groupType, partyAlliance) => {
  * @param {String} selectedConstituency Name of Selected Constituency
  * @returns {Array<Object>} - List of selected constituencies with respective winner data
  */
-export const getConstituenciesResults = (data, selectedConstituency, groupType, partyAlliance) => {
+export const getConstituenciesResults = (data, selectedConstituency, electionType, groupType, partyAlliance) => {
   let result = []
-  if(data.parliamentConstituencies){
+  if(data.constituencies){
     if(selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT || selectedConstituency === "First Select a State or UT") {
-        data.parliamentConstituencies.map((d) => {
+        data.constituencies.map((d) => {
         if(groupType === "party") {
-          result.push({  
-            votes: d.stats[0].votesReceived,
-            candidate: d.stats[0].candidate,
-            party: d.stats[0].party,
-            color: d.stats[0].color,
-            pc_name: d.PC_NAME,
-          })
+          if(electionType === "general") {
+            result.push({  
+              votes: d.stats[0].votesReceived,
+              candidate: d.stats[0].candidate,
+              party: d.stats[0].party,
+              color: d.stats[0].color,
+              pc_name: d.PC_NAME,
+            })
+          } else {
+            result.push({  
+              votes: d.stats[0].votesReceived,
+              candidate: d.stats[0].candidate,
+              party: d.stats[0].party,
+              color: d.stats[0].color,
+              ac_name: d.AC_NAME,
+            })
+          }
         } else {
           const alliance = partyAlliance.find(e => e.PARTY == d.stats[0].party) ? (partyAlliance.find(e => e.PARTY === d.stats[0].party)).ALLIANCE : "OTHERS" 
-          result.push({  
-            votes: d.stats[0].votesReceived,
-            candidate: d.stats[0].candidate,
-            alliance: alliance,
-            color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                    ? "#000000"
-                    : PARTY_COLOR.find((e) => e.party == alliance).color,
-            pc_name: d.PC_NAME,
-          })
+          if(electionType === "general") {
+            result.push({  
+              votes: d.stats[0].votesReceived,
+              candidate: d.stats[0].candidate,
+              alliance: alliance,
+              color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
+                      ? "#232323"
+                      : PARTY_COLOR.find((e) => e.party == alliance).color,
+              pc_name: d.PC_NAME,
+            })
+          } else {
+            result.push({  
+              votes: d.stats[0].votesReceived,
+              candidate: d.stats[0].candidate,
+              alliance: alliance,
+              color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
+                      ? "#232323"
+                      : PARTY_COLOR.find((e) => e.party == alliance).color,
+              ac_name: d.AC_NAME,
+            })
+          }
+          
         }
         })
     } else {
-      data.parliamentConstituencies.map((d) => {
+      data.constituencies.map((d) => {
         if(groupType === "party") {
-          d.PC_NAME == selectedConstituency && result.push({  
-            votes: d.stats[0].votesReceived,
-            candidate: d.stats[0].candidate,
-            party: d.stats[0].party,
-            color: d.stats[0].color,
-            pc_name: d.PC_NAME,
-          })
+          if(electionType === "general") {
+            d.PC_NAME == selectedConstituency && result.push({  
+              votes: d.stats[0].votesReceived,
+              candidate: d.stats[0].candidate,
+              party: d.stats[0].party,
+              color: d.stats[0].color,
+              pc_name: d.PC_NAME,
+            })
+          } else {
+            d.AC_NAME == selectedConstituency && result.push({  
+              votes: d.stats[0].votesReceived,
+              candidate: d.stats[0].candidate,
+              party: d.stats[0].party,
+              color: d.stats[0].color,
+              ac_name: d.AC_NAME,
+            })
+          }
         } else {
           const alliance = partyAlliance.find(e => e.PARTY === d.stats[0].party) ? (partyAlliance.find(e => e.PARTY === d.stats[0].party)).ALLIANCE : "OTHERS"
-          d.PC_NAME == selectedConstituency && result.push({  
-            votes: d.stats[0].votesReceived,
-            candidate: d.stats[0].candidate,
-            alliance: alliance,
-            color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                    ? "#000000"
-                    : PARTY_COLOR.find((e) => e.party == alliance).color,
-            pc_name: d.PC_NAME,
-          })
+          if(electionType === "general") {
+            d.PC_NAME == selectedConstituency && result.push({  
+              votes: d.stats[0].votesReceived,
+              candidate: d.stats[0].candidate,
+              alliance: alliance,
+              color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
+                      ? "#232323"
+                      : PARTY_COLOR.find((e) => e.party == alliance).color,
+              pc_name: d.PC_NAME,
+            })
+          } else {
+            d.AC_NAME == selectedConstituency && result.push({  
+              votes: d.stats[0].votesReceived,
+              candidate: d.stats[0].candidate,
+              alliance: alliance,
+              color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
+                      ? "#232323"
+                      : PARTY_COLOR.find((e) => e.party == alliance).color,
+              ac_name: d.AC_NAME,
+            })
+          }      
         }
         })
     }
@@ -316,53 +382,101 @@ export const getConstituenciesResults = (data, selectedConstituency, groupType, 
  * @param {String} stateUT - Key Name of a State/UT
  * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
  */
-export const getStateUTMapDataPC = (data, stateUT) => {
+export const getStateUTMapDataPC = (data, stateUT, electionType) => {
   let stateData = []
-  let parliamentConstituenciesList = new Set()
+  let constituenciesList = new Set()
   stateData = stateUT === STATE_UT_DEFAULT_SELECT ? data : data.filter((row) => row.ST_NAME === stateUT)
-  stateData.map((row) => {
-    parliamentConstituenciesList.add(row.PC_NAME)
-  })
-  let parliamentConstituencies = [...parliamentConstituenciesList].map((pc) => {
-    let constituencyData = stateData.filter((row) => row.PC_NAME === pc)
-    let candidates = new Set()
-    constituencyData.map((row) => candidates.add(row.CANDIDATE))
-    let constituencyStatsTemp = [...candidates].map((c) => {
-      let votesReceived = 0
-      let candidate = null
-      let party = null
-      constituencyData.map((row) => {
-        row.CANDIDATE === c && (
-          candidate = c,
-          party = row.PARTY,
-          votesReceived = votesReceived + parseInt(row.VOTES)
-        )
-      })
-      return {
-        candidate: candidate,
-        party: party,
-        votesReceived: votesReceived,
-        color: PARTY_COLOR.find((e) => e.party == party) == undefined
-                ? "#000000"
-                : PARTY_COLOR.find((e) => e.party == party).color
-      }
+  if(electionType === "general") {
+    stateData.map((row) => {
+      constituenciesList.add(row.PC_NAME)
     })
-    let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
-      return a.votesReceived > b.votesReceived && -1 || 1
-    })
-    let constituencyStats = []
-    constituencyStatsSorted.length < 5 && (constituencyStats = constituencyStatsSorted)
-    constituencyStatsSorted.length >= 5 && constituencyStatsSorted.map((row, index) => {
-        index < 4 && (constituencyStats[index] = row) || (
-          constituencyStats[3].candidate = "Others",
-          constituencyStats[3].party = "Others",
-          constituencyStats[3].votesReceived += constituencyStatsSorted[index].votesReceived
-        )
+    let constituencies = [...constituenciesList].map((pc) => {
+      let constituencyData = stateData.filter((row) => row.PC_NAME === pc)
+      let candidates = new Set()
+      constituencyData.map((row) => candidates.add(row.CANDIDATE))
+      let constituencyStatsTemp = [...candidates].map((c) => {
+        let votesReceived = 0
+        let candidate = null
+        let party = null
+        constituencyData.map((row) => {
+          row.CANDIDATE === c && (
+            candidate = c,
+            party = row.PARTY,
+            votesReceived = votesReceived + parseInt(row.VOTES)
+          )
+        })
+        return {
+          candidate: candidate,
+          party: party,
+          votesReceived: votesReceived,
+          color: PARTY_COLOR.find((e) => e.party == party) == undefined
+                  ? "#232323"
+                  : PARTY_COLOR.find((e) => e.party == party).color
+        }
       })
-    return { PC_NAME: pc, stats: constituencyStats }
-  })
-  return {
-    stateUT: stateUT,
-    parliamentConstituencies: parliamentConstituencies
+      let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
+        return a.votesReceived > b.votesReceived && -1 || 1
+      })
+      let constituencyStats = []
+      constituencyStatsSorted.length < 5 && (constituencyStats = constituencyStatsSorted)
+      constituencyStatsSorted.length >= 5 && constituencyStatsSorted.map((row, index) => {
+          index < 4 && (constituencyStats[index] = row) || (
+            constituencyStats[3].candidate = "Others",
+            constituencyStats[3].party = "Others",
+            constituencyStats[3].votesReceived += constituencyStatsSorted[index].votesReceived
+          )
+        })
+      return { PC_NAME: pc, stats: constituencyStats }
+    })
+    return {
+      stateUT: stateUT,
+      constituencies: constituencies
+    }
+  } else {
+    stateData.map((row) => {
+      constituenciesList.add(row.AC_NAME)
+    })
+    let constituencies = [...constituenciesList].map((ac) => {
+      let constituencyData = stateData.filter((row) => row.AC_NAME === ac)
+      let candidates = new Set()
+      constituencyData.map((row) => candidates.add(row.CANDIDATE))
+      let constituencyStatsTemp = [...candidates].map((c) => {
+        let votesReceived = 0
+        let candidate = null
+        let party = null
+        constituencyData.map((row) => {
+          row.CANDIDATE === c && (
+            candidate = c,
+            party = row.PARTY,
+            votesReceived = votesReceived + parseInt(row.VOTES)
+          )
+        })
+        return {
+          candidate: candidate,
+          party: party,
+          votesReceived: votesReceived,
+          color: PARTY_COLOR.find((e) => e.party == party) == undefined
+                  ? "#000000"
+                  : PARTY_COLOR.find((e) => e.party == party).color
+        }
+      })
+      let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
+        return a.votesReceived > b.votesReceived && -1 || 1
+      })
+      let constituencyStats = []
+      constituencyStatsSorted.length < 5 && (constituencyStats = constituencyStatsSorted)
+      constituencyStatsSorted.length >= 5 && constituencyStatsSorted.map((row, index) => {
+          index < 4 && (constituencyStats[index] = row) || (
+            constituencyStats[3].candidate = "Others",
+            constituencyStats[3].party = "Others",
+            constituencyStats[3].votesReceived += constituencyStatsSorted[index].votesReceived
+          )
+        })
+      return { AC_NAME: ac, stats: constituencyStats }
+    })
+    return {
+      stateUT: stateUT,
+      constituencies: constituencies
+    }
   }
 }

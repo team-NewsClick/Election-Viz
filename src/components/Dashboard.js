@@ -104,12 +104,12 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
 
   useEffect(() => {
     if(selectedYearData != []){
-      setStateUTMapDataPC(getStateUTMapDataPC(selectedYearData, selectedStateUT))
+      setStateUTMapDataPC(getStateUTMapDataPC(selectedYearData, selectedStateUT, electionType))
     }
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
-    setConstituenciesResults(getConstituenciesResults(stateUTMapDataPC, selectedConstituency, groupType, partyAlliance))
+    setConstituenciesResults(getConstituenciesResults(stateUTMapDataPC, selectedConstituency, electionType, groupType, partyAlliance))
   }, [stateUTMapDataPC, selectedConstituency, selectedStateUT, electionType, groupType])
 
   useEffect(() => {
@@ -512,7 +512,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
           }
           </div>
           <div>
-            {selectedStateUT && (
+            {regionStatsSVGData && (
               <MapWidget
                 stateGeojson={stateGeojson}
                 districtGeojson={districtGeojson}
@@ -521,6 +521,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
                 selectedStateUT={selectedStateUT}
                 stateUTMapDataPC={stateUTMapDataPC}
                 constituenciesResults={constituenciesResults}
+                topSix={regionStatsSVGData}
                 mapWidgetLoading = {mapWidgetLoading}
               />
             )}
