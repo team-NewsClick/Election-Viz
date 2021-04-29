@@ -27,7 +27,7 @@ import Loading from "../Loading"
  */
 const MapWidget = ({
   stateGeojson,
-  districtGeojson,
+  parliamentaryConstituenciesGeojson,
   onMapUpdate,
   electionType,
   selectedStateUT,
@@ -38,7 +38,7 @@ const MapWidget = ({
 }) => {
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState("")
-  const [districtData, setDistrictData] = useState(districtGeojson)
+  const [districtData, setDistrictData] = useState(parliamentaryConstituenciesGeojson)
   const [stateData, setStateData] = useState(stateGeojson)
   const [initialViewState, setInitialViewState] = useState(
     windowWidth < 800
@@ -67,7 +67,7 @@ const MapWidget = ({
   )
 
   useEffect(() => {
-    setDistrictData((districtGeojson) => ({ ...districtGeojson }))
+    setDistrictData((parliamentaryConstituenciesGeojson) => ({ ...parliamentaryConstituenciesGeojson }))
     setStateData((stateGeojson) => ({ ...stateGeojson }))
   }, [stateName, constituenciesResults])
 
@@ -85,7 +85,7 @@ const MapWidget = ({
           ...initialViewState,
           latitude: stateObject[0].latitude,
           longitude: stateObject[0].longitude,
-          zoom: 6
+          zoom: 5
         })
       }
     } else {
@@ -161,12 +161,13 @@ const MapWidget = ({
       return DEFAULT_DISTRICT_FILL_COLOR
     }
   }
+
   const _getTooltip = ({ object }) => {
     if (object) {
       if (electionType === "general") {
         const sortByKey = object.properties.PC_NAME
-        const results = constituenciesResults.find((row) => {
-          if (sortByKey == row.pc_name) {
+        const results = stateUTMapDataPC.constituencies.find((row) => {
+          if (sortByKey == row.PC_NAME) {
             return row
           }
         })
@@ -176,13 +177,16 @@ const MapWidget = ({
             <div>
               <div class="pb-1"><b>State: ${object.properties.ST_NAME}</b></div>
               <div class="pb-1">
-                <div>Constituency: <b>${results.pc_name}</b></div>
-                <div>Winner: <b>${results.candidate}</b></div>
+                <div>Constituency: <b>${results.PC_NAME}</b></div>
+                <div>Winner: <b>${results.stats[0].candidate}</b></div>
               </div>
               <div>
                 <div>Vote Share:</div>
                 <div>
-                  <div><b>${results.party}</b>: ${indPlaceVal(results.votes)}</div>
+                  <div><b>${results.stats[0].party}</b>: ${indPlaceVal(results.stats[0].votesReceived)}</div>
+                  <div><b>${results.stats[1].party}</b>: ${indPlaceVal(results.stats[1].votesReceived)}</div>
+                  <div><b>${results.stats[2].party}</b>: ${indPlaceVal(results.stats[2].votesReceived)}</div>
+                  <div><b>${results.stats[3].party}</b>: ${indPlaceVal(results.stats[3].votesReceived)}</div>
                 </div>
               </div>
             </div>

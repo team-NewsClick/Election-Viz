@@ -39,7 +39,7 @@ import {
 /**
  * Controls/Settings for the visualization of infographics
  */
-const Dashboard = ({ stateGeojson, districtGeojson }) => {
+const Dashboard = ({ stateGeojson, parliamentaryConstituenciesGeojson }) => {
   const windowWidth = window.innerWidth
   const [electionType, setElectionType] = useState(ELECTION_TYPE_DEFAULT)
   const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
@@ -515,7 +515,7 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
             {regionStatsSVGData && (
               <MapWidget
                 stateGeojson={stateGeojson}
-                districtGeojson={districtGeojson}
+                parliamentaryConstituenciesGeojson={parliamentaryConstituenciesGeojson}
                 onMapUpdate={_updatedRegion}
                 electionType={electionType}
                 selectedStateUT={selectedStateUT}
