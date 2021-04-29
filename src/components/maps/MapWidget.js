@@ -15,6 +15,7 @@ import {
   DEFAULT_DISTRICT_LINE_COLOR,
   TRANSPARENT_COLOR
 } from "../../constants"
+import  {indPlaceVal } from "../../utils"
 import hexRgb from "hex-rgb"
 import Loading from "../Loading"
 
@@ -171,7 +172,21 @@ const MapWidget = ({
         })
         return (
           results && {
-            html: `<div><b>PC: ${results.pc_name}</b></div>`
+            html: `
+            <div>
+              <div class="pb-1"><b>State: ${object.properties.ST_NAME}</b></div>
+              <div class="pb-1">
+                <div>Constituency: <b>${results.pc_name}</b></div>
+                <div>Winner: <b>${results.candidate}</b></div>
+              </div>
+              <div>
+                <div>Vote Share:</div>
+                <div>
+                  <div><b>${results.party}</b>: ${indPlaceVal(results.votes)}</div>
+                </div>
+              </div>
+            </div>
+            `
           }
         )
       }

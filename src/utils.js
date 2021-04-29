@@ -480,3 +480,17 @@ export const getStateUTMapDataPC = (data, stateUT, electionType) => {
     }
   }
 }
+
+/**
+ * Convert Number to Indian Decimal System
+ * @param {number} x - Number to convert to Indian System
+ * @return {number} Number in Indian Place Value System
+ */
+ export const indPlaceVal = (x) => {
+  x = x.toString()
+  let lastThree = x.substring(x.length - 3)
+  let otherNumbers = x.substring(0, x.length - 3)
+  if (otherNumbers != "") lastThree = "," + lastThree
+  let number = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree
+  return number
+}

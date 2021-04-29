@@ -202,9 +202,13 @@ details[open] summary::after {
   line-height: 1.4285em;
 }
 #deckgl-overlay,
-#deckgl-wrapper,
-.deck-tooltip {
+#deckgl-wrapper {
   position: relative !important;
+}
+.deck-tooltip {
+  background-color: white !important;
+  color: black !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 .heightImp100 {
   height: 100% !important;
