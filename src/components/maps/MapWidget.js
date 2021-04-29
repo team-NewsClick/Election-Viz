@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
-import { _MapContext as MapContext, StaticMap, NavigationControl } from "react-map-gl"
+import {
+  _MapContext as MapContext,
+  StaticMap,
+  NavigationControl
+} from "react-map-gl"
 import {
   STATE_COORDINATES,
   STATE_UT_DEFAULT_SELECT,
@@ -80,41 +84,41 @@ const MapWidget = ({
           ...initialViewState,
           latitude: stateObject[0].latitude,
           longitude: stateObject[0].longitude,
-          zoom: 5
+          zoom: 6
         })
       }
     } else {
       setStateName(state)
       setInitialViewState(
         windowWidth < 800
-        ? windowWidth > 700
-          ? {
-              latitude: 23,
-              longitude: 83,
-              zoom: 3.6,
-              pitch: 0,
-              bearing: 0
-            }
+          ? windowWidth > 700
+            ? {
+                latitude: 23,
+                longitude: 83,
+                zoom: 3.6,
+                pitch: 0,
+                bearing: 0
+              }
+            : {
+                latitude: 23,
+                longitude: 82.5,
+                zoom: 3,
+                pitch: 0,
+                bearing: 0
+              }
           : {
               latitude: 23,
-              longitude: 82.5,
-              zoom: 3,
+              longitude: 83,
+              zoom: 4,
               pitch: 0,
               bearing: 0
             }
-        : {
-            latitude: 23,
-            longitude: 83,
-            zoom: 4,
-            pitch: 0,
-            bearing: 0
-          }
       )
     }
   }, [selectedStateUT, electionType, constituenciesResults])
 
-  const _handleMapState = (object) => {
-    const state = object.properties.ST_NM
+  const _handleMap = (object) => {
+    const state = object.properties.ST_NAME
     const stateObject = STATE_COORDINATES.filter((row) => {
       if (state == row.state) {
         return row
@@ -133,7 +137,7 @@ const MapWidget = ({
   const _fillParliamentColor = (d) => {
     let results = null
     let sortByKey = null
-    if(electionType === "general") {
+    if (electionType === "general") {
       sortByKey = d.properties.PC_NAME
       results = constituenciesResults.find((row) => {
         if (sortByKey == row.pc_name) {
@@ -156,36 +160,45 @@ const MapWidget = ({
       return DEFAULT_DISTRICT_FILL_COLOR
     }
   }
-
+  const _getTooltip = ({ object }) => {
+    if (object) {
+      if (electionType === "general") {
+        const sortByKey = object.properties.PC_NAME
+        const results = constituenciesResults.find((row) => {
+          if (sortByKey == row.pc_name) {
+            return row
+          }
+        })
+        return (
+          results && {
+            html: `<div><b>PC: ${results.pc_name}</b></div>`
+          }
+        )
+      }
+    }
+  }
   const layers = [
     new GeoJsonLayer({
-      id: "state-geojson-layer-1",
-      data: stateData,
-      stroked: false,
-      filled: true,
-      lineWidthScale: 600,
-      getFillColor: TRANSPARENT_COLOR,
-      pickable: true,
-      onClick: ({ object }) => _handleMapState(object)
-    }),
-    new GeoJsonLayer({
-      id: "district-geojson-layer-2",
+      id: "parlimantary-constituency-geojson-layer-1",
       data: districtData,
       stroked: true,
       filled: true,
+      pickable: true,
       lineWidthScale: 200,
       getFillColor: (d) => _fillParliamentColor(d),
       getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
       getLineWidth: 10,
+      onClick: ({ object }) => _handleMap(object)
     }),
     new GeoJsonLayer({
-      id: "state-geojson-layer-3",
+      id: "state-geojson-layer-2",
       data: stateData,
       stroked: true,
       filled: false,
       lineWidthScale: 600,
       getLineColor: DEFAULT_STATE_LINE_COLOR,
-      getLineWidth: 3,
+      getFillColor: TRANSPARENT_COLOR,
+      getLineWidth: 3
     })
   ]
 
@@ -195,6 +208,7 @@ const MapWidget = ({
         initialViewState={initialViewState}
         pickingRadius={5}
         controller={true}
+        getTooltip={_getTooltip}
         layers={layers}
         width={
           windowWidth < 800
@@ -215,19 +229,20 @@ const MapWidget = ({
         <div style={{ position: "absolute", right: 30, top: 0, zIndex: 1 }}>
           <NavigationControl />
         </div>
-        {mapWidgetLoading === true
-          ? <div className="h-full" >
-              <div className=" w-full h-full bg-gray-200 opacity-70" ></div>
-              <div className="absolute" style={{top: "50%", left: "50%"}} >
-                <Loading />
-              </div>
+        {mapWidgetLoading === true ? (
+          <div className="h-full">
+            <div className=" w-full h-full bg-gray-200 opacity-70"></div>
+            <div className="absolute" style={{ top: "50%", left: "50%" }}>
+              <Loading />
             </div>
-          : <StaticMap
-              reuseMaps
-              mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
-              preventStyleDiffing={true}
-            />
-          }
+          </div>
+        ) : (
+          <StaticMap
+            reuseMaps
+            mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
+            preventStyleDiffing={true}
+          />
+        )}
       </DeckGL>
     </div>
   )
