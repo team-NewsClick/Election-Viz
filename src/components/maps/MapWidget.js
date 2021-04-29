@@ -149,14 +149,8 @@ const MapWidget = ({
       //   }
       // })
     }
-
     if (results) {
-      let hexColor = null
-      if(topSix.hasOwnProperty(results.party || results.alliance)) {
-        hexColor = hexRgb(results.color)
-      } else {
-        hexColor = {red: 23, green: 23, blue: 23}
-      }
+      const hexColor = hexRgb(results.color)
       return [hexColor.red, hexColor.green, hexColor.blue]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR

@@ -1,6 +1,6 @@
 import { parse } from "postcss"
 import { sort } from "virtual-dom-stringify/lib/self-closing-tags"
-import { STATE_UT_DEFAULT_SELECT, PARTY_COLOR, CONSTITUENCIES_DEFAULT_SELECT } from "./constants"
+import { STATE_UT_DEFAULT_SELECT, PARTY_COLOR, CONSTITUENCIES_DEFAULT_SELECT, DEFAULT_PARTY_ALLIANCE_COLOR } from "./constants"
 
 /**
  * Returns a list of States and UTs that had election in a year
@@ -148,7 +148,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
  */
 const assignColor = (data) => {
   return PARTY_COLOR.find((e) => e.party == (data.party || data.alliance)) == undefined
-    ? "#232323"
+    ? DEFAULT_PARTY_ALLIANCE_COLOR
     : PARTY_COLOR.find((e) => e.party == (data.party || data.alliance)).color
 }
 
@@ -191,27 +191,27 @@ export const seatsCount = (data, groupType, partyAlliance) => {
     preSort = allianceData
   }
   const sortedData = preSort.sort((a, b) => a.totalSeats < b.totalSeats ? 1 : b.totalSeats < a.totalSeats ? -1 : 0)
-  let topSix = []
-  if(sortedData.length <= 6) {
-    topSix = sortedData
+  let topNine = []
+  if(sortedData.length <= 9) {
+    topNine = sortedData
   } else {
     sortedData.map((d, index) => {
-      if(index < 6) {
-        topSix.push(d)
+      if(index < 9) {
+        topNine.push(d)
       }
-      if(index >= 6) {
-        groupType === "party" ? topSix[5].party = "OTHERS" : topSix[5].alliance = "OTHERS"
-        topSix[5].totalSeats += d.totalSeats
+      if(index >= 9) {
+        groupType === "party" ? topNine[8].party = "OTHERS" : topNine[8].alliance = "OTHERS"
+        topNine[8].totalSeats += d.totalSeats
       }
     })
   }
-  if(groupType === "alliance" && topSix.findIndex(d => (d.party || d.alliance) === "OTHERS") > -1) {
-    const temp = topSix[topSix.findIndex(d => (d.party || d.alliance) === "OTHERS")]
-    topSix.splice(topSix.findIndex(d => (d.party || d.alliance) === "OTHERS"), 1)
-    topSix.push(temp)
+  if(groupType === "alliance" && topNine.findIndex(d => (d.party || d.alliance) === "OTHERS") > -1) {
+    const temp = topNine[topNine.findIndex(d => (d.party || d.alliance) === "OTHERS")]
+    topNine.splice(topNine.findIndex(d => (d.party || d.alliance) === "OTHERS"), 1)
+    topNine.push(temp)
   }
   const finalData = {}
-  topSix.map((row) => {
+  topNine.map((row) => {
     finalData[(row.party || row.alliance)] = {
       seats: row.totalSeats,
       colour: assignColor(row)
@@ -258,7 +258,7 @@ export const getAssemblyResults = (data, groupType, partyAlliance) => {
       finalData.push({
         candidate: row.CANDIDATE,
         color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                ? "#232323"
+                ? DEFAULT_PARTY_ALLIANCE_COLOR
                 : PARTY_COLOR.find((e) => e.party == alliance).color,
         alliance: alliance,
         ac_name: row.AC_NAME,
@@ -306,7 +306,7 @@ export const getConstituenciesResults = (data, selectedConstituency, electionTyp
               candidate: d.stats[0].candidate,
               alliance: alliance,
               color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                      ? "#232323"
+                      ? DEFAULT_PARTY_ALLIANCE_COLOR
                       : PARTY_COLOR.find((e) => e.party == alliance).color,
               pc_name: d.PC_NAME,
             })
@@ -316,7 +316,7 @@ export const getConstituenciesResults = (data, selectedConstituency, electionTyp
               candidate: d.stats[0].candidate,
               alliance: alliance,
               color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                      ? "#232323"
+                      ? DEFAULT_PARTY_ALLIANCE_COLOR
                       : PARTY_COLOR.find((e) => e.party == alliance).color,
               ac_name: d.AC_NAME,
             })
@@ -352,7 +352,7 @@ export const getConstituenciesResults = (data, selectedConstituency, electionTyp
               candidate: d.stats[0].candidate,
               alliance: alliance,
               color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                      ? "#232323"
+                      ? DEFAULT_PARTY_ALLIANCE_COLOR
                       : PARTY_COLOR.find((e) => e.party == alliance).color,
               pc_name: d.PC_NAME,
             })
@@ -362,7 +362,7 @@ export const getConstituenciesResults = (data, selectedConstituency, electionTyp
               candidate: d.stats[0].candidate,
               alliance: alliance,
               color: PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                      ? "#232323"
+                      ? DEFAULT_PARTY_ALLIANCE_COLOR
                       : PARTY_COLOR.find((e) => e.party == alliance).color,
               ac_name: d.AC_NAME,
             })
@@ -410,7 +410,7 @@ export const getStateUTMapDataPC = (data, stateUT, electionType) => {
           party: party,
           votesReceived: votesReceived,
           color: PARTY_COLOR.find((e) => e.party == party) == undefined
-                  ? "#232323"
+                  ? DEFAULT_PARTY_ALLIANCE_COLOR
                   : PARTY_COLOR.find((e) => e.party == party).color
         }
       })
