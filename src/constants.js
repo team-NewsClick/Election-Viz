@@ -420,7 +420,7 @@ export const STATE_COORDINATES = [
     longitude: 79.82666
   },
   {
-    state: "Uttaranchal",
+    state: "Uttarakhand",
     latitude: 30.32040895,
     longitude: 78.05000565
   },
@@ -441,11 +441,11 @@ export const PARTY_COLOR = [
   },
   {
     party: "SP",
-    color: "#FE6161"
+    color: "#ED0E0E"
   },
   {
     party: "BSP",
-    color: "#0000FF"
+    color: "#22409A"
   },
   {
     party: "RLD",
@@ -461,7 +461,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "TRS",
-    color: "#BD0026"
+    color: "#FE0175"
   },
   {
     party: "KC(M)",
@@ -493,7 +493,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "AITC",
-    color: "#69B800"
+    color: "#009900"
   },
   {
     party: "Congress(Secular)",
@@ -501,7 +501,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "JDS",
-    color: "#008D3C"
+    color: "#00923F"
   },
   {
     party: "INC",
@@ -537,11 +537,11 @@ export const PARTY_COLOR = [
   },
   {
     party: "DMK",
-    color: "#BD0026"
+    color: "#FF0000"
   },
   {
     party: "NCP",
-    color: "#BD0026"
+    color: "#00BFFF"
   },
   {
     party: "CPI",
@@ -549,7 +549,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "AIUDF",
-    color: "#BD0026"
+    color: "#00FF00"
   },
   {
     party: "NSC",
@@ -577,11 +577,11 @@ export const PARTY_COLOR = [
   },
   {
     party: "TDP",
-    color: "#DEDE05"
+    color: "#FFFF00"
   },
   {
     party: "YSRCP",
-    color: "#084202"
+    color: "#0266B4"
   },
   {
     party: "SHS",
@@ -593,11 +593,11 @@ export const PARTY_COLOR = [
   },
   {
     party: "BJD",
-    color: "#006400"
+    color: "#01A31C"
   },
   {
     party: "SAD",
-    color: "#FFA500"
+    color: "#FF9900"
   },
   {
     party: "LJP",
@@ -605,7 +605,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "JD(U)",
-    color: "#28F361"
+    color: "#228B22"
   },
   {
     party: "RLSP",
@@ -621,7 +621,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "JMM",
-    color: "#006400"
+    color: "#004B1F"
   },
   {
     party: "JKNC",
@@ -650,5 +650,33 @@ export const PARTY_COLOR = [
   {
     party: "LEFT",
     color: "#DE0000"
+  },
+  {
+    party: "AIMIM",
+    color: "#20783B"
+  },
+  {
+    party: "AJSUP",
+    color: "#DA251C"
+  },
+  {
+    party: "SKM",
+    color: "#ED1E26"
+  },
+  {
+    party: "NDPP",
+    color: "#FD4242"
+  },
+  {
+    party: "ADAL",
+    color: "#792DB4"
+  },
+  {
+    party: "RLTP",
+    color: "#DBE934"
+  },
+  {
+    party: "JKN",
+    color: "#FF0000"
   }
 ]
