@@ -39,14 +39,22 @@ import {
 /**
  * Controls/Settings for the visualization of infographics
  */
-const Dashboard = ({ stateGeojson, parliamentaryConstituenciesGeojson }) => {
+const Dashboard = ({
+  stateGeojson,
+  parliamentaryConstituenciesGeojson,
+  assemblyConstituenciesGeojson
+}) => {
   const windowWidth = window.innerWidth
   const [electionType, setElectionType] = useState(ELECTION_TYPE_DEFAULT)
   const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
-  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
+  const [selectedStateUT, setSelectedStateUT] = useState(
+    STATE_UT_DEFAULT_SELECT
+  )
+  const [selectedConstituency, setSelectedConstituency] = useState(
+    CONSTITUENCIES_DEFAULT_SELECT
+  )
   const [stateUTMapDataPC, setStateUTMapDataPC] = useState({})
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
   const [groupType, setGroupType] = useState("party")
@@ -71,9 +79,7 @@ const Dashboard = ({ stateGeojson, parliamentaryConstituenciesGeojson }) => {
         const parsedData = csvParse(response.data)
         setSelectedYearData(parsedData)
       })
-    axios
-    .get(`/data/csv/party_alliance.csv`)
-    .then((response) => {
+    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setPartyAlliance(parsedData)
     })
@@ -103,35 +109,66 @@ const Dashboard = ({ stateGeojson, parliamentaryConstituenciesGeojson }) => {
   ])
 
   useEffect(() => {
-    if(selectedYearData != []){
-      setStateUTMapDataPC(getStateUTMapDataPC(selectedYearData, selectedStateUT, electionType))
+    if (selectedYearData != []) {
+      setStateUTMapDataPC(
+        getStateUTMapDataPC(selectedYearData, selectedStateUT, electionType)
+      )
     }
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
-    setConstituenciesResults(getConstituenciesResults(stateUTMapDataPC, selectedConstituency, electionType, groupType, partyAlliance))
-  }, [stateUTMapDataPC, selectedConstituency, selectedStateUT, electionType, groupType])
+    setConstituenciesResults(
+      getConstituenciesResults(
+        stateUTMapDataPC,
+        selectedConstituency,
+        electionType,
+        groupType,
+        partyAlliance
+      )
+    )
+  }, [
+    stateUTMapDataPC,
+    selectedConstituency,
+    selectedStateUT,
+    electionType,
+    groupType
+  ])
 
   useEffect(() => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
-  }, [electionType, selectedStateUT, selectedYear, selectedConstituency, selectedYear])
+  }, [
+    electionType,
+    selectedStateUT,
+    selectedYear,
+    selectedConstituency,
+    selectedYear
+  ])
 
   useEffect(() => {
-    if(electionType === "general"){
+    if (electionType === "general") {
       setRegionStatsSVGData(
-        getRegionStatsSVGData(constituenciesResults, electionType, groupType, partyAlliance)
+        getRegionStatsSVGData(
+          constituenciesResults,
+          electionType,
+          groupType,
+          partyAlliance
+        )
       )
     } else {
       setRegionStatsSVGData(
         getRegionStatsSVGData(
           selectedStateUT === STATE_UT_DEFAULT_SELECT
-          ? selectedYearData
-          : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-          ? selectedStateUTData
-          : selectedConstituencyData
-          , electionType, groupType, partyAlliance, selectedStateUT,    
-      ))
+            ? selectedYearData
+            : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+            ? selectedStateUTData
+            : selectedConstituencyData,
+          electionType,
+          groupType,
+          partyAlliance,
+          selectedStateUT
+        )
+      )
     }
     setMapWidgetLoading(false)
     setRegionStatsLoading(false)
@@ -151,9 +188,17 @@ const Dashboard = ({ stateGeojson, parliamentaryConstituenciesGeojson }) => {
   }
 
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
-  const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency, electionType)
+  const selectedConstituencyData = dataConstituency(
+    selectedStateUTData,
+    selectedConstituency,
+    electionType
+  )
   const stateUTOptions = getStateUTs(selectedYearData)
-  const constituencyOptions = getConstituencies(selectedStateUTData, selectedStateUT, electionType)
+  const constituencyOptions = getConstituencies(
+    selectedStateUTData,
+    selectedStateUT,
+    electionType
+  )
 
   const _handleElectionType = (v) => {
     setElectionType(v)
@@ -167,7 +212,7 @@ const Dashboard = ({ stateGeojson, parliamentaryConstituenciesGeojson }) => {
   const _handleSelectedRegion = (v) => {
     console.log(v)
   }
-    const _handleGroupType = (v) => {
+  const _handleGroupType = (v) => {
     setGroupType(v)
   }
   const _handleSelectedStateUT = (v) => {
@@ -494,35 +539,44 @@ const Dashboard = ({ stateGeojson, parliamentaryConstituenciesGeojson }) => {
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
-            {electionType === "assembly" && selectedStateUT === STATE_UT_DEFAULT_SELECT
-            ? <div className="flex h-full">
-                <div className="text-center m-auto text-xl px-4">Please select a region from the drop-down or by clicking on the map.</div>
-             </div>
-            : <div> 
-              <RegionStatsSVG
-              regionStatsSVGData={regionStatsSVGData}
-              selectedConstituency={selectedConstituency}
-              regionStatsLoading={regionStatsLoading}
-              />
-              <RegionStatsTable
-              partyAllianceTableData={regionStatsSVGData}
-              regionStatsLoading={regionStatsLoading}
-              />
-             </div>
-          }
+            {electionType === "assembly" &&
+            selectedStateUT === STATE_UT_DEFAULT_SELECT ? (
+              <div className="flex h-full">
+                <div className="text-center m-auto text-xl px-4">
+                  Please select a region from the drop-down or by clicking on
+                  the map.
+                </div>
+              </div>
+            ) : (
+              <div>
+                <RegionStatsSVG
+                  regionStatsSVGData={regionStatsSVGData}
+                  selectedConstituency={selectedConstituency}
+                  regionStatsLoading={regionStatsLoading}
+                />
+                <RegionStatsTable
+                  partyAllianceTableData={regionStatsSVGData}
+                  regionStatsLoading={regionStatsLoading}
+                />
+              </div>
+            )}
           </div>
           <div>
             {regionStatsSVGData && (
               <MapWidget
                 stateGeojson={stateGeojson}
-                parliamentaryConstituenciesGeojson={parliamentaryConstituenciesGeojson}
+                parliamentaryConstituenciesGeojson={
+                  parliamentaryConstituenciesGeojson
+                }
+                assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
                 onMapUpdate={_updatedRegion}
                 electionType={electionType}
                 selectedStateUT={selectedStateUT}
+                selectedConstituency={selectedConstituency}
                 stateUTMapDataPC={stateUTMapDataPC}
                 constituenciesResults={constituenciesResults}
                 topSix={regionStatsSVGData}
-                mapWidgetLoading = {mapWidgetLoading}
+                mapWidgetLoading={mapWidgetLoading}
               />
             )}
           </div>
@@ -538,7 +592,7 @@ const Dashboard = ({ stateGeojson, parliamentaryConstituenciesGeojson }) => {
     return (
       <div
         // className="min-h-screen my-auto"
-        style={{minHeight: screen.height, height: "100%", margin: "auto"}}
+        style={{ minHeight: screen.height, height: "100%", margin: "auto" }}
       >
         <Loading />
       </div>
