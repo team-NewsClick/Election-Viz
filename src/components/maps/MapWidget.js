@@ -154,14 +154,14 @@ const MapWidget = ({
     if (electionType === "general") {
       sortByKey = d.properties.PC_NAME
       results = constituenciesResults.find((row) => {
-        if (sortByKey == row.pc_name) {
+        if (sortByKey == row.pc_name && selectedStateUT === d.properties.ST_NAME) {
           return row
         }
       })
     } else {
       sortByKey = d.properties.AC_NAME
       results = constituenciesResults.find((row) => {
-        if (sortByKey == row.ac_name) {
+        if (sortByKey == row.ac_name && selectedStateUT === d.properties.ST_NAME) {
           return row
         }
       })
