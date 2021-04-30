@@ -33,22 +33,35 @@ import {
   getConstituencyContestantsStatsData,
   getRegionStatsSVGData,
   getStateUTMapDataPC,
-  getConstituencyResults
+  getConstituenciesResults
 } from "../utils"
 
 /**
  * Controls/Settings for the visualization of infographics
  */
-const Dashboard = ({ stateGeojson, districtGeojson }) => {
+const Dashboard = ({
+  stateGeojson,
+  parliamentaryConstituenciesGeojson,
+  assemblyConstituenciesGeojson
+}) => {
   const windowWidth = window.innerWidth
   const [electionType, setElectionType] = useState(ELECTION_TYPE_DEFAULT)
   const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
-  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
-  const [regionStatsSVGData, setRegionStatsSVGData] = useState(null)
-  const [constituencyResults, setConstituencyResults] = useState()
+  const [selectedStateUT, setSelectedStateUT] = useState(
+    STATE_UT_DEFAULT_SELECT
+  )
+  const [selectedConstituency, setSelectedConstituency] = useState(
+    CONSTITUENCIES_DEFAULT_SELECT
+  )
+  const [stateUTMapDataPC, setStateUTMapDataPC] = useState({})
+  const [regionStatsSVGData, setRegionStatsSVGData] = useState()
+  const [groupType, setGroupType] = useState("party")
+  const [partyAlliance, setPartyAlliance] = useState()
+  const [constituenciesResults, setConstituenciesResults] = useState([])
+  const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
+  const [regionStatsLoading, setRegionStatsLoading] = useState(true)
 
   useEffect(() => {
     setYearOptions(
@@ -66,9 +79,15 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         const parsedData = csvParse(response.data)
         setSelectedYearData(parsedData)
       })
+    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
+      const parsedData = csvParse(response.data)
+      setPartyAlliance(parsedData)
+    })
   }, [selectedYear])
 
   useEffect(() => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedStateUT(
       stateUTOptions.indexOf(selectedStateUT) > -1
         ? selectedStateUT
@@ -79,31 +98,81 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
         ? selectedConstituency
         : constituencyOptions[0]
     )
-    setConstituencyResults(getConstituencyResults(
-      selectedStateUT === STATE_UT_DEFAULT_SELECT
-      ? selectedYearData
-      : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-        ? selectedStateUTData
-        : selectedConstituencyData
-    ))
-    setRegionStatsSVGData(
-      getRegionStatsSVGData(
-        selectedStateUT === STATE_UT_DEFAULT_SELECT
-         ? selectedYearData
-         : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-          ? selectedStateUTData
-          : selectedConstituencyData
-        , electionType, selectedStateUT
-      )
-    )
   }, [
     selectedYear,
     electionType,
     yearOptions,
     selectedYearData,
     selectedStateUT,
-    selectedConstituency
+    selectedConstituency,
+    stateUTMapDataPC
   ])
+
+  useEffect(() => {
+    if (selectedYearData != []) {
+      setStateUTMapDataPC(
+        getStateUTMapDataPC(selectedYearData, selectedStateUT, electionType)
+      )
+    }
+  }, [selectedYearData, selectedStateUT])
+
+  useEffect(() => {
+    setConstituenciesResults(
+      getConstituenciesResults(
+        stateUTMapDataPC,
+        selectedConstituency,
+        electionType,
+        groupType,
+        partyAlliance
+      )
+    )
+  }, [
+    stateUTMapDataPC,
+    selectedConstituency,
+    selectedStateUT,
+    electionType,
+    groupType
+  ])
+
+  useEffect(() => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
+  }, [
+    electionType,
+    selectedStateUT,
+    selectedYear,
+    selectedConstituency,
+    selectedYear
+  ])
+
+  useEffect(() => {
+    if (electionType === "general") {
+      setRegionStatsSVGData(
+        getRegionStatsSVGData(
+          constituenciesResults,
+          electionType,
+          groupType,
+          partyAlliance
+        )
+      )
+    } else {
+      setRegionStatsSVGData(
+        getRegionStatsSVGData(
+          selectedStateUT === STATE_UT_DEFAULT_SELECT
+            ? selectedYearData
+            : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+            ? selectedStateUTData
+            : selectedConstituencyData,
+          electionType,
+          groupType,
+          partyAlliance,
+          selectedStateUT
+        )
+      )
+    }
+    setMapWidgetLoading(false)
+    setRegionStatsLoading(false)
+  }, [constituenciesResults])
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -119,12 +188,16 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }
 
   const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
-  const selectedConstituencyData = dataConstituency(selectedStateUTData, selectedConstituency, electionType)
+  const selectedConstituencyData = dataConstituency(
+    selectedStateUTData,
+    selectedConstituency,
+    electionType
+  )
   const stateUTOptions = getStateUTs(selectedYearData)
-  const constituencyOptions = getConstituencies(selectedStateUTData, electionType)
-  const StateUTMapDataPC = getStateUTMapDataPC(
-    selectedYearData,
-    selectedStateUT
+  const constituencyOptions = getConstituencies(
+    selectedStateUTData,
+    selectedStateUT,
+    electionType
   )
 
   const _handleElectionType = (v) => {
@@ -138,6 +211,9 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
   }
   const _handleSelectedRegion = (v) => {
     console.log(v)
+  }
+  const _handleGroupType = (v) => {
+    setGroupType(v)
   }
   const _handleSelectedStateUT = (v) => {
     setSelectedStateUT(v)
@@ -194,21 +270,21 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
           <div className="radio-toolbar md:mx-2 my-2">
             <input
               type="radio"
-              id="party"
-              name="group"
-              value="party"
-              onChange={(e) => console.log("party")}
-            />
-            <label htmlFor="party">Party</label>
-            <input
-              type="radio"
               id="alliance"
               name="group"
               value="alliance"
-              defaultChecked
-              onChange={(e) => console.log("alliance")}
+              onChange={(e) => _handleGroupType(e.currentTarget.value)}
             />
             <label htmlFor="alliance">Alliance</label>
+            <input
+              type="radio"
+              id="party"
+              name="group"
+              value="party"
+              defaultChecked
+              onChange={(e) => _handleGroupType(e.currentTarget.value)}
+            />
+            <label htmlFor="party">Party</label>
           </div>
           <div>
             <select
@@ -463,29 +539,44 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
-            {electionType === "assembly" && selectedStateUT === STATE_UT_DEFAULT_SELECT
-            ? <div className="flex h-full">
-                <div className="text-center m-auto text-xl px-4">Please select a region from the drop-down or by clicking on the map.</div>
-             </div>
-            : <div> 
-              <RegionStatsSVG
-              regionStatsSVGData={regionStatsSVGData}
-              selectedConstituency={selectedConstituency}
-              />
-              <RegionStatsTable PartyAllianceTableData={regionStatsSVGData} />
-             </div>
-          }
+            {electionType === "assembly" &&
+            selectedStateUT === STATE_UT_DEFAULT_SELECT ? (
+              <div className="flex h-full">
+                <div className="text-center m-auto text-xl px-4">
+                  Please select a region from the drop-down or by clicking on
+                  the map.
+                </div>
+              </div>
+            ) : (
+              <div>
+                <RegionStatsSVG
+                  regionStatsSVGData={regionStatsSVGData}
+                  selectedConstituency={selectedConstituency}
+                  regionStatsLoading={regionStatsLoading}
+                />
+                <RegionStatsTable
+                  partyAllianceTableData={regionStatsSVGData}
+                  regionStatsLoading={regionStatsLoading}
+                />
+              </div>
+            )}
           </div>
           <div>
-            {selectedStateUT && (
+            {regionStatsSVGData && (
               <MapWidget
                 stateGeojson={stateGeojson}
-                districtGeojson={districtGeojson}
+                parliamentaryConstituenciesGeojson={
+                  parliamentaryConstituenciesGeojson
+                }
+                assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
                 onMapUpdate={_updatedRegion}
                 electionType={electionType}
                 selectedStateUT={selectedStateUT}
-                StateUTMapDataPC={StateUTMapDataPC}
-                constituencyResults={constituencyResults}
+                selectedConstituency={selectedConstituency}
+                stateUTMapDataPC={stateUTMapDataPC}
+                constituenciesResults={constituenciesResults}
+                topSix={regionStatsSVGData}
+                mapWidgetLoading={mapWidgetLoading}
               />
             )}
           </div>
@@ -498,9 +589,12 @@ const Dashboard = ({ stateGeojson, districtGeojson }) => {
       </div>
     )
   } else {
-    return (   
-      <div style={{height: "100vh"}} >
-        <Loading/>
+    return (
+      <div
+        // className="min-h-screen my-auto"
+        style={{ minHeight: screen.height, height: "100%", margin: "auto" }}
+      >
+        <Loading />
       </div>
     )
   }
