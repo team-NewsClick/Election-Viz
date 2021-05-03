@@ -200,6 +200,10 @@ const Dashboard = ({
     electionType
   )
 
+  const _home = () => {
+    setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
+  }
+
   const _handleElectionType = (v) => {
     setElectionType(v)
   }
@@ -561,8 +565,23 @@ const Dashboard = ({
               </div>
             )}
           </div>
+          <div
+            onClick={_home}
+            id="maphome"
+            title="Home"
+            className="flex relative items-center justify-center bg-white hover:bg-gray-200 rounded cursor-pointer z-10"
+            style={
+              windowWidth < 800
+                ? windowWidth > 700
+                  ?{top: "90px", left: "95%", width: "29px", height: "29px", boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"}
+                  : {top: "90px", left: "90.5%", width: "29px", height: "29px", boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"}
+                : {top: "60px", left: "-29px", width: "29px", height: "29px", boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"}}
+          >
+            <img src="img/map-home-icon.svg" className="w-3/5" />
+            </div>
           <div>
             {regionStatsSVGData && (
+              <div>
               <MapWidget
                 stateGeojson={stateGeojson}
                 parliamentaryConstituenciesGeojson={
@@ -578,6 +597,7 @@ const Dashboard = ({
                 topSix={regionStatsSVGData}
                 mapWidgetLoading={mapWidgetLoading}
               />
+              </div>
             )}
           </div>
         </div>
