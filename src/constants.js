@@ -235,7 +235,7 @@ export const VOTERS_TRUNOUT_OPTIONS = [
  * Geojson Default Colors
  */
 export const DEFAULT_STATE_FILL_COLOR = [255, 255, 255, 0]
-export const DEFAULT_STATE_LINE_COLOR = [100, 100, 100, 255]
+export const DEFAULT_STATE_LINE_COLOR = [60, 60, 60, 255]
 export const DEFAULT_DISTRICT_FILL_COLOR = [255, 255, 255, 125]
 export const DEFAULT_DISTRICT_LINE_COLOR = [255, 255, 255, 255]
 export const TRANSPARENT_COLOR = [255, 255, 255, 0]
