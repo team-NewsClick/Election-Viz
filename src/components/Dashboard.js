@@ -201,6 +201,7 @@ const Dashboard = ({
   )
 
   const _home = () => {
+    setMapWidgetLoading(true)
     setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
   }
 

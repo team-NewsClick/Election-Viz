@@ -304,7 +304,7 @@ const MapWidget = ({
       lineWidthScale: 600,
       getLineColor: DEFAULT_STATE_LINE_COLOR,
       getFillColor: TRANSPARENT_COLOR,
-      getLineWidth: 3
+      getLineWidth: 4
     })
   )
 
