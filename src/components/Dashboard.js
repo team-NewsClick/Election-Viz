@@ -201,8 +201,10 @@ const Dashboard = ({
   )
 
   const _home = () => {
-    setMapWidgetLoading(true)
-    setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
+    if(selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
+      setMapWidgetLoading(true)
+      setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
+    }
   }
 
   const _handleElectionType = (v) => {
