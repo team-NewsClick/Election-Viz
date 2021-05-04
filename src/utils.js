@@ -538,8 +538,8 @@ export const getStateUTMapDataPC = (data, stateUT, electionType) => {
       constituencyStatsSorted.length >= 5 &&
         constituencyStatsSorted.map((row, index) => {
           (index < 4 && (constituencyStats[index] = row)) ||
-            ((constituencyStats[3].candidate = "Others")
-            (constituencyStats[3].party = "Others")
+            ((constituencyStats[3].candidate = "Others"),
+            (constituencyStats[3].party = "Others"),
             (constituencyStats[3].votesReceived +=
               constituencyStatsSorted[index].votesReceived))
         })

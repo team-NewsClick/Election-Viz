@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import ReactDOMServer from 'react-dom/server';
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import {
@@ -193,6 +194,16 @@ const MapWidget = ({
               return row
             }
           })
+          let voteShare = ""
+          results && (
+            results.stats.map((d) => {
+              voteShare = voteShare + `<div><b>${d.party}</b>: ${indPlaceVal(
+                d.votesReceived
+              )}</div>`
+            })
+          )
+          if(results){
+          }
           return (
             results && {
               html: `
@@ -207,18 +218,7 @@ const MapWidget = ({
                 <div>
                   <div>Vote Share:</div>
                   <div>
-                    <div><b>${results.stats[0].party}</b>: ${indPlaceVal(
-                results.stats[0].votesReceived
-              )}</div>
-                    <div><b>${results.stats[1].party}</b>: ${indPlaceVal(
-                results.stats[1].votesReceived
-              )}</div>
-                    <div><b>${results.stats[2].party}</b>: ${indPlaceVal(
-                results.stats[2].votesReceived
-              )}</div>
-                    <div><b>${results.stats[3].party}</b>: ${indPlaceVal(
-                results.stats[3].votesReceived
-              )}</div>
+                  ${voteShare}
                   </div>
                 </div>
               </div>
@@ -233,6 +233,14 @@ const MapWidget = ({
             return row
           }
         })
+        let voteShare = ""
+        results && (
+          results.stats.map((d) => {
+            voteShare = voteShare + `<div><b>${d.party}</b>: ${indPlaceVal(
+              d.votesReceived
+            )}</div>`
+          })
+        )
         return (
           results && {
             html: `
@@ -242,6 +250,11 @@ const MapWidget = ({
                 <div>Constituency: <b>${results.AC_NAME}</b></div>
                 <div>Winner: <b>${results.stats[0].candidate}</b></div>
               </div>
+              <div>Vote Share:</div>
+                  <div>
+                  ${voteShare}
+                  </div>
+                </div>
             </div>
             `
           }
