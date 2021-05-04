@@ -289,7 +289,7 @@ const MapWidget = ({
         lineWidthScale: 200,
         getFillColor: (d) => _fillGeoJsonColor(d),
         getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
-        getLineWidth: 10,
+        getLineWidth: 3,
         onClick: ({ object }) => _handleMap(object)
       })
     ]
