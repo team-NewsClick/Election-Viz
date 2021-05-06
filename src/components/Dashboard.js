@@ -33,7 +33,8 @@ import {
   getConstituencyContestantsStatsData,
   getRegionStatsSVGData,
   getStateUTMapDataPC,
-  getConstituenciesResults
+  getConstituenciesResults,
+  getRegionStatsTable
 } from "../utils"
 
 /**
@@ -49,14 +50,11 @@ const Dashboard = ({
   const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(
-    STATE_UT_DEFAULT_SELECT
-  )
-  const [selectedConstituency, setSelectedConstituency] = useState(
-    CONSTITUENCIES_DEFAULT_SELECT
-  )
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [stateUTMapDataPC, setStateUTMapDataPC] = useState({})
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
+  const [regionStatsTableData, setRegionStatsTableData] = useState([])
   const [groupType, setGroupType] = useState("party")
   const [partyAlliance, setPartyAlliance] = useState()
   const [constituenciesResults, setConstituenciesResults] = useState([])
@@ -173,6 +171,22 @@ const Dashboard = ({
     setMapWidgetLoading(false)
     setRegionStatsLoading(false)
   }, [constituenciesResults])
+
+  useEffect(() => {
+    setRegionStatsTableData(getRegionStatsTable(
+      selectedStateUT === STATE_UT_DEFAULT_SELECT
+        ? selectedYearData
+        : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+        ? selectedStateUTData
+        : stateUTMapDataPC.constituencies,
+      regionStatsSVGData,
+      electionType,
+      groupType,
+      partyAlliance,
+      selectedStateUT,
+      selectedConstituency
+    ))
+  }, [regionStatsSVGData])
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -562,7 +576,7 @@ const Dashboard = ({
                   regionStatsLoading={regionStatsLoading}
                 />
                 <RegionStatsTable
-                  partyAllianceTableData={regionStatsSVGData}
+                  regionStatsTableData={regionStatsTableData}
                   regionStatsLoading={regionStatsLoading}
                 />
               </div>
