@@ -607,6 +607,7 @@ const Dashboard = ({
                 assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
                 onMapUpdate={_updatedRegion}
                 electionType={electionType}
+                stateUTOptions={stateUTOptions}
                 selectedStateUT={selectedStateUT}
                 selectedConstituency={selectedConstituency}
                 stateUTMapDataPC={stateUTMapDataPC}

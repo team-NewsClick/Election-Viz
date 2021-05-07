@@ -33,6 +33,7 @@ const MapWidget = ({
   assemblyConstituenciesGeojson,
   onMapUpdate,
   electionType,
+  stateUTOptions,
   selectedStateUT,
   selectedConstituency,
   stateUTMapDataPC,
@@ -99,7 +100,7 @@ const MapWidget = ({
           ...initialViewState,
           latitude: stateObject[0].latitude,
           longitude: stateObject[0].longitude,
-          zoom: electionType === "general" ? 5 : 7
+          zoom: 5.5
         })
       }
     } else {
@@ -144,7 +145,7 @@ const MapWidget = ({
       ...initialViewState,
       latitude: stateObject[0].latitude,
       longitude: stateObject[0].longitude,
-      zoom: electionType === "general" ? 5 : 7
+      zoom: 5.5
     })
     onMapUpdate(state)
   }
@@ -167,8 +168,14 @@ const MapWidget = ({
     } else {
       sortByKey = d.properties.AC_NAME
       results = constituenciesResults.find((row) => {
-        if (sortByKey == row.ac_name) {
-          return row
+        if(selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+          if (sortByKey == row.ac_name && stateUTOptions.indexOf(d.properties.ST_NAME) > -1) {
+            return row
+          }
+        } else {
+          if(sortByKey == row.ac_name && selectedStateUT == d.properties.ST_NAME) {
+            return row
+          }
         }
       })
     }
