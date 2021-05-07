@@ -60,6 +60,7 @@ const Dashboard = ({
   const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
+  const [prevYearData, setPrevYearData] = useState([])
 
   useEffect(() => {
     setYearOptions(
@@ -80,6 +81,15 @@ const Dashboard = ({
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setPartyAlliance(parsedData)
+    })
+    axios
+    .get(`/data/csv/${electionType}_${parseInt(selectedYear)-5}.csv`)
+    .then((response) =>{
+      const parsedData = csvParse(response.data)
+      setPrevYearData(parsedData)
+    })
+    .catch(() => {
+      setPrevYearData([])
     })
   }, [selectedYear])
 
@@ -184,7 +194,7 @@ const Dashboard = ({
       groupType,
       partyAlliance,
       selectedStateUT,
-      selectedConstituency
+      selectedConstituency,
     ))
   }, [regionStatsSVGData])
 
