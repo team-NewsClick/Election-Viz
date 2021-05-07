@@ -308,6 +308,10 @@ const MapWidget = ({
     })
   )
 
+  const _getCursor = (e) => {
+    return e.isHovering ? e.isDragging ? "grabbing" : "pointer" : ""
+  }
+
   return (
     <div>
       <DeckGL
@@ -316,6 +320,7 @@ const MapWidget = ({
         controller={true}
         getTooltip={_getTooltip}
         layers={layers}
+        getCursor={(e) => _getCursor(e)}
         width={
           windowWidth < 800
             ? windowWidth > 700
