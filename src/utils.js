@@ -244,6 +244,146 @@ export const seatsCount = (data, groupType, partyAlliance) => {
 }
 
 /**
+ * Calculate Data for selected region stats table
+ * @param {Array<Object>} data Selected State or UT data
+ * @param {object<Object>} SVGData Data for region stats SVG
+ * @param {String} electionType general or assembly
+ * @param {String} groupType party or alliance
+ * @param {Array<Object>} partyAlliance party and their respective alliance
+ * @param {String} selectedStateUT Selected State or UT
+ * @param {String} selectedConstituency Selected Constituency
+ * @returns {Array<Objects>} - Data of Party and their seats won, votes received, seats difference with respect to previous election, percentage of votes received, difference of percentage of votes received with respect to last election
+ */
+export const getRegionStatsTable = (data, SVGData, electionType, groupType, partyAlliance, selectedStateUT, selectedConstituency) => {
+  let tableData = []
+  let totalVotes = 0
+  if(selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||selectedStateUT ===  STATE_UT_DEFAULT_SELECT) {
+    if(groupType === "party") {
+      for( const property in SVGData) {
+        tableData.push(
+          {
+            party: `${property}`,
+            seats: `${SVGData[property].seats}`,
+            votes: 0,
+            seatsDifference: 0,
+            votesWonPercentage: 0,
+            votesWonPercentageDifference: 0
+          }
+        )
+      }
+      if(tableData.indexOf(tableData.find(({ party }) => party == "OTHERS")) < 0) {
+        tableData.push(
+          {
+            party: "OTHERS",
+            seats: 0,
+            votes: 0,
+            seatsDifference: 0,
+            votesWonPercentage: 0,
+            votesWonPercentageDifference: 0
+          }
+        )
+      }
+    } else {
+      for( const property in SVGData) {
+        tableData.push(
+          {
+            alliance: `${property}`,
+            seats: `${SVGData[property].seats}`,
+            votes: 0,
+            seatsDifference: 0,
+            votesWonPercentage: 0,
+            votesWonPercentageDifference: 0
+          }
+        )
+      }
+      if(tableData.indexOf(tableData.find(({ alliance }) => alliance == "OTHERS")) < 0) {
+        tableData.push(
+          {
+            alliance: "OTHERS",
+            seats: 0,
+            votes: 0,
+            seatsDifference: 0,
+            votesWonPercentage: 0,
+            votesWonPercentageDifference: 0
+          }
+        )
+      }
+    }    
+    if(groupType === "party") {
+      data.map((d, index) => {
+        let temp = tableData.indexOf(tableData.find(({ party }) => party == d.PARTY))
+        if(temp > -1) {
+          tableData[temp].votes += parseInt(d.VOTES)
+        }
+        else {
+          parseInt(d.VOTES) && tableData[tableData.length - 1] && (tableData[tableData.length - 1].votes += parseInt(d.VOTES))
+          }
+      })
+    }else {
+      data.map((d, index) => {
+        let temp = partyAlliance.find((e) => e.PARTY == d.PARTY) && tableData.indexOf(tableData.find(({ alliance }) => alliance == partyAlliance.find((e) => e.PARTY == d.PARTY).ALLIANCE))
+        if(temp > -1) {
+          tableData[temp].votes += parseInt(d.VOTES)
+        }
+        else {
+          parseInt(d.VOTES) && tableData[tableData.length - 1] && (tableData[tableData.length - 1].votes += parseInt(d.VOTES))
+          }
+      })
+    }
+  } else {
+    let constituencyStats = []
+    if(electionType === "general") {
+      if(data.find(c => c.PC_NAME == selectedConstituency)) {
+        constituencyStats = data.find(c => c.PC_NAME == selectedConstituency).stats
+      }
+    } else {
+      if(data.find(c => c.AC_NAME == selectedConstituency)) {
+        constituencyStats = data.find(c => c.AC_NAME == selectedConstituency).stats
+      }
+    }
+    if(groupType === "party") {
+      constituencyStats.map((d, index) =>
+        tableData.push({
+          party: d.party,
+          seats: index == 0 ? 1 : 0,
+          votes: d.votesReceived,
+          seatsDifference: 0,
+          votesWonPercentage: 0,
+          votesWonPercentageDifference: 0
+        })
+      )
+    }
+    else {
+      let alliances = new Set()
+      constituencyStats.map((d, index) => {
+        partyAlliance.find((e) => e.PARTY == d.party)
+          ? alliances.add(partyAlliance.find((e) => e.PARTY === d.party).ALLIANCE)
+          : alliances.add("OTHERS")
+      })
+      alliances =[...alliances]
+      alliances.map((d, index) => {
+        tableData.push({
+          alliance: d,
+          seats: index == 0 ? 1 : 0,
+          votes: 0,
+          seatsDifference: 0,
+          votesWonPercentage: 0,
+          votesWonPercentageDifference: 0
+        })
+      })
+      constituencyStats.map((d, index) => {
+        let tempAlliance = partyAlliance.find((e) => e.PARTY == d.party) ? partyAlliance.find((e) => e.PARTY == d.party).ALLIANCE : "OTHERS"
+        let tempIndex = tableData.indexOf(tableData.find(({ alliance }) => alliance == tempAlliance))
+        tableData[tempIndex].votes += d.votesReceived
+      })
+    }
+  }
+  tableData.map((d, index) => totalVotes += d.votes)
+  tableData.map((d, index) => d.votesWonPercentage = (d.votes/totalVotes*100).toFixed(2))
+  return tableData
+}
+
+/**
  *
  * @param {Array} data
  * @param {string} electionType
@@ -490,8 +630,8 @@ export const getStateUTMapDataPC = (data, stateUT, electionType) => {
       constituencyStatsSorted.length >= 5 &&
         constituencyStatsSorted.map((row, index) => {
           ;(index < 4 && (constituencyStats[index] = row)) ||
-            ((constituencyStats[3].candidate = "Others"),
-            (constituencyStats[3].party = "Others"),
+            ((constituencyStats[3].candidate = "OTHERS"),
+            (constituencyStats[3].party = "OTHERS"),
             (constituencyStats[3].votesReceived +=
               constituencyStatsSorted[index].votesReceived))
         })
@@ -538,8 +678,8 @@ export const getStateUTMapDataPC = (data, stateUT, electionType) => {
       constituencyStatsSorted.length >= 5 &&
         constituencyStatsSorted.map((row, index) => {
           (index < 4 && (constituencyStats[index] = row)) ||
-            ((constituencyStats[3].candidate = "Others"),
-            (constituencyStats[3].party = "Others"),
+            ((constituencyStats[3].candidate = "OTHERS"),
+            (constituencyStats[3].party = "OTHERS"),
             (constituencyStats[3].votesReceived +=
               constituencyStatsSorted[index].votesReceived))
         })
