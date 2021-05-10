@@ -26,8 +26,8 @@ import {
 import MapWidget from "../components/maps/MapWidget"
 import Loading from "../components/Loading"
 import {
-  dataStateUT,
-  dataConstituency,
+  getDataStateUT,
+  getDataConstituency,
   getStateUTs,
   getConstituencies,
   getConstituencyContestantsStatsData,
@@ -88,9 +88,7 @@ const Dashboard = ({
       const parsedData = csvParse(response.data)
       setPrevYearData(parsedData)
     })
-    .catch(() => {
-      setPrevYearData([])
-    })
+    .catch((e) => setPrevYearData([]))
   }, [selectedYear])
 
   useEffect(() => {
@@ -195,8 +193,9 @@ const Dashboard = ({
       partyAlliance,
       selectedStateUT,
       selectedConstituency,
+      prevYearData
     ))
-  }, [regionStatsSVGData])
+  }, [regionStatsSVGData, prevYearData])
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -211,8 +210,8 @@ const Dashboard = ({
         (btnIcon.style.transform = "rotate(0deg)"))
   }
 
-  const selectedStateUTData = dataStateUT(selectedYearData, selectedStateUT)
-  const selectedConstituencyData = dataConstituency(
+  const selectedStateUTData = getDataStateUT(selectedYearData, selectedStateUT)
+  const selectedConstituencyData = getDataConstituency(
     selectedStateUTData,
     selectedConstituency,
     electionType
