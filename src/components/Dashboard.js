@@ -198,7 +198,8 @@ const Dashboard = ({
         partyAlliance,
         selectedStateUT,
         selectedConstituency,
-        prevYearData
+        prevYearData,
+        stateUTMapDataPC.constituencies
       )
     )
   }, [regionStatsSVGData, prevYearData])
