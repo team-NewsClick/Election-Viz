@@ -50,8 +50,12 @@ const Dashboard = ({
   const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
-  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
+  const [selectedStateUT, setSelectedStateUT] = useState(
+    STATE_UT_DEFAULT_SELECT
+  )
+  const [selectedConstituency, setSelectedConstituency] = useState(
+    CONSTITUENCIES_DEFAULT_SELECT
+  )
   const [stateUTMapDataPC, setStateUTMapDataPC] = useState({})
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
   const [regionStatsTableData, setRegionStatsTableData] = useState([])
@@ -83,12 +87,12 @@ const Dashboard = ({
       setPartyAlliance(parsedData)
     })
     axios
-    .get(`/data/csv/${electionType}_${parseInt(selectedYear)-5}.csv`)
-    .then((response) =>{
-      const parsedData = csvParse(response.data)
-      setPrevYearData(parsedData)
-    })
-    .catch((e) => setPrevYearData([]))
+      .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
+      .then((response) => {
+        const parsedData = csvParse(response.data)
+        setPrevYearData(parsedData)
+      })
+      .catch((e) => setPrevYearData([]))
   }, [selectedYear])
 
   useEffect(() => {
@@ -181,20 +185,22 @@ const Dashboard = ({
   }, [constituenciesResults])
 
   useEffect(() => {
-    setRegionStatsTableData(getRegionStatsTable(
-      selectedStateUT === STATE_UT_DEFAULT_SELECT
-        ? selectedYearData
-        : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-        ? selectedStateUTData
-        : stateUTMapDataPC.constituencies,
-      regionStatsSVGData,
-      electionType,
-      groupType,
-      partyAlliance,
-      selectedStateUT,
-      selectedConstituency,
-      prevYearData
-    ))
+    setRegionStatsTableData(
+      getRegionStatsTable(
+        selectedStateUT === STATE_UT_DEFAULT_SELECT
+          ? selectedYearData
+          : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+          ? selectedStateUTData
+          : stateUTMapDataPC.constituencies,
+        regionStatsSVGData,
+        electionType,
+        groupType,
+        partyAlliance,
+        selectedStateUT,
+        selectedConstituency,
+        prevYearData
+      )
+    )
   }, [regionStatsSVGData, prevYearData])
 
   const showHideAdvanceOptions = () => {
@@ -224,7 +230,7 @@ const Dashboard = ({
   )
 
   const _home = () => {
-    if(selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
+    if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
       setMapWidgetLoading(true)
       setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
     }
@@ -599,31 +605,50 @@ const Dashboard = ({
             style={
               windowWidth < 800
                 ? windowWidth > 700
-                  ?{top: "90px", left: "95%", width: "29px", height: "29px", boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"}
-                  : {top: "90px", left: "90.5%", width: "29px", height: "29px", boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"}
-                : {top: "60px", left: "-29px", width: "29px", height: "29px", boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"}}
+                  ? {
+                      top: "90px",
+                      left: "95%",
+                      width: "29px",
+                      height: "29px",
+                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+                    }
+                  : {
+                      top: "90px",
+                      left: "90.5%",
+                      width: "29px",
+                      height: "29px",
+                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+                    }
+                : {
+                    top: "60px",
+                    left: "-29px",
+                    width: "29px",
+                    height: "29px",
+                    boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+                  }
+            }
           >
             <img src="img/map-home-icon.svg" className="w-3/5" />
-            </div>
+          </div>
           <div>
             {regionStatsSVGData && (
               <div>
-              <MapWidget
-                stateGeojson={stateGeojson}
-                parliamentaryConstituenciesGeojson={
-                  parliamentaryConstituenciesGeojson
-                }
-                assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-                onMapUpdate={_updatedRegion}
-                electionType={electionType}
-                stateUTOptions={stateUTOptions}
-                selectedStateUT={selectedStateUT}
-                selectedConstituency={selectedConstituency}
-                stateUTMapDataPC={stateUTMapDataPC}
-                constituenciesResults={constituenciesResults}
-                topSix={regionStatsSVGData}
-                mapWidgetLoading={mapWidgetLoading}
-              />
+                <MapWidget
+                  stateGeojson={stateGeojson}
+                  parliamentaryConstituenciesGeojson={
+                    parliamentaryConstituenciesGeojson
+                  }
+                  assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
+                  onMapUpdate={_updatedRegion}
+                  electionType={electionType}
+                  stateUTOptions={stateUTOptions}
+                  selectedStateUT={selectedStateUT}
+                  selectedConstituency={selectedConstituency}
+                  stateUTMapDataPC={stateUTMapDataPC}
+                  constituenciesResults={constituenciesResults}
+                  topSix={regionStatsSVGData}
+                  mapWidgetLoading={mapWidgetLoading}
+                />
               </div>
             )}
           </div>
