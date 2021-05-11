@@ -287,7 +287,6 @@ export const getRegionStatsTable = (
       selectedConstituency,
       stateUTMapDataConstituencies
     )
-
     presentYearDataTable && prevYearDataTable && 
     presentYearDataTable.map((d, index) => 
       tableData.push({
@@ -557,7 +556,6 @@ const prevSeatsVotesCount = (
 ) => {
   let stats = []
   let totalVotes = 0
-
   if (electionType === "general") {
     if (
       selectedStateUT === STATE_UT_DEFAULT_SELECT ||
@@ -572,27 +570,29 @@ const prevSeatsVotesCount = (
         votesPercent: 0
       }))
       data.map((d, index) => {
-        const temp = stats.findIndex((e) => e == stats.find(({ party }) => party === d.PARTY)) != -1
-                      ? stats.findIndex((e) => e == stats.find(({ party }) => party === d.PARTY))
-                      : (stats.length - 1)
-        stats[temp].votes += d.VOTES ? parseInt(d.VOTES) : 0
+      const temp = stats.findIndex((e) => e == stats.find(({ party }) => party === d.PARTY)) != -1
+        ? stats.findIndex((e) => e == stats.find(({ party }) => party === d.PARTY))
+        : (stats.length - 1)
+        if(!Number.isNaN(parseInt(d.VOTES))) {
+          stats[temp].votes += parseInt(d.VOTES)
+        }
       })
       constituenciesResults.map((d, index) => {
         const temp = stats.findIndex((e) => e == stats.find(({ party }) => party === d.party)) != -1
-                      ? stats.findIndex((e) => e == stats.find(({ party }) => party === d.party))
-                      : (stats.length - 1)
+            ? stats.findIndex((e) => e == stats.find(({ party }) => party === d.party))
+            : (stats.length - 1)
         stats[temp].seats += 1
       })
-
-      
+        
       stats && stats.map((d, index) => {
-        totalVotes += parseInt(d.votes)
+        if(!Number.isNaN(parseInt(d.votes))) {
+          totalVotes += parseInt(d.votes)
+        }
         })
-
       stats && stats.map(
         (d, index) =>
           d.votesPercent = ((d.votes / totalVotes) * 100).toFixed(2)
-      )     
+      )
       return stats
     } else {
       let groups = []
@@ -640,7 +640,6 @@ const prevSeatsVotesCount = (
   } else {
     return []
   }
-
 }
 
 /**
