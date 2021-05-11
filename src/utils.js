@@ -266,7 +266,6 @@ export const getRegionStatsTable = (
   prevYearData,
   stateUTMapDataConstituencies
 ) => {
-
   if (prevYearData) {
     const presentYearDataTable = getYearDataTable(
       presentYearData,
@@ -320,8 +319,7 @@ const getYearDataTable = (
         })
       }
       if (
-        tableData.indexOf(tableData.find(({ party }) => party == "OTHERS")) <
-        0
+        tableData.indexOf(tableData.find(({ party }) => party == "OTHERS")) < 0
       ) {
         tableData.push({
           party: "OTHERS",
@@ -395,15 +393,13 @@ const getYearDataTable = (
     let constituencyStats = []
     if (electionType === "general") {
       if (data.find((c) => c.PC_NAME == selectedConstituency)) {
-        constituencyStats = data.find(
-          (c) => c.PC_NAME == selectedConstituency
-        ).stats
+        constituencyStats = data.find((c) => c.PC_NAME == selectedConstituency)
+          .stats
       }
     } else {
       if (data.find((c) => c.AC_NAME == selectedConstituency)) {
-        constituencyStats = data.find(
-          (c) => c.AC_NAME == selectedConstituency
-        ).stats
+        constituencyStats = data.find((c) => c.AC_NAME == selectedConstituency)
+          .stats
       }
     }
     if (groupType === "party") {
@@ -470,7 +466,7 @@ const getPrevYearDataTable = (
   let prevSVGData = {}
   let prevSelectedStateUTData = []
 
-  if(prevYearData) {
+  if (prevYearData) {
     prevSelectedStateUTData = getDataStateUT(prevYearData, selectedStateUT)
     const prevSelectedConstituencyData =
       prevSelectedStateUTData &&
@@ -478,7 +474,7 @@ const getPrevYearDataTable = (
         prevSelectedStateUTData,
         selectedConstituency,
         electionType
-      )   
+      )
 
     if (prevYearData) {
       prevStateUTMapData = getStateUTMapDataPC(
@@ -499,54 +495,93 @@ const getPrevYearDataTable = (
       )
 
     let prevStats = []
-    
-    if(electionType === "general") {
-      if(selectedStateUT === STATE_UT_DEFAULT_SELECT || selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT) {
-        prevStats = prevConstituenciesResults && SVGData && prevSeatsCount(prevConstituenciesResults, SVGData, selectedStateUT, selectedConstituency, stateUTMapDataConstituencies, electionType)
+
+    if (electionType === "general") {
+      if (
+        selectedStateUT === STATE_UT_DEFAULT_SELECT ||
+        selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+      ) {
+        prevStats =
+          prevConstituenciesResults &&
+          SVGData &&
+          prevSeatsCount(
+            prevConstituenciesResults,
+            SVGData,
+            selectedStateUT,
+            selectedConstituency,
+            stateUTMapDataConstituencies,
+            electionType
+          )
       } else {
-        prevStats = prevConstituenciesResults && SVGData && prevSeatsCount(prevStateUTMapData.constituencies, SVGData, selectedStateUT, selectedConstituency, stateUTMapDataConstituencies, electionType)
+        prevStats =
+          prevConstituenciesResults &&
+          SVGData &&
+          prevSeatsCount(
+            prevStateUTMapData.constituencies,
+            SVGData,
+            selectedStateUT,
+            selectedConstituency,
+            stateUTMapDataConstituencies,
+            electionType
+          )
       }
     } else {
-      if(selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+      if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
         prevStats = []
       } else {
-        prevStats = prevConstituenciesResults && SVGData && prevSeatsCount(
-          selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-            ? prevSelectedStateUTData
-            : prevSelectedConstituencyData,
-          SVGData,
-          selectedStateUT,
-          selectedConstituency,
-          stateUTMapDataConstituencies,
-          electionType,
-          groupType,
-          partyAlliance
+        prevStats =
+          prevConstituenciesResults &&
+          SVGData &&
+          prevSeatsCount(
+            selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+              ? prevSelectedStateUTData
+              : prevSelectedConstituencyData,
+            SVGData,
+            selectedStateUT,
+            selectedConstituency,
+            stateUTMapDataConstituencies,
+            electionType,
+            groupType,
+            partyAlliance
           )
       }
     }
-  
+
     console.log("prevStats: ", prevStats)
 
     return []
   }
 }
 
-
-const prevSeatsCount = (data, SVGData, selectedStateUT, selectedConstituency, stateUTMapDataConstituencies, electionType, groupType, partyAlliance) => {
-  
+const prevSeatsCount = (
+  data,
+  SVGData,
+  selectedStateUT,
+  selectedConstituency,
+  stateUTMapDataConstituencies,
+  electionType,
+  groupType,
+  partyAlliance
+) => {
   let stats = []
 
-  if(electionType === "general") {
-    if(selectedStateUT === STATE_UT_DEFAULT_SELECT || selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT) {
+  if (electionType === "general") {
+    if (
+      selectedStateUT === STATE_UT_DEFAULT_SELECT ||
+      selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+    ) {
       const groups = Object.keys(SVGData)
       groups.indexOf("OTHERS") === -1 ? groups.push("OTHERS") : ""
-      groups.map((d, index) => 
-        stats.push({party: d,
-          seats: 0,
-          votes: 0})
-        )
+      groups.map((d, index) => stats.push({ party: d, seats: 0, votes: 0 }))
       data.map((d, index) => {
-        const temp = stats.findIndex(e => e == stats.find(({party}) => party === d.party)) != -1 ? stats.findIndex(e => e == stats.find(({party}) => party === d.party)) : stats.length - 1
+        const temp =
+          stats.findIndex(
+            (e) => e == stats.find(({ party }) => party === d.party)
+          ) != -1
+            ? stats.findIndex(
+                (e) => e == stats.find(({ party }) => party === d.party)
+              )
+            : stats.length - 1
         stats[temp].seats += 1
         stats[temp].votes += d.votes
       })
@@ -554,22 +589,35 @@ const prevSeatsCount = (data, SVGData, selectedStateUT, selectedConstituency, st
     } else {
       let groups = []
       let previousStats = []
-      if(stateUTMapDataConstituencies.length != 0) {
-        groups = (stateUTMapDataConstituencies.find(e => e.PC_NAME === selectedConstituency)).stats.map((d) => d.party)
+      if (stateUTMapDataConstituencies.length != 0) {
+        groups = stateUTMapDataConstituencies
+          .find((e) => e.PC_NAME === selectedConstituency)
+          .stats.map((d) => d.party)
         groups.indexOf("OTHERS") === -1 ? groups.push("OTHERS") : ""
-        groups.map((d, index) => 
-          stats.push({party: d,
-            seats: 0,
-            votes: 0})
-          )
-        previousStats = (data.find(e => e.PC_NAME === selectedConstituency)).stats
+        groups.map((d, index) => stats.push({ party: d, seats: 0, votes: 0 }))
+        previousStats = data.find((e) => e.PC_NAME === selectedConstituency)
+          .stats
         previousStats.map((d, index) => {
-          const temp = stats.findIndex(e => e == stats.find(({party}) => party === d.party)) != -1 ? stats.findIndex(e => e == stats.find(({party}) => party === d.party)) : stats.length - 1
-          if(temp === 1) {
+          const temp =
+            stats.findIndex(
+              (e) => e == stats.find(({ party }) => party === d.party)
+            ) != -1
+              ? stats.findIndex(
+                  (e) => e == stats.find(({ party }) => party === d.party)
+                )
+              : stats.length - 1
+          if (temp === 1) {
             stats[temp].seats += 1
             stats[temp].votes += d.votesReceived
           } else {
-            const temp = stats.findIndex(e => e == stats.find(({party}) => party === d.party)) != -1 ? stats.findIndex(e => e == stats.find(({party}) => party === d.party)) : stats.length - 1
+            const temp =
+              stats.findIndex(
+                (e) => e == stats.find(({ party }) => party === d.party)
+              ) != -1
+                ? stats.findIndex(
+                    (e) => e == stats.find(({ party }) => party === d.party)
+                  )
+                : stats.length - 1
             stats[temp].votes += d.votesReceived
           }
         })
@@ -580,8 +628,6 @@ const prevSeatsCount = (data, SVGData, selectedStateUT, selectedConstituency, st
     return []
   }
 
-
-  return []
 }
 
 /**
