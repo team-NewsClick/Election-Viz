@@ -7,11 +7,46 @@ import {
 import { assignColor } from "./utils"
 
 /**
- *
- * @param {Array} data
- * @returns
+ * To Calculate list of Parties/Alliances and their seats won in a region
+ * @param {Array<Object>} data  Selected year data
+ * @param {string} electionType general or assembly
+ * @param {string} groupType party or alliance
+ * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
+ * @param {string} selectedStateUT Selected State/UT
+ * @returns {Object<Object>} - List of Parties/Alliances and their seats won in a region
  */
-export const seatsCount = (data, groupType, partyAlliance) => {
+ export const getRegionStatsSVGData = (
+  data,
+  electionType,
+  groupType,
+  partyAlliance,
+  selectedStateUT
+) => {
+  if (electionType === "general") {
+    const count = seatsCount(data, groupType)
+    return count
+  } else {
+    if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+      return []
+    } else {
+      const electedCandidates = getAssemblyResults(
+        data,
+        groupType,
+        partyAlliance
+      )
+      const count = seatsCount(electedCandidates, groupType, partyAlliance)
+      return count
+    }
+  }
+}
+
+/**
+ * To calculate for Party/Alliance and their respective seats won
+ * @param {Array<Object>} data Selected region data
+ * @param {string} groupType party or alliance
+ * @returns {Array<Object>} - Party/Alliance and their respective seats won
+ */
+export const seatsCount = (data, groupType) => {
   let preSort = []
   if (groupType === "party") {
     const partiesCount = data.reduce(
@@ -92,40 +127,11 @@ export const seatsCount = (data, groupType, partyAlliance) => {
 }
 
 /**
- *
- * @param {Array} data
- * @param {string} electionType
- * @returns
- */
-export const getRegionStatsSVGData = (
-  data,
-  electionType,
-  groupType,
-  partyAlliance,
-  selectedStateUT
-) => {
-  if (electionType === "general") {
-    const count = seatsCount(data, groupType)
-    return count
-  } else {
-    if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
-      return []
-    } else {
-      const electedCandidates = getAssemblyResults(
-        data,
-        groupType,
-        partyAlliance
-      )
-      const count = seatsCount(electedCandidates, groupType, partyAlliance)
-      return count
-    }
-  }
-}
-
-/**
- *
- * @param {Array} data
- * @returns
+ * To get assembly elections data of a regon
+ * @param {Array<Object>} data Selected region data
+ * @param {string} groupType party or alliance
+ * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
+ * @returns {Array<Object>} - Election data of a region
  */
 export const getAssemblyResults = (data, groupType, partyAlliance) => {
   const finalData = []

@@ -36,7 +36,7 @@ const MapWidget = ({
   stateUTOptions,
   selectedStateUT,
   selectedConstituency,
-  stateUTMapDataPC,
+  mapData,
   constituenciesResults,
   topSix,
   mapWidgetLoading
@@ -196,7 +196,7 @@ const MapWidget = ({
           selectedStateUT === STATE_UT_DEFAULT_SELECT
         ) {
           const sortByKey = object.properties.PC_NAME
-          const results = stateUTMapDataPC.constituencies.find((row) => {
+          const results = mapData.constituencies.find((row) => {
             if (sortByKey == row.PC_NAME) {
               return row
             }
@@ -235,7 +235,7 @@ const MapWidget = ({
         }
       } else {
         const sortByKey = object.properties.AC_NAME
-        const results = stateUTMapDataPC.constituencies.find((row) => {
+        const results = mapData.constituencies.find((row) => {
           if (sortByKey == row.AC_NAME) {
             return row
           }

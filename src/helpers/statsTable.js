@@ -6,7 +6,7 @@ import {
 import {
   getConstituenciesResults,
   getDataConstituency,
-  getStateUTMapDataPC,
+  getMapData,
   getDataStateUT
 } from "./utils"
 
@@ -30,20 +30,23 @@ export const getRegionStatsTable = (
   selectedStateUT,
   selectedConstituency,
   prevYearData,
-  stateUTMapDataConstituencies
+  mapDataConstituencies
 ) => {
   let tableData = []
-  if (prevYearData) {
-    const presentYearDataTable = getCurrYearDataTable(
-      presentYearData,
-      SVGData,
-      electionType,
-      groupType,
-      partyAlliance,
-      selectedStateUT,
-      selectedConstituency
+  let presentYearDataTable = []
+  let prevYearDataTable = []
+
+  presentYearDataTable = getCurrYearDataTable(
+    presentYearData,
+    SVGData,
+    electionType,
+    groupType,
+    partyAlliance,
+    selectedStateUT,
+    selectedConstituency
     )
-    const prevYearDataTable = getPrevYearDataTable(
+  if (prevYearData.length != 0) {
+    prevYearDataTable = getPrevYearDataTable(
       prevYearData,
       SVGData,
       electionType,
@@ -51,8 +54,35 @@ export const getRegionStatsTable = (
       partyAlliance,
       selectedStateUT,
       selectedConstituency,
-      stateUTMapDataConstituencies
+      mapDataConstituencies
     )
+  }
+  if(prevYearData.length === 0 || (prevYearDataTable && prevYearDataTable.length === 0)) {
+    if (groupType === "party") {
+      presentYearDataTable.map((d, index) => {
+        tableData.push({
+        party: d.party,
+        seats: d.seats,
+        seatsDiff: "--",
+        votes: d.votes,
+        votesPercent: d.votesPercent,
+        votesPercentDiff: "--"
+      })
+    })
+    } else {
+      presentYearDataTable.map((d, index) => {
+        tableData.push({
+          alliance: d.alliance,
+          seats: d.seats,
+          seatsDiff: "--",
+          votes: d.votes,
+          votesPercent: d.votesPercent,
+          votesPercentDiff: "--"
+        })
+    })
+    }
+    return tableData
+  } else {
     presentYearDataTable &&
       prevYearDataTable &&
       presentYearDataTable.map((d, index) => {
@@ -88,6 +118,17 @@ export const getRegionStatsTable = (
   }
 }
 
+/**
+ * Function for getting total seats-won and votes-won-percentage by each group in a current year
+ * @param {Array<Object>} data Data of a selected State/UT or Constituency
+ * @param {Object<Object>} SVGData List of parties and the number of seats won
+ * @param {string} electionType general or assembly
+ * @param {string} groupType party or alliance
+ * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
+ * @param {string} selectedStateUT Selected State/UT
+ * @param {string} selectedConstituency Selected Constituency
+ * @returns Array<Object> Total seats-won and votes-won-percentage by each group in a current year
+ */
 const getCurrYearDataTable = (
   data,
   SVGData,
@@ -149,9 +190,9 @@ const getCurrYearDataTable = (
         let temp = tableData.indexOf(
           tableData.find(({ party }) => party == d.PARTY)
         )
-        if (temp > -1) {
+        if (temp > -1 && !Number.isNaN(parseInt(d.VOTES))) {
           tableData[temp].votes += parseInt(d.VOTES)
-        } else {
+        } else if(temp < 0 && !Number.isNaN(parseInt(d.VOTES))) {
           parseInt(d.VOTES) &&
             tableData[tableData.length - 1] &&
             (tableData[tableData.length - 1].votes += parseInt(d.VOTES))
@@ -168,9 +209,9 @@ const getCurrYearDataTable = (
                 partyAlliance.find((e) => e.PARTY == d.PARTY).ALLIANCE
             )
           )
-        if (temp > -1) {
+        if (temp > -1 && !Number.isNaN(parseInt(d.VOTES))) {
           tableData[temp].votes += parseInt(d.VOTES)
-        } else {
+        } else if(temp < 0 && !Number.isNaN(parseInt(d.VOTES))) {
           parseInt(d.VOTES) &&
             tableData[tableData.length - 1] &&
             (tableData[tableData.length - 1].votes += parseInt(d.VOTES))
@@ -226,7 +267,9 @@ const getCurrYearDataTable = (
         let tempIndex = tableData.indexOf(
           tableData.find(({ alliance }) => alliance == tempAlliance)
         )
-        tableData[tempIndex].votes += d.votesReceived
+        if(!Number.isNaN(parseInt(d.votesReceived))) {
+          tableData[tempIndex].votes += d.votesReceived
+        }
       })
     }
   }
@@ -237,6 +280,18 @@ const getCurrYearDataTable = (
   return tableData
 }
 
+/**
+ * TO get list of parties and their respective seats-won and votes-won-percentage in previous year
+ * @param {Array<Object>} prevYearData Previous Elections's Year Data
+ * @param {Object<Object>} SVGData List of parties and the number of seats won
+ * @param {string} electionType general or assembly
+ * @param {string} groupType party or alliance
+ * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
+ * @param {string} selectedStateUT Selected State/UT
+ * @param {string} selectedConstituency Selected Constituency
+ * @param {Array<Object>} mapDataConstituencies Current year elections data of a constituency for List of Parties
+ * @returns {Array<Object>} - List of parties and their respective seats-won and votes-won-percentage in previous year
+ */
 const getPrevYearDataTable = (
   prevYearData,
   SVGData,
@@ -245,9 +300,9 @@ const getPrevYearDataTable = (
   partyAlliance,
   selectedStateUT,
   selectedConstituency,
-  stateUTMapDataConstituencies
+  mapDataConstituencies
 ) => {
-  let prevStateUTMapData = {}
+  let prevMapData = {}
   let prevSVGData = {}
   let prevSelectedStateUTData = []
   let prevStats = []
@@ -262,16 +317,16 @@ const getPrevYearDataTable = (
         electionType
       )
     if (prevYearData) {
-      prevStateUTMapData = getStateUTMapDataPC(
+      prevMapData = getMapData(
         prevYearData,
         selectedStateUT,
         electionType
       )
     }
     const prevConstituenciesResults =
-      prevStateUTMapData &&
+      prevMapData &&
       getConstituenciesResults(
-        prevStateUTMapData,
+        prevMapData,
         selectedConstituency,
         electionType,
         groupType,
@@ -291,7 +346,7 @@ const getPrevYearDataTable = (
             SVGData,
             selectedStateUT,
             selectedConstituency,
-            stateUTMapDataConstituencies,
+            mapDataConstituencies,
             electionType,
             groupType,
             partyAlliance
@@ -301,12 +356,12 @@ const getPrevYearDataTable = (
           prevConstituenciesResults &&
           SVGData &&
           prevSeatsVotesCount(
-            prevStateUTMapData.constituencies,
+            prevMapData.constituencies,
             [],
             SVGData,
             selectedStateUT,
             selectedConstituency,
-            stateUTMapDataConstituencies,
+            mapDataConstituencies,
             electionType,
             groupType,
             partyAlliance
@@ -326,7 +381,7 @@ const getPrevYearDataTable = (
             SVGData,
             selectedStateUT,
             selectedConstituency,
-            stateUTMapDataConstituencies,
+            mapDataConstituencies,
             electionType,
             groupType,
             partyAlliance
@@ -337,19 +392,37 @@ const getPrevYearDataTable = (
   }
 }
 
+/**
+ * Calculates for Previous year data table and return list of parties and their respective seats-won and votes-won-percentage in previous year
+ * @param {Array<Object>} data Data for a Selected State/UT or Constituency
+ * @param {Array<Object>} constituenciesResults List of winning parties and candidates in each constituency
+ * @param {Object<Object>} SVGData List of parties and the number of seats won
+ * @param {string} selectedStateUT Selected State/UT
+ * @param {string} selectedConstituency Selected Constituency
+ * @param {Array<Object>} mapDataConstituencies Current year elections data of a constituency for List of Parties
+ * @param {string} electionType general or assembly
+ * @param {string} groupType party or alliance
+ * @param {Array<Object>} partyAlliance List of Parties and their respective alliance 
+ * @returns {Array<Object>} - List of parties and their respective seats-won and votes-won-percentage in previous year
+ */
 const prevSeatsVotesCount = (
   data,
   constituenciesResults,
   SVGData,
   selectedStateUT,
   selectedConstituency,
-  stateUTMapDataConstituencies,
+  mapDataConstituencies,
   electionType,
   groupType,
   partyAlliance
 ) => {
   let stats = []
   let totalVotes = 0
+
+  if(data.length === 0) {
+    return []
+  }
+
   if (electionType === "general") {
     if (
       selectedStateUT === STATE_UT_DEFAULT_SELECT ||
@@ -444,8 +517,8 @@ const prevSeatsVotesCount = (
     } else {
       let groups = []
       let previousStats = []
-      if (stateUTMapDataConstituencies.length != 0) {
-        groups = stateUTMapDataConstituencies
+      if (mapDataConstituencies.length != 0) {
+        groups = mapDataConstituencies
           .find((e) => e.PC_NAME === selectedConstituency)
           .stats.map((d) => d.party)
         groups.indexOf("OTHERS") === -1 ? groups.push("OTHERS") : ""

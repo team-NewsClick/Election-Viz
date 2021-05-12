@@ -174,7 +174,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
 
 
 /**
- *
+ * List of Constituencies and their winning candidates data
  * @param {Object} data {StateUT, PC_NAME, Top 4 contestants}
  * @param {String} selectedConstituency Name of Selected Constituency
  * @returns {Array<Object>} - List of selected constituencies with respective winner data
@@ -310,7 +310,7 @@ export const getConstituenciesResults = (
  * @param {String} stateUT - Key Name of a State/UT
  * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
  */
-export const getStateUTMapDataPC = (data, stateUT, electionType) => {
+export const getMapData = (data, stateUT, electionType) => {
   let stateData = []
   let constituenciesList = new Set()
   stateData =

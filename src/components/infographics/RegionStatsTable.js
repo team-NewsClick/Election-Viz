@@ -21,13 +21,13 @@ const RegionStatsTable = ({regionStatsTableData, regionStatsLoading}) => {
             <div className="w-2/12 border-r border-gray-400 pl-1.5 py-2">{row.party || row.alliance}</div>
             <div className="w-3/12 px-1 py-2 text-center">{row.seats}</div>
             <div className="flex flex-row-reverse w-2/12 border-r border-gray-400 py-2 px-3">
-              <div className="w-5/6 text-right">{Math.abs(row.seatsDiff)}</div>
-              <img src={row.seatsDiff >= 0 ?"img/up-green.svg" : "img/down-red.svg"} className="w-4 mr-2" />
+              <div className="w-5/6 text-right">{Number.isNaN(parseInt(row.seatsDiff)) ? row.seatsDiff : Math.abs(row.seatsDiff)}</div>
+              <img src={row.seatsDiff <= 0 ? "img/down-red.svg": "img/up-green.svg"} className="w-4 mr-2" />
             </div>
             <div className="w-3/12 px-1 py-2 text-center">{row.votesPercent}</div>
             <div className="flex flex-row-reverse w-2/12 py-2 px-3">
-              <div className="w-5/6 text-right">{Math.abs(row.votesPercentDiff)}</div>
-              <img src={row.votesPercentDiff >= 0 ?"img/up-green.svg" : "img/down-red.svg"} className="w-4 mr-2" />
+              <div className="w-5/6 text-right">{Number.isNaN(parseFloat(row.votesPercentDiff)) ? row.votesPercentDiff : Math.abs(row.votesPercentDiff)}</div>
+              <img src={row.votesPercentDiff <= 0 ? "img/down-red.svg": "img/up-green.svg"} className="w-4 mr-2" />
             </div>
           </div>
         )}

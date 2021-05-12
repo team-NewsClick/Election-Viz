@@ -30,7 +30,7 @@ import {
   getDataConstituency,
   getStateUTs,
   getConstituencies,
-  getStateUTMapDataPC,
+  getMapData,
   getConstituenciesResults,
 } from "../helpers/utils"
 
@@ -57,7 +57,7 @@ const Dashboard = ({
   const [selectedConstituency, setSelectedConstituency] = useState(
     CONSTITUENCIES_DEFAULT_SELECT
   )
-  const [stateUTMapDataPC, setStateUTMapDataPC] = useState({})
+  const [mapData, setMapData] = useState({})
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
   const [regionStatsTableData, setRegionStatsTableData] = useState([])
   const [groupType, setGroupType] = useState("party")
@@ -116,13 +116,13 @@ const Dashboard = ({
     selectedYearData,
     selectedStateUT,
     selectedConstituency,
-    stateUTMapDataPC
+    mapData
   ])
 
   useEffect(() => {
     if (selectedYearData != []) {
-      setStateUTMapDataPC(
-        getStateUTMapDataPC(selectedYearData, selectedStateUT, electionType)
+      setMapData(
+        getMapData(selectedYearData, selectedStateUT, electionType)
       )
     }
   }, [selectedYearData, selectedStateUT])
@@ -130,7 +130,7 @@ const Dashboard = ({
   useEffect(() => {
     setConstituenciesResults(
       getConstituenciesResults(
-        stateUTMapDataPC,
+        mapData,
         selectedConstituency,
         electionType,
         groupType,
@@ -138,7 +138,7 @@ const Dashboard = ({
       )
     )
   }, [
-    stateUTMapDataPC,
+    mapData,
     selectedConstituency,
     selectedStateUT,
     electionType,
@@ -192,7 +192,7 @@ const Dashboard = ({
           ? selectedYearData
           : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
-          : stateUTMapDataPC.constituencies,
+          : mapData.constituencies,
         regionStatsSVGData,
         electionType,
         groupType,
@@ -200,7 +200,7 @@ const Dashboard = ({
         selectedStateUT,
         selectedConstituency,
         prevYearData,
-        stateUTMapDataPC.constituencies
+        mapData.constituencies
       )
     )
   }, [regionStatsSVGData, prevYearData])
@@ -646,7 +646,7 @@ const Dashboard = ({
                   stateUTOptions={stateUTOptions}
                   selectedStateUT={selectedStateUT}
                   selectedConstituency={selectedConstituency}
-                  stateUTMapDataPC={stateUTMapDataPC}
+                  mapData={mapData}
                   constituenciesResults={constituenciesResults}
                   topSix={regionStatsSVGData}
                   mapWidgetLoading={mapWidgetLoading}
