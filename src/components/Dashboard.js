@@ -24,18 +24,19 @@ import {
   RegionStatsTable
 } from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
-import Loading from "../components/Loading"
+import Loading from "./helpers/Loading"
 import {
   getDataStateUT,
   getDataConstituency,
   getStateUTs,
   getConstituencies,
-  getConstituencyContestantsStatsData,
-  getRegionStatsSVGData,
   getStateUTMapDataPC,
   getConstituenciesResults,
-  getRegionStatsTable
-} from "../utils"
+} from "../helpers/utils"
+
+import { getRegionStatsSVGData } from "../helpers/statsParlimantarySVG"
+import { getRegionStatsTable } from "../helpers/statsTable"
+
 
 /**
  * Controls/Settings for the visualization of infographics

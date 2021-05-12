@@ -1,4 +1,4 @@
-import Loading from "../Loading"
+import Loading from "../helpers/Loading"
 
 const RegionStatsTable = ({regionStatsTableData, regionStatsLoading}) => {
 

@@ -17,9 +17,9 @@ import {
   TRANSPARENT_COLOR,
   CONSTITUENCIES_DEFAULT_SELECT
 } from "../../constants"
-import { indPlaceVal } from "../../utils"
+import { indPlaceVal } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
-import Loading from "../Loading"
+import Loading from "../helpers/Loading"
 
 /**
  * Plot Map and Deckgl Layers

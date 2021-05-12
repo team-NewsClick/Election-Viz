@@ -1,0 +1,158 @@
+import {
+  STATE_UT_DEFAULT_SELECT,
+  PARTY_COLOR,
+  DEFAULT_PARTY_ALLIANCE_COLOR
+} from "../constants"
+
+import { assignColor } from "./utils"
+
+/**
+ *
+ * @param {Array} data
+ * @returns
+ */
+export const seatsCount = (data, groupType, partyAlliance) => {
+  let preSort = []
+  if (groupType === "party") {
+    const partiesCount = data.reduce(
+      (acc, o) => (
+        (acc[o.party || o.PARTY] = (acc[o.party || o.PARTY] || 0) + 1), acc
+      ),
+      {}
+    )
+    const keys = Object.keys(partiesCount)
+    const partyData = []
+    keys.map((key) => {
+      const values = {
+        party: key,
+        totalSeats: partiesCount[key]
+      }
+      partyData.push(values)
+    })
+    preSort = partyData
+  } else {
+    const alliancesCount = data.reduce(
+      (acc, o) => (
+        (acc[o.alliance || o.ALLIANCE] =
+          (acc[o.alliance || o.ALLIANCE] || 0) + 1),
+        acc
+      ),
+      {}
+    )
+    const keys = Object.keys(alliancesCount)
+    const allianceData = []
+    keys.map((key) => {
+      const values = {
+        alliance: key,
+        totalSeats: alliancesCount[key]
+      }
+      allianceData.push(values)
+    })
+    preSort = allianceData
+  }
+  const sortedData = preSort.sort((a, b) =>
+    a.totalSeats < b.totalSeats ? 1 : b.totalSeats < a.totalSeats ? -1 : 0
+  )
+  let topNine = []
+  if (sortedData.length <= 9) {
+    topNine = sortedData
+  } else {
+    sortedData.map((d, index) => {
+      if (index < 9) {
+        topNine.push(d)
+      }
+      if (index >= 9) {
+        groupType === "party"
+          ? (topNine[8].party = "OTHERS")
+          : (topNine[8].alliance = "OTHERS")
+        topNine[8].totalSeats += d.totalSeats
+      }
+    })
+  }
+  if (
+    groupType === "alliance" &&
+    topNine.findIndex((d) => (d.party || d.alliance) === "OTHERS") > -1
+  ) {
+    const temp =
+      topNine[topNine.findIndex((d) => (d.party || d.alliance) === "OTHERS")]
+    topNine.splice(
+      topNine.findIndex((d) => (d.party || d.alliance) === "OTHERS"),
+      1
+    )
+    topNine.push(temp)
+  }
+  const finalData = {}
+  topNine.map((row) => {
+    finalData[row.party || row.alliance] = {
+      seats: row.totalSeats,
+      colour: assignColor(row)
+    }
+  })
+  return finalData
+}
+
+/**
+ *
+ * @param {Array} data
+ * @param {string} electionType
+ * @returns
+ */
+export const getRegionStatsSVGData = (
+  data,
+  electionType,
+  groupType,
+  partyAlliance,
+  selectedStateUT
+) => {
+  if (electionType === "general") {
+    const count = seatsCount(data, groupType)
+    return count
+  } else {
+    if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+      return []
+    } else {
+      const electedCandidates = getAssemblyResults(
+        data,
+        groupType,
+        partyAlliance
+      )
+      const count = seatsCount(electedCandidates, groupType, partyAlliance)
+      return count
+    }
+  }
+}
+
+/**
+ *
+ * @param {Array} data
+ * @returns
+ */
+export const getAssemblyResults = (data, groupType, partyAlliance) => {
+  const finalData = []
+  if (groupType === "party") {
+    data
+      .filter((candidates) => candidates.POSITION === "1")
+      .map((row) => {
+        finalData.push(row)
+      })
+  } else {
+    data
+      .filter((candidates) => candidates.POSITION === "1")
+      .map((row) => {
+        const alliance = partyAlliance.find((e) => e.PARTY == row.PARTY)
+          ? partyAlliance.find((e) => e.PARTY === row.PARTY).ALLIANCE
+          : "OTHERS"
+        finalData.push({
+          candidate: row.CANDIDATE,
+          color:
+            PARTY_COLOR.find((e) => e.party == alliance) == undefined
+              ? DEFAULT_PARTY_ALLIANCE_COLOR
+              : PARTY_COLOR.find((e) => e.party == alliance).color,
+          alliance: alliance,
+          ac_name: row.AC_NAME,
+          votes: row.VOTES
+        })
+      })
+  }
+  return finalData
+}
