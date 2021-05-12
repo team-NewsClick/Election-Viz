@@ -287,28 +287,37 @@ export const getRegionStatsTable = (
       selectedConstituency,
       stateUTMapDataConstituencies
     )
-    presentYearDataTable && prevYearDataTable && 
-    presentYearDataTable.map((d, index) => {
-      if(groupType === "party") {
-        tableData.push({
-          party: d.party,
-          seats: d.seats,
-          seatsDiff: parseInt(d.seats) - parseInt(prevYearDataTable[index].seats),
-          votes: d.votes,
-          votesPercent: d.votesPercent,
-          votesPercentDiff: (parseFloat(d.votesPercent) - parseFloat(prevYearDataTable[index].votesPercent)).toFixed(2)
-        })
-      } else {
-        tableData.push({
-          alliance: d.alliance,
-          seats: d.seats,
-          seatsDiff: parseInt(d.seats) - parseInt(prevYearDataTable[index].seats),
-          votes: d.votes,
-          votesPercent: d.votesPercent,
-          votesPercentDiff: (parseFloat(d.votesPercent) - parseFloat(prevYearDataTable[index].votesPercent)).toFixed(2)
-        })
-      }
-    })
+    presentYearDataTable &&
+      prevYearDataTable &&
+      presentYearDataTable.map((d, index) => {
+        if (groupType === "party") {
+          tableData.push({
+            party: d.party,
+            seats: d.seats,
+            seatsDiff:
+              parseInt(d.seats) - parseInt(prevYearDataTable[index].seats),
+            votes: d.votes,
+            votesPercent: d.votesPercent,
+            votesPercentDiff: (
+              parseFloat(d.votesPercent) -
+              parseFloat(prevYearDataTable[index].votesPercent)
+            ).toFixed(2)
+          })
+        } else {
+          tableData.push({
+            alliance: d.alliance,
+            seats: d.seats,
+            seatsDiff:
+              parseInt(d.seats) - parseInt(prevYearDataTable[index].seats),
+            votes: d.votes,
+            votesPercent: d.votesPercent,
+            votesPercentDiff: (
+              parseFloat(d.votesPercent) -
+              parseFloat(prevYearDataTable[index].votesPercent)
+            ).toFixed(2)
+          })
+        }
+      })
     return tableData
   }
 }
@@ -334,7 +343,7 @@ const getCurrYearDataTable = (
           party: `${property}`,
           seats: `${SVGData[property].seats}`,
           votes: 0,
-          votesPercent: 0,
+          votesPercent: 0
         })
       }
       if (
@@ -344,7 +353,7 @@ const getCurrYearDataTable = (
           party: "OTHERS",
           seats: 0,
           votes: 0,
-          votesPercent: 0,
+          votesPercent: 0
         })
       }
     } else {
@@ -353,7 +362,7 @@ const getCurrYearDataTable = (
           alliance: `${property}`,
           seats: `${SVGData[property].seats}`,
           votes: 0,
-          votesPercent: 0,
+          votesPercent: 0
         })
       }
       if (
@@ -365,7 +374,7 @@ const getCurrYearDataTable = (
           alliance: "OTHERS",
           seats: 0,
           votes: 0,
-          votesPercent: 0,
+          votesPercent: 0
         })
       }
     }
@@ -406,13 +415,15 @@ const getCurrYearDataTable = (
     let constituencyStats = []
     if (electionType === "general") {
       if (data.find((c) => c.PC_NAME == selectedConstituency)) {
-        constituencyStats = data.find((c) => c.PC_NAME == selectedConstituency)
-          .stats
+        constituencyStats = data.find(
+          (c) => c.PC_NAME == selectedConstituency
+        ).stats
       }
     } else {
       if (data.find((c) => c.AC_NAME == selectedConstituency)) {
-        constituencyStats = data.find((c) => c.AC_NAME == selectedConstituency)
-          .stats
+        constituencyStats = data.find(
+          (c) => c.AC_NAME == selectedConstituency
+        ).stats
       }
     }
     if (groupType === "party") {
@@ -421,7 +432,7 @@ const getCurrYearDataTable = (
           party: d.party,
           seats: index == 0 ? 1 : 0,
           votes: d.votesReceived,
-          votesPercent: 0,
+          votesPercent: 0
         })
       )
     } else {
@@ -439,7 +450,7 @@ const getCurrYearDataTable = (
           alliance: d,
           seats: index == 0 ? 1 : 0,
           votes: 0,
-          votesPercent: 0,
+          votesPercent: 0
         })
       })
       constituencyStats.map((d) => {
@@ -455,8 +466,7 @@ const getCurrYearDataTable = (
   }
   tableData.map((d) => (totalVotes += d.votes))
   tableData.map(
-    (d) =>
-      d.votesPercent = ((d.votes / totalVotes) * 100).toFixed(2)
+    (d) => (d.votesPercent = ((d.votes / totalVotes) * 100).toFixed(2))
   )
   return tableData
 }
@@ -502,9 +512,12 @@ const getPrevYearDataTable = (
         partyAlliance
       )
     if (electionType === "general") {
-      if(selectedStateUT === STATE_UT_DEFAULT_SELECT || selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT) {
+      if (
+        selectedStateUT === STATE_UT_DEFAULT_SELECT ||
+        selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+      ) {
         prevStats =
-        prevConstituenciesResults &&
+          prevConstituenciesResults &&
           SVGData &&
           prevSeatsVotesCount(
             prevSelectedStateUTData,
@@ -578,61 +591,89 @@ const prevSeatsVotesCount = (
     ) {
       const groups = Object.keys(SVGData)
       groups.indexOf("OTHERS") === -1 ? groups.push("OTHERS") : ""
-      if(groupType ==="party") {
-        groups.map((d) => stats.push({
-          party: d,
-          seats: 0,
-          votes: 0,
-          votesPercent: 0
-        }))
+      if (groupType === "party") {
+        groups.map((d) =>
+          stats.push({
+            party: d,
+            seats: 0,
+            votes: 0,
+            votesPercent: 0
+          })
+        )
         data.map((d) => {
-        const temp = stats.findIndex((e) => e == stats.find(({ party }) => party === d.PARTY)) != -1
-          ? stats.findIndex((e) => e == stats.find(({ party }) => party === d.PARTY))
-          : (stats.length - 1)
-          if(!Number.isNaN(parseInt(d.VOTES))) {
+          const temp =
+            stats.findIndex(
+              (e) => e == stats.find(({ party }) => party === d.PARTY)
+            ) != -1
+              ? stats.findIndex(
+                  (e) => e == stats.find(({ party }) => party === d.PARTY)
+                )
+              : stats.length - 1
+          if (!Number.isNaN(parseInt(d.VOTES))) {
             stats[temp].votes += parseInt(d.VOTES)
           }
         })
         constituenciesResults.map((d) => {
-          const temp = stats.findIndex((e) => e == stats.find(({ party }) => party === d.party)) != -1
-              ? stats.findIndex((e) => e == stats.find(({ party }) => party === d.party))
-              : (stats.length - 1)
+          const temp =
+            stats.findIndex(
+              (e) => e == stats.find(({ party }) => party === d.party)
+            ) != -1
+              ? stats.findIndex(
+                  (e) => e == stats.find(({ party }) => party === d.party)
+                )
+              : stats.length - 1
           stats[temp].seats += 1
         })
       } else {
-        groups.map((d) => stats.push({
-          alliance: d,
-          seats: 0,
-          votes: 0,
-          votesPercent: 0
-        }))
+        groups.map((d) =>
+          stats.push({
+            alliance: d,
+            seats: 0,
+            votes: 0,
+            votesPercent: 0
+          })
+        )
         data.map((d) => {
           const allianceTemp = partyAlliance.find((e) => e.PARTY == d.PARTY)
-          ? partyAlliance.find((e) => e.PARTY === d.PARTY).ALLIANCE
-          : "OTHERS"
-          const temp = stats.findIndex((e) => e == stats.find(({ alliance }) => alliance === allianceTemp)) != -1
-            ? stats.findIndex((e) => e == stats.find(({ alliance }) => alliance === allianceTemp))
-            : (stats.length - 1)
-            if(!Number.isNaN(parseInt(d.VOTES))) {
-              stats[temp].votes += parseInt(d.VOTES)
-            }
-          })
-          constituenciesResults.map((d) => {
-            const temp = stats.findIndex((e) => e == stats.find(({ alliance }) => alliance === d.alliance)) != -1
-                ? stats.findIndex((e) => e == stats.find(({ alliance }) => alliance === d.alliance))
-                : (stats.length - 1)
-            stats[temp].seats += 1
-          })
-      }
-      stats && stats.map((d) => {
-        if(!Number.isNaN(parseInt(d.votes))) {
-          totalVotes += parseInt(d.votes)
-        }
+            ? partyAlliance.find((e) => e.PARTY === d.PARTY).ALLIANCE
+            : "OTHERS"
+          const temp =
+            stats.findIndex(
+              (e) =>
+                e == stats.find(({ alliance }) => alliance === allianceTemp)
+            ) != -1
+              ? stats.findIndex(
+                  (e) =>
+                    e == stats.find(({ alliance }) => alliance === allianceTemp)
+                )
+              : stats.length - 1
+          if (!Number.isNaN(parseInt(d.VOTES))) {
+            stats[temp].votes += parseInt(d.VOTES)
+          }
         })
-      stats && stats.map(
-        (d) =>
-          d.votesPercent = ((d.votes / totalVotes) * 100).toFixed(2)
-      )
+        constituenciesResults.map((d) => {
+          const temp =
+            stats.findIndex(
+              (e) => e == stats.find(({ alliance }) => alliance === d.alliance)
+            ) != -1
+              ? stats.findIndex(
+                  (e) =>
+                    e == stats.find(({ alliance }) => alliance === d.alliance)
+                )
+              : stats.length - 1
+          stats[temp].seats += 1
+        })
+      }
+      stats &&
+        stats.map((d) => {
+          if (!Number.isNaN(parseInt(d.votes))) {
+            totalVotes += parseInt(d.votes)
+          }
+        })
+      stats &&
+        stats.map(
+          (d) => (d.votesPercent = ((d.votes / totalVotes) * 100).toFixed(2))
+        )
       return stats
     } else {
       let groups = []
@@ -642,18 +683,27 @@ const prevSeatsVotesCount = (
           .find((e) => e.PC_NAME === selectedConstituency)
           .stats.map((d) => d.party)
         groups.indexOf("OTHERS") === -1 ? groups.push("OTHERS") : ""
-        if(groupType === "party") {
-          groups.map((d) => stats.push({
-            party: d,
-            seats: 0,
-            votes: 0,
-            votesPercent: 0
-          }))
-          previousStats = data.find((e) => e.PC_NAME === selectedConstituency).stats
+        if (groupType === "party") {
+          groups.map((d) =>
+            stats.push({
+              party: d,
+              seats: 0,
+              votes: 0,
+              votesPercent: 0
+            })
+          )
+          previousStats = data.find(
+            (e) => e.PC_NAME === selectedConstituency
+          ).stats
           previousStats.map((d) => {
-            const temp = stats.findIndex((e) => e == stats.find(({ party }) => party === d.party)) != -1
-                          ? stats.findIndex((e) => e == stats.find(({ party }) => party === d.party))
-                          : stats.length - 1
+            const temp =
+              stats.findIndex(
+                (e) => e == stats.find(({ party }) => party === d.party)
+              ) != -1
+                ? stats.findIndex(
+                    (e) => e == stats.find(({ party }) => party === d.party)
+                  )
+                : stats.length - 1
             if (temp === 1) {
               stats[temp].seats += 1
               stats[temp].votes += d.votesReceived
@@ -670,39 +720,53 @@ const prevSeatsVotesCount = (
             }
           })
         } else {
-
           let tempGroups = new Set()
           groups.map((d) => {
-            const temp  = partyAlliance.find((e) => e.PARTY == d)
+            const temp = partyAlliance.find((e) => e.PARTY == d)
               ? partyAlliance.find((e) => e.PARTY === d).ALLIANCE
               : "OTHERS"
             tempGroups.add(temp)
           })
           groups = [...tempGroups]
-          groups.map((d) => stats.push({
-            alliance: d,
-            seats: 0,
-            votes: 0,
-            votesPercent: 0
-          }))
-          previousStats = data.find((e) => e.PC_NAME === selectedConstituency).stats
+          groups.map((d) =>
+            stats.push({
+              alliance: d,
+              seats: 0,
+              votes: 0,
+              votesPercent: 0
+            })
+          )
+          previousStats = data.find(
+            (e) => e.PC_NAME === selectedConstituency
+          ).stats
           previousStats.map((d) => {
             const allianceTemp = partyAlliance.find((e) => e.PARTY == d.party)
-            ? partyAlliance.find((e) => e.PARTY === d.party).ALLIANCE
-            : "OTHERS"
-            const temp = stats.findIndex((e) => e == stats.find(({ alliance }) => alliance === allianceTemp)) != -1
-                          ? stats.findIndex((e) => e == stats.find(({ alliance }) => alliance === allianceTemp))
-                          : stats.length - 1
+              ? partyAlliance.find((e) => e.PARTY === d.party).ALLIANCE
+              : "OTHERS"
+            const temp =
+              stats.findIndex(
+                (e) =>
+                  e == stats.find(({ alliance }) => alliance === allianceTemp)
+              ) != -1
+                ? stats.findIndex(
+                    (e) =>
+                      e ==
+                      stats.find(({ alliance }) => alliance === allianceTemp)
+                  )
+                : stats.length - 1
             if (temp === 1) {
               stats[temp].seats += 1
               stats[temp].votes += d.votesReceived
             } else {
               const temp =
                 stats.findIndex(
-                  (e) => e == stats.find(({ alliance }) => alliance === allianceTemp)
+                  (e) =>
+                    e == stats.find(({ alliance }) => alliance === allianceTemp)
                 ) != -1
                   ? stats.findIndex(
-                      (e) => e == stats.find(({ alliance }) => alliance === allianceTemp)
+                      (e) =>
+                        e ==
+                        stats.find(({ alliance }) => alliance === allianceTemp)
                     )
                   : stats.length - 1
               stats[temp].votes += d.votesReceived
@@ -711,9 +775,9 @@ const prevSeatsVotesCount = (
         }
       }
       stats && stats.map((d) => (totalVotes += d.votes))
-      stats && stats.map(
-        (d) =>
-        d.votesPercent = ((d.votes / totalVotes) * 100).toFixed(2)
+      stats &&
+        stats.map(
+          (d) => (d.votesPercent = ((d.votes / totalVotes) * 100).toFixed(2))
         )
       return stats
     }
