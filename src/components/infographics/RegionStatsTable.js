@@ -1,7 +1,7 @@
 import Loading from "../Loading"
 
 const RegionStatsTable = ({regionStatsTableData, regionStatsLoading}) => {
-  
+
   return (regionStatsTableData.length === 0 || regionStatsLoading == true)
     ? <div className="h-1/2 my-40"><Loading /></div> 
     : <div className="text-sm md:text-base">
