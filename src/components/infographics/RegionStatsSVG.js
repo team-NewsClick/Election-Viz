@@ -2,7 +2,7 @@ import parliamentSVG from 'parliament-svg'
 import stringify from 'virtual-dom-stringify'
 import parse from 'html-react-parser'
 import { CONSTITUENCIES_DEFAULT_SELECT } from "../../constants"
-import Loading from "../Loading"
+import Loading from "../helpers/Loading"
 
 const RegionStatsSVG = ({regionStatsSVGData, selectedConstituency, regionStatsLoading}) => {
   let altSVG = []
