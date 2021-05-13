@@ -371,8 +371,7 @@ const Dashboard = ({
               ))}
             </select>
           </div>
-        </div>
-        {/* <div
+        <div
             onClick={showHideAdvanceOptions}
             className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm"
           >
@@ -387,11 +386,11 @@ const Dashboard = ({
                 className="w-3 h-3 md:ml-14 m-1.5"
               />
             </div>
-          </div> */}
-        {/* </div> */}
-        {/* <div
+        </div>
+        </div>
+        <div
           id="advanceOptionsWeb"
-          style={{ display: "none" }}
+          style={{ display: "none"}}
           className="bg-gray-100 z-10 h-full md:h-auto absolute md:relative inset-x-auto top-0 md:top-auto"
         >
           <div className="h-0.5 bg-gray-300 w-full max-w-4xl my-3.5 mx-auto hidden md:block">
@@ -420,29 +419,26 @@ const Dashboard = ({
                   id="region"
                   className="advance-select"
                 >
-                  {regionOptions.map((d, index) => (
+                    <option value="All Regions">
+                      All Regions
+                    </option>
+                </select>
+              </div>
+              <div>
+                <select
+                  name="seatType"
+                  onChange={(e) => _handleSelectedSeatType(e.target.value)}
+                  id="seatType"
+                  className="advance-select"
+                >
+                  {SEAT_TYPE_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
                     </option>
                   ))}
                 </select>
               </div>
-              <div>
-                <select
-                  name="state-ut"
-                  onChange={(e) => _handleSelectedStateUT(e.target.value)}
-                  id="state-ut"
-                  className="advance-select"
-                  value={selectedStateUT}
-                >
-                  {stateUTOptions.map((d, index) => (
-                    <option key={index} value={d}>
-                      {d}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
+              {/* <div>
                 <select
                   name="locality"
                   onChange={(e) => _handleSelectedLocality(e.target.value)}
@@ -452,21 +448,6 @@ const Dashboard = ({
                   {LOCALITY_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>
                       {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="constituency"
-                  onChange={(e) => _handleSelectedConstituency(e.target.value)}
-                  id="constituency"
-                  className="advance-select"
-                  value={selectedConstituency}
-                >
-                  {constituencyOptions.map((d, index) => (
-                    <option key={index} value={d}>
-                      {d}
                     </option>
                   ))}
                 </select>
@@ -540,21 +521,7 @@ const Dashboard = ({
                     </option>
                   ))}
                 </select>
-              </div>
-              <div>
-                <select
-                  name="seatType"
-                  onChange={(e) => _handleSelectedSeatType(e.target.value)}
-                  id="seatType"
-                  className="advance-select"
-                >
-                  {SEAT_TYPE_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              </div> */}
             </div>
             <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between md:hidden">
               <div>
@@ -570,7 +537,7 @@ const Dashboard = ({
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
         <div className="lg:flex lg:flex-row-reverse relative py-8">
           <div
             className={windowWidth > 800 ? "" : "widthImp100 heightImp100"}
