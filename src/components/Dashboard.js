@@ -391,7 +391,7 @@ const Dashboard = ({
         <div
           id="advanceOptionsWeb"
           style={{ display: "none"}}
-          className="bg-gray-100 z-10 h-full md:h-auto absolute md:relative inset-x-auto top-0 md:top-auto"
+          className="bg-gray-100 z-10 h-full md:h-auto md:relative inset-0 top-0 md:top-auto fixed"
         >
           <div className="h-0.5 bg-gray-300 w-full max-w-4xl my-3.5 mx-auto hidden md:block">
             &nbsp;
