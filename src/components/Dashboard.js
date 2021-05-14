@@ -16,7 +16,8 @@ import {
   EDUCATION_OPTIONS,
   EXPERIENCE_OPTIONS,
   CRIMINALITY_OPTIONS,
-  SEAT_TYPE_OPTIONS
+  SEAT_TYPE_OPTIONS,
+  SEAT_DEFAULT_SELECT
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -33,6 +34,7 @@ import {
   getStateUTMapDataPC,
   getConstituenciesResults,
 } from "../helpers/utils"
+import { getReservedGeoJson } from "../helpers/reservedSeats"
 
 import { getRegionStatsSVGData } from "../helpers/statsParlimantarySVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
@@ -57,6 +59,7 @@ const Dashboard = ({
   const [selectedConstituency, setSelectedConstituency] = useState(
     CONSTITUENCIES_DEFAULT_SELECT
   )
+  const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
   const [stateUTMapDataPC, setStateUTMapDataPC] = useState({})
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
   const [regionStatsTableData, setRegionStatsTableData] = useState([])
@@ -66,6 +69,7 @@ const Dashboard = ({
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
   const [prevYearData, setPrevYearData] = useState([])
+  const [filteredGeoJson, setFilteredGeoJson] = useState(parliamentaryConstituenciesGeojson)
 
   useEffect(() => {
     setYearOptions(
@@ -95,6 +99,20 @@ const Dashboard = ({
       })
       .catch((e) => setPrevYearData([]))
   }, [selectedYear])
+
+  useEffect(() => {
+    if(electionType === "general")  {
+      if(seatType !== SEAT_DEFAULT_SELECT) {
+        const reservedGeoJson = getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType)
+        setFilteredGeoJson(() => ({...reservedGeoJson}))
+        // console.log("reservedGeoJson: ", reservedGeoJson)
+      } else {
+        setFilteredGeoJson(() => ({...parliamentaryConstituenciesGeojson}))
+      }
+    } else {
+      setFilteredGeoJson(() => ({...assemblyConstituenciesGeojson}))
+    }
+  }, [seatType])
 
   useEffect(() => {
     setMapWidgetLoading(true)
@@ -278,7 +296,7 @@ const Dashboard = ({
     console.log(v)
   }
   const _handleSelectedSeatType = (v) => {
-    console.log(v)
+    setSeatType(v)
   }
 
   if (selectedYearData.length !== 0) {
@@ -608,6 +626,7 @@ const Dashboard = ({
                     parliamentaryConstituenciesGeojson
                   }
                   assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
+                  filteredGeoJson={filteredGeoJson}
                   onMapUpdate={_updatedRegion}
                   electionType={electionType}
                   stateUTOptions={stateUTOptions}
@@ -617,6 +636,7 @@ const Dashboard = ({
                   constituenciesResults={constituenciesResults}
                   topSix={regionStatsSVGData}
                   mapWidgetLoading={mapWidgetLoading}
+                  seatType={seatType}
                 />
               </div>
             )}

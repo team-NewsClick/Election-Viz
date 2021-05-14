@@ -31,6 +31,7 @@ const MapWidget = ({
   stateGeojson,
   parliamentaryConstituenciesGeojson,
   assemblyConstituenciesGeojson,
+  filteredGeoJson,
   onMapUpdate,
   electionType,
   stateUTOptions,
@@ -39,13 +40,15 @@ const MapWidget = ({
   stateUTMapDataPC,
   constituenciesResults,
   topSix,
-  mapWidgetLoading
+  mapWidgetLoading,
+  seatType
 }) => {
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState("")
   const [districtData, setDistrictData] = useState(
     parliamentaryConstituenciesGeojson
   )
+  const [filteredData, setFilteredData] = useState(filteredGeoJson)
   const [assemblyData, setAssemblyData] = useState(
     assemblyConstituenciesGeojson
   )
@@ -77,14 +80,18 @@ const MapWidget = ({
   )
 
   useEffect(() => {
-    setDistrictData((parliamentaryConstituenciesGeojson) => ({
-      ...parliamentaryConstituenciesGeojson
-    }))
-    setAssemblyData((assemblyConstituenciesGeojson) => ({
-      ...assemblyConstituenciesGeojson
-    }))
+    // setDistrictData((parliamentaryConstituenciesGeojson) => ({
+    //   ...parliamentaryConstituenciesGeojson
+    // }))
+    // setAssemblyData((assemblyConstituenciesGeojson) => ({
+    //   ...assemblyConstituenciesGeojson
+    // }))
     setStateData((stateGeojson) => ({ ...stateGeojson }))
-  }, [stateName, constituenciesResults])
+    setFilteredData((filteredGeoJson) => ({...filteredGeoJson}))
+    console.log("filteredData: ", filteredData)
+    console.log("filteredGeoJson: ", filteredGeoJson)
+  }, [stateName, constituenciesResults, seatType])
+
 
   useEffect(() => {
     const state = selectedStateUT
@@ -274,7 +281,7 @@ const MapWidget = ({
     layers = [
       new GeoJsonLayer({
         id: "parlimantary-constituency-geojson-layer-1",
-        data: districtData,
+        data: filteredData,
         stroked: true,
         filled: true,
         pickable: true,
