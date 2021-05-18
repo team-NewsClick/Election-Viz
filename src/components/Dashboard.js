@@ -32,13 +32,11 @@ import {
   getStateUTs,
   getConstituencies,
   getStateUTMapDataPC,
-  getConstituenciesResults,
+  getConstituenciesResults
 } from "../helpers/utils"
-import { getReservedGeoJson } from "../helpers/reservedSeats"
 
 import { getRegionStatsSVGData } from "../helpers/statsParlimantarySVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
-
 
 /**
  * Controls/Settings for the visualization of infographics
@@ -69,7 +67,6 @@ const Dashboard = ({
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
   const [prevYearData, setPrevYearData] = useState([])
-  const [filteredGeoJson, setFilteredGeoJson] = useState(parliamentaryConstituenciesGeojson)
 
   useEffect(() => {
     setYearOptions(
@@ -99,20 +96,6 @@ const Dashboard = ({
       })
       .catch((e) => setPrevYearData([]))
   }, [selectedYear])
-
-  useEffect(() => {
-    if(electionType === "general")  {
-      if(seatType !== SEAT_DEFAULT_SELECT) {
-        const reservedGeoJson = getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType)
-        setFilteredGeoJson(() => ({...reservedGeoJson}))
-        // console.log("reservedGeoJson: ", reservedGeoJson)
-      } else {
-        setFilteredGeoJson(() => ({...parliamentaryConstituenciesGeojson}))
-      }
-    } else {
-      setFilteredGeoJson(() => ({...assemblyConstituenciesGeojson}))
-    }
-  }, [seatType])
 
   useEffect(() => {
     setMapWidgetLoading(true)
@@ -389,7 +372,7 @@ const Dashboard = ({
               ))}
             </select>
           </div>
-        <div
+          <div
             onClick={showHideAdvanceOptions}
             className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm"
           >
@@ -404,11 +387,11 @@ const Dashboard = ({
                 className="w-3 h-3 md:ml-14 m-1.5"
               />
             </div>
-        </div>
+          </div>
         </div>
         <div
           id="advanceOptionsWeb"
-          style={{ display: "none"}}
+          style={{ display: "none" }}
           className="bg-gray-100 z-10 h-full md:h-auto md:relative inset-0 top-0 md:top-auto fixed"
         >
           <div className="h-0.5 bg-gray-300 w-full max-w-4xl my-3.5 mx-auto hidden md:block">
@@ -437,9 +420,7 @@ const Dashboard = ({
                   id="region"
                   className="advance-select"
                 >
-                    <option value="All Regions">
-                      All Regions
-                    </option>
+                  <option value="All Regions">All Regions</option>
                 </select>
               </div>
               <div>
@@ -626,7 +607,7 @@ const Dashboard = ({
                     parliamentaryConstituenciesGeojson
                   }
                   assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-                  filteredGeoJson={filteredGeoJson}
+                  parliamentaryConstituenciesGeojson={parliamentaryConstituenciesGeojson}
                   onMapUpdate={_updatedRegion}
                   electionType={electionType}
                   stateUTOptions={stateUTOptions}

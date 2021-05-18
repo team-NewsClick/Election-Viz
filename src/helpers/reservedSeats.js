@@ -7,9 +7,9 @@ export const getReservedGeoJson = (geoJson, seatType) => {
         }
     })
     return {
-        features: filteredGeoJson,
-        crs: geoJson.crs,
+        type: geoJson.type,
         name: geoJson.name,
-        type: geoJson.type
+        crs: geoJson.crs,
+        features: filteredGeoJson,
     }
 }
