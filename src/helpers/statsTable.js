@@ -2,7 +2,6 @@ import {
   STATE_UT_DEFAULT_SELECT,
   CONSTITUENCIES_DEFAULT_SELECT
 } from "../constants"
-
 import {
   getConstituenciesResults,
   getDataConstituency,
