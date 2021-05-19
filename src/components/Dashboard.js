@@ -33,10 +33,8 @@ import {
   getMapData,
   getConstituenciesResults,
 } from "../helpers/utils"
-
 import { getRegionStatsSVGData } from "../helpers/statsParlimantarySVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
-
 
 /**
  * Controls/Settings for the visualization of infographics
