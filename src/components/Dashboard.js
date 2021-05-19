@@ -36,6 +36,7 @@ import {
 } from "../helpers/utils"
 import { getRegionStatsSVGData } from "../helpers/statsParlimantarySVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
+import { getReservedGeoJson } from "../helpers/reservedSeats"
 
 /**
  * Controls/Settings for the visualization of infographics
@@ -66,6 +67,7 @@ const Dashboard = ({
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
   const [prevYearData, setPrevYearData] = useState([])
+  const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
 
   useEffect(() => {
     setYearOptions(
@@ -128,6 +130,14 @@ const Dashboard = ({
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
+    if(electionType === "general") {
+        setFilteredGeoJSON(getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType, electionType))
+    } else {
+      setFilteredGeoJSON(getReservedGeoJson(assemblyConstituenciesGeojson, seatType, electionType))
+    }
+  }, [seatType, electionType])
+
+  useEffect(() => {
     setConstituenciesResults(
       getConstituenciesResults(
         mapData,
@@ -163,7 +173,9 @@ const Dashboard = ({
           constituenciesResults,
           electionType,
           groupType,
-          partyAlliance
+          partyAlliance,
+          selectedStateUT,
+          filteredGeoJSON
         )
       )
     } else {
@@ -177,13 +189,14 @@ const Dashboard = ({
           electionType,
           groupType,
           partyAlliance,
-          selectedStateUT
+          selectedStateUT,
+          filteredGeoJSON
         )
       )
     }
     setMapWidgetLoading(false)
     setRegionStatsLoading(false)
-  }, [constituenciesResults])
+  }, [constituenciesResults, filteredGeoJSON])
 
   useEffect(() => {
     setRegionStatsTableData(
@@ -200,7 +213,8 @@ const Dashboard = ({
         selectedStateUT,
         selectedConstituency,
         prevYearData,
-        mapData.constituencies
+        mapData.constituencies,
+        filteredGeoJSON
       )
     )
   }, [regionStatsSVGData, prevYearData])
@@ -235,6 +249,7 @@ const Dashboard = ({
     if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
       setMapWidgetLoading(true)
       setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
+      setSeatType(SEAT_DEFAULT_SELECT)
     }
   }
 
@@ -428,6 +443,7 @@ const Dashboard = ({
                   onChange={(e) => _handleSelectedSeatType(e.target.value)}
                   id="seatType"
                   className="advance-select"
+                  value={seatType}
                 >
                   {SEAT_TYPE_OPTIONS.map((d, index) => (
                     <option key={index} value={d.value}>

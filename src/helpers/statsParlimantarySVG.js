@@ -20,10 +20,17 @@ import { assignColor } from "./utils"
   electionType,
   groupType,
   partyAlliance,
-  selectedStateUT
+  selectedStateUT,
+  filteredGeoJSON
 ) => {
-  if (electionType === "general") {
-    const count = seatsCount(data, groupType)
+
+  if (electionType === "general") { 
+    const filteredData = data.filter((d) => {
+      if(filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === d.pc_name) > -1) {
+        return d
+      }
+    })
+    const count = seatsCount(filteredData, groupType)
     return count
   } else {
     if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {

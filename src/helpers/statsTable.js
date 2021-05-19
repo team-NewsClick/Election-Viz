@@ -29,14 +29,31 @@ export const getRegionStatsTable = (
   selectedStateUT,
   selectedConstituency,
   prevYearData,
-  mapDataConstituencies
+  mapDataConstituencies,
+  filteredGeoJSON
 ) => {
   let tableData = []
   let presentYearDataTable = []
   let prevYearDataTable = []
-
+  let filteredPresData = []
+  let filteredPrevData = []
+  if(electionType === "general") {
+    filteredPresData = presentYearData.filter((d) => {
+      if(filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === d.PC_NAME) > -1) {
+        return d
+      }
+    })
+    filteredPrevData = prevYearData.filter((d) => {
+      if(filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === d.PC_NAME) > -1) {
+        return d
+      }
+    })
+  } else {
+    filteredPresData = presentYearData
+    filteredPrevData = prevYearData
+  }
   presentYearDataTable = getCurrYearDataTable(
-    presentYearData,
+    filteredPresData,
     SVGData,
     electionType,
     groupType,
@@ -46,7 +63,7 @@ export const getRegionStatsTable = (
     )
   if (prevYearData.length != 0) {
     prevYearDataTable = getPrevYearDataTable(
-      prevYearData,
+      filteredPrevData,
       SVGData,
       electionType,
       groupType,
@@ -56,7 +73,7 @@ export const getRegionStatsTable = (
       mapDataConstituencies
     )
   }
-  if(prevYearData.length === 0 || (prevYearDataTable && prevYearDataTable.length === 0)) {
+  if(filteredPrevData.length === 0 || (prevYearDataTable && prevYearDataTable.length === 0)) {
     if (groupType === "party") {
       presentYearDataTable.map((d, index) => {
         tableData.push({
