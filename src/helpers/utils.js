@@ -10,13 +10,21 @@ import {
  * @param {Array.<Object>} data - Array of Objects having a year of data
  * @return {Array} List of States and UTS that had election in a year
  */
-export const getStateUTs = (data) => {
+export const getStateUTs = (data, electionType, filteredGeoJSON) => {
   if (data === null) {
     return null
   } else {
     let stateUTs = new Set()
     data.map((row) => {
-      stateUTs.add(row.ST_NAME)
+      if(electionType === "general") {
+        if(filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === row.PC_NAME) > -1) {
+          stateUTs.add(row.ST_NAME)
+        }
+      } else {
+        if(filteredGeoJSON.features.findIndex((e) => e.properties.AC_NAME === row.AC_NAME) > -1) {
+          stateUTs.add(row.ST_NAME)
+        }
+      }
     })
     stateUTs = [...stateUTs]
     if (stateUTs.length > 1) {
@@ -31,7 +39,7 @@ export const getStateUTs = (data) => {
  * @param {Array.<Object>} data - Data of a State/UT's election of a year
  * @return {Array} List of Constituencies in a State/UT
  */
-export const getConstituencies = (data, selectedStateUT, electionType) => {
+export const getConstituencies = (data, selectedStateUT, electionType, filteredGeoJSON) => {
   let constituencies = new Set()
   if (data === null) {
     return null
@@ -39,11 +47,17 @@ export const getConstituencies = (data, selectedStateUT, electionType) => {
     if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
       constituencies.add("First Select a State or UT")
     } else {
-      data.map((row) => {
-        constituencies.add(
-          electionType === "general" ? row.PC_NAME : row.AC_NAME
-        )
-      })
+      if(electionType === "general") {
+        data.map((row) => {
+          if(filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === row.PC_NAME) > -1) {
+            constituencies.add(row.PC_NAME)
+          }
+        })
+      } else {
+        data.map((row) => {
+          constituencies.add(row.AC_NAME)
+        })
+      }
     }
     constituencies = [...constituencies]
     if (constituencies.length > 1) {

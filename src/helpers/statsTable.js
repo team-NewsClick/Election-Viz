@@ -547,9 +547,9 @@ const prevSeatsVotesCount = (
               votesPercent: 0
             })
           )
-          previousStats = data.find(
-            (e) => e.PC_NAME === selectedConstituency
-          ).stats
+          previousStats = data.find((e) => e.PC_NAME === selectedConstituency)
+                            ? data.find((e) => e.PC_NAME === selectedConstituency).stats
+                            :[]
           previousStats.map((d) => {
             const temp =
               stats.findIndex(

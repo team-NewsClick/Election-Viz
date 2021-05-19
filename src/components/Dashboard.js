@@ -68,6 +68,8 @@ const Dashboard = ({
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
   const [prevYearData, setPrevYearData] = useState([])
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
+  const [stateUTOptions, setStateUTOptions] = useState([])
+  const [constituencyOptions, setConstituencyOptions] = useState([])
 
   useEffect(() => {
     setYearOptions(
@@ -99,6 +101,21 @@ const Dashboard = ({
   }, [selectedYear])
 
   useEffect(() => {
+  setStateUTOptions(getStateUTs(selectedYearData, electionType, filteredGeoJSON))
+  }, [selectedYearData, electionType, seatType, filteredGeoJSON])
+
+  useEffect(() => {
+    setConstituencyOptions(
+      getConstituencies(
+        selectedStateUTData,
+        selectedStateUT,
+        electionType,
+        filteredGeoJSON
+      )
+    )
+  }, [selectedStateUTData, selectedStateUT, electionType, seatType, filteredGeoJSON])
+
+  useEffect(() => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
     setSelectedStateUT(
@@ -106,20 +123,33 @@ const Dashboard = ({
         ? selectedStateUT
         : stateUTOptions[0]
     )
-    setSelectedConstituency(
-      constituencyOptions.indexOf(selectedConstituency) > -1
-        ? selectedConstituency
-        : constituencyOptions[0]
-    )
   }, [
     selectedYear,
     electionType,
     yearOptions,
     selectedYearData,
-    selectedStateUT,
     selectedConstituency,
-    mapData
+    seatType,
+    filteredGeoJSON,
+    stateUTOptions,
+    constituencyOptions
   ])
+
+  useEffect(() => {
+    setSelectedConstituency(
+      constituencyOptions.indexOf(selectedConstituency) > -1
+      ? selectedConstituency
+      : constituencyOptions[0]
+      )
+  }, [
+    selectedYear,
+    electionType,
+    yearOptions,
+    selectedStateUT,
+    stateUTOptions,
+    constituencyOptions,
+    filteredGeoJSON
+ ])
 
   useEffect(() => {
     if (selectedYearData != []) {
@@ -127,7 +157,14 @@ const Dashboard = ({
         getMapData(selectedYearData, selectedStateUT, electionType)
       )
     }
-  }, [selectedYearData, selectedStateUT])
+  }, [
+    selectedYearData,
+    selectedStateUT,
+    seatType,
+    filteredGeoJSON,
+    stateUTOptions,
+    constituencyOptions
+  ])
 
   useEffect(() => {
     if(electionType === "general") {
@@ -217,7 +254,7 @@ const Dashboard = ({
         filteredGeoJSON
       )
     )
-  }, [regionStatsSVGData, prevYearData])
+  }, [regionStatsSVGData, prevYearData, filteredGeoJSON])
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -236,12 +273,6 @@ const Dashboard = ({
   const selectedConstituencyData = getDataConstituency(
     selectedStateUTData,
     selectedConstituency,
-    electionType
-  )
-  const stateUTOptions = getStateUTs(selectedYearData)
-  const constituencyOptions = getConstituencies(
-    selectedStateUTData,
-    selectedStateUT,
     electionType
   )
 
