@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import ReactDOMServer from 'react-dom/server';
+import ReactDOMServer from "react-dom/server"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import {
@@ -15,11 +15,13 @@ import {
   DEFAULT_STATE_LINE_COLOR,
   DEFAULT_DISTRICT_LINE_COLOR,
   TRANSPARENT_COLOR,
-  CONSTITUENCIES_DEFAULT_SELECT
+  CONSTITUENCIES_DEFAULT_SELECT,
+  SEAT_DEFAULT_SELECT
 } from "../../constants"
 import { indPlaceVal } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
 import Loading from "../helpers/Loading"
+import { getReservedGeoJson } from "../../helpers/reservedSeats"
 
 /**
  * Plot Map and Deckgl Layers
@@ -31,6 +33,7 @@ const MapWidget = ({
   stateGeojson,
   parliamentaryConstituenciesGeojson,
   assemblyConstituenciesGeojson,
+  filteredGeoJson,
   onMapUpdate,
   electionType,
   stateUTOptions,
@@ -39,15 +42,13 @@ const MapWidget = ({
   mapData,
   constituenciesResults,
   topSix,
-  mapWidgetLoading
+  mapWidgetLoading,
+  seatType
 }) => {
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState("")
-  const [districtData, setDistrictData] = useState(
+  const [filterdGeoJsonData, setFilterdGeoJsonData] = useState(
     parliamentaryConstituenciesGeojson
-  )
-  const [assemblyData, setAssemblyData] = useState(
-    assemblyConstituenciesGeojson
   )
   const [stateData, setStateData] = useState(stateGeojson)
   const [initialViewState, setInitialViewState] = useState(
@@ -77,14 +78,21 @@ const MapWidget = ({
   )
 
   useEffect(() => {
-    setDistrictData((parliamentaryConstituenciesGeojson) => ({
-      ...parliamentaryConstituenciesGeojson
-    }))
-    setAssemblyData((assemblyConstituenciesGeojson) => ({
-      ...assemblyConstituenciesGeojson
-    }))
-    setStateData((stateGeojson) => ({ ...stateGeojson }))
-  }, [stateName, constituenciesResults])
+    if (electionType === "general") {
+      const filterdGeoJson =
+        seatType !== SEAT_DEFAULT_SELECT
+          ? getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType, electionType)
+          : parliamentaryConstituenciesGeojson
+      setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
+    } else {
+      const filterdGeoJson =
+        seatType !== SEAT_DEFAULT_SELECT
+          ? getReservedGeoJson(assemblyConstituenciesGeojson, seatType, electionType)
+          : assemblyConstituenciesGeojson
+      setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
+    }
+    setStateData(() => ({ ...stateGeojson }))
+  }, [stateName, constituenciesResults, seatType])
 
   useEffect(() => {
     const state = selectedStateUT
@@ -168,12 +176,18 @@ const MapWidget = ({
     } else {
       sortByKey = d.properties.AC_NAME
       results = constituenciesResults.find((row) => {
-        if(selectedStateUT === STATE_UT_DEFAULT_SELECT) {
-          if (sortByKey == row.ac_name && stateUTOptions.indexOf(d.properties.ST_NAME) > -1) {
+        if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+          if (
+            sortByKey == row.ac_name &&
+            stateUTOptions.indexOf(d.properties.ST_NAME) > -1
+          ) {
             return row
           }
         } else {
-          if(sortByKey == row.ac_name && selectedStateUT == d.properties.ST_NAME) {
+          if (
+            sortByKey == row.ac_name &&
+            selectedStateUT == d.properties.ST_NAME
+          ) {
             return row
           }
         }
@@ -202,22 +216,19 @@ const MapWidget = ({
             }
           })
           let voteShare = ""
-          results && (
+          results &&
             results.stats.map((d) => {
-              voteShare = voteShare + `<div><b>${d.party}</b>: ${indPlaceVal(
-                d.votesReceived
-              )}</div>`
+              voteShare =
+                voteShare +
+                `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
             })
-          )
-          if(results){
+          if (results) {
           }
           return (
             results && {
               html: `
               <div>
-                <div class="pb-1">State: <b>${
-                  object.properties.ST_NAME
-                }</b></div>
+                <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
                 <div class="pb-1">
                   <div>Constituency: <b>${results.PC_NAME}</b></div>
                   <div>Winner: <b>${results.stats[0].candidate}</b></div>
@@ -241,13 +252,12 @@ const MapWidget = ({
           }
         })
         let voteShare = ""
-        results && (
+        results &&
           results.stats.map((d) => {
-            voteShare = voteShare + `<div><b>${d.party}</b>: ${indPlaceVal(
-              d.votesReceived
-            )}</div>`
+            voteShare =
+              voteShare +
+              `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
           })
-        )
         return (
           results && {
             html: `
@@ -270,37 +280,20 @@ const MapWidget = ({
     }
   }
   let layers = []
-  if (electionType === "general") {
-    layers = [
-      new GeoJsonLayer({
-        id: "parlimantary-constituency-geojson-layer-1",
-        data: districtData,
-        stroked: true,
-        filled: true,
-        pickable: true,
-        lineWidthScale: 200,
-        getFillColor: (d) => _fillGeoJsonColor(d),
-        getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
-        getLineWidth: 10,
-        onClick: ({ object }) => _handleMap(object)
-      })
-    ]
-  } else {
-    layers = [
-      new GeoJsonLayer({
-        id: "assembly-constituency-geojson-layer-1",
-        data: assemblyData,
-        stroked: true,
-        filled: true,
-        pickable: true,
-        lineWidthScale: 200,
-        getFillColor: (d) => _fillGeoJsonColor(d),
-        getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
-        getLineWidth: 2,
-        onClick: ({ object }) => _handleMap(object)
-      })
-    ]
-  }
+  layers = [
+    new GeoJsonLayer({
+      id: "constituency-geojson-layer-1",
+      data: filterdGeoJsonData,
+      stroked: true,
+      filled: true,
+      pickable: true,
+      lineWidthScale: 200,
+      getFillColor: (d) => _fillGeoJsonColor(d),
+      getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
+      getLineWidth: electionType === "general" ? 10 : 2,
+      onClick: ({ object }) => _handleMap(object)
+    })
+  ]
 
   layers.push(
     new GeoJsonLayer({
@@ -316,7 +309,7 @@ const MapWidget = ({
   )
 
   const _getCursor = (e) => {
-    return e.isHovering ? e.isDragging ? "grabbing" : "pointer" : ""
+    return e.isHovering ? (e.isDragging ? "grabbing" : "pointer") : ""
   }
 
   return (
