@@ -108,7 +108,9 @@ const CustomAllianceModal = ({ partyAlliance }) => {
                                           ref={provided.innerRef}
                                           {...provided.draggableProps}
                                           {...provided.dragHandleProps}
-                                          style={ snapshot.isDragging ? {background: "#0D3554", color: 'white',  ...provided.draggableProps.style} : {background: "white", ...provided.draggableProps.style}}
+                                          style={ snapshot.isDragging
+                                                  ? {background: "#0D3554", color: 'white', ...provided.draggableProps.style}
+                                                  : {background: "white", cursor: "pointer", ...provided.draggableProps.style}}
                                           className="flex flex-wrap content-center m-2 px-4 h-1/3 select-none w-min border-2 rounded-xl"
                                         >
                                             {e}
