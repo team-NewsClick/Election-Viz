@@ -37,6 +37,7 @@ import {
 import { getRegionStatsSVGData } from "../helpers/statsParlimantarySVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
 import { getReservedGeoJson } from "../helpers/reservedSeats"
+import CustomAllianceModal from "./modals/CustomAllianceModal"
 
 /**
  * Controls/Settings for the visualization of infographics
@@ -282,6 +283,19 @@ const Dashboard = ({
       setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
       setSeatType(SEAT_DEFAULT_SELECT)
     }
+    const option = document.getElementById("advanceOptionsWeb")
+    const btnText = document.getElementById("showHideAdvance-btn")
+    const btnIcon = document.getElementById("showHideAdvance-btn-icon")
+    option.style.display = "none"
+    btnText.innerHTML = "Show Advance Options"
+    btnIcon.style.transform = "rotate(0deg)"
+  }
+
+  const openCustomAllianceModal = () => {
+    const customAllianceModal = document.getElementById("customAllianceModal")
+    customAllianceModal.style.display === "none"
+      ? customAllianceModal.style.display = "flex"
+      : customAllianceModal.style.display = "none"
   }
 
   const _handleElectionType = (v) => {
@@ -436,8 +450,8 @@ const Dashboard = ({
         </div>
         <div
           id="advanceOptionsWeb"
-          style={{ display: "none" }}
-          className="bg-gray-100 z-10 h-full md:h-auto md:relative inset-0 top-0 md:top-auto fixed"
+          style={{ display: "none", zIndex: "2" }}
+          className="bg-gray-100 h-full md:h-auto md:relative inset-0 top-0 md:top-auto fixed"
         >
           <div className="h-0.5 bg-gray-300 w-full max-w-4xl my-3.5 mx-auto hidden md:block">
             &nbsp;
@@ -483,6 +497,16 @@ const Dashboard = ({
                   ))}
                 </select>
               </div>
+
+
+              <div
+                onClick={openCustomAllianceModal}
+                className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+              >
+                Custom Alliances
+              </div>
+
+              
               {/* <div>
                 <select
                   name="locality"
@@ -570,7 +594,7 @@ const Dashboard = ({
             </div>
             <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between md:hidden">
               <div>
-                <input type="button" value="RESET" className="black-btn" />
+                <input type="button" value="RESET" className="black-btn" onClick={_home} />
               </div>
               <div>
                 <input
@@ -615,7 +639,7 @@ const Dashboard = ({
             onClick={_home}
             id="maphome"
             title="Home"
-            className="flex relative items-center justify-center bg-white hover:bg-gray-200 rounded cursor-pointer z-10"
+            className="flex relative items-center justify-center bg-white hover:bg-gray-200 rounded cursor-pointer"
             style={
               windowWidth < 800
                 ? windowWidth > 700
@@ -624,6 +648,7 @@ const Dashboard = ({
                       left: "95%",
                       width: "29px",
                       height: "29px",
+                      zIndex: "1",
                       boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
                     }
                   : {
@@ -631,6 +656,7 @@ const Dashboard = ({
                       left: "90.5%",
                       width: "29px",
                       height: "29px",
+                      zIndex: "1",
                       boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
                     }
                 : {
@@ -638,6 +664,7 @@ const Dashboard = ({
                     left: "-29px",
                     width: "29px",
                     height: "29px",
+                    zIndex: "1",
                     boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
                   }
             }
@@ -668,6 +695,15 @@ const Dashboard = ({
               </div>
             )}
           </div>
+        </div>
+        <div
+          id="customAllianceModal"
+          style={{display: "none", zIndex: "2"}}
+          className="fixed left-0 top-0"
+        >
+          <CustomAllianceModal
+            partyAlliance={partyAlliance}
+          />
         </div>
         {/* {constituencyContestantsStatsData !== null && (
           <ConstituencyConstestantsStats

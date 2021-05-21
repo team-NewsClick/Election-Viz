@@ -24,6 +24,7 @@
     "parliament-svg": "^2.1.4",
     "postcss": "^8.2.4",
     "react": "17.0.1",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "17.0.1",
     "react-map-gl": "^6.1.10",
     "react-select": "^4.1.0",
