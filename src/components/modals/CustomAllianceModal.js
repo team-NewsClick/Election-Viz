@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
+/**
+ * A modal box with customizable alliances
+ * @param {Array<Object>} param0 List of parties and their respective alliances
+ * @returns {JSX.Element} - A modal box with customizable alliances
+ */
 const CustomAllianceModal = ({ partyAlliance }) => {
 
   const [rows, setRows] = useState([])
@@ -10,7 +15,7 @@ const CustomAllianceModal = ({ partyAlliance }) => {
     setRows(alliancePartyData)
   }, [])
 
-  console.log("customedPartyAlliance: ", customedPartyAlliance)
+  console.log("partyAlliance: ", partyAlliance)
 
   let alliances = new Set()
   let alliancePartyData = []
@@ -52,6 +57,7 @@ const CustomAllianceModal = ({ partyAlliance }) => {
       tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
      })
    })
+   console.log(tempCustomedPartyAlliance.findIndex("columns"))
    setCustomedPartyAlliance(tempCustomedPartyAlliance)
   }
 
@@ -76,7 +82,7 @@ const CustomAllianceModal = ({ partyAlliance }) => {
             />
           </div>
           <div className="flex justify-center font-bold text-2xl">
-            Custom Alliances
+            Customise Alliances
           </div>
         </div>
         <DragDropContext onDragEnd={(result) => _ondragEnd(result)} >
