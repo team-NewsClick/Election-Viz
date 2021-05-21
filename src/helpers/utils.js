@@ -403,7 +403,7 @@ export const getMapData = (data, stateUT, electionType) => {
           votesReceived: votesReceived,
           color:
             PARTY_COLOR.find((e) => e.party == party) == undefined
-              ? "#000000"
+              ? DEFAULT_PARTY_ALLIANCE_COLOR
               : PARTY_COLOR.find((e) => e.party == party).color
         }
       })
