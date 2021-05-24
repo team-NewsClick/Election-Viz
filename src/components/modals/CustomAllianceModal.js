@@ -15,11 +15,11 @@ const CustomAllianceModal = ({ partyAlliance }) => {
     setRows(alliancePartyData)
   }, [])
 
-  console.log("partyAlliance: ", partyAlliance)
+  console.log("customedPartyAlliance: ", customedPartyAlliance)
 
   let alliances = new Set()
   let alliancePartyData = []
-  partyAlliance.map((d) => alliances.add(d.ALLIANCE))
+  partyAlliance && partyAlliance.map((d) => alliances.add(d.ALLIANCE))
   alliances = [...alliances]
   alliances.map((d) => {
     const parties = []
@@ -57,7 +57,6 @@ const CustomAllianceModal = ({ partyAlliance }) => {
       tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
      })
    })
-   console.log(tempCustomedPartyAlliance.findIndex("columns"))
    setCustomedPartyAlliance(tempCustomedPartyAlliance)
   }
 
