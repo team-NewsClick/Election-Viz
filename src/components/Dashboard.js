@@ -497,16 +497,12 @@ const Dashboard = ({
                   ))}
                 </select>
               </div>
-
-
               <div
                 onClick={openCustomAllianceModal}
                 className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
               >
                 Customise Alliances
-              </div>
-
-              
+              </div>            
               {/* <div>
                 <select
                   name="locality"
@@ -612,7 +608,10 @@ const Dashboard = ({
           style={{display: "none", zIndex: "2"}}
           className="fixed left-0 top-0"
         >
-          <CustomAllianceModal partyAlliance={partyAlliance} />
+          <CustomAllianceModal
+          partyAlliance = {partyAlliance}
+          constituenciesResults = {constituenciesResults}
+          />
         </div>
         <div className="lg:flex lg:flex-row-reverse relative py-8">
           <div
