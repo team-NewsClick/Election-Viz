@@ -6,7 +6,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
  * @param {Array<Object>} param0 List of parties and their respective alliances
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
-const CustomAllianceModal = ({ partyAlliance, constituenciesResults }) => {
+const CustomAllianceModal = ({ partyAlliance, constituenciesResults, customAlliance }) => {
 
   const [rows, setRows] = useState([])
   const [customedPartyAlliance, setCustomedPartyAlliance] = useState(partyAlliance)
@@ -92,6 +92,7 @@ const CustomAllianceModal = ({ partyAlliance, constituenciesResults }) => {
      })
    })
    setCustomedPartyAlliance(tempCustomedPartyAlliance)
+   customAlliance(customedPartyAlliance)
   }
 
   const _resetPartyAlliance = () => {
@@ -127,10 +128,14 @@ const CustomAllianceModal = ({ partyAlliance, constituenciesResults }) => {
             Customise Alliances
           </div>
         </div>
-        <DragDropContext onDragEnd={(result) => _ondragEnd(result)} >
+        <DragDropContext onDragEnd={(result) => _ondragEnd(result)}>
           {rows.map((d) => {
             return (
-              <Droppable droppableId={d.alliance} key={d.alliance} direction="horizontal">
+              <Droppable
+                droppableId={d.alliance}
+                key={d.alliance}
+                direction="horizontal"
+              >
                 {(provided, snapshot) => {
                   return (
                     <div className="flex min-w-full my-8 rounded-lg border-2 border-gray-300" >
@@ -168,7 +173,7 @@ const CustomAllianceModal = ({ partyAlliance, constituenciesResults }) => {
                               </Draggable>
                           )
                         })}
-                      {provided.placeholder}
+                        {provided.placeholder}
                       </div>
                     </div>
                   )
@@ -179,7 +184,12 @@ const CustomAllianceModal = ({ partyAlliance, constituenciesResults }) => {
         </DragDropContext>
         <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between">
           <div>
-            <input type="button" value="RESET" className="black-btn cursor-pointer" onClick={_resetPartyAlliance} />
+            <input
+              type="button"
+              value="RESET"
+              className="black-btn cursor-pointer"
+              onClick={_resetPartyAlliance}
+            />
           </div>
           <div>
             <input
