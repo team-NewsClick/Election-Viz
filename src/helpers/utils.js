@@ -236,6 +236,7 @@ export const getConstituenciesResults = (
               votes: d.stats[0].votesReceived,
               candidate: d.stats[0].candidate,
               alliance: alliance,
+              party: d.stats[0].party,
               color:
                 PARTY_COLOR.find((e) => e.party == alliance) == undefined
                   ? DEFAULT_PARTY_ALLIANCE_COLOR
@@ -247,6 +248,7 @@ export const getConstituenciesResults = (
               votes: d.stats[0].votesReceived,
               candidate: d.stats[0].candidate,
               alliance: alliance,
+              party: d.stats[0].party,
               color:
                 PARTY_COLOR.find((e) => e.party == alliance) == undefined
                   ? DEFAULT_PARTY_ALLIANCE_COLOR
@@ -290,6 +292,7 @@ export const getConstituenciesResults = (
                 votes: d.stats[0].votesReceived,
                 candidate: d.stats[0].candidate,
                 alliance: alliance,
+                party: d.stats[0].party,
                 color:
                   PARTY_COLOR.find((e) => e.party == alliance) == undefined
                     ? DEFAULT_PARTY_ALLIANCE_COLOR
@@ -302,6 +305,7 @@ export const getConstituenciesResults = (
                 votes: d.stats[0].votesReceived,
                 candidate: d.stats[0].candidate,
                 alliance: alliance,
+                party: d.stats[0].party,
                 color:
                   PARTY_COLOR.find((e) => e.party == alliance) == undefined
                     ? DEFAULT_PARTY_ALLIANCE_COLOR

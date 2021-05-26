@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react"
+import axios from "axios"
+import { csvParse } from "d3-dsv"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 /**
@@ -6,44 +8,59 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
  * @param {Array<Object>} param0 List of parties and their respective alliances
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
-const CustomAllianceModal = ({ partyAlliance, constituenciesResults, customAlliance }) => {
+const CustomAllianceModal = ({ constituenciesResults, customAlliance }) => {
 
-  const [rows, setRows] = useState([])
-  const [customedPartyAlliance, setCustomedPartyAlliance] = useState(partyAlliance)
+  const [rowsInit, setRowsInit] = useState([])
+  const [resetAlliances, setResetAlliances] = useState(true)
+  const [rows, setRows] = useState(rowsInit)
+  const [partyAllianceInit, setPartyAllianceInit] = useState([])
+  const [customedPartyAlliance, setCustomedPartyAlliance] = useState(partyAllianceInit)
 
-  let allParties = new Set()
-  constituenciesResults.map((d) => {
-    allParties.add(d.party)
-  })
-  let alliances = new Set()
-  partyAlliance && partyAlliance.map((d) => alliances.add(d.ALLIANCE))
-  alliances = [...alliances, "OTHERS"]
-  let alliancePartyData = []
-  alliances.map((d) => {
-    alliancePartyData.push({
-      alliance: d,
-      parties: []
+  useEffect(() => {
+    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
+      const parsedData = csvParse(response.data)
+      setPartyAllianceInit(parsedData)
     })
-  })
-  constituenciesResults && constituenciesResults.map((d) => {
-    let tempAlliance = partyAlliance.find((p) => p.PARTY === d.party)
-    tempAlliance =  tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
-    let tempAllianceIndex = alliancePartyData.findIndex((e) => e.alliance === tempAlliance)
-    let tempPartyIndex = alliancePartyData[tempAllianceIndex].parties.findIndex((e) => e === d.party)
-    if(tempPartyIndex < 0) {
-      alliancePartyData[tempAllianceIndex].parties.push(d.party)
-    }
-  })
-    
-  console.log("alliancePartyData: ", alliancePartyData)
-  console.log("rows: ", rows)
-  console.log("customedPartyAlliance: ", customedPartyAlliance)
+  }, [])
+
+  useEffect(() => {
+    setCustomedPartyAlliance(partyAllianceInit)
+    let allParties = new Set()
+    constituenciesResults.map((d) => {
+      allParties.add(d.party)
+    })
+    let alliances = new Set()
+    let alliancePartyData = []
+    partyAllianceInit.map((d) => alliances.add(d.ALLIANCE))
+    alliances = [...alliances, "OTHERS"]
+    alliances.map((d) => {
+      alliancePartyData.push({
+        alliance: d,
+        parties: []
+      })
+    })
+    constituenciesResults.map((d) => {
+      let tempAlliance = partyAllianceInit.find((p) => p.PARTY === d.party)
+      tempAlliance =  tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
+      let tempAllianceIndex = alliancePartyData.findIndex((e) => e.alliance === tempAlliance)
+      let tempPartyIndex = alliancePartyData[tempAllianceIndex].parties.findIndex((e) => e === d.party)
+      if(tempPartyIndex < 0) {
+        alliancePartyData[tempAllianceIndex].parties.push(d.party)
+      }
+    })
+    setRowsInit(alliancePartyData)
+    setRows(alliancePartyData)
+  }, [resetAlliances, partyAllianceInit])
+
+  useEffect(() => {
+    customAlliance(customedPartyAlliance)
+  }, [customedPartyAlliance])
 
   const openCustomAllianceModal = () => {
     const customAllianceModal = document.getElementById("customAllianceModal")
     customAllianceModal.style.display === "none"
-      ? (customAllianceModal.style.display = "flex")
-      : (customAllianceModal.style.display = "none")
+      ? customAllianceModal.style.display = "flex"
+      : customAllianceModal.style.display = "none"
   }
 
   const _ondragEnd = (result) => {
@@ -63,18 +80,11 @@ const CustomAllianceModal = ({ partyAlliance, constituenciesResults, customAllia
      })
    })
    setCustomedPartyAlliance(tempCustomedPartyAlliance)
-   customAlliance(customedPartyAlliance)
+   customAlliance(partyAllianceInit)
   }
 
   const _resetPartyAlliance = () => {
-    setRows(alliancePartyData)
-    let tempCustomedPartyAlliance = []
-    rows.map((a) => {
-      a.parties.map((p) => {
-       tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-      })
-    })
-    setCustomedPartyAlliance(tempCustomedPartyAlliance)
+    setResetAlliances(resetAlliances ? false : true)
   }
 
   return (

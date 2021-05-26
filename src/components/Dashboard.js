@@ -64,7 +64,6 @@ const Dashboard = ({
   const [regionStatsTableData, setRegionStatsTableData] = useState([])
   const [groupType, setGroupType] = useState("party")
   const [partyAlliance, setPartyAlliance] = useState()
-  const [customPartyAlliance, setCustomPartyAlliance] = useState()
   const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
@@ -89,11 +88,6 @@ const Dashboard = ({
         const parsedData = csvParse(response.data)
         setSelectedYearData(parsedData)
       })
-    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
-      const parsedData = csvParse(response.data)
-      setPartyAlliance(parsedData)
-      setCustomPartyAlliance(parsedData)
-    })
     axios
       .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
       .then((response) => {
@@ -102,7 +96,6 @@ const Dashboard = ({
       })
       .catch((e) => setPrevYearData([]))
   }, [selectedYear])
-  console.log('partyAlliance: ', partyAlliance)
   useEffect(() => {
   setStateUTOptions(getStateUTs(selectedYearData, electionType, filteredGeoJSON))
   }, [selectedYearData, electionType, seatType, filteredGeoJSON])
@@ -192,7 +185,8 @@ const Dashboard = ({
     selectedConstituency,
     selectedStateUT,
     electionType,
-    groupType
+    groupType,
+    partyAlliance
   ])
 
   useEffect(() => {
@@ -299,6 +293,7 @@ const Dashboard = ({
       ? customAllianceModal.style.display = "flex"
       : customAllianceModal.style.display = "none"
   }
+
   const customAlliance = (customAlliance) => {
     setPartyAlliance(customAlliance)
   }
@@ -613,7 +608,6 @@ const Dashboard = ({
           className="fixed left-0 top-0"
         >
           <CustomAllianceModal
-          partyAlliance = {partyAlliance}
           constituenciesResults = {constituenciesResults}
           customAlliance={customAlliance}
           />
