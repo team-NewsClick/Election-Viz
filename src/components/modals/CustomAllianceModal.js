@@ -10,35 +10,6 @@ const CustomAllianceModal = ({ partyAlliance, constituenciesResults, customAllia
 
   const [rows, setRows] = useState([])
   const [customedPartyAlliance, setCustomedPartyAlliance] = useState(partyAlliance)
-  // const [alliancePartyData, setAlliancePartyData] = useState([])
-  // const [alliancePartyDataInit, setAlliancePartyDataInit] = useState(alliancePartyData)
-
-  // useEffect(() => {
-  //   let allParties = new Set()
-  //   constituenciesResults.map((d) => {
-  //     allParties.add(d.party)
-  //   })
-  //   let alliances = new Set()
-  //   partyAlliance && partyAlliance.map((d) => alliances.add(d.ALLIANCE))
-  //   alliances = [...alliances, "OTHERS"]
-  //   let alliancePartyDataTemp = []
-  //   alliances.map((d) => {
-  //     alliancePartyDataTemp.push({
-  //       alliance: d,
-  //       parties: []
-  //     })
-  //   })
-  //   constituenciesResults && constituenciesResults.map((d) => {
-  //     let tempAlliance = partyAlliance.find((p) => p.PARTY === d.party)
-  //     tempAlliance =  tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
-  //     let tempAllianceIndex = alliancePartyDataTemp.findIndex((e) => e.alliance === tempAlliance)
-  //     let tempPartyIndex = alliancePartyDataTemp[tempAllianceIndex].parties.findIndex((e) => e === d.party)
-  //     if(tempPartyIndex < 0) {
-  //       alliancePartyDataTemp[tempAllianceIndex].parties.push(d.party)
-  //     }
-  //   })
-  //   setAlliancePartyDataInit(alliancePartyDataTemp)
-  // }, [customedPartyAlliance])
 
   let allParties = new Set()
   constituenciesResults.map((d) => {
