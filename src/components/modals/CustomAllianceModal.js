@@ -6,10 +6,10 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
  * @param {Array<Object>} param0 List of parties and their respective alliances
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
-const CustomAllianceModal = ({ partyAlliance }) => {
-
+const CustomAllianceModal = ({ partyAlliance, customAlliance }) => {
   const [rows, setRows] = useState([])
-  const [customedPartyAlliance, setCustomedPartyAlliance] = useState(partyAlliance)
+  const [customedPartyAlliance, setCustomedPartyAlliance] =
+    useState(partyAlliance)
 
   useEffect(() => {
     setRows(alliancePartyData)
@@ -30,7 +30,7 @@ const CustomAllianceModal = ({ partyAlliance }) => {
     })
     alliancePartyData.push({
       alliance: d,
-      parties,
+      parties
     })
   })
 
@@ -42,22 +42,31 @@ const CustomAllianceModal = ({ partyAlliance }) => {
   }
 
   const _ondragEnd = (result) => {
-   if(result.destination == undefined) {
-    return
-   }
-   let tempCol = rows
-   const tempCustomedPartyAlliance = []
-   const srcColIndex = tempCol.findIndex((e) => e.alliance === result.source.droppableId)
-   const desColIndex = tempCol.findIndex((e) => e.alliance === result.destination.droppableId)
-   tempCol[srcColIndex].parties.splice(result.source.index, 1)
-   tempCol[desColIndex].parties.splice(result.destination.index, 0, result.draggableId)
-   setRows(tempCol)
-   tempCol.map((a) => {
-     a.parties.map((p) => {
-      tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-     })
-   })
-   setCustomedPartyAlliance(tempCustomedPartyAlliance)
+    if (result.destination == undefined) {
+      return
+    }
+    let tempCol = rows
+    const tempCustomedPartyAlliance = []
+    const srcColIndex = tempCol.findIndex(
+      (e) => e.alliance === result.source.droppableId
+    )
+    const desColIndex = tempCol.findIndex(
+      (e) => e.alliance === result.destination.droppableId
+    )
+    tempCol[srcColIndex].parties.splice(result.source.index, 1)
+    tempCol[desColIndex].parties.splice(
+      result.destination.index,
+      0,
+      result.draggableId
+    )
+    setRows(tempCol)
+    tempCol.map((a) => {
+      a.parties.map((p) => {
+        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+      })
+    })
+    setCustomedPartyAlliance(tempCustomedPartyAlliance)
+    customAlliance(customedPartyAlliance)
   }
 
   const _resetPartyAlliance = () => setRows(alliancePartyData)
@@ -84,10 +93,14 @@ const CustomAllianceModal = ({ partyAlliance }) => {
             Customise Alliances
           </div>
         </div>
-        <DragDropContext onDragEnd={(result) => _ondragEnd(result)} >
+        <DragDropContext onDragEnd={(result) => _ondragEnd(result)}>
           {rows.map((d) => {
             return (
-              <Droppable droppableId={d.alliance} key={d.alliance} direction="horizontal">
+              <Droppable
+                droppableId={d.alliance}
+                key={d.alliance}
+                direction="horizontal"
+              >
                 {(provided, snapshot) => {
                   return (
                     <div className="flex h-1/6 min-w-full my-8 rounded-lg border-2 border-gray-300">
@@ -106,26 +119,36 @@ const CustomAllianceModal = ({ partyAlliance }) => {
                       >
                         {d.parties.map((e, index) => {
                           return (
-                              <Draggable key={e} draggableId={e} index={index}>
-                                  {(provided, snapshot) => {
-                                      return (
-                                        <div
-                                          ref={provided.innerRef}
-                                          {...provided.draggableProps}
-                                          {...provided.dragHandleProps}
-                                          style={ snapshot.isDragging
-                                                  ? {background: "#0D3554", color: 'white', ...provided.draggableProps.style}
-                                                  : {background: "white", cursor: "move", ...provided.draggableProps.style}}
-                                          className="flex flex-wrap content-center m-2 px-4 h-1/3 select-none w-min border-2 rounded-xl"
-                                        >
-                                            {e}
-                                        </div>
-                                      )
-                                  }}
-                              </Draggable>
+                            <Draggable key={e} draggableId={e} index={index}>
+                              {(provided, snapshot) => {
+                                return (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={
+                                      snapshot.isDragging
+                                        ? {
+                                            background: "#0D3554",
+                                            color: "white",
+                                            ...provided.draggableProps.style
+                                          }
+                                        : {
+                                            background: "white",
+                                            cursor: "move",
+                                            ...provided.draggableProps.style
+                                          }
+                                    }
+                                    className="flex flex-wrap content-center m-2 px-4 h-1/3 select-none w-min border-2 rounded-xl"
+                                  >
+                                    {e}
+                                  </div>
+                                )
+                              }}
+                            </Draggable>
                           )
                         })}
-                      {provided.placeholder}
+                        {provided.placeholder}
                       </div>
                     </div>
                   )
@@ -136,7 +159,12 @@ const CustomAllianceModal = ({ partyAlliance }) => {
         </DragDropContext>
         <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between">
           <div>
-            <input type="button" value="RESET" className="black-btn cursor-pointer" onClick={_resetPartyAlliance} />
+            <input
+              type="button"
+              value="RESET"
+              className="black-btn cursor-pointer"
+              onClick={_resetPartyAlliance}
+            />
           </div>
           <div>
             <input
