@@ -8,7 +8,8 @@ import { SEAT_DEFAULT_SELECT } from "../constants"
  * @returns {Object} - Filtered GeoJson with respect to seatType
  */
 export const getReservedGeoJson = (geoJson, seatType, electionType) => {
-    if(seatType !== SEAT_DEFAULT_SELECT && electionType === "general") {
+    console.log("geojSON: ", geoJson)
+    if(seatType !== SEAT_DEFAULT_SELECT) {
         const filteredGeoJson = geoJson.features.filter((d) => {
             if(seatType === "Unreserved"){
                 return d.properties.Res === "GEN"

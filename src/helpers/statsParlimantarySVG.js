@@ -24,7 +24,7 @@ import { assignColor } from "./utils"
   filteredGeoJSON
 ) => {
 
-  if (electionType === "general") { 
+  if (electionType === "general") {
     const filteredData = data.filter((d) => {
       if(filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === d.pc_name) > -1) {
         return d
@@ -36,8 +36,14 @@ import { assignColor } from "./utils"
     if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
       return []
     } else {
+      console.log(data)
+      const filteredData = data.filter((d) => {
+        if(filteredGeoJSON.features.findIndex((e) => e.properties.AC_NAME === d.AC_NAME) > -1) {
+          return d
+        }
+      })
       const electedCandidates = getAssemblyResults(
-        data,
+        filteredData,
         groupType,
         partyAlliance
       )

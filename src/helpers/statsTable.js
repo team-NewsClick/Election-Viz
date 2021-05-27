@@ -49,8 +49,16 @@ export const getRegionStatsTable = (
       }
     })
   } else {
-    filteredPresData = presentYearData
-    filteredPrevData = prevYearData
+    filteredPresData = presentYearData.filter((d) => {
+      if(filteredGeoJSON.features.findIndex((e) => e.properties.AC_NAME === d.AC_NAME) > -1) {
+        return d
+      }
+    })
+    filteredPrevData = prevYearData.filter((d) => {
+      if(filteredGeoJSON.features.findIndex((e) => e.properties.AC_NAME === d.AC_NAME) > -1) {
+        return d
+      }
+    })
   }
   presentYearDataTable = getCurrYearDataTable(
     filteredPresData,
