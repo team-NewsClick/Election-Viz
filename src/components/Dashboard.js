@@ -96,6 +96,7 @@ const Dashboard = ({
       })
       .catch((e) => setPrevYearData([]))
   }, [selectedYear])
+
   useEffect(() => {
   setStateUTOptions(getStateUTs(selectedYearData, electionType, filteredGeoJSON))
   }, [selectedYearData, electionType, seatType, filteredGeoJSON])
@@ -164,9 +165,9 @@ const Dashboard = ({
 
   useEffect(() => {
     if(electionType === "general") {
-        setFilteredGeoJSON(getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType, electionType))
+        setFilteredGeoJSON(getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType))
     } else {
-      setFilteredGeoJSON(getReservedGeoJson(assemblyConstituenciesGeojson, seatType, electionType))
+      setFilteredGeoJSON(getReservedGeoJson(assemblyConstituenciesGeojson, seatType))
     }
   }, [seatType, electionType])
 
@@ -608,8 +609,10 @@ const Dashboard = ({
           className="fixed left-0 top-0"
         >
           <CustomAllianceModal
-          constituenciesResults = {constituenciesResults}
-          customAlliance={customAlliance}
+            constituenciesResults = {constituenciesResults}
+            customAlliance={customAlliance}
+            electionType = {electionType}
+            selectedYear = {selectedYear}
           />
         </div>
         <div className="lg:flex lg:flex-row-reverse relative py-8">
