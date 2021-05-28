@@ -8,7 +8,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
  * @param {Array<Object>} param0 List of parties and their respective alliances
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
-const CustomAllianceModal = ({ constituenciesResults, customAlliance }) => {
+const CustomAllianceModal = ({ constituenciesResults, customAlliance, regionStatsLoading }) => {
 
   const [rowsInit, setRowsInit] = useState([])
   const [resetAlliances, setResetAlliances] = useState(true)
@@ -20,8 +20,9 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance }) => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setPartyAllianceInit(parsedData)
+      setCustomedPartyAlliance(parsedData)
     })
-  }, [])
+  }, [regionStatsLoading])
 
   useEffect(() => {
     setCustomedPartyAlliance(partyAllianceInit)
@@ -31,7 +32,7 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance }) => {
     })
     let alliances = new Set()
     let alliancePartyData = []
-    partyAllianceInit.map((d) => alliances.add(d.ALLIANCE))
+    partyAllianceInit.length > 0 && partyAllianceInit.map((d) => alliances.add(d.ALLIANCE))
     alliances = [...alliances, "OTHERS"]
     alliances.map((d) => {
       alliancePartyData.push({
@@ -39,7 +40,7 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance }) => {
         parties: []
       })
     })
-    constituenciesResults.map((d) => {
+    constituenciesResults.length > 0 && constituenciesResults.map((d) => {
       let tempAlliance = partyAllianceInit.find((p) => p.PARTY === d.party)
       tempAlliance =  tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
       let tempAllianceIndex = alliancePartyData.findIndex((e) => e.alliance === tempAlliance)
@@ -50,11 +51,15 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance }) => {
     })
     setRowsInit(alliancePartyData)
     setRows(alliancePartyData)
-  }, [resetAlliances, partyAllianceInit])
+  }, [regionStatsLoading, partyAllianceInit, resetAlliances])
 
   useEffect(() => {
     customAlliance(customedPartyAlliance)
-  }, [customedPartyAlliance])
+  }, [partyAllianceInit, resetAlliances, customedPartyAlliance])
+
+  useEffect(() => {
+    setResetAlliances(resetAlliances ? false : true)
+  }, [partyAllianceInit])
 
   const openCustomAllianceModal = () => {
     const customAllianceModal = document.getElementById("customAllianceModal")
@@ -145,7 +150,7 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance }) => {
                                           style={ snapshot.isDragging
                                                   ? {background: "#0D3554", color: 'white', ...provided.draggableProps.style}
                                                   : {background: "white", cursor: "move", ...provided.draggableProps.style}}
-                                          className="flex flex-wrap content-center m-2 p-4 max-h-10 select-none w-min border-2 rounded-xl"
+                                          className="flex flex-wrap content-center m-2 p-4 max-h-10 select-none border-2 rounded-xl"
                                         >
                                             {e}
                                         </div>

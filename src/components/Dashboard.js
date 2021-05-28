@@ -187,6 +187,7 @@ const Dashboard = ({
     selectedStateUT,
     electionType,
     groupType,
+    selectedYear,
     partyAlliance
   ])
 
@@ -611,8 +612,7 @@ const Dashboard = ({
           <CustomAllianceModal
             constituenciesResults = {constituenciesResults}
             customAlliance={customAlliance}
-            electionType = {electionType}
-            selectedYear = {selectedYear}
+            regionStatsLoading = {regionStatsLoading}
           />
         </div>
         <div className="lg:flex lg:flex-row-reverse relative py-8">
