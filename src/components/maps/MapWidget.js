@@ -81,13 +81,21 @@ const MapWidget = ({
     if (electionType === "general") {
       const filterdGeoJson =
         seatType !== SEAT_DEFAULT_SELECT
-          ? getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType, electionType)
+          ? getReservedGeoJson(
+              parliamentaryConstituenciesGeojson,
+              seatType,
+              electionType
+            )
           : parliamentaryConstituenciesGeojson
       setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
     } else {
       const filterdGeoJson =
         seatType !== SEAT_DEFAULT_SELECT
-          ? getReservedGeoJson(assemblyConstituenciesGeojson, seatType, electionType)
+          ? getReservedGeoJson(
+              assemblyConstituenciesGeojson,
+              seatType,
+              electionType
+            )
           : assemblyConstituenciesGeojson
       setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
     }

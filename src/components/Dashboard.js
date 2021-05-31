@@ -98,7 +98,9 @@ const Dashboard = ({
   }, [selectedYear])
 
   useEffect(() => {
-  setStateUTOptions(getStateUTs(selectedYearData, electionType, filteredGeoJSON))
+    setStateUTOptions(
+      getStateUTs(selectedYearData, electionType, filteredGeoJSON)
+    )
   }, [selectedYearData, electionType, seatType, filteredGeoJSON])
 
   useEffect(() => {
@@ -110,7 +112,13 @@ const Dashboard = ({
         filteredGeoJSON
       )
     )
-  }, [selectedStateUTData, selectedStateUT, electionType, seatType, filteredGeoJSON])
+  }, [
+    selectedStateUTData,
+    selectedStateUT,
+    electionType,
+    seatType,
+    filteredGeoJSON
+  ])
 
   useEffect(() => {
     setMapWidgetLoading(true)
@@ -135,9 +143,9 @@ const Dashboard = ({
   useEffect(() => {
     setSelectedConstituency(
       constituencyOptions.indexOf(selectedConstituency) > -1
-      ? selectedConstituency
-      : constituencyOptions[0]
-      )
+        ? selectedConstituency
+        : constituencyOptions[0]
+    )
   }, [
     selectedYear,
     electionType,
@@ -146,13 +154,11 @@ const Dashboard = ({
     stateUTOptions,
     constituencyOptions,
     filteredGeoJSON
- ])
+  ])
 
   useEffect(() => {
     if (selectedYearData != []) {
-      setMapData(
-        getMapData(selectedYearData, selectedStateUT, electionType)
-      )
+      setMapData(getMapData(selectedYearData, selectedStateUT, electionType))
     }
   }, [
     selectedYearData,
@@ -164,10 +170,14 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
-    if(electionType === "general") {
-        setFilteredGeoJSON(getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType))
+    if (electionType === "general") {
+      setFilteredGeoJSON(
+        getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType)
+      )
     } else {
-      setFilteredGeoJSON(getReservedGeoJson(assemblyConstituenciesGeojson, seatType))
+      setFilteredGeoJSON(
+        getReservedGeoJson(assemblyConstituenciesGeojson, seatType)
+      )
     }
   }, [seatType, electionType])
 
@@ -292,8 +302,8 @@ const Dashboard = ({
   const openCustomAllianceModal = () => {
     const customAllianceModal = document.getElementById("customAllianceModal")
     customAllianceModal.style.display === "none"
-      ? customAllianceModal.style.display = "flex"
-      : customAllianceModal.style.display = "none"
+      ? (customAllianceModal.style.display = "flex")
+      : (customAllianceModal.style.display = "none")
   }
 
   const customAlliance = (customAlliance) => {
@@ -503,7 +513,7 @@ const Dashboard = ({
                 className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
               >
                 Customise Alliances
-              </div>            
+              </div>
               {/* <div>
                 <select
                   name="locality"
@@ -591,7 +601,12 @@ const Dashboard = ({
             </div>
             <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between md:hidden">
               <div>
-                <input type="button" value="RESET" className="black-btn" onClick={_home} />
+                <input
+                  type="button"
+                  value="RESET"
+                  className="black-btn"
+                  onClick={_home}
+                />
               </div>
               <div>
                 <input
@@ -606,13 +621,13 @@ const Dashboard = ({
         </div>
         <div
           id="customAllianceModal"
-          style={{display: "none", zIndex: "2"}}
+          style={{ display: "none", zIndex: "2" }}
           className="fixed left-0 top-0"
         >
           <CustomAllianceModal
-            constituenciesResults = {constituenciesResults}
+            constituenciesResults={constituenciesResults}
             customAlliance={customAlliance}
-            regionStatsLoading = {regionStatsLoading}
+            regionStatsLoading={regionStatsLoading}
           />
         </div>
         <div className="lg:flex lg:flex-row-reverse relative py-8">
@@ -688,7 +703,9 @@ const Dashboard = ({
                     parliamentaryConstituenciesGeojson
                   }
                   assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-                  parliamentaryConstituenciesGeojson={parliamentaryConstituenciesGeojson}
+                  parliamentaryConstituenciesGeojson={
+                    parliamentaryConstituenciesGeojson
+                  }
                   onMapUpdate={_updatedRegion}
                   electionType={electionType}
                   stateUTOptions={stateUTOptions}

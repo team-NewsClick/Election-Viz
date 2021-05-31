@@ -8,13 +8,17 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
  * @param {Array<Object>} param0 List of parties and their respective alliances
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
-const CustomAllianceModal = ({ constituenciesResults, customAlliance, regionStatsLoading }) => {
-
+const CustomAllianceModal = ({
+  constituenciesResults,
+  customAlliance,
+  regionStatsLoading
+}) => {
   const [rowsInit, setRowsInit] = useState([])
   const [resetAlliances, setResetAlliances] = useState(true)
   const [rows, setRows] = useState(rowsInit)
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
-  const [customedPartyAlliance, setCustomedPartyAlliance] = useState(partyAllianceInit)
+  const [customedPartyAlliance, setCustomedPartyAlliance] =
+    useState(partyAllianceInit)
 
   useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
@@ -32,7 +36,8 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance, regionStat
     })
     let alliances = new Set()
     let alliancePartyData = []
-    partyAllianceInit.length > 0 && partyAllianceInit.map((d) => alliances.add(d.ALLIANCE))
+    partyAllianceInit.length > 0 &&
+      partyAllianceInit.map((d) => alliances.add(d.ALLIANCE))
     alliances = [...alliances, "OTHERS"]
     alliances.map((d) => {
       alliancePartyData.push({
@@ -40,15 +45,20 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance, regionStat
         parties: []
       })
     })
-    constituenciesResults.length > 0 && constituenciesResults.map((d) => {
-      let tempAlliance = partyAllianceInit.find((p) => p.PARTY === d.party)
-      tempAlliance =  tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
-      let tempAllianceIndex = alliancePartyData.findIndex((e) => e.alliance === tempAlliance)
-      let tempPartyIndex = alliancePartyData[tempAllianceIndex].parties.findIndex((e) => e === d.party)
-      if(tempPartyIndex < 0) {
-        alliancePartyData[tempAllianceIndex].parties.push(d.party)
-      }
-    })
+    constituenciesResults.length > 0 &&
+      constituenciesResults.map((d) => {
+        let tempAlliance = partyAllianceInit.find((p) => p.PARTY === d.party)
+        tempAlliance = tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
+        let tempAllianceIndex = alliancePartyData.findIndex(
+          (e) => e.alliance === tempAlliance
+        )
+        let tempPartyIndex = alliancePartyData[
+          tempAllianceIndex
+        ].parties.findIndex((e) => e === d.party)
+        if (tempPartyIndex < 0) {
+          alliancePartyData[tempAllianceIndex].parties.push(d.party)
+        }
+      })
     setRowsInit(alliancePartyData)
     setRows(alliancePartyData)
   }, [regionStatsLoading, partyAllianceInit, resetAlliances])
@@ -64,28 +74,36 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance, regionStat
   const openCustomAllianceModal = () => {
     const customAllianceModal = document.getElementById("customAllianceModal")
     customAllianceModal.style.display === "none"
-      ? customAllianceModal.style.display = "flex"
-      : customAllianceModal.style.display = "none"
+      ? (customAllianceModal.style.display = "flex")
+      : (customAllianceModal.style.display = "none")
   }
 
   const _ondragEnd = (result) => {
-   if(result.destination == undefined) {
-    return
-   }
-   let tempRows = rows
-   const tempCustomedPartyAlliance = []
-   const srcColIndex = tempRows.findIndex((e) => e.alliance === result.source.droppableId)
-   const desColIndex = tempRows.findIndex((e) => e.alliance === result.destination.droppableId)
-   tempRows[srcColIndex].parties.splice(result.source.index, 1)
-   tempRows[desColIndex].parties.splice(result.destination.index, 0, result.draggableId)
-   setRows(tempRows)
-   tempRows.map((a) => {
-     a.parties.map((p) => {
-      tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-     })
-   })
-   setCustomedPartyAlliance(tempCustomedPartyAlliance)
-   customAlliance(partyAllianceInit)
+    if (result.destination == undefined) {
+      return
+    }
+    let tempRows = rows
+    const tempCustomedPartyAlliance = []
+    const srcColIndex = tempRows.findIndex(
+      (e) => e.alliance === result.source.droppableId
+    )
+    const desColIndex = tempRows.findIndex(
+      (e) => e.alliance === result.destination.droppableId
+    )
+    tempRows[srcColIndex].parties.splice(result.source.index, 1)
+    tempRows[desColIndex].parties.splice(
+      result.destination.index,
+      0,
+      result.draggableId
+    )
+    setRows(tempRows)
+    tempRows.map((a) => {
+      a.parties.map((p) => {
+        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+      })
+    })
+    setCustomedPartyAlliance(tempCustomedPartyAlliance)
+    customAlliance(partyAllianceInit)
   }
 
   const _resetPartyAlliance = () => {
@@ -124,7 +142,7 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance, regionStat
               >
                 {(provided, snapshot) => {
                   return (
-                    <div className="flex min-w-full my-8 rounded-lg border-2 border-gray-300" >
+                    <div className="flex min-w-full my-8 rounded-lg border-2 border-gray-300">
                       <div className="flex flex-wrap justify-center content-center w-1/12 bg-gray-200 font-bold text-xl p-4">
                         {d.alliance}
                       </div>
@@ -140,23 +158,33 @@ const CustomAllianceModal = ({ constituenciesResults, customAlliance, regionStat
                       >
                         {d.parties.map((e, index) => {
                           return (
-                              <Draggable key={e} draggableId={e} index={index}>
-                                  {(provided, snapshot) => {
-                                      return (
-                                        <div
-                                          ref={provided.innerRef}
-                                          {...provided.draggableProps}
-                                          {...provided.dragHandleProps}
-                                          style={ snapshot.isDragging
-                                                  ? {background: "#0D3554", color: 'white', ...provided.draggableProps.style}
-                                                  : {background: "white", cursor: "move", ...provided.draggableProps.style}}
-                                          className="flex flex-wrap content-center m-2 p-4 max-h-10 select-none border-2 rounded-xl"
-                                        >
-                                            {e}
-                                        </div>
-                                      )
-                                  }}
-                              </Draggable>
+                            <Draggable key={e} draggableId={e} index={index}>
+                              {(provided, snapshot) => {
+                                return (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={
+                                      snapshot.isDragging
+                                        ? {
+                                            background: "#0D3554",
+                                            color: "white",
+                                            ...provided.draggableProps.style
+                                          }
+                                        : {
+                                            background: "white",
+                                            cursor: "move",
+                                            ...provided.draggableProps.style
+                                          }
+                                    }
+                                    className="flex flex-wrap content-center m-2 p-4 max-h-10 select-none border-2 rounded-xl"
+                                  >
+                                    {e}
+                                  </div>
+                                )
+                              }}
+                            </Draggable>
                           )
                         })}
                         {provided.placeholder}

@@ -3,7 +3,9 @@
  * @param {Object} param0 - contains Array of Objects having data as a stats for every Contestants and an Object having total summary of the stats
  * @returns {JSX.Element} Table of Stats of each Candidate of a constituency and total summary
  */
-const ConstituencyConstestantsStats = ({constituencyContestantsStatsData}) => {
+const ConstituencyConstestantsStats = ({
+  constituencyContestantsStatsData
+}) => {
   const stats = constituencyContestantsStatsData.stats
   const totalStats = constituencyContestantsStatsData.totalStats
   return (
@@ -25,7 +27,7 @@ const ConstituencyConstestantsStats = ({constituencyContestantsStatsData}) => {
                 <div className="md:hidden">Candidate's Name: &nbsp;</div>
                 <div>{d.candidate}</div>
               </div>
-              {d.status === 'won' && (
+              {d.status === "won" && (
                 <div className="flex justify-end pr-2 md:hidden">
                   <img
                     id="showHideAdvance-btn-icon"
@@ -49,7 +51,7 @@ const ConstituencyConstestantsStats = ({constituencyContestantsStatsData}) => {
                 <div className="details-param-title">Votes Reveived</div>
                 <div className="details-param-data">{d.votesReceived}</div>
               </div>
-              {d.status === 'won' && (
+              {d.status === "won" && (
                 <div className="md:w-1/4 hidden md:block">
                   <img
                     id="showHideAdvance-btn-icon"

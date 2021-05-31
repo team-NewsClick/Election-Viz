@@ -66,7 +66,7 @@ export const CONSTITUENCIES_DEFAULT_SELECT = "All Constituencies"
 /**
  * Default Selection for Seats Types
  */
- export const SEAT_DEFAULT_SELECT = "All Seats"
+export const SEAT_DEFAULT_SELECT = "All Seats"
 
 /**
  * Options for Locality

@@ -16,12 +16,20 @@ export const getStateUTs = (data, electionType, filteredGeoJSON) => {
   } else {
     let stateUTs = new Set()
     data.map((row) => {
-      if(electionType === "general") {
-        if(filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === row.PC_NAME) > -1) {
+      if (electionType === "general") {
+        if (
+          filteredGeoJSON.features.findIndex(
+            (e) => e.properties.PC_NAME === row.PC_NAME
+          ) > -1
+        ) {
           stateUTs.add(row.ST_NAME)
         }
       } else {
-        if(filteredGeoJSON.features.findIndex((e) => e.properties.AC_NAME === row.AC_NAME) > -1) {
+        if (
+          filteredGeoJSON.features.findIndex(
+            (e) => e.properties.AC_NAME === row.AC_NAME
+          ) > -1
+        ) {
           stateUTs.add(row.ST_NAME)
         }
       }
@@ -39,7 +47,12 @@ export const getStateUTs = (data, electionType, filteredGeoJSON) => {
  * @param {Array.<Object>} data - Data of a State/UT's election of a year
  * @return {Array} List of Constituencies in a State/UT
  */
-export const getConstituencies = (data, selectedStateUT, electionType, filteredGeoJSON) => {
+export const getConstituencies = (
+  data,
+  selectedStateUT,
+  electionType,
+  filteredGeoJSON
+) => {
   let constituencies = new Set()
   if (data === null) {
     return null
@@ -47,9 +60,13 @@ export const getConstituencies = (data, selectedStateUT, electionType, filteredG
     if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
       constituencies.add("First Select a State or UT")
     } else {
-      if(electionType === "general") {
+      if (electionType === "general") {
         data.map((row) => {
-          if(filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === row.PC_NAME) > -1) {
+          if (
+            filteredGeoJSON.features.findIndex(
+              (e) => e.properties.PC_NAME === row.PC_NAME
+            ) > -1
+          ) {
             constituencies.add(row.PC_NAME)
           }
         })
@@ -185,7 +202,6 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
     return { stats, totalStats }
   } else return null
 }
-
 
 /**
  * List of Constituencies and their winning candidates data

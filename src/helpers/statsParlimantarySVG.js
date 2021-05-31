@@ -15,7 +15,7 @@ import { assignColor } from "./utils"
  * @param {string} selectedStateUT Selected State/UT
  * @returns {Object<Object>} - List of Parties/Alliances and their seats won in a region
  */
- export const getRegionStatsSVGData = (
+export const getRegionStatsSVGData = (
   data,
   electionType,
   groupType,
@@ -23,10 +23,13 @@ import { assignColor } from "./utils"
   selectedStateUT,
   filteredGeoJSON
 ) => {
-
   if (electionType === "general") {
     const filteredData = data.filter((d) => {
-      if(filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === d.pc_name) > -1) {
+      if (
+        filteredGeoJSON.features.findIndex(
+          (e) => e.properties.PC_NAME === d.pc_name
+        ) > -1
+      ) {
         return d
       }
     })
@@ -37,7 +40,11 @@ import { assignColor } from "./utils"
       return []
     } else {
       const filteredData = data.filter((d) => {
-        if(filteredGeoJSON.features.findIndex((e) => e.properties.AC_NAME === d.AC_NAME) > -1) {
+        if (
+          filteredGeoJSON.features.findIndex(
+            (e) => e.properties.AC_NAME === d.AC_NAME
+          ) > -1
+        ) {
           return d
         }
       })

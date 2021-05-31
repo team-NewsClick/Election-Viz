@@ -12,10 +12,8 @@ const Elections = () => {
     parliamentaryConstituenciesGeojson,
     setParliamentaryConstituenciesGeojson
   ] = useState([])
-  const [
-    assemblyConstituenciesGeojson,
-    setAssemblyConstituenciesGeojson
-  ] = useState([])
+  const [assemblyConstituenciesGeojson, setAssemblyConstituenciesGeojson] =
+    useState([])
 
   useEffect(() => {
     const fetchStateGeojson = () => {
