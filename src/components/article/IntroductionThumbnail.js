@@ -4,11 +4,7 @@
  * @return {JSX.Element} Article's Introduction in Summary
  */
 const IntroductionThumbnail = () => {
-  return (
-    <div className="article-para">
-      Intro
-    </div>
-  )
+  return <div className="article-para">Intro</div>
 }
 
 export default IntroductionThumbnail

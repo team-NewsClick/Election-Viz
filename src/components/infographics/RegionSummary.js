@@ -6,24 +6,24 @@ const RegionSummary = () => {
   const data = {
     NDA: {
       seats: 78,
-      colour: "#f97d09",
+      colour: "#f97d09"
     },
     BSP: {
       seats: 11,
-      colour: "#bd0026",
+      colour: "#bd0026"
     },
     INC: {
       seats: 38,
-      colour: "#138808",
+      colour: "#138808"
     },
     IND: {
       seats: 6,
-      colour: "#333",
+      colour: "#333"
     },
     Others: {
       seats: 4,
-      colour: "#a6a6a6",
-    },
+      colour: "#a6a6a6"
+    }
   }
   const virtualNodeSemicircle = parliamentSVG(data, true)
   const semicircle = stringify(virtualNodeSemicircle)

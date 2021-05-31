@@ -1,10 +1,10 @@
-import Header from '../components/article/Header'
-import Footer from '../components/article/Footer'
-import IntroductionThumbnail from '../components/article/IntroductionThumbnail'
-import AnchorLinks from '../components/article/AnchorLinks'
-import CategoryPublishingDate from '../components/article/CategoryPublishingDate'
-import ArticleTitle from '../components/article/ArticleTitle'
-import FeatureImage from '../components/article/FeatureImage'
+import Header from "../components/article/Header"
+import Footer from "../components/article/Footer"
+import IntroductionThumbnail from "../components/article/IntroductionThumbnail"
+import AnchorLinks from "../components/article/AnchorLinks"
+import CategoryPublishingDate from "../components/article/CategoryPublishingDate"
+import ArticleTitle from "../components/article/ArticleTitle"
+import FeatureImage from "../components/article/FeatureImage"
 
 const Article = () => {
   return (

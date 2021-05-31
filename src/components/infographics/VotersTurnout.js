@@ -11,18 +11,18 @@ const VotersTurnout = () => {
       <div className=" hidden md:flex flex-wrap justify-center mx-auto my-6">
         <div className="flex flex-wrap radio-toolbar justify-center md:mx-2 my-2">
           {VOTERS_TRUNOUT_OPTIONS.map((d, index) => (
-          <div key={index}>
-            <input
-              type="radio"
-              id={d.value}
-              name="voters-type"
-              value={d.value}
-              defaultChecked= {index == 0 ? true : false}
-              onChange={(e) => _handleVotersType(e.target.value)}
-            />
-            <label htmlFor={d.value}>{d.label}</label>
-          </div>
-        ))}
+            <div key={index}>
+              <input
+                type="radio"
+                id={d.value}
+                name="voters-type"
+                value={d.value}
+                defaultChecked={index == 0 ? true : false}
+                onChange={(e) => _handleVotersType(e.target.value)}
+              />
+              <label htmlFor={d.value}>{d.label}</label>
+            </div>
+          ))}
         </div>
       </div>
       <div className="md:hidden flex flex-wrap radio-toolbar justify-center md:mx-2 my-2 mt-8">

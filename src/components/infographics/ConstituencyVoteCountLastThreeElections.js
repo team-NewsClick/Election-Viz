@@ -3,7 +3,7 @@ import {
   XAxis,
   YAxis,
   HorizontalGridLines,
-  VerticalBarSeries,
+  VerticalBarSeries
 } from "react-vis"
 import { useState, useEffect } from "react"
 
@@ -16,31 +16,31 @@ const ConstituencyVoteCountLastThreeElections = () => {
   const bjpData = [
     { x: "2009", y: 68000 },
     { x: "2014", y: 76000 },
-    { x: "2019", y: 88000 },
+    { x: "2019", y: 88000 }
   ]
 
   const congData = [
     { x: "2009", y: 88000 },
     { x: "2014", y: 57000 },
-    { x: "2019", y: 28000 },
+    { x: "2019", y: 28000 }
   ]
 
   const bspData = [
     { x: "2009", y: 42000 },
     { x: "2014", y: 17000 },
-    { x: "2019", y: 47000 },
+    { x: "2019", y: 47000 }
   ]
 
   const spData = [
     { x: "2009", y: 9000 },
     { x: "2014", y: 5000 },
-    { x: "2019", y: 11000 },
+    { x: "2019", y: 11000 }
   ]
 
   const othersData = [
     { x: "2009", y: 15000 },
     { x: "2014", y: 11000 },
-    { x: "2019", y: 14000 },
+    { x: "2019", y: 14000 }
   ]
 
   return (
@@ -66,7 +66,7 @@ const ConstituencyVoteCountLastThreeElections = () => {
         }
         xDistance={50}
         className="mx-auto mt-10"
-        margin={{left: 50}}
+        margin={{ left: 50 }}
       >
         <HorizontalGridLines />
         <XAxis />

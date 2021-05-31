@@ -10,13 +10,29 @@ import {
  * @param {Array.<Object>} data - Array of Objects having a year of data
  * @return {Array} List of States and UTS that had election in a year
  */
-export const getStateUTs = (data) => {
+export const getStateUTs = (data, electionType, filteredGeoJSON) => {
   if (data === null) {
     return null
   } else {
     let stateUTs = new Set()
     data.map((row) => {
-      stateUTs.add(row.ST_NAME)
+      if (electionType === "general") {
+        if (
+          filteredGeoJSON.features.findIndex(
+            (e) => e.properties.PC_NAME === row.PC_NAME
+          ) > -1
+        ) {
+          stateUTs.add(row.ST_NAME)
+        }
+      } else {
+        if (
+          filteredGeoJSON.features.findIndex(
+            (e) => e.properties.AC_NAME === row.AC_NAME
+          ) > -1
+        ) {
+          stateUTs.add(row.ST_NAME)
+        }
+      }
     })
     stateUTs = [...stateUTs]
     if (stateUTs.length > 1) {
@@ -31,7 +47,12 @@ export const getStateUTs = (data) => {
  * @param {Array.<Object>} data - Data of a State/UT's election of a year
  * @return {Array} List of Constituencies in a State/UT
  */
-export const getConstituencies = (data, selectedStateUT, electionType) => {
+export const getConstituencies = (
+  data,
+  selectedStateUT,
+  electionType,
+  filteredGeoJSON
+) => {
   let constituencies = new Set()
   if (data === null) {
     return null
@@ -39,11 +60,21 @@ export const getConstituencies = (data, selectedStateUT, electionType) => {
     if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
       constituencies.add("First Select a State or UT")
     } else {
-      data.map((row) => {
-        constituencies.add(
-          electionType === "general" ? row.PC_NAME : row.AC_NAME
-        )
-      })
+      if (electionType === "general") {
+        data.map((row) => {
+          if (
+            filteredGeoJSON.features.findIndex(
+              (e) => e.properties.PC_NAME === row.PC_NAME
+            ) > -1
+          ) {
+            constituencies.add(row.PC_NAME)
+          }
+        })
+      } else {
+        data.map((row) => {
+          constituencies.add(row.AC_NAME)
+        })
+      }
     }
     constituencies = [...constituencies]
     if (constituencies.length > 1) {
@@ -172,9 +203,8 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
   } else return null
 }
 
-
 /**
- *
+ * List of Constituencies and their winning candidates data
  * @param {Object} data {StateUT, PC_NAME, Top 4 contestants}
  * @param {String} selectedConstituency Name of Selected Constituency
  * @returns {Array<Object>} - List of selected constituencies with respective winner data
@@ -222,6 +252,7 @@ export const getConstituenciesResults = (
               votes: d.stats[0].votesReceived,
               candidate: d.stats[0].candidate,
               alliance: alliance,
+              party: d.stats[0].party,
               color:
                 PARTY_COLOR.find((e) => e.party == alliance) == undefined
                   ? DEFAULT_PARTY_ALLIANCE_COLOR
@@ -233,6 +264,7 @@ export const getConstituenciesResults = (
               votes: d.stats[0].votesReceived,
               candidate: d.stats[0].candidate,
               alliance: alliance,
+              party: d.stats[0].party,
               color:
                 PARTY_COLOR.find((e) => e.party == alliance) == undefined
                   ? DEFAULT_PARTY_ALLIANCE_COLOR
@@ -276,6 +308,7 @@ export const getConstituenciesResults = (
                 votes: d.stats[0].votesReceived,
                 candidate: d.stats[0].candidate,
                 alliance: alliance,
+                party: d.stats[0].party,
                 color:
                   PARTY_COLOR.find((e) => e.party == alliance) == undefined
                     ? DEFAULT_PARTY_ALLIANCE_COLOR
@@ -288,6 +321,7 @@ export const getConstituenciesResults = (
                 votes: d.stats[0].votesReceived,
                 candidate: d.stats[0].candidate,
                 alliance: alliance,
+                party: d.stats[0].party,
                 color:
                   PARTY_COLOR.find((e) => e.party == alliance) == undefined
                     ? DEFAULT_PARTY_ALLIANCE_COLOR
@@ -310,7 +344,7 @@ export const getConstituenciesResults = (
  * @param {String} stateUT - Key Name of a State/UT
  * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
  */
-export const getStateUTMapDataPC = (data, stateUT, electionType) => {
+export const getMapData = (data, stateUT, electionType) => {
   let stateData = []
   let constituenciesList = new Set()
   stateData =
@@ -389,7 +423,7 @@ export const getStateUTMapDataPC = (data, stateUT, electionType) => {
           votesReceived: votesReceived,
           color:
             PARTY_COLOR.find((e) => e.party == party) == undefined
-              ? "#000000"
+              ? DEFAULT_PARTY_ALLIANCE_COLOR
               : PARTY_COLOR.find((e) => e.party == party).color
         }
       })

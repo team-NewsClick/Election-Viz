@@ -3,7 +3,7 @@ import {
   XAxis,
   YAxis,
   VerticalGridLines,
-  HorizontalBarSeries,
+  HorizontalBarSeries
 } from "react-vis"
 import { useState, useEffect } from "react"
 import PersonIcon from "../../../public/img/person-icon"

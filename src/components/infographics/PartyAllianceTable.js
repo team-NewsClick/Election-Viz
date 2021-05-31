@@ -1,5 +1,4 @@
 const PartyAllianceTable = (PartyAllianceTableData) => {
-  console.log(PartyAllianceTableData)
   return (
     <div>
       <div className="widget-title">
@@ -20,8 +19,8 @@ const PartyAllianceTable = (PartyAllianceTableData) => {
           <details>
             <summary>
               <div className="summary-head">
-                  <div className="md:hidden">Alliance/Party: &nbsp;</div>
-                  <div>NDA</div>
+                <div className="md:hidden">Alliance/Party: &nbsp;</div>
+                <div>NDA</div>
               </div>
               <div className="summary-head-param">
                 <div className="w-1/6 text-right">90</div>
@@ -143,8 +142,8 @@ const PartyAllianceTable = (PartyAllianceTableData) => {
           <details>
             <summary>
               <div className="summary-head">
-                  <div className="md:hidden">Alliance/Party: &nbsp;</div>
-                  <div>INC</div>
+                <div className="md:hidden">Alliance/Party: &nbsp;</div>
+                <div>INC</div>
               </div>
               <div className="summary-head-param">
                 <div className="w-1/6 text-right">90</div>
@@ -266,8 +265,8 @@ const PartyAllianceTable = (PartyAllianceTableData) => {
           <details>
             <summary>
               <div className="summary-head">
-                  <div className="md:hidden">Alliance/Party: &nbsp;</div>
-                  <div>CDE</div>
+                <div className="md:hidden">Alliance/Party: &nbsp;</div>
+                <div>CDE</div>
               </div>
               <div className="summary-head-param">
                 <div className="w-1/6 text-right">46</div>
@@ -389,8 +388,8 @@ const PartyAllianceTable = (PartyAllianceTableData) => {
           <details>
             <summary>
               <div className="summary-head">
-                  <div className="md:hidden">Alliance/Party: &nbsp;</div>
-                  <div>Others</div>
+                <div className="md:hidden">Alliance/Party: &nbsp;</div>
+                <div>Others</div>
               </div>
               <div className="summary-head-param">
                 <div className="w-1/6 text-right">90</div>

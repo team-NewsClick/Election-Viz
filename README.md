@@ -18,4 +18,4 @@ npm run dev
 yarn dev
 ```
 
-- Open [http://localhost:3000](http://localhost:3000) from the browser to see the result.
+- Open [http://localhost:3000/elections](http://localhost:3000/elections) from the browser to see the result.

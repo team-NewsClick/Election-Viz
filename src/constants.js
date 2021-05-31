@@ -64,6 +64,11 @@ export const STATE_UT_DEFAULT_SELECT = "All States & UTs"
 export const CONSTITUENCIES_DEFAULT_SELECT = "All Constituencies"
 
 /**
+ * Default Selection for Seats Types
+ */
+export const SEAT_DEFAULT_SELECT = "All Seats"
+
+/**
  * Options for Locality
  */
 export const LOCALITY_OPTIONS = [
@@ -192,20 +197,16 @@ export const CRIMINALITY_OPTIONS = [
  */
 export const SEAT_TYPE_OPTIONS = [
   {
-    value: "All Seats Type",
-    label: "All Seats Type"
-  },
-  {
-    value: "Gained",
-    label: "Gained"
+    value: "All Seats",
+    label: "All Seats"
   },
   {
     value: "Reserved",
     label: "Reserved"
   },
   {
-    value: "Lost",
-    label: "Lost"
+    value: "Unreserved",
+    label: "Unreserved"
   }
 ]
 

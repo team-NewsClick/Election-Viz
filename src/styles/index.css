@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body {
-  @apply bg-gray-100 text-gray-900;
+  @apply bg-gray-100 text-gray-900 overflow-y-scroll;
 }
 .radio-title {
   @apply text-sm;
@@ -163,11 +163,6 @@ details summary::after {
 details[open] summary::after {
   transform: rotate(180deg);
   transform-origin: 47% 35%;
-}
-.rv-xy-plot {
-  stroke: #888;
-  stroke-width: 0.35;
-  font-size: 0.75rem;
 }
 #article-title,
 .article-subheading,
