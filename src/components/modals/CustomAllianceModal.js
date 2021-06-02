@@ -112,10 +112,10 @@ const CustomAllianceModal = ({
 
   return (
     <div
-      className="flex min-h-screen justify-center bg-white bg-opacity-70"
-      style={{ minWidth: "100vw" }}
+      className="flex md:min-h-screen justify-center bg-white bg-opacity-70 overscroll-contain overflow-auto"
+      style={{ minWidth: "100vw", height: "fit-content" }}
     >
-      <div className="w-5/6 max-h-screen bg-gray-100 border-2 rounded-lg border-gray-200 my-8 p-3">
+      <div className="w-11/12 md:w-5/6 md:max-h-screen bg-gray-100 border-2 rounded-lg border-gray-200 my-8 p-3">
         <div>
           <div
             className="flex justify-end cursor-pointer"
@@ -143,7 +143,7 @@ const CustomAllianceModal = ({
                 {(provided, snapshot) => {
                   return (
                     <div className="flex min-w-full my-8 rounded-lg border-2 border-gray-300">
-                      <div className="flex flex-wrap justify-center content-center w-1/12 bg-gray-200 font-bold text-xl p-4">
+                      <div className="flex flex-wrap justify-center content-center w-2/12 lg:w-1/12 bg-gray-200 font-bold text-base md:text-xl p-4">
                         {d.alliance}
                       </div>
                       <div
@@ -154,7 +154,7 @@ const CustomAllianceModal = ({
                             ? { background: "#f6f6f6" }
                             : { background: "white" }
                         }
-                        className="h-auto w-11/12 flex flex-wrap"
+                        className="h-auto w-10/12 lg:w-11/12 flex flex-wrap"
                       >
                         {d.parties.map((e, index) => {
                           return (
@@ -178,7 +178,7 @@ const CustomAllianceModal = ({
                                             ...provided.draggableProps.style
                                           }
                                     }
-                                    className="flex flex-wrap content-center m-2 p-4 max-h-10 select-none border-2 rounded-xl"
+                                    className="flex flex-wrap content-center m-2 p-4 max-h-10 select-none border-2 rounded-xl text-base"
                                   >
                                     {e}
                                   </div>
