@@ -17,7 +17,8 @@ import {
   EXPERIENCE_OPTIONS,
   CRIMINALITY_OPTIONS,
   SEAT_TYPE_OPTIONS,
-  SEAT_DEFAULT_SELECT
+  SEAT_DEFAULT_SELECT,
+  REGION_DEFAULT_SELECT
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -34,9 +35,10 @@ import {
   getMapData,
   getConstituenciesResults
 } from "../helpers/utils"
-import { getRegionStatsSVGData } from "../helpers/statsParlimantarySVG"
+import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
 import { getReservedGeoJson } from "../helpers/reservedSeats"
+import { getRegions } from "../helpers/regions"
 import CustomAllianceModal from "./modals/CustomAllianceModal"
 
 /**
@@ -52,12 +54,8 @@ const Dashboard = ({
   const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(
-    STATE_UT_DEFAULT_SELECT
-  )
-  const [selectedConstituency, setSelectedConstituency] = useState(
-    CONSTITUENCIES_DEFAULT_SELECT
-  )
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [mapData, setMapData] = useState({})
   const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
@@ -71,6 +69,8 @@ const Dashboard = ({
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
   const [stateUTOptions, setStateUTOptions] = useState([])
   const [constituencyOptions, setConstituencyOptions] = useState([])
+  const [regionOptions, setRegionOptions] = useState([])
+  const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
 
   useEffect(() => {
     setYearOptions(
@@ -89,12 +89,12 @@ const Dashboard = ({
         setSelectedYearData(parsedData)
       })
     axios
-      .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
-      .then((response) => {
-        const parsedData = csvParse(response.data)
-        setPrevYearData(parsedData)
-      })
-      .catch((e) => setPrevYearData([]))
+    .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
+    .then((response) => {
+      const parsedData = csvParse(response.data)
+      setPrevYearData(parsedData)
+    })
+    .catch((e) => setPrevYearData([]))
   }, [selectedYear])
 
   useEffect(() => {
@@ -166,7 +166,8 @@ const Dashboard = ({
     seatType,
     filteredGeoJSON,
     stateUTOptions,
-    constituencyOptions
+    constituencyOptions,
+    selectedRegion
   ])
 
   useEffect(() => {
@@ -221,6 +222,7 @@ const Dashboard = ({
           groupType,
           partyAlliance,
           selectedStateUT,
+          selectedRegion,
           filteredGeoJSON
         )
       )
@@ -236,6 +238,7 @@ const Dashboard = ({
           groupType,
           partyAlliance,
           selectedStateUT,
+          selectedRegion,
           filteredGeoJSON
         )
       )
@@ -260,10 +263,17 @@ const Dashboard = ({
         selectedConstituency,
         prevYearData,
         mapData.constituencies,
+        selectedRegion,
         filteredGeoJSON
       )
     )
   }, [regionStatsSVGData, prevYearData, filteredGeoJSON])
+
+  useEffect(() => {
+    setRegionOptions(getRegions(selectedStateUT))
+  }, [selectedStateUT])
+
+  // console.log(selectedStateUT, regionOptions)
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -319,7 +329,7 @@ const Dashboard = ({
     setSelectedYear(v)
   }
   const _handleSelectedRegion = (v) => {
-    console.log(v)
+    setSelectedRegion(v)
   }
   const _handleGroupType = (v) => {
     setGroupType(v)
@@ -489,8 +499,13 @@ const Dashboard = ({
                   onChange={(e) => _handleSelectedRegion(e.target.value)}
                   id="region"
                   className="advance-select"
+                  value={selectedRegion}
                 >
-                  <option value="All Regions">All Regions</option>
+                  {regionOptions.map((d, index) => (
+                    <option key={index} value={d}>
+                      {d}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div>
@@ -502,8 +517,8 @@ const Dashboard = ({
                   value={seatType}
                 >
                   {SEAT_TYPE_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
+                    <option key={index} value={d}>
+                      {d}
                     </option>
                   ))}
                 </select>
@@ -716,6 +731,7 @@ const Dashboard = ({
                   topSix={regionStatsSVGData}
                   mapWidgetLoading={mapWidgetLoading}
                   seatType={seatType}
+                  selectedRegion ={selectedRegion}
                 />
               </div>
             )}

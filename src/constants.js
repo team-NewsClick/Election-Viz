@@ -51,7 +51,7 @@ export const REGION_OPTIONS = [
  * Default Selection for Region
  * Default selection for region should be at REGION_OPTIONS[0]
  */
-export const REGION_DEFAULT_SELECT = REGION_OPTIONS[0]
+export const REGION_DEFAULT_SELECT = "All Regions"
 
 /**
  * Default Selection for States/UTs
@@ -195,20 +195,7 @@ export const CRIMINALITY_OPTIONS = [
 /**
  * Options for Seat Type
  */
-export const SEAT_TYPE_OPTIONS = [
-  {
-    value: "All Seats",
-    label: "All Seats"
-  },
-  {
-    value: "Reserved",
-    label: "Reserved"
-  },
-  {
-    value: "Unreserved",
-    label: "Unreserved"
-  }
-]
+export const SEAT_TYPE_OPTIONS = ["All Seats", "Reserved", "Unreserved"]
 
 /**
  * Options for Voters Turnout

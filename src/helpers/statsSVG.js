@@ -1,7 +1,9 @@
+import { getDistricts } from "../helpers/regions"
 import {
   STATE_UT_DEFAULT_SELECT,
   PARTY_COLOR,
-  DEFAULT_PARTY_ALLIANCE_COLOR
+  DEFAULT_PARTY_ALLIANCE_COLOR,
+  REGION_DEFAULT_SELECT
 } from "../constants"
 
 import { assignColor } from "./utils"
@@ -21,10 +23,16 @@ export const getRegionStatsSVGData = (
   groupType,
   partyAlliance,
   selectedStateUT,
+  selectedRegion,
   filteredGeoJSON
 ) => {
+  let districts = []
+  let filteredData = []
+  let filteredByRegionData = []
+  let filteredBySeatData = []
+
   if (electionType === "general") {
-    const filteredData = data.filter((d) => {
+    filteredBySeatData = data.filter((d) => {
       if (
         filteredGeoJSON.features.findIndex(
           (e) => e.properties.PC_NAME === d.pc_name
@@ -33,13 +41,20 @@ export const getRegionStatsSVGData = (
         return d
       }
     })
+    if(selectedRegion === REGION_DEFAULT_SELECT) {
+      filteredByRegionData = filteredBySeatData
+    } else {
+      districts = getDistricts(selectedStateUT, selectedRegion)
+      filteredByRegionData = filteredBySeatData.filter((d) => districts.findIndex((e) => e === d.DIST_NAME) >= 0)
+    }
+    filteredData = filteredByRegionData
     const count = seatsCount(filteredData, groupType)
     return count
   } else {
     if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
       return []
     } else {
-      const filteredData = data.filter((d) => {
+      filteredBySeatData = data.filter((d) => {
         if (
           filteredGeoJSON.features.findIndex(
             (e) => e.properties.AC_NAME === d.AC_NAME
@@ -48,6 +63,15 @@ export const getRegionStatsSVGData = (
           return d
         }
       })
+
+    if(selectedRegion === REGION_DEFAULT_SELECT) {
+      filteredByRegionData = filteredBySeatData
+    } else {
+      districts = getDistricts(selectedStateUT, selectedRegion)
+      filteredByRegionData = filteredBySeatData.filter((d) => districts.findIndex((e) => e === d.DIST_NAME) >= 0)
+    }
+
+      filteredData = filteredByRegionData
       const electedCandidates = getAssemblyResults(
         filteredData,
         groupType,
