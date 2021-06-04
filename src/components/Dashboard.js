@@ -54,8 +54,12 @@ const Dashboard = ({
   const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
-  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
+  const [selectedStateUT, setSelectedStateUT] = useState(
+    STATE_UT_DEFAULT_SELECT
+  )
+  const [selectedConstituency, setSelectedConstituency] = useState(
+    CONSTITUENCIES_DEFAULT_SELECT
+  )
   const [mapData, setMapData] = useState({})
   const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
@@ -89,12 +93,12 @@ const Dashboard = ({
         setSelectedYearData(parsedData)
       })
     axios
-    .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
-    .then((response) => {
-      const parsedData = csvParse(response.data)
-      setPrevYearData(parsedData)
-    })
-    .catch((e) => setPrevYearData([]))
+      .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
+      .then((response) => {
+        const parsedData = csvParse(response.data)
+        setPrevYearData(parsedData)
+      })
+      .catch((e) => setPrevYearData([]))
   }, [selectedYear])
 
   useEffect(() => {
@@ -731,7 +735,7 @@ const Dashboard = ({
                   topSix={regionStatsSVGData}
                   mapWidgetLoading={mapWidgetLoading}
                   seatType={seatType}
-                  selectedRegion ={selectedRegion}
+                  selectedRegion={selectedRegion}
                 />
               </div>
             )}
