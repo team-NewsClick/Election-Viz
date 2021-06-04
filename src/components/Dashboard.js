@@ -622,7 +622,7 @@ const Dashboard = ({
         <div
           id="customAllianceModal"
           style={{ display: "none", zIndex: "2" }}
-          className="fixed left-0 top-0"
+          className="fixed left-0 top-0 bottom-0 overflow-y-scroll"
         >
           <CustomAllianceModal
             constituenciesResults={constituenciesResults}

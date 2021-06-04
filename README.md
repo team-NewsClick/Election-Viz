@@ -1,5 +1,7 @@
 # Election-Viz
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b1fe2eb7-d510-4352-b955-a37d521f3cd4/deploy-status)](https://app.netlify.com/sites/elections-viz/deploys)
+
 ## Getting Started
 
 First, install all the **node_modules**
