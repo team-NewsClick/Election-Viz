@@ -105,7 +105,7 @@ const Dashboard = ({
     setStateUTOptions(
       getStateUTs(selectedYearData, electionType, filteredGeoJSON)
     )
-  }, [selectedYearData, electionType, seatType, filteredGeoJSON])
+  }, [selectedYearData, electionType, seatType])
 
   useEffect(() => {
     setConstituencyOptions(
@@ -161,6 +161,22 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
+    setSelectedRegion(
+      regionOptions.indexOf(selectedRegion) > -1
+        ? selectedRegion
+        : REGION_DEFAULT_SELECT
+    )
+  }, [
+    yearOptions,
+    selectedYear,
+    stateUTOptions,
+    selectedStateUT,
+    constituencyOptions,
+    selectedConstituency,
+    filteredGeoJSON
+  ])
+
+  useEffect(() => {
     if (selectedYearData != []) {
       setMapData(getMapData(selectedYearData, selectedStateUT, electionType))
     }
@@ -177,14 +193,14 @@ const Dashboard = ({
   useEffect(() => {
     if (electionType === "general") {
       setFilteredGeoJSON(
-        getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType)
+        getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType, selectedStateUT, selectedRegion)
       )
     } else {
       setFilteredGeoJSON(
-        getReservedGeoJson(assemblyConstituenciesGeojson, seatType)
+        getReservedGeoJson(assemblyConstituenciesGeojson, seatType, selectedStateUT, selectedRegion)
       )
     }
-  }, [seatType, electionType])
+  }, [seatType, electionType, selectedRegion, selectedStateUT])
 
   useEffect(() => {
     setConstituenciesResults(
@@ -203,7 +219,8 @@ const Dashboard = ({
     electionType,
     groupType,
     selectedYear,
-    partyAlliance
+    partyAlliance,
+    selectedRegion
   ])
 
   useEffect(() => {
@@ -226,7 +243,6 @@ const Dashboard = ({
           groupType,
           partyAlliance,
           selectedStateUT,
-          selectedRegion,
           filteredGeoJSON
         )
       )
@@ -242,7 +258,6 @@ const Dashboard = ({
           groupType,
           partyAlliance,
           selectedStateUT,
-          selectedRegion,
           filteredGeoJSON
         )
       )
@@ -267,7 +282,6 @@ const Dashboard = ({
         selectedConstituency,
         prevYearData,
         mapData.constituencies,
-        selectedRegion,
         filteredGeoJSON
       )
     )
@@ -722,9 +736,6 @@ const Dashboard = ({
                     parliamentaryConstituenciesGeojson
                   }
                   assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-                  parliamentaryConstituenciesGeojson={
-                    parliamentaryConstituenciesGeojson
-                  }
                   onMapUpdate={_updatedRegion}
                   electionType={electionType}
                   stateUTOptions={stateUTOptions}
@@ -732,7 +743,6 @@ const Dashboard = ({
                   selectedConstituency={selectedConstituency}
                   mapData={mapData}
                   constituenciesResults={constituenciesResults}
-                  topSix={regionStatsSVGData}
                   mapWidgetLoading={mapWidgetLoading}
                   seatType={seatType}
                   selectedRegion={selectedRegion}
