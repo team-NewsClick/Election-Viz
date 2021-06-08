@@ -1,3 +1,4 @@
+import { getDistricts } from "../../helpers/regions"
 import { useEffect, useState } from "react"
 import ReactDOMServer from "react-dom/server"
 import DeckGL from "deck.gl"
@@ -16,7 +17,8 @@ import {
   DEFAULT_DISTRICT_LINE_COLOR,
   TRANSPARENT_COLOR,
   CONSTITUENCIES_DEFAULT_SELECT,
-  SEAT_DEFAULT_SELECT
+  SEAT_DEFAULT_SELECT,
+  REGION_DEFAULT_SELECT
 } from "../../constants"
 import { indPlaceVal } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
@@ -33,7 +35,6 @@ const MapWidget = ({
   stateGeojson,
   parliamentaryConstituenciesGeojson,
   assemblyConstituenciesGeojson,
-  filteredGeoJson,
   onMapUpdate,
   electionType,
   stateUTOptions,
@@ -41,9 +42,9 @@ const MapWidget = ({
   selectedConstituency,
   mapData,
   constituenciesResults,
-  topSix,
   mapWidgetLoading,
-  seatType
+  seatType,
+  selectedRegion
 }) => {
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState("")
@@ -79,28 +80,26 @@ const MapWidget = ({
 
   useEffect(() => {
     if (electionType === "general") {
-      const filterdGeoJson =
-        seatType !== SEAT_DEFAULT_SELECT
-          ? getReservedGeoJson(
-              parliamentaryConstituenciesGeojson,
-              seatType,
-              electionType
-            )
-          : parliamentaryConstituenciesGeojson
+      const filterdGeoJson = 
+        getReservedGeoJson(
+          parliamentaryConstituenciesGeojson,
+          seatType,
+          selectedStateUT,
+          selectedRegion
+        )
       setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
     } else {
       const filterdGeoJson =
-        seatType !== SEAT_DEFAULT_SELECT
-          ? getReservedGeoJson(
-              assemblyConstituenciesGeojson,
-              seatType,
-              electionType
-            )
-          : assemblyConstituenciesGeojson
+        getReservedGeoJson(
+          assemblyConstituenciesGeojson,
+          seatType,
+          selectedStateUT,
+          selectedRegion
+        )
       setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
     }
     setStateData(() => ({ ...stateGeojson }))
-  }, [stateName, constituenciesResults, seatType])
+  }, [stateName, constituenciesResults, seatType, selectedRegion])
 
   useEffect(() => {
     const state = selectedStateUT

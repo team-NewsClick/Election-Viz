@@ -1,8 +1,6 @@
-import { getDistricts } from "../helpers/regions"
 import {
   STATE_UT_DEFAULT_SELECT,
-  CONSTITUENCIES_DEFAULT_SELECT,
-  REGION_DEFAULT_SELECT
+  CONSTITUENCIES_DEFAULT_SELECT
 } from "../constants"
 import {
   getConstituenciesResults,
@@ -32,20 +30,15 @@ export const getRegionStatsTable = (
   selectedConstituency,
   prevYearData,
   mapDataConstituencies,
-  selectedRegion,
   filteredGeoJSON
 ) => {
   let tableData = []
   let presentYearDataTable = []
   let prevYearDataTable = []
-  let filteredBySeatDataPrev = []
-  let filteredBySeatDataPres = []
-  let filteredByRegionDataPrev = []
-  let filteredByRegionDataPres = []
   let filteredPresData = []
   let filteredPrevData = []
   if (electionType === "general") {
-    filteredBySeatDataPres = presentYearData.filter((d) => {
+    filteredPresData = presentYearData.filter((d) => {
       if (
         filteredGeoJSON.features.findIndex(
           (e) => e.properties.PC_NAME === d.PC_NAME
@@ -54,7 +47,7 @@ export const getRegionStatsTable = (
         return d
       }
     })
-    filteredBySeatDataPrev = prevYearData.filter((d) => {
+    filteredPrevData = prevYearData.filter((d) => {
       if (
         filteredGeoJSON.features.findIndex(
           (e) => e.properties.PC_NAME === d.PC_NAME
@@ -64,7 +57,7 @@ export const getRegionStatsTable = (
       }
     })
   } else {
-    filteredBySeatDataPres = presentYearData.filter((d) => {
+    filteredPresData = presentYearData.filter((d) => {
       if (
         filteredGeoJSON.features.findIndex(
           (e) => e.properties.AC_NAME === d.AC_NAME
@@ -73,7 +66,7 @@ export const getRegionStatsTable = (
         return d
       }
     })
-    filteredBySeatDataPrev = prevYearData.filter((d) => {
+    filteredPrevData = prevYearData.filter((d) => {
       if (
         filteredGeoJSON.features.findIndex(
           (e) => e.properties.AC_NAME === d.AC_NAME
@@ -83,16 +76,6 @@ export const getRegionStatsTable = (
       }
     })
   }
-  if(selectedRegion === REGION_DEFAULT_SELECT) {
-    filteredByRegionDataPres = filteredBySeatDataPres
-    filteredByRegionDataPrev = filteredBySeatDataPrev
-  } else {
-    const districts = getDistricts(selectedStateUT, selectedRegion)
-    filteredByRegionDataPres = filteredBySeatDataPres.filter((d) => districts.findIndex((e) => e === d.DIST_NAME) >= 0)
-    filteredByRegionDataPrev = filteredBySeatDataPrev.filter((d) => districts.findIndex((e) => e === d.DIST_NAME) >= 0)
-  }
-  filteredPresData = filteredByRegionDataPres
-  filteredPrevData = filteredByRegionDataPrev
   presentYearDataTable = getCurrYearDataTable(
     filteredPresData,
     SVGData,

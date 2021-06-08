@@ -72,7 +72,13 @@ export const getConstituencies = (
         })
       } else {
         data.map((row) => {
-          constituencies.add(row.AC_NAME)
+          if (
+            filteredGeoJSON.features.findIndex(
+              (e) => e.properties.AC_NAME === row.AC_NAME
+            ) > -1
+          ) {
+            constituencies.add(row.AC_NAME)
+          }
         })
       }
     }
