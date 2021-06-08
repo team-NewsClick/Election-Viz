@@ -53,17 +53,18 @@ export const getConstituencies = (
   electionType,
   filteredGeoJSON
 ) => {
+
   let constituencies = new Set()
   if (data === null) {
     return null
   } else {
     if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
-      constituencies.add("First Select a State or UT")
+      return ["First Select a State or UT"]
     } else {
       if (electionType === "general") {
         data.map((row) => {
           if (
-            filteredGeoJSON.features.findIndex(
+            "filteredGeoJSON: ", filteredGeoJSON.features.findIndex(
               (e) => e.properties.PC_NAME === row.PC_NAME
             ) > -1
           ) {

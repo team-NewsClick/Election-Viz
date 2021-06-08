@@ -105,7 +105,7 @@ const Dashboard = ({
     setStateUTOptions(
       getStateUTs(selectedYearData, electionType, filteredGeoJSON)
     )
-  }, [selectedYearData, electionType, seatType])
+  }, [selectedYearData, electionType, seatType, filteredGeoJSON])
 
   useEffect(() => {
     setConstituencyOptions(
@@ -121,27 +121,25 @@ const Dashboard = ({
     selectedStateUT,
     electionType,
     seatType,
+    stateUTOptions,
     filteredGeoJSON
   ])
 
   useEffect(() => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
-    setSelectedStateUT(
+    stateUTOptions.length > 0 && setSelectedStateUT(
       stateUTOptions.indexOf(selectedStateUT) > -1
         ? selectedStateUT
         : stateUTOptions[0]
     )
   }, [
-    selectedYear,
-    electionType,
+    selectedStateUTData,
     yearOptions,
     selectedYearData,
-    selectedConstituency,
     seatType,
     filteredGeoJSON,
-    stateUTOptions,
-    constituencyOptions
+    stateUTOptions
   ])
 
   useEffect(() => {
@@ -150,15 +148,14 @@ const Dashboard = ({
         ? selectedConstituency
         : constituencyOptions[0]
     )
-  }, [
-    selectedYear,
-    electionType,
-    yearOptions,
-    selectedStateUT,
-    stateUTOptions,
-    constituencyOptions,
-    filteredGeoJSON
-  ])
+    }, [
+      selectedYearData,
+      selectedStateUTData,
+      yearOptions,
+      constituencyOptions,
+      seatType,
+      filteredGeoJSON
+    ])
 
   useEffect(() => {
     setSelectedRegion(
@@ -285,13 +282,11 @@ const Dashboard = ({
         filteredGeoJSON
       )
     )
-  }, [regionStatsSVGData, prevYearData, filteredGeoJSON])
+  }, [regionStatsSVGData])
 
   useEffect(() => {
     setRegionOptions(getRegions(selectedStateUT))
   }, [selectedStateUT])
-
-  // console.log(selectedStateUT, regionOptions)
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -318,6 +313,8 @@ const Dashboard = ({
       setMapWidgetLoading(true)
       setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
       setSeatType(SEAT_DEFAULT_SELECT)
+      setSelectedRegion(REGION_DEFAULT_SELECT)
+      setSeatType(SEAT_DEFAULT_SELECT)
     }
     const option = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -339,6 +336,8 @@ const Dashboard = ({
   }
   const _handleElectionType = (v) => {
     setElectionType(v)
+    setSelectedRegion(REGION_DEFAULT_SELECT)
+    setSeatType(SEAT_DEFAULT_SELECT)
   }
   const _updatedRegion = (state) => {
     setSelectedStateUT(state)

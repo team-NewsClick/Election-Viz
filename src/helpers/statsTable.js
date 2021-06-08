@@ -37,6 +37,7 @@ export const getRegionStatsTable = (
   let prevYearDataTable = []
   let filteredPresData = []
   let filteredPrevData = []
+
   if (electionType === "general") {
     filteredPresData = presentYearData.filter((d) => {
       if (
@@ -396,7 +397,7 @@ const getPrevYearDataTable = (
           SVGData &&
           prevSeatsVotesCount(
             prevMapData.constituencies,
-            [],
+            prevConstituenciesResults,
             SVGData,
             selectedStateUT,
             selectedConstituency,
@@ -417,6 +418,7 @@ const getPrevYearDataTable = (
             selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
               ? prevSelectedStateUTData
               : prevSelectedConstituencyData,
+            prevConstituenciesResults,
             SVGData,
             selectedStateUT,
             selectedConstituency,
