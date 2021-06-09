@@ -80,22 +80,20 @@ const MapWidget = ({
 
   useEffect(() => {
     if (electionType === "general") {
-      const filterdGeoJson = 
-        getReservedGeoJson(
-          parliamentaryConstituenciesGeojson,
-          seatType,
-          selectedStateUT,
-          selectedRegion
-        )
+      const filterdGeoJson = getReservedGeoJson(
+        parliamentaryConstituenciesGeojson,
+        seatType,
+        selectedStateUT,
+        selectedRegion
+      )
       setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
     } else {
-      const filterdGeoJson =
-        getReservedGeoJson(
-          assemblyConstituenciesGeojson,
-          seatType,
-          selectedStateUT,
-          selectedRegion
-        )
+      const filterdGeoJson = getReservedGeoJson(
+        assemblyConstituenciesGeojson,
+        seatType,
+        selectedStateUT,
+        selectedRegion
+      )
       setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
     }
     setStateData(() => ({ ...stateGeojson }))
@@ -252,37 +250,43 @@ const MapWidget = ({
           )
         }
       } else {
-        const sortByKey = object.properties.AC_NAME
-        const results = mapData.constituencies.find((row) => {
-          if (sortByKey == row.AC_NAME) {
-            return row
-          }
-        })
-        let voteShare = ""
-        results &&
-          results.stats.map((d) => {
-            voteShare =
-              voteShare +
-              `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
+        if (
+          selectedConstituency === object.properties.AC_NAME ||
+          selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
+          selectedStateUT === STATE_UT_DEFAULT_SELECT
+        ) {
+          const sortByKey = object.properties.AC_NAME
+          const results = mapData.constituencies.find((row) => {
+            if (sortByKey == row.AC_NAME) {
+              return row
+            }
           })
-        return (
-          results && {
-            html: `
-            <div>
-              <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
-              <div class="pb-1">
-                <div>Constituency: <b>${results.AC_NAME}</b></div>
-                <div>Winner: <b>${results.stats[0].candidate}</b></div>
-              </div>
-              <div>Vote Share:</div>
-                  <div>
-                  ${voteShare}
-                  </div>
+          let voteShare = ""
+          results &&
+            results.stats.map((d) => {
+              voteShare =
+                voteShare +
+                `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
+            })
+          return (
+            results && {
+              html: `
+              <div>
+                <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
+                <div class="pb-1">
+                  <div>Constituency: <b>${results.AC_NAME}</b></div>
+                  <div>Winner: <b>${results.stats[0].candidate}</b></div>
                 </div>
-            </div>
-            `
-          }
-        )
+                <div>Vote Share:</div>
+                    <div>
+                    ${voteShare}
+                    </div>
+                  </div>
+              </div>
+              `
+            }
+          )
+        }
       }
     }
   }
