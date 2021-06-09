@@ -17,7 +17,8 @@ import {
   EXPERIENCE_OPTIONS,
   CRIMINALITY_OPTIONS,
   SEAT_TYPE_OPTIONS,
-  SEAT_DEFAULT_SELECT
+  SEAT_DEFAULT_SELECT,
+  REGION_DEFAULT_SELECT
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -34,9 +35,10 @@ import {
   getMapData,
   getConstituenciesResults
 } from "../helpers/utils"
-import { getRegionStatsSVGData } from "../helpers/statsParlimantarySVG"
+import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
 import { getReservedGeoJson } from "../helpers/reservedSeats"
+import { getRegions } from "../helpers/regions"
 import CustomAllianceModal from "./modals/CustomAllianceModal"
 
 /**
@@ -71,6 +73,8 @@ const Dashboard = ({
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
   const [stateUTOptions, setStateUTOptions] = useState([])
   const [constituencyOptions, setConstituencyOptions] = useState([])
+  const [regionOptions, setRegionOptions] = useState([])
+  const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
 
   useEffect(() => {
     setYearOptions(
@@ -117,27 +121,25 @@ const Dashboard = ({
     selectedStateUT,
     electionType,
     seatType,
+    stateUTOptions,
     filteredGeoJSON
   ])
 
   useEffect(() => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
-    setSelectedStateUT(
+    stateUTOptions.length > 0 && setSelectedStateUT(
       stateUTOptions.indexOf(selectedStateUT) > -1
         ? selectedStateUT
         : stateUTOptions[0]
     )
   }, [
-    selectedYear,
-    electionType,
+    selectedStateUTData,
     yearOptions,
     selectedYearData,
-    selectedConstituency,
     seatType,
     filteredGeoJSON,
-    stateUTOptions,
-    constituencyOptions
+    stateUTOptions
   ])
 
   useEffect(() => {
@@ -146,13 +148,28 @@ const Dashboard = ({
         ? selectedConstituency
         : constituencyOptions[0]
     )
+    }, [
+      selectedYearData,
+      selectedStateUTData,
+      yearOptions,
+      constituencyOptions,
+      seatType,
+      filteredGeoJSON
+    ])
+
+  useEffect(() => {
+    setSelectedRegion(
+      regionOptions.indexOf(selectedRegion) > -1
+        ? selectedRegion
+        : REGION_DEFAULT_SELECT
+    )
   }, [
-    selectedYear,
-    electionType,
     yearOptions,
-    selectedStateUT,
+    selectedYear,
     stateUTOptions,
+    selectedStateUT,
     constituencyOptions,
+    selectedConstituency,
     filteredGeoJSON
   ])
 
@@ -166,20 +183,21 @@ const Dashboard = ({
     seatType,
     filteredGeoJSON,
     stateUTOptions,
-    constituencyOptions
+    constituencyOptions,
+    selectedRegion
   ])
 
   useEffect(() => {
     if (electionType === "general") {
       setFilteredGeoJSON(
-        getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType)
+        getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType, selectedStateUT, selectedRegion)
       )
     } else {
       setFilteredGeoJSON(
-        getReservedGeoJson(assemblyConstituenciesGeojson, seatType)
+        getReservedGeoJson(assemblyConstituenciesGeojson, seatType, selectedStateUT, selectedRegion)
       )
     }
-  }, [seatType, electionType])
+  }, [seatType, electionType, selectedRegion, selectedStateUT])
 
   useEffect(() => {
     setConstituenciesResults(
@@ -198,7 +216,8 @@ const Dashboard = ({
     electionType,
     groupType,
     selectedYear,
-    partyAlliance
+    partyAlliance,
+    selectedRegion
   ])
 
   useEffect(() => {
@@ -263,7 +282,11 @@ const Dashboard = ({
         filteredGeoJSON
       )
     )
-  }, [regionStatsSVGData, prevYearData, filteredGeoJSON])
+  }, [regionStatsSVGData])
+
+  useEffect(() => {
+    setRegionOptions(getRegions(selectedStateUT))
+  }, [selectedStateUT])
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -290,6 +313,8 @@ const Dashboard = ({
       setMapWidgetLoading(true)
       setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
       setSeatType(SEAT_DEFAULT_SELECT)
+      setSelectedRegion(REGION_DEFAULT_SELECT)
+      setSeatType(SEAT_DEFAULT_SELECT)
     }
     const option = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -311,6 +336,8 @@ const Dashboard = ({
   }
   const _handleElectionType = (v) => {
     setElectionType(v)
+    setSelectedRegion(REGION_DEFAULT_SELECT)
+    setSeatType(SEAT_DEFAULT_SELECT)
   }
   const _updatedRegion = (state) => {
     setSelectedStateUT(state)
@@ -319,7 +346,7 @@ const Dashboard = ({
     setSelectedYear(v)
   }
   const _handleSelectedRegion = (v) => {
-    console.log(v)
+    setSelectedRegion(v)
   }
   const _handleGroupType = (v) => {
     setGroupType(v)
@@ -489,8 +516,13 @@ const Dashboard = ({
                   onChange={(e) => _handleSelectedRegion(e.target.value)}
                   id="region"
                   className="advance-select"
+                  value={selectedRegion}
                 >
-                  <option value="All Regions">All Regions</option>
+                  {regionOptions.map((d, index) => (
+                    <option key={index} value={d}>
+                      {d}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div>
@@ -502,8 +534,8 @@ const Dashboard = ({
                   value={seatType}
                 >
                   {SEAT_TYPE_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
+                    <option key={index} value={d}>
+                      {d}
                     </option>
                   ))}
                 </select>
@@ -703,9 +735,6 @@ const Dashboard = ({
                     parliamentaryConstituenciesGeojson
                   }
                   assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-                  parliamentaryConstituenciesGeojson={
-                    parliamentaryConstituenciesGeojson
-                  }
                   onMapUpdate={_updatedRegion}
                   electionType={electionType}
                   stateUTOptions={stateUTOptions}
@@ -713,9 +742,9 @@ const Dashboard = ({
                   selectedConstituency={selectedConstituency}
                   mapData={mapData}
                   constituenciesResults={constituenciesResults}
-                  topSix={regionStatsSVGData}
                   mapWidgetLoading={mapWidgetLoading}
                   seatType={seatType}
+                  selectedRegion={selectedRegion}
                 />
               </div>
             )}
