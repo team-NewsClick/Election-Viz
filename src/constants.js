@@ -238,7 +238,7 @@ export const DEFAULT_PARTY_ALLIANCE_COLOR = "#606060"
  */
 export const STATE_COORDINATES = [
   {
-    state: "Andaman & Nicobar Island",
+    state: "Andaman & Nicobar Islands",
     latitude: 11.667,
     longitude: 92.7359
   },
@@ -276,6 +276,11 @@ export const STATE_COORDINATES = [
     state: "Dadra & Nagar Haveli",
     latitude: 20.26657819,
     longitude: 73.0166178
+  },
+  {
+    state: "Daman & Diu",
+    latitude: 20.714273,
+    longitude: 70.921616
   },
   {
     state: "NCT of Delhi",
