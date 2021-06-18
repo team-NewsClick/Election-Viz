@@ -40,6 +40,7 @@ import { getRegionStatsTable } from "../helpers/statsTable"
 import { getReservedGeoJson } from "../helpers/reservedSeats"
 import { getRegions } from "../helpers/regions"
 import CustomAllianceModal from "./modals/CustomAllianceModal"
+import SwingsModal from "./modals/SwingsModal"
 
 /**
  * Controls/Settings for the visualization of infographics
@@ -750,6 +751,7 @@ const Dashboard = ({
             )}
           </div>
         </div>
+      <SwingsModal />
         {/* {constituencyContestantsStatsData !== null && (
           <ConstituencyConstestantsStats
             constituencyContestantsStatsData={constituencyContestantsStatsData}
