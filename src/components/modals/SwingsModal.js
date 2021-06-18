@@ -1,101 +1,120 @@
 import { useState, useEffect } from "react"
+import { indexOf } from "virtual-dom-stringify/lib/self-closing-tags"
+import {getParams} from "../../helpers/swings"
 
-const SwingsModal = () => {
-  const [valueSwing_A, setValueSwing_A] = useState("0")
+const SwingsModal = ({ partyAlliance }) => {
+  
+  const [partyAllianceParams, setPartyAllianceParams] = useState([])
+  const [newPartiesCount, setNewPartiesCount] = useState(0)
+  const [swingUpdate, setSwingUpdate] = useState()
 
   useEffect(() => {
-    let input_A = document.getElementById("input_A")
-    let thumbLeft = document.querySelector("#slider_A > #thumb_A")
-    let range = document.querySelector("#slider_A > #range_A")
-    let valueSwingDisaply = document.getElementById("valueSwingDisaply_A")
-    let min = parseInt(input_A.min)
-    let max = parseInt(input_A.max)
-    let value = parseInt(input_A.value)
+    const tempParmas = getParams(partyAlliance)
+    setPartyAllianceParams([...tempParmas])
+    setSwingUpdate([...tempParmas])
+  }, [])
+
+  useEffect(() => {
+    if(newPartiesCount !== 0) {
+      const temp  = partyAllianceParams
+      const tempAlliance = "NEW-PARTY-" + newPartiesCount
+      temp.push({
+        alliance: tempAlliance,
+        inputId: "input_" + tempAlliance,
+        sliderId: "slider_" + tempAlliance,
+        thumbId: "thumb_" + tempAlliance,
+        rangeId: "range_" + tempAlliance,
+        valueSwingDisaplyId: "valueSwingDisaply_" + tempAlliance,
+        swing: 0,
+        newParty: true
+      })
+      setPartyAllianceParams([...temp])
+    }
+  }, [newPartiesCount])
+
+  const _handelchange = (swing, index) => {
+    let temp = partyAllianceParams
+    temp[index].swing = swing
+    let input = document.getElementById(temp[index].inputId)
+    let thumbLeft = document.getElementById(temp[index].thumbId)
+    let range = document.getElementById(temp[index].rangeId)
+    let valueSwingDisaply = document.getElementById(temp[index].valueSwingDisaplyId)
+    let min = parseInt(input.min)
+    let max = parseInt(input.max)
+    let value = parseInt(input.value)
     let percent = ((value - min) / (max - min)) * 100
-    if (percent <= 50) {
+    if(percent <= 50) {
       thumbLeft.style.left = percent + "%"
-      valueSwingDisaply.style.left = percent + "%"
+      valueSwingDisaply.style.left = percent +"%"
       range.style.right = "50%"
       range.style.left = percent + "%"
     } else {
       thumbLeft.style.left = percent + "%"
-      valueSwingDisaply.style.left = percent + "%"
+      valueSwingDisaply.style.left = percent +"%"
       range.style.right = 100 - percent + "%"
       range.style.left = "50%"
     }
-  }, [valueSwing_A])
+    setPartyAllianceParams([...temp])
+  }
 
+  const _addNewParty = () => {
+    setNewPartiesCount((prevNewPartiesCount) => prevNewPartiesCount +1)
+  }
+
+  const _reset = () => {
+    setNewPartiesCount(0)
+    let initParmas = getParams(partyAlliance)
+    let tempParams = initParmas.map((d) => {
+      let thumbLeft = document.getElementById(d.thumbId)
+      let range = document.getElementById(d.rangeId)
+      let valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
+      thumbLeft.style.left = "50%"
+      valueSwingDisaply.style.left = "50%"
+      range.style.right = "50%"
+      range.style.left = "50%"
+      return {...d, swing: 0}
+    })
+    setPartyAllianceParams([...tempParams])
+  }
+
+  const _update = () => {
+    const temp = partyAllianceParams.map((d) => {
+      return {
+        alliance: d.alliance,
+        swing: d.swing,
+        newParty: d.newParty
+      }
+    })
+    setSwingUpdate([...temp])
+  }
+  
   return (
-    <div className="flex flex-row relative w-full">
-      <div className="w-1/12 font-bold">A</div>
+    <div>
+    {partyAllianceParams.length != 0 && partyAllianceParams.map((d, index) => 
+      <div key={index} className="flex flex-row relative w-full my-16">
+        <div className="w-1/12 font-bold">
+        {d.alliance}
+      </div>
       <div className="relative w-11/12">
-        <input
-          type="range"
-          id="input_A"
-          min={-25}
-          max={25}
-          value={valueSwing_A}
-          className="absolute h-4 w-full opacity-0"
-          style={{ zIndex: 2, left: 0 }}
-          onChange={(e) => setValueSwing_A(e.target.value)}
-        />
-        <div
-          id="slider_A"
-          className="relative h-2 bg-gray-300"
-          style={{ zIndex: 1 }}
-        >
+        <input type="range" id={d.inputId} min={-25} max={25} value={d.swing} className="absolute h-4 w-full opacity-0" style={{zIndex: 2, left: 0}} onChange={(e) => _handelchange(e.target.value, index)} />
+        <div id={d.sliderId} className="relative h-2 bg-gray-300" style={{zIndex: 1}}>
           <div className="left-0 right-0 top-0 bottom-0 rounded-full" />
-          <div
-            id="range_A"
-            className="absolute left-1/4 right-1/4 top-0 bottom-0 bg-blue-500 rounded-full"
-            style={{ zIndex: 2 }}
-          />
-          <div
-            className="absolute w-4 h-4 bg-gray-300 rounded-full opacity-100 right-1/4"
-            style={{
-              transform: "translate(0.5rem, -0.25rem)",
-              right: "50%",
-              zIndex: 3
-            }}
-          />
-          <div
-            id="thumb_A"
-            className="absolute w-4 h-4 bg-blue-800 rounded-full opacity-100 left-1/4"
-            style={{
-              transform: "translate(-0.5rem, -0.25rem)",
-              left: 0,
-              zIndex: 3
-            }}
-          />
-          <div
-            className="absolute text-gray-400"
-            style={{ transform: "translate(-1rem, 1rem)", left: 0 }}
-          >
-            -25%
-          </div>
-          <div
-            className="absolute text-gray-400"
-            style={{ transform: "translate(-0.5rem, 1rem)", left: "50%" }}
-          >
-            0%
-          </div>
-          <div
-            className="absolute text-gray-400"
-            style={{ transform: "translate(-1.5rem, 1rem)", left: "100%" }}
-          >
-            +25%
-          </div>
-          <div
-            id="valueSwingDisaply_A"
-            className="absolute rounded-full left-1/4 font-bold"
-            style={{ transform: "translate(-0.5rem, -2rem)", left: 0 }}
-          >
-            {valueSwing_A > 0 ? "+" + valueSwing_A : valueSwing_A}%
-          </div>
+          <div id={d.rangeId} className="absolute left-1/4 right-1/4 top-0 bottom-0 bg-blue-500 rounded-full" style={{zIndex: 2, right: "50%", left: "50%"}} />
+          <div className="absolute w-4 h-4 bg-gray-300 rounded-full opacity-100 right-1/4" style={{transform: "translate(0.5rem, -0.25rem)", right: "50%", zIndex: 3}} />
+          <div id={d.thumbId} className="absolute w-4 h-4 bg-blue-800 rounded-full opacity-100 left-1/4" style={{transform: "translate(-0.5rem, -0.25rem)", left: "50%", zIndex: 3}} />
+          <div className="absolute text-gray-400" style={{transform: "translate(-1rem, 1rem)", left: 0}}>-25%</div>
+          <div className="absolute text-gray-400" style={{transform: "translate(-0.5rem, 1rem)", left: "50%"}}>0%</div>
+          <div className="absolute text-gray-400" style={{transform: "translate(-1.5rem, 1rem)", left: "100%"}}>+25%</div>
+          <div id={d.valueSwingDisaplyId} className="absolute rounded-full left-1/4 font-bold" style={{transform: "translate(-0.5rem, -2rem)", left: "50%"}}>{d.swing > 0 ? "+" + d.swing: d.swing}%</div>
         </div>
       </div>
+      </div>
+    )}
+    <input type="button" value="RESET" onClick={() => _reset()} className="mx-4" />
+    <input type="button" value="Add New Party" onClick={() => _addNewParty()} className="mx-4" />
+    <input type="button" value="OK" onClick={() => _update()} className="mx-4" />
     </div>
-  )
+    )
 }
 
 export default SwingsModal

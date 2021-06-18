@@ -129,12 +129,11 @@ const Dashboard = ({
   useEffect(() => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
-    stateUTOptions.length > 0 &&
-      setSelectedStateUT(
-        stateUTOptions.indexOf(selectedStateUT) > -1
-          ? selectedStateUT
-          : stateUTOptions[0]
-      )
+    stateUTOptions.length > 0 && setSelectedStateUT(
+      stateUTOptions.indexOf(selectedStateUT) > -1
+        ? selectedStateUT
+        : stateUTOptions[0]
+    )
   }, [
     selectedStateUTData,
     yearOptions,
@@ -150,14 +149,14 @@ const Dashboard = ({
         ? selectedConstituency
         : constituencyOptions[0]
     )
-  }, [
-    selectedYearData,
-    selectedStateUTData,
-    yearOptions,
-    constituencyOptions,
-    seatType,
-    filteredGeoJSON
-  ])
+    }, [
+      selectedYearData,
+      selectedStateUTData,
+      yearOptions,
+      constituencyOptions,
+      seatType,
+      filteredGeoJSON
+    ])
 
   useEffect(() => {
     setSelectedRegion(
@@ -192,21 +191,11 @@ const Dashboard = ({
   useEffect(() => {
     if (electionType === "general") {
       setFilteredGeoJSON(
-        getReservedGeoJson(
-          parliamentaryConstituenciesGeojson,
-          seatType,
-          selectedStateUT,
-          selectedRegion
-        )
+        getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType, selectedStateUT, selectedRegion)
       )
     } else {
       setFilteredGeoJSON(
-        getReservedGeoJson(
-          assemblyConstituenciesGeojson,
-          seatType,
-          selectedStateUT,
-          selectedRegion
-        )
+        getReservedGeoJson(assemblyConstituenciesGeojson, seatType, selectedStateUT, selectedRegion)
       )
     }
   }, [seatType, electionType, selectedRegion, selectedStateUT])
@@ -762,7 +751,7 @@ const Dashboard = ({
             )}
           </div>
         </div>
-        <SwingsModal />
+      <SwingsModal partyAlliance={["A", "B", "C", "D"]} />
         {/* {constituencyContestantsStatsData !== null && (
           <ConstituencyConstestantsStats
             constituencyContestantsStatsData={constituencyContestantsStatsData}
