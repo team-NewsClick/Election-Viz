@@ -53,7 +53,6 @@ export const getConstituencies = (
   electionType,
   filteredGeoJSON
 ) => {
-
   let constituencies = new Set()
   if (data === null) {
     return null
@@ -64,9 +63,10 @@ export const getConstituencies = (
       if (electionType === "general") {
         data.map((row) => {
           if (
-            "filteredGeoJSON: ", filteredGeoJSON.features.findIndex(
+            ("filteredGeoJSON: ",
+            filteredGeoJSON.features.findIndex(
               (e) => e.properties.PC_NAME === row.PC_NAME
-            ) > -1
+            ) > -1)
           ) {
             constituencies.add(row.PC_NAME)
           }
