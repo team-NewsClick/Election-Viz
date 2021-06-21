@@ -1,4 +1,4 @@
-export const getParams = (arr) => {
+export const addParams = (arr) => {
   const arrParams = arr.map((d, index) => {
     return {
       alliance: d,
@@ -12,4 +12,15 @@ export const getParams = (arr) => {
     }
   })
   return arrParams
+}
+
+export const getParams = (partyAlliance) => {
+  let alliances = new Set()
+  partyAlliance && partyAlliance.map((d) => {
+    alliances.add(d.ALLIANCE)
+  })
+  alliances.add("OTHERS")
+  alliances = [...alliances]
+  const params = addParams(alliances)
+  return params
 }
