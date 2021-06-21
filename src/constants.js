@@ -4,6 +4,11 @@
 export const ELECTION_TYPE_DEFAULT = "general"
 
 /**
+ * Assembly Election
+ */
+export const ELECTION_TYPE_ASSEMBLY = "assembly"
+
+/**
  * Options for Year for Assembly Elections
  */
 export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015"]

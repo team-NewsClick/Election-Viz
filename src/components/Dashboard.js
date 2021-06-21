@@ -18,7 +18,8 @@ import {
   CRIMINALITY_OPTIONS,
   SEAT_TYPE_OPTIONS,
   SEAT_DEFAULT_SELECT,
-  REGION_DEFAULT_SELECT
+  REGION_DEFAULT_SELECT,
+  ELECTION_TYPE_ASSEMBLY
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -41,6 +42,7 @@ import { getReservedGeoJson } from "../helpers/reservedSeats"
 import { getRegions } from "../helpers/regions"
 import CustomAllianceModal from "./modals/CustomAllianceModal"
 import SwingsModal from "./modals/SwingsModal"
+import { calculateSwings } from "../helpers/swings"
 
 /**
  * Controls/Settings for the visualization of infographics
@@ -51,8 +53,8 @@ const Dashboard = ({
   assemblyConstituenciesGeojson
 }) => {
   const windowWidth = window.innerWidth
-  const [electionType, setElectionType] = useState(ELECTION_TYPE_DEFAULT)
-  const [yearOptions, setYearOptions] = useState(GENERAL_YEAR_OPTIONS)
+  const [electionType, setElectionType] = useState(ELECTION_TYPE_ASSEMBLY)
+  const [yearOptions, setYearOptions] = useState(ASSEMBLY_YEAR_OPTIONS)
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(
@@ -129,11 +131,12 @@ const Dashboard = ({
   useEffect(() => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
-    stateUTOptions.length > 0 && setSelectedStateUT(
-      stateUTOptions.indexOf(selectedStateUT) > -1
-        ? selectedStateUT
-        : stateUTOptions[0]
-    )
+    stateUTOptions.length > 0 &&
+      setSelectedStateUT(
+        stateUTOptions.indexOf(selectedStateUT) > -1
+          ? selectedStateUT
+          : stateUTOptions[0]
+      )
   }, [
     selectedStateUTData,
     yearOptions,
@@ -149,14 +152,14 @@ const Dashboard = ({
         ? selectedConstituency
         : constituencyOptions[0]
     )
-    }, [
-      selectedYearData,
-      selectedStateUTData,
-      yearOptions,
-      constituencyOptions,
-      seatType,
-      filteredGeoJSON
-    ])
+  }, [
+    selectedYearData,
+    selectedStateUTData,
+    yearOptions,
+    constituencyOptions,
+    seatType,
+    filteredGeoJSON
+  ])
 
   useEffect(() => {
     setSelectedRegion(
@@ -191,11 +194,21 @@ const Dashboard = ({
   useEffect(() => {
     if (electionType === "general") {
       setFilteredGeoJSON(
-        getReservedGeoJson(parliamentaryConstituenciesGeojson, seatType, selectedStateUT, selectedRegion)
+        getReservedGeoJson(
+          parliamentaryConstituenciesGeojson,
+          seatType,
+          selectedStateUT,
+          selectedRegion
+        )
       )
     } else {
       setFilteredGeoJSON(
-        getReservedGeoJson(assemblyConstituenciesGeojson, seatType, selectedStateUT, selectedRegion)
+        getReservedGeoJson(
+          assemblyConstituenciesGeojson,
+          seatType,
+          selectedStateUT,
+          selectedRegion
+        )
       )
     }
   }, [seatType, electionType, selectedRegion, selectedStateUT])
@@ -332,6 +345,8 @@ const Dashboard = ({
       : (customAllianceModal.style.display = "none")
   }
 
+  calculateSwings(selectedYearData, selectedStateUT, constituencyOptions)
+
   const customAlliance = (customAlliance) => {
     setPartyAlliance(customAlliance)
   }
@@ -391,7 +406,6 @@ const Dashboard = ({
               id="general"
               name="election"
               value="general"
-              defaultChecked
               onChange={(e) => _handleElectionType(e.currentTarget.value)}
             />
             <label htmlFor="general">General Elections</label>
@@ -400,6 +414,7 @@ const Dashboard = ({
               id="assembly"
               name="election"
               value="assembly"
+              defaultChecked
               onChange={(e) => _handleElectionType(e.currentTarget.value)}
             />
             <label htmlFor="assembly">Assembly Elections</label>
@@ -751,7 +766,7 @@ const Dashboard = ({
             )}
           </div>
         </div>
-      <SwingsModal partyAlliance={["A", "B", "C", "D"]} />
+        <SwingsModal partyAlliance={["A", "B", "C", "D"]} />
         {/* {constituencyContestantsStatsData !== null && (
           <ConstituencyConstestantsStats
             constituencyContestantsStatsData={constituencyContestantsStatsData}
