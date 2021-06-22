@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react"
+import axios from "axios"
+import { csvParse } from "d3-dsv"
 import { STATE_UT_DEFAULT_SELECT } from "../../constants"
 import {getParams, getNewParams} from "../../helpers/swings"
 
@@ -6,14 +8,20 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
   
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
   const [newPartiesCount, setNewPartiesCount] = useState(0)
+  const [partyAllianceInit, setPartyAllianceInit] = useState([])
   const [swingTotal, setSwingTotal] = useState(0)
   const [swingUpdate, setSwingUpdate] = useState()
 
   useEffect(() => {
-    const tempParmas = getParams(partyAlliance)
-    setPartyAllianceParams([...tempParmas])
-    setSwingUpdate([...tempParmas])
-  }, [partyAlliance])
+    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
+      const parsedData = csvParse(response.data)
+      setPartyAllianceInit(parsedData)
+      const tempParmas = getParams(parsedData)
+      setPartyAllianceParams([...tempParmas])
+      setSwingUpdate([...tempParmas])
+      _reset()
+    })
+  }, [])
 
   useEffect(() => {
     if(newPartiesCount !== 0) {
@@ -83,7 +91,7 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
   const _reset = () => {
     if(selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
       setNewPartiesCount(0)
-      let initParmas = getParams(partyAlliance)
+      let initParmas = getParams(partyAllianceInit)
       let tempParams = initParmas.map((d) => {
         let thumbLeft = document.getElementById(d.thumbId)
         let range = document.getElementById(d.rangeId)
@@ -96,6 +104,7 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
       })
       setPartyAllianceParams([...tempParams])
     }
+    setSwingUpdate([])
   }
 
   const _update = () => {
@@ -119,7 +128,7 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
       : (swingModal.style.display = "none")
   }
 
-  console.log("partyAlliance: ", partyAlliance)
+  console.log("swingUpdate: ", swingUpdate)
 
   return (
     <div

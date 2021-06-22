@@ -17,8 +17,7 @@ const CustomAllianceModal = ({
   const [resetAlliances, setResetAlliances] = useState(true)
   const [rows, setRows] = useState(rowsInit)
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
-  const [customedPartyAlliance, setCustomedPartyAlliance] =
-    useState(partyAllianceInit)
+  const [customedPartyAlliance, setCustomedPartyAlliance] = useState(partyAllianceInit)
 
   useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
