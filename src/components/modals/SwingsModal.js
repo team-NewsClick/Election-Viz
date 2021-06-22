@@ -6,6 +6,7 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
   
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
   const [newPartiesCount, setNewPartiesCount] = useState(0)
+  const [swingTotal, setSwingTotal] = useState(0)
   const [swingUpdate, setSwingUpdate] = useState()
 
   useEffect(() => {
@@ -37,6 +38,16 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
     handleSwingParams([])
     _reset()
   }, [selectedStateUT, selectedYear])
+
+  useEffect(() => {
+    let temp = 0
+    if(selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
+      partyAllianceParams.map((d) => {
+        temp = temp + parseInt(d.swing)
+      })
+      setSwingTotal(temp)
+    }
+  }, [partyAllianceParams])
 
   const _handelchange = (swing, index) => {
     let temp = partyAllianceParams
@@ -88,6 +99,7 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
   }
 
   const _update = () => {
+    if(swingTotal !== 0) _reset()
     const temp = partyAllianceParams.map((d) => {
       return {
         alliance: d.alliance,
@@ -97,7 +109,7 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
     })
     setSwingUpdate([...temp])
     handleSwingParams([...temp])
-    openSwingModal()    
+    openSwingModal()
   }
 
   const openSwingModal = () => {
@@ -106,6 +118,8 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
       ? (swingModal.style.display = "flex")
       : (swingModal.style.display = "none")
   }
+
+  console.log("partyAlliance: ", partyAlliance)
 
   return (
     <div
@@ -126,7 +140,7 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
             />
           </div>
           <div className="flex justify-center font-bold text-2xl">
-            Customise Alliances
+            Swing Distribution of {selectedStateUT}
           </div>
         </div>
         <div className="w-10/12 mx-auto">
@@ -150,6 +164,12 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
           </div>
           </div>
         )}
+        <div style={swingTotal !==0 ? {color: "#d11143"}: {}}>
+          <div className="text-3xl font-bold">
+            Total Swing: {swingTotal}%
+          </div>
+          <div>Total Swing must be 0%, otherwise it will reset to default.</div>
+        </div>
         <input type="button" value="Add New Party" onClick={() => _addNewParty()} className="black-btn cursor-pointer w-auto px-4 flex mx-auto" />
         <div className="flex justify-between">
           <input type="button" value="RESET" onClick={() => _reset()} className="black-btn cursor-pointer" />
