@@ -345,7 +345,7 @@ const Dashboard = ({
       : (customAllianceModal.style.display = "none")
   }
 
-  calculateSwings(selectedYearData, selectedStateUT, constituencyOptions)
+  // calculateSwings(selectedYearData, selectedStateUT, constituencyOptions, swingParties)
 
   const customAlliance = (customAlliance) => {
     setPartyAlliance(customAlliance)

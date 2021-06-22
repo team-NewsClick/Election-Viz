@@ -1,5 +1,3 @@
-import { stateData } from "../constants"
-
 export const getParams = (arr) => {
   const arrParams = arr.map((d, index) => {
     return {
@@ -19,15 +17,22 @@ export const getParams = (arr) => {
 export const calculateSwings = (
   selectedYearData,
   selectedStateUT,
-  constituencyOptions
+  constituencyOptions,
+  swingParties
 ) => {
-  if (constituencyOptions.length !== 0) {
+  if (constituencyOptions.length !== 0 && swingParties.length !== 0) {
     const constituencies = constituencyOptions.slice(1)
     const totalVotesPolledData = calculateConstituencyVotesPolled(
       selectedYearData,
       selectedStateUT,
       constituencies
     )
+    const swings = calculateVoteShare(
+      totalVotesPolledData,
+      constituencies,
+      swingParties
+    )
+    return swings
   }
 }
 const calculateConstituencyVotesPolled = (
@@ -58,5 +63,30 @@ const calculateConstituencyVotesPolled = (
   const totalVotesPolled = totalVotes.filter((row) => {
     return row.length !== 0
   })
-  return totalVotesPolled
+  return totalVotesPolled.flat()
+}
+
+const calculateVoteShare = (
+  totalVotesPolledData,
+  constituencies,
+  swingParties
+) => {
+  const updateVotes = constituencies.map((constituency) => {
+    const assemblyFilter = totalVotesPolledData.filter((row) => {
+      return row.AC_NAME === constituency
+    })
+    const newVoteShare = assemblyFilter.map((row) => {
+      const swingParty = swingParties.find(d => d.party === row.PARTY)
+      let swingVotes = 0
+      if(swingParty) {
+        swingVotes = Math.round((Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100)
+      }
+      return {
+        ...row,
+        VOTES: swingVotes !== 0 ? Number(row.VOTES) + swingVotes : Number(row.VOTES)
+      }
+    })
+    return newVoteShare
+  })
+  return updateVotes.flat()
 }
