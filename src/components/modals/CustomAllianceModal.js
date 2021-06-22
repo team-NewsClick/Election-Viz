@@ -61,16 +61,32 @@ const CustomAllianceModal = ({
       })
     setRowsInit(alliancePartyData)
     setRows(alliancePartyData)
+
+    const tempCustomedPartyAlliance = []
+    rows.map((a) => {
+      a.parties.map((p) => {
+        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+      })
+    })
+    setCustomedPartyAlliance(tempCustomedPartyAlliance)
+    customAlliance(tempCustomedPartyAlliance)
+
   }, [regionStatsLoading, partyAllianceInit, resetAlliances])
 
   useEffect(() => {
-    customAlliance(customedPartyAlliance)
+    const tempCustomedPartyAlliance = []
+    rows.map((a) => {
+      a.parties.map((p) => {
+        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+      })
+    })
+    customAlliance(tempCustomedPartyAlliance)
   }, [partyAllianceInit, resetAlliances, customedPartyAlliance])
 
   useEffect(() => {
     setResetAlliances(resetAlliances ? false : true)
   }, [partyAllianceInit])
-
+  
   const openCustomAllianceModal = () => {
     const customAllianceModal = document.getElementById("customAllianceModal")
     customAllianceModal.style.display === "none"
@@ -103,7 +119,7 @@ const CustomAllianceModal = ({
       })
     })
     setCustomedPartyAlliance(tempCustomedPartyAlliance)
-    customAlliance(partyAllianceInit)
+    customAlliance(tempCustomedPartyAlliance)
   }
 
   const _resetPartyAlliance = () => {
