@@ -128,8 +128,6 @@ const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwing
       : (swingModal.style.display = "none")
   }
 
-  console.log("swingUpdate: ", swingUpdate)
-
   return (
     <div
       className="flex md:min-h-screen justify-center bg-white bg-opacity-70 overscroll-contain overflow-auto"

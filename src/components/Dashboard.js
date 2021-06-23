@@ -77,6 +77,7 @@ const Dashboard = ({
   const [regionOptions, setRegionOptions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
   const [swingParams, setSwingParams] = useState([])
+  const [partiesSwing, setPartiesSwing] = useState([])
 
   useEffect(() => {
     setYearOptions(
@@ -289,6 +290,41 @@ const Dashboard = ({
   useEffect(() => {
     setRegionOptions(getRegions(selectedStateUT))
   }, [selectedStateUT])
+
+  useEffect(() => {
+    const result = []
+    if(partyAlliance && swingParams.length !== 0) {
+      partyAlliance.map((d) => {
+        const tempSwing = swingParams.find((e) => e.alliance ===  d.ALLIANCE)
+        result.push({
+          PARTY: d.PARTY,
+          ALLIANCE: d.ALLIANCE,
+          swing: tempSwing.swing,
+          newParty: tempSwing.newParty
+        })
+      })
+      swingParams.map((d) => {
+        if(d.newParty === true) {
+          result.push({
+            PARTY: d.alliance,
+            ALLIANCE: "OTHERS",
+            swing: d.swing,
+            newParty: d.newParty
+          })
+        }
+      })
+    } else {
+      partyAlliance && partyAlliance.map((d) => {
+        result.push({
+          PARTY: d.PARTY,
+          ALLIANCE: d.ALLIANCE,
+          swing: 0,
+          newParty: false
+        })
+      })
+    }
+    setPartiesSwing([...result])
+  }, [swingParams, partyAlliance])
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
