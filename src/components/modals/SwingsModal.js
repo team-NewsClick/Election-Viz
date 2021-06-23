@@ -50,7 +50,6 @@ const SwingsModal = ({ selectedStateUT, selectedYear, handleSwingParams }) => {
 
   useEffect(() => {
     setSwingUpdate([])
-    handleSwingParams([])
     _reset()
   }, [selectedStateUT, selectedYear])
 
@@ -63,6 +62,10 @@ const SwingsModal = ({ selectedStateUT, selectedYear, handleSwingParams }) => {
       setSwingTotal(temp)
     }
   }, [partyAllianceParams])
+
+  useEffect(() => {
+    handleSwingParams(swingUpdate)
+  }, [swingUpdate])
 
   const _handelchange = (swing, index) => {
     let temp = partyAllianceParams
@@ -124,7 +127,6 @@ const SwingsModal = ({ selectedStateUT, selectedYear, handleSwingParams }) => {
       }
     })
     setSwingUpdate([...temp])
-    handleSwingParams([...temp])
     openSwingModal()
   }
 

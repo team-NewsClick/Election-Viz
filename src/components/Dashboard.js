@@ -293,7 +293,7 @@ const Dashboard = ({
 
   useEffect(() => {
     const result = []
-    if(partyAlliance && swingParams.length !== 0) {
+    if(partyAlliance && swingParams && swingParams.length !== 0) {
       partyAlliance.map((d) => {
         const tempSwing = swingParams.find((e) => e.alliance ===  d.ALLIANCE)
         result.push({
