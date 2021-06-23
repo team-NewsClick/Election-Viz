@@ -724,7 +724,6 @@ const Dashboard = ({
           style={{ display: "none", zIndex: "2" }}
         >
           <SwingsModal
-            partyAlliance = {partyAlliance}
             selectedStateUT={selectedStateUT}
             selectedYear={selectedYear}
             handleSwingParams={handleSwingParams}

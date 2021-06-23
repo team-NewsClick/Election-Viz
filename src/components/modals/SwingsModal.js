@@ -4,7 +4,14 @@ import { csvParse } from "d3-dsv"
 import { STATE_UT_DEFAULT_SELECT } from "../../constants"
 import {getParams, getNewParams} from "../../helpers/swings"
 
-const SwingsModal = ({ partyAlliance, selectedStateUT, selectedYear, handleSwingParams }) => {
+/**
+ * Modal Box for adding swings to alliances
+ * @param {String} param0 Name of selected State/UT 
+ * @param {String} param1 Selected Year
+ * @param {Function} param2 Function to update the swings
+ * @returns {JSX.Element} Modal Box for adding swings to alliances
+ */
+const SwingsModal = ({ selectedStateUT, selectedYear, handleSwingParams }) => {
   
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
   const [newPartiesCount, setNewPartiesCount] = useState(0)
