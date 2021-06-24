@@ -18,7 +18,7 @@ export const getStateUTs = (data, electionType, filteredGeoJSON) => {
     data.map((row) => {
       if (electionType === "general") {
         if (
-          filteredGeoJSON.features.findIndex(
+          filteredGeoJSON && filteredGeoJSON.features.findIndex(
             (e) => e.properties.PC_NAME === row.PC_NAME
           ) > -1
         ) {
@@ -26,7 +26,7 @@ export const getStateUTs = (data, electionType, filteredGeoJSON) => {
         }
       } else {
         if (
-          filteredGeoJSON.features.findIndex(
+          filteredGeoJSON && filteredGeoJSON.features.findIndex(
             (e) => e.properties.AC_NAME === row.AC_NAME
           ) > -1
         ) {
