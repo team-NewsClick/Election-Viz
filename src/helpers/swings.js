@@ -56,11 +56,13 @@ export const calculateSwings = (
       selectedStateUT,
       constituencies
     )
+    console.log("totalVotesPolledData: ", totalVotesPolledData)
     const swings = calculateVoteShare(
       totalVotesPolledData,
       constituencies,
       swingParties
     )
+    console.log("swings: ", swings)
     return swings
   }
 }
@@ -120,7 +122,7 @@ const calculateVoteShare = (
       return row.AC_NAME === constituency
     })
     const newVoteShare = assemblyFilter.map((row) => {
-      const swingParty = swingParties.find(d => d.party === row.PARTY)
+      const swingParty = swingParties.find(d => d.PARTY === row.PARTY)
       let swingVotes = 0
       if(swingParty) {
         swingVotes = Math.round((Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100)

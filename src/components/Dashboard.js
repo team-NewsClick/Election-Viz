@@ -20,7 +20,7 @@ import {
   SEAT_DEFAULT_SELECT,
   REGION_DEFAULT_SELECT,
   ELECTION_TYPE_ASSEMBLY,
-  DEFAULT_GROUP_TYPE
+  DEFAULT_GROUP_TYPE,
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -379,6 +379,12 @@ const Dashboard = ({
       ? (swingModal.style.display = "flex")
       : (swingModal.style.display = "none")
   }
+
+  const selctedStateSwings = calculateSwings(selectedYearData,
+    selectedStateUT,
+    constituencyOptions,
+    partiesSwing
+  )
 
   const customAlliance = (customAlliance) => {
     setPartyAlliance(customAlliance)
