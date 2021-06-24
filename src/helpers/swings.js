@@ -56,13 +56,11 @@ export const calculateSwings = (
       selectedStateUT,
       constituencies
     )
-    console.log("totalVotesPolledData: ", totalVotesPolledData)
     const swings = calculateVoteShare(
       totalVotesPolledData,
       constituencies,
       swingParties
     )
-    console.log("swings: ", swings)
     return swings
   }
 }

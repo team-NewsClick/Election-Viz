@@ -77,7 +77,7 @@ const CustomAllianceModal = ({
     })
     setCustomedPartyAlliance(tempCustomedPartyAlliance)
     customAlliance(tempCustomedPartyAlliance)
-  }, [regionStatsLoading, partyAllianceInit, resetAlliances, swingParams])
+  }, [resetAlliances])
 
   useEffect(() => {
     const tempCustomedPartyAlliance = []
@@ -88,10 +88,6 @@ const CustomAllianceModal = ({
     })
     customAlliance(tempCustomedPartyAlliance)
   }, [partyAllianceInit, resetAlliances, customedPartyAlliance, swingParams])
-
-  useEffect(() => {
-    setResetAlliances(resetAlliances ? false : true)
-  }, [partyAllianceInit])
   
   const openCustomAllianceModal = () => {
     const customAllianceModal = document.getElementById("customAllianceModal")

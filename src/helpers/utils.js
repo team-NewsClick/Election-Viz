@@ -18,7 +18,7 @@ export const getStateUTs = (data, electionType, filteredGeoJSON) => {
     data.map((row) => {
       if (electionType === "general") {
         if (
-          filteredGeoJSON && filteredGeoJSON.features.findIndex(
+          filteredGeoJSON.features && filteredGeoJSON.features.findIndex(
             (e) => e.properties.PC_NAME === row.PC_NAME
           ) > -1
         ) {
@@ -26,7 +26,7 @@ export const getStateUTs = (data, electionType, filteredGeoJSON) => {
         }
       } else {
         if (
-          filteredGeoJSON && filteredGeoJSON.features.findIndex(
+          filteredGeoJSON.features && filteredGeoJSON.features.findIndex(
             (e) => e.properties.AC_NAME === row.AC_NAME
           ) > -1
         ) {
@@ -64,7 +64,7 @@ export const getConstituencies = (
         data.map((row) => {
           if (
             ("filteredGeoJSON: ",
-            filteredGeoJSON.features.findIndex(
+            filteredGeoJSON.features && filteredGeoJSON.features.findIndex(
               (e) => e.properties.PC_NAME === row.PC_NAME
             ) > -1)
           ) {
@@ -74,7 +74,7 @@ export const getConstituencies = (
       } else {
         data.map((row) => {
           if (
-            filteredGeoJSON.features.findIndex(
+            filteredGeoJSON.features && filteredGeoJSON.features.findIndex(
               (e) => e.properties.AC_NAME === row.AC_NAME
             ) > -1
           ) {
@@ -122,7 +122,7 @@ export const getDataConstituency = (data, constituency, electionType) => {
         return row.PC_NAME === constituency
       })
     } else {
-      return data.filter((row) => {
+      return data && data.filter((row) => {
         return row.AC_NAME === constituency
       })
     }

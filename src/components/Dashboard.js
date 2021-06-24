@@ -64,6 +64,8 @@ const Dashboard = ({
   const [selectedConstituency, setSelectedConstituency] = useState(
     CONSTITUENCIES_DEFAULT_SELECT
   )
+  const [selectedStateUTData, setSelectedStateUTData] = useState([])
+  const [selectedConstituencyData, setSelectedConstituencyData] = useState([])
   const [mapData, setMapData] = useState({})
   const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
@@ -330,6 +332,23 @@ const Dashboard = ({
     setPartiesSwing([...result])
   }, [swingParams, partyAlliance])
 
+  useEffect(() => {
+    const temp = getDataStateUT(selectedYearData, selectedStateUT)
+    setSelectedStateUTData(temp)
+  }, [selectedYearData, selectedStateUT])
+
+  useEffect(() => {
+    if(electionType === "assembly" && selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
+      const temp = calculateSwings(
+        selectedYearData,
+        selectedStateUT,
+        constituencyOptions,
+        partiesSwing
+      )
+      setSelectedStateUTData(temp)
+    }
+  }, [partiesSwing])
+
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -343,12 +362,14 @@ const Dashboard = ({
         (btnIcon.style.transform = "rotate(0deg)"))
   }
 
-  const selectedStateUTData = getDataStateUT(selectedYearData, selectedStateUT)
-  const selectedConstituencyData = getDataConstituency(
-    selectedStateUTData,
-    selectedConstituency,
-    electionType
-  )
+  useEffect(() => {
+    const temp = getDataConstituency(
+      selectedStateUTData,
+      selectedConstituency,
+      electionType
+    )
+    setSelectedConstituencyData(temp)
+  }, [selectedStateUTData, selectedConstituency])
 
   const _home = () => {
     if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
@@ -379,12 +400,6 @@ const Dashboard = ({
       ? (swingModal.style.display = "flex")
       : (swingModal.style.display = "none")
   }
-
-  const selctedStateSwings = calculateSwings(selectedYearData,
-    selectedStateUT,
-    constituencyOptions,
-    partiesSwing
-  )
 
   const customAlliance = (customAlliance) => {
     setPartyAlliance(customAlliance)
@@ -598,12 +613,6 @@ const Dashboard = ({
                   ))}
                 </select>
               </div>
-              <div
-                onClick={openCustomAllianceModal}
-                className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-              >
-                Customise Alliances
-              </div>
               {selectedStateUT !== STATE_UT_DEFAULT_SELECT && (
                 <div
                   onClick={openSwingModal}
@@ -612,6 +621,12 @@ const Dashboard = ({
                   Add Swings
                 </div>
               )}
+              <div
+                onClick={openCustomAllianceModal}
+                className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+              >
+                Customise Alliances
+              </div>
               {/* <div>
                 <select
                   name="locality"
