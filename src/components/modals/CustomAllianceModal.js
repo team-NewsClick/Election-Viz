@@ -8,6 +8,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
  * @param {Array<Object>} param0 Election result of a constituency
  * @param {Function} param1 Funciton to update "customed Alliance" on parent component
  * @param {Array<Object>} param2 List of Alliances and their respective swings
+ * @param {String} param3 Selected Year
  * @param {String} param3 Name of selected State/UT
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
