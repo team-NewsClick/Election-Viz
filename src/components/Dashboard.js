@@ -19,7 +19,8 @@ import {
   SEAT_TYPE_OPTIONS,
   SEAT_DEFAULT_SELECT,
   REGION_DEFAULT_SELECT,
-  ELECTION_TYPE_ASSEMBLY
+  ELECTION_TYPE_ASSEMBLY,
+  DEFAULT_GROUP_TYPE
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -67,7 +68,7 @@ const Dashboard = ({
   const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState()
   const [regionStatsTableData, setRegionStatsTableData] = useState([])
-  const [groupType, setGroupType] = useState("party")
+  const [groupType, setGroupType] = useState(DEFAULT_GROUP_TYPE)
   const [partyAlliance, setPartyAlliance] = useState()
   const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
@@ -78,6 +79,8 @@ const Dashboard = ({
   const [constituencyOptions, setConstituencyOptions] = useState([])
   const [regionOptions, setRegionOptions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
+  const [swingParams, setSwingParams] = useState([])
+  const [partiesSwing, setPartiesSwing] = useState([])
 
   useEffect(() => {
     setYearOptions(
@@ -302,6 +305,41 @@ const Dashboard = ({
     setRegionOptions(getRegions(selectedStateUT))
   }, [selectedStateUT])
 
+  useEffect(() => {
+    const result = []
+    if(partyAlliance && swingParams && swingParams.length !== 0) {
+      partyAlliance.map((d) => {
+        const tempSwing = swingParams.find((e) => e.alliance ===  d.ALLIANCE)
+        result.push({
+          PARTY: d.PARTY,
+          ALLIANCE: d.ALLIANCE,
+          swing: tempSwing.swing,
+          newParty: tempSwing.newParty
+        })
+      })
+      swingParams.map((d) => {
+        if(d.newParty === true) {
+          result.push({
+            PARTY: d.alliance,
+            ALLIANCE: "OTHERS",
+            swing: d.swing,
+            newParty: d.newParty
+          })
+        }
+      })
+    } else {
+      partyAlliance && partyAlliance.map((d) => {
+        result.push({
+          PARTY: d.PARTY,
+          ALLIANCE: d.ALLIANCE,
+          swing: 0,
+          newParty: false
+        })
+      })
+    }
+    setPartiesSwing([...result])
+  }, [swingParams, partyAlliance])
+
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -345,10 +383,18 @@ const Dashboard = ({
       : (customAllianceModal.style.display = "none")
   }
 
-  // calculateSwings(selectedYearData, selectedStateUT, constituencyOptions, swingParties)
+  const openSwingModal = () => {
+    const swingModal = document.getElementById("swingModal")
+    swingModal.style.display === "none"
+      ? (swingModal.style.display = "flex")
+      : (swingModal.style.display = "none")
+  }
 
   const customAlliance = (customAlliance) => {
     setPartyAlliance(customAlliance)
+  }
+  const handleSwingParams = (params) => {
+    setSwingParams(params)
   }
   const _handleElectionType = (v) => {
     setElectionType(v)
@@ -562,6 +608,14 @@ const Dashboard = ({
               >
                 Customise Alliances
               </div>
+              {selectedStateUT !== STATE_UT_DEFAULT_SELECT && (
+                <div
+                  onClick={openSwingModal}
+                  className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                >
+                  Add Swings
+                </div>
+              )}
               {/* <div>
                 <select
                   name="locality"
@@ -678,6 +732,17 @@ const Dashboard = ({
             regionStatsLoading={regionStatsLoading}
           />
         </div>
+        <div
+          id="swingModal"
+          className="fixed left-0 top-0 bottom-0 overflow-y-scroll"
+          style={{ display: "none", zIndex: "2" }}
+        >
+          <SwingsModal
+            selectedStateUT={selectedStateUT}
+            selectedYear={selectedYear}
+            handleSwingParams={handleSwingParams}
+          />
+        </div>
         <div className="lg:flex lg:flex-row-reverse relative py-8">
           <div
             className={windowWidth > 800 ? "" : "widthImp100 heightImp100"}
@@ -766,7 +831,6 @@ const Dashboard = ({
             )}
           </div>
         </div>
-        <SwingsModal partyAlliance={["A", "B", "C", "D"]} />
         {/* {constituencyContestantsStatsData !== null && (
           <ConstituencyConstestantsStats
             constituencyContestantsStatsData={constituencyContestantsStatsData}

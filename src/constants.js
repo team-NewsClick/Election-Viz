@@ -18,6 +18,12 @@ export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015"]
  */
 export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
 
+
+/**
+ * Default Group type
+ */
+export const DEFAULT_GROUP_TYPE = "party"
+
 /**
  * Options for Region
  */
