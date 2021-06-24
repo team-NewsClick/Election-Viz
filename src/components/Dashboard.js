@@ -740,7 +740,6 @@ const Dashboard = ({
           <CustomAllianceModal
             constituenciesResults={constituenciesResults}
             customAlliance={customAlliance}
-            regionStatsLoading={regionStatsLoading}
             swingParams={swingParams}
             selectedStateUT={selectedStateUT}
           />

@@ -5,13 +5,15 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 /**
  * A modal box with customizable alliances
- * @param {Array<Object>} param0 List of parties and their respective alliances
+ * @param {Array<Object>} param0 Election result of a constituency
+ * @param {Function} param1 Funciton to update "customed Alliance" on parent component
+ * @param {Array<Object>} param2 List of Alliances and their respective swings
+ * @param {String} param3 Name of selected State/UT
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
 const CustomAllianceModal = ({
   constituenciesResults,
   customAlliance,
-  regionStatsLoading,
   swingParams,
   selectedStateUT
 }) => {
