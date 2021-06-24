@@ -741,6 +741,7 @@ const Dashboard = ({
             constituenciesResults={constituenciesResults}
             customAlliance={customAlliance}
             swingParams={swingParams}
+            selectedYear={selectedYear}
             selectedStateUT={selectedStateUT}
           />
         </div>
