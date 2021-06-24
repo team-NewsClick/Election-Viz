@@ -742,6 +742,7 @@ const Dashboard = ({
             customAlliance={customAlliance}
             regionStatsLoading={regionStatsLoading}
             swingParams={swingParams}
+            selectedStateUT={selectedStateUT}
           />
         </div>
         <div

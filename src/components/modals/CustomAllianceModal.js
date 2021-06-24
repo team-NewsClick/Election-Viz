@@ -12,7 +12,8 @@ const CustomAllianceModal = ({
   constituenciesResults,
   customAlliance,
   regionStatsLoading,
-  swingParams
+  swingParams,
+  selectedStateUT
 }) => {
   const [rowsInit, setRowsInit] = useState([])
   const [resetAlliances, setResetAlliances] = useState(true)
@@ -26,7 +27,7 @@ const CustomAllianceModal = ({
       setPartyAllianceInit(parsedData)
       setCustomedPartyAlliance(parsedData)
     })
-  }, [regionStatsLoading])
+  }, [selectedStateUT])
 
   useEffect(() => {
     setCustomedPartyAlliance(partyAllianceInit)
@@ -77,7 +78,7 @@ const CustomAllianceModal = ({
     })
     setCustomedPartyAlliance(tempCustomedPartyAlliance)
     customAlliance(tempCustomedPartyAlliance)
-  }, [resetAlliances])
+  }, [resetAlliances, partyAllianceInit])
 
   useEffect(() => {
     const tempCustomedPartyAlliance = []
@@ -218,8 +219,8 @@ const CustomAllianceModal = ({
           <div>
             <input
               type="button"
-              value="RESET"
-              className="black-btn cursor-pointer"
+              value="RESET / LOAD NEW ALLIANCES"
+              className="black-btn cursor-pointer w-full"
               onClick={_resetPartyAlliance}
             />
           </div>
