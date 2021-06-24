@@ -33,7 +33,7 @@ const SwingsModal = ({ selectedStateUT, selectedYear, handleSwingParams }) => {
   useEffect(() => {
     if(newPartiesCount !== 0) {
       const temp  = partyAllianceParams
-      const tempAlliance = "NEW-PARTY-" + newPartiesCount
+      const tempAlliance = "NEW-" + newPartiesCount
       temp.push({
         alliance: tempAlliance,
         inputId: "input_" + tempAlliance,

@@ -317,16 +317,6 @@ const Dashboard = ({
           newParty: tempSwing.newParty
         })
       })
-      swingParams.map((d) => {
-        if(d.newParty === true) {
-          result.push({
-            PARTY: d.alliance,
-            ALLIANCE: "OTHERS",
-            swing: d.swing,
-            newParty: d.newParty
-          })
-        }
-      })
     } else {
       partyAlliance && partyAlliance.map((d) => {
         result.push({
@@ -730,6 +720,7 @@ const Dashboard = ({
             constituenciesResults={constituenciesResults}
             customAlliance={customAlliance}
             regionStatsLoading={regionStatsLoading}
+            swingParams={swingParams}
           />
         </div>
         <div

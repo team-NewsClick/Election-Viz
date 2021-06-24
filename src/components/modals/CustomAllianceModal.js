@@ -11,7 +11,8 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 const CustomAllianceModal = ({
   constituenciesResults,
   customAlliance,
-  regionStatsLoading
+  regionStatsLoading,
+  swingParams
 }) => {
   const [rowsInit, setRowsInit] = useState([])
   const [resetAlliances, setResetAlliances] = useState(true)
@@ -58,9 +59,16 @@ const CustomAllianceModal = ({
           alliancePartyData[tempAllianceIndex].parties.push(d.party)
         }
       })
+      swingParams && swingParams.map((d) => {
+      if(d.newParty === true) {
+        alliancePartyData.push({
+          alliance: d.alliance,
+          parties: [ d.alliance ]
+        })
+      }
+    })
     setRowsInit(alliancePartyData)
     setRows(alliancePartyData)
-
     const tempCustomedPartyAlliance = []
     rows.map((a) => {
       a.parties.map((p) => {
@@ -69,8 +77,7 @@ const CustomAllianceModal = ({
     })
     setCustomedPartyAlliance(tempCustomedPartyAlliance)
     customAlliance(tempCustomedPartyAlliance)
-
-  }, [regionStatsLoading, partyAllianceInit, resetAlliances])
+  }, [regionStatsLoading, partyAllianceInit, resetAlliances, swingParams])
 
   useEffect(() => {
     const tempCustomedPartyAlliance = []
@@ -80,7 +87,7 @@ const CustomAllianceModal = ({
       })
     })
     customAlliance(tempCustomedPartyAlliance)
-  }, [partyAllianceInit, resetAlliances, customedPartyAlliance])
+  }, [partyAllianceInit, resetAlliances, customedPartyAlliance, swingParams])
 
   useEffect(() => {
     setResetAlliances(resetAlliances ? false : true)
