@@ -312,12 +312,14 @@ const Dashboard = ({
     if(partyAlliance && swingParams && swingParams.length !== 0) {
       partyAlliance.map((d) => {
         const tempSwing = swingParams.find((e) => e.alliance ===  d.ALLIANCE)
-        result.push({
-          PARTY: d.PARTY,
-          ALLIANCE: d.ALLIANCE,
-          swing: tempSwing.swing,
-          newParty: tempSwing.newParty
-        })
+        if(tempSwing) {
+          result.push({
+            PARTY: d.PARTY,
+            ALLIANCE: d.ALLIANCE,
+            swing: tempSwing.swing,
+            newParty: tempSwing.newParty
+          })
+        }
       })
     } else {
       partyAlliance && partyAlliance.map((d) => {
