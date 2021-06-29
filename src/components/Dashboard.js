@@ -83,6 +83,7 @@ const Dashboard = ({
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
   const [swingParams, setSwingParams] = useState([])
   const [partiesSwing, setPartiesSwing] = useState([])
+  const [swingsData, setSwingsData] = useState([])
 
   useEffect(() => {
     setYearOptions(
@@ -339,17 +340,17 @@ const Dashboard = ({
     setSelectedStateUTData(temp)
   }, [selectedYearData, selectedStateUT])
 
-  useEffect(() => {
-    if(electionType === "assembly" && selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
-      const temp = calculateSwings(
-        selectedYearData,
-        selectedStateUT,
-        constituencyOptions,
-        partiesSwing
-      )
-      setSelectedStateUTData(temp)
-    }
-  }, [partiesSwing])
+  // useEffect(() => {
+  //   if(electionType === "assembly" && selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
+  //     const temp = calculateSwings(
+  //       selectedYearData,
+  //       selectedStateUT,
+  //       constituencyOptions,
+  //       partiesSwing
+  //     )
+  //     setSelectedStateUTData(temp)
+  //   }
+  // }, [partiesSwing])
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -402,9 +403,12 @@ const Dashboard = ({
       ? (swingModal.style.display = "flex")
       : (swingModal.style.display = "none")
   }
-
   const customAlliance = (customAlliance) => {
     setPartyAlliance(customAlliance)
+  }
+  const handelSwings = (params) => {
+    console.log("swingsParams: ", params)
+    setSwingsData(params)
   }
   const handleSwingParams = (params) => {
     setSwingParams(params)
@@ -753,9 +757,12 @@ const Dashboard = ({
           style={{ display: "none", zIndex: "2" }}
         >
           <SwingsModal
-            selectedStateUT={selectedStateUT}
             selectedYear={selectedYear}
             handleSwingParams={handleSwingParams}
+            handelSwings={handelSwings}
+            selectedStateUT={selectedStateUT}
+            selectedStateUTData={selectedStateUTData}
+            constituencyOptions={constituencyOptions}
           />
         </div>
         <div className="lg:flex lg:flex-row-reverse relative py-8">
