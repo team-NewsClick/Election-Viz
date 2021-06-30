@@ -83,7 +83,6 @@ const Dashboard = ({
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
   const [swingParams, setSwingParams] = useState([])
   const [partiesSwing, setPartiesSwing] = useState([])
-  const [swingsData, setSwingsData] = useState([])
 
   useEffect(() => {
     setYearOptions(
@@ -348,10 +347,19 @@ const Dashboard = ({
         constituencyOptions,
         partiesSwing
         )
-        setSelectedStateUTData([...temp])
+        setSelectedYearData([...temp])
       }
     }, [partiesSwing])
     
+  useEffect(() => {
+    const temp = getDataConstituency(
+      selectedStateUTData,
+      selectedConstituency,
+      electionType
+    )
+    setSelectedConstituencyData(temp)
+  }, [selectedStateUTData, selectedConstituency])
+
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -365,14 +373,6 @@ const Dashboard = ({
         (btnIcon.style.transform = "rotate(0deg)"))
   }
 
-  useEffect(() => {
-    const temp = getDataConstituency(
-      selectedStateUTData,
-      selectedConstituency,
-      electionType
-    )
-    setSelectedConstituencyData(temp)
-  }, [selectedStateUTData, selectedConstituency])
 
   const _home = () => {
     if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
