@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import { STATE_UT_DEFAULT_SELECT } from "../../constants"
-import { getParams, calculateSwings, getNewParams } from "../../helpers/swings"
+import { getParams, calculateSwings } from "../../helpers/swings"
 
 /**
  * Modal Box for adding swings to alliances
@@ -16,8 +16,7 @@ const SwingsModal = ({
   handleSwingParams,
   selectedStateUT,
   selectedStateUTData,
-  constituencyOptions,
-  handelSwings,
+  constituencyOptions
 }) => {
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
   const [newPartiesCount, setNewPartiesCount] = useState(0)
@@ -72,16 +71,6 @@ const SwingsModal = ({
 
   useEffect(() => {
     handleSwingParams(swingUpdate)
-    if (swingUpdate) {
-      const data = calculateSwings(
-        selectedStateUT,
-        selectedStateUTData,
-        constituencyOptions,
-        swingUpdate
-      )
-      setSwingsData(data)
-    }
-    handelSwings(swingsData)
   }, [swingUpdate])
 
   const _handelchange = (swing, index) => {

@@ -337,21 +337,21 @@ const Dashboard = ({
 
   useEffect(() => {
     const temp = getDataStateUT(selectedYearData, selectedStateUT)
-    setSelectedStateUTData(temp)
+    setSelectedStateUTData([...temp])
   }, [selectedYearData, selectedStateUT])
 
-  // useEffect(() => {
-  //   if(electionType === "assembly" && selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
-  //     const temp = calculateSwings(
-  //       selectedYearData,
-  //       selectedStateUT,
-  //       constituencyOptions,
-  //       partiesSwing
-  //     )
-  //     setSelectedStateUTData(temp)
-  //   }
-  // }, [partiesSwing])
-
+  useEffect(() => {
+    if(electionType === "assembly" && selectedStateUT !== STATE_UT_DEFAULT_SELECT && selectedYearData) {
+      const temp = selectedYearData.length !== 0 && calculateSwings(
+        selectedYearData,
+        selectedStateUT,
+        constituencyOptions,
+        partiesSwing
+        )
+        setSelectedStateUTData([...temp])
+      }
+    }, [partiesSwing])
+    
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -405,10 +405,6 @@ const Dashboard = ({
   }
   const customAlliance = (customAlliance) => {
     setPartyAlliance(customAlliance)
-  }
-  const handelSwings = (params) => {
-    console.log("swingsParams: ", params)
-    setSwingsData(params)
   }
   const handleSwingParams = (params) => {
     setSwingParams(params)
@@ -759,7 +755,6 @@ const Dashboard = ({
           <SwingsModal
             selectedYear={selectedYear}
             handleSwingParams={handleSwingParams}
-            handelSwings={handelSwings}
             selectedStateUT={selectedStateUT}
             selectedStateUTData={selectedStateUTData}
             constituencyOptions={constituencyOptions}

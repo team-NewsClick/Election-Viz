@@ -39,33 +39,33 @@ export const getParams = (partyAlliance) => {
 
 /**
  * Calcuate and Retrun Swings
- * @param {Array<Object>} selectedStateUTData Selected year data
+ * @param {Array<Object>} selectedYearData Selected year data
  * @param {String} selectedStateUT Selected State/UT
  * @param {Array} constituencyOptions Array of Constituencies of a State/UT
- * @param {Array<Object>} swingParties Array of Objects, Swing Parties
+ * @param {Array<Object>} partiesSwing Array of Objects, Swing Parties
  * @returns {Array<Object>} Array of objects Swings
  */
 export const calculateSwings = (
-  selectedStateUTData,
+  selectedYearData,
   selectedStateUT,
   constituencyOptions,
-  swingParties
+  partiesSwing
 ) => {
   if (
-    (constituencyOptions.length !== 0 && swingParties.length !== 0,
-    selectedStateUT !== STATE_UT_DEFAULT_SELECT &&
-      selectedStateUTData.length !== 0)
+    (constituencyOptions.length !== 0 && partiesSwing.length !== 0 &&
+      selectedStateUT !== STATE_UT_DEFAULT_SELECT &&
+      selectedYearData.length !== 0)
   ) {
     const constituencies = constituencyOptions.slice(1)
     const totalVotesPolledData = calculateConstituencyVotesPolled(
-      selectedStateUTData,
+      selectedYearData,
       selectedStateUT,
       constituencies
     )
     const swings = calculateVoteShare(
       totalVotesPolledData,
       constituencies,
-      swingParties
+      partiesSwing
     )
     return swings
   }
@@ -73,20 +73,17 @@ export const calculateSwings = (
 
 /**
  * Calculate votes polled for the selected State/UT
- * @param {Array<Object>} selectedStateUTData Selected year data
+ * @param {Array<Object>} selectedYearData Selected year data
  * @param {String} selectedStateUT Selected State/UT
  * @param {Array} constituencies Array of Constituencies of a State/UT
  * @returns {Array<Object>} Array of objects with calculated Votes Polled
  */
 const calculateConstituencyVotesPolled = (
-  selectedStateUTData,
+  selectedYearData,
   selectedStateUT,
   constituencies
 ) => {
-  // console.log("selectedStateUTData: ", selectedStateUTData)
-  console.log(Array.isArray(selectedStateUTData))
-
-  const selectedState = selectedStateUTData.filter((state) => {
+  const selectedState = selectedYearData.filter((state) => {
     return state.ST_NAME === selectedStateUT
   })
   const totalVotes = constituencies.map((constituency) => {
@@ -116,20 +113,20 @@ const calculateConstituencyVotesPolled = (
  * Calculate total Vote Share
  * @param {Array<Object>} totalVotesPolledData Array of objects with total vote share calculated
  * @param {Array} constituencies Selected State/UT
- * @param {Array<Object>} swingParties Array of Objects, Swing Parties
+ * @param {Array<Object>} partiesSwing Array of Objects, Swing Parties
  * @returns {Array<Object>} Array of objects with calculated Votes Share
  */
 const calculateVoteShare = (
   totalVotesPolledData,
   constituencies,
-  swingParties
+  partiesSwing
 ) => {
   const updateVotes = constituencies.map((constituency) => {
     const assemblyFilter = totalVotesPolledData.filter((row) => {
       return row.AC_NAME === constituency
     })
     const newVoteShare = assemblyFilter.map((row) => {
-      const swingParty = swingParties.find((d) => d.PARTY === row.PARTY)
+      const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)
       let swingVotes = 0
       if (swingParty) {
         swingVotes = Math.round(
