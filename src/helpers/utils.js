@@ -2,7 +2,7 @@ import {
   STATE_UT_DEFAULT_SELECT,
   PARTY_COLOR,
   CONSTITUENCIES_DEFAULT_SELECT,
-  DEFAULT_PARTY_ALLIANCE_COLOR
+  DEFAULT_PARTY_ALLIANCE_COLOR,
 } from "../constants"
 
 /**
@@ -18,7 +18,8 @@ export const getStateUTs = (data, electionType, filteredGeoJSON) => {
     data.map((row) => {
       if (electionType === "general") {
         if (
-          filteredGeoJSON.features && filteredGeoJSON.features.findIndex(
+          filteredGeoJSON.features &&
+          filteredGeoJSON.features.findIndex(
             (e) => e.properties.PC_NAME === row.PC_NAME
           ) > -1
         ) {
@@ -26,7 +27,8 @@ export const getStateUTs = (data, electionType, filteredGeoJSON) => {
         }
       } else {
         if (
-          filteredGeoJSON.features && filteredGeoJSON.features.findIndex(
+          filteredGeoJSON.features &&
+          filteredGeoJSON.features.findIndex(
             (e) => e.properties.AC_NAME === row.AC_NAME
           ) > -1
         ) {
@@ -64,9 +66,10 @@ export const getConstituencies = (
         data.map((row) => {
           if (
             ("filteredGeoJSON: ",
-            filteredGeoJSON.features && filteredGeoJSON.features.findIndex(
-              (e) => e.properties.PC_NAME === row.PC_NAME
-            ) > -1)
+            filteredGeoJSON.features &&
+              filteredGeoJSON.features.findIndex(
+                (e) => e.properties.PC_NAME === row.PC_NAME
+              ) > -1)
           ) {
             constituencies.add(row.PC_NAME)
           }
@@ -74,7 +77,8 @@ export const getConstituencies = (
       } else {
         data.map((row) => {
           if (
-            filteredGeoJSON.features && filteredGeoJSON.features.findIndex(
+            filteredGeoJSON.features &&
+            filteredGeoJSON.features.findIndex(
               (e) => e.properties.AC_NAME === row.AC_NAME
             ) > -1
           ) {
@@ -122,9 +126,12 @@ export const getDataConstituency = (data, constituency, electionType) => {
         return row.PC_NAME === constituency
       })
     } else {
-      return data && data.filter((row) => {
-        return row.AC_NAME === constituency
-      })
+      return (
+        data &&
+        data.filter((row) => {
+          return row.AC_NAME === constituency
+        })
+      )
     }
   }
 }
@@ -185,7 +192,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
         candidate: c,
         party: party,
         alliance: "--",
-        votesReceived: votes
+        votesReceived: votes,
       })
     })
     stats.map((row) => {
@@ -195,7 +202,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
       candidates: candidates.length,
       parties: totalParties,
       alliances: "--",
-      votes: totalVotes
+      votes: totalVotes,
     }
     let highest = 0
     stats.map((d) => {
@@ -237,7 +244,7 @@ export const getConstituenciesResults = (
               candidate: d.stats[0].candidate,
               party: d.stats[0].party,
               color: d.stats[0].color,
-              pc_name: d.PC_NAME
+              pc_name: d.PC_NAME,
             })
           } else {
             result.push({
@@ -245,7 +252,7 @@ export const getConstituenciesResults = (
               candidate: d.stats[0].candidate,
               party: d.stats[0].party,
               color: d.stats[0].color,
-              ac_name: d.AC_NAME
+              ac_name: d.AC_NAME,
             })
           }
         } else {
@@ -264,7 +271,7 @@ export const getConstituenciesResults = (
                 PARTY_COLOR.find((e) => e.party == alliance) == undefined
                   ? DEFAULT_PARTY_ALLIANCE_COLOR
                   : PARTY_COLOR.find((e) => e.party == alliance).color,
-              pc_name: d.PC_NAME
+              pc_name: d.PC_NAME,
             })
           } else {
             result.push({
@@ -276,7 +283,7 @@ export const getConstituenciesResults = (
                 PARTY_COLOR.find((e) => e.party == alliance) == undefined
                   ? DEFAULT_PARTY_ALLIANCE_COLOR
                   : PARTY_COLOR.find((e) => e.party == alliance).color,
-              ac_name: d.AC_NAME
+              ac_name: d.AC_NAME,
             })
           }
         }
@@ -291,7 +298,7 @@ export const getConstituenciesResults = (
                 candidate: d.stats[0].candidate,
                 party: d.stats[0].party,
                 color: d.stats[0].color,
-                pc_name: d.PC_NAME
+                pc_name: d.PC_NAME,
               })
           } else {
             d.AC_NAME == selectedConstituency &&
@@ -300,7 +307,7 @@ export const getConstituenciesResults = (
                 candidate: d.stats[0].candidate,
                 party: d.stats[0].party,
                 color: d.stats[0].color,
-                ac_name: d.AC_NAME
+                ac_name: d.AC_NAME,
               })
           }
         } else {
@@ -320,7 +327,7 @@ export const getConstituenciesResults = (
                   PARTY_COLOR.find((e) => e.party == alliance) == undefined
                     ? DEFAULT_PARTY_ALLIANCE_COLOR
                     : PARTY_COLOR.find((e) => e.party == alliance).color,
-                pc_name: d.PC_NAME
+                pc_name: d.PC_NAME,
               })
           } else {
             d.AC_NAME == selectedConstituency &&
@@ -333,7 +340,7 @@ export const getConstituenciesResults = (
                   PARTY_COLOR.find((e) => e.party == alliance) == undefined
                     ? DEFAULT_PARTY_ALLIANCE_COLOR
                     : PARTY_COLOR.find((e) => e.party == alliance).color,
-                ac_name: d.AC_NAME
+                ac_name: d.AC_NAME,
               })
           }
         }
@@ -383,7 +390,7 @@ export const getMapData = (data, stateUT, electionType) => {
           color:
             PARTY_COLOR.find((e) => e.party == party) == undefined
               ? DEFAULT_PARTY_ALLIANCE_COLOR
-              : PARTY_COLOR.find((e) => e.party == party).color
+              : PARTY_COLOR.find((e) => e.party == party).color,
         }
       })
       let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
@@ -404,7 +411,7 @@ export const getMapData = (data, stateUT, electionType) => {
     })
     return {
       stateUT: stateUT,
-      constituencies: constituencies
+      constituencies: constituencies,
     }
   } else {
     stateData.map((row) => {
@@ -431,7 +438,7 @@ export const getMapData = (data, stateUT, electionType) => {
           color:
             PARTY_COLOR.find((e) => e.party == party) == undefined
               ? DEFAULT_PARTY_ALLIANCE_COLOR
-              : PARTY_COLOR.find((e) => e.party == party).color
+              : PARTY_COLOR.find((e) => e.party == party).color,
         }
       })
       let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
@@ -452,7 +459,7 @@ export const getMapData = (data, stateUT, electionType) => {
     })
     return {
       stateUT: stateUT,
-      constituencies: constituencies
+      constituencies: constituencies,
     }
   }
 }

@@ -16,7 +16,7 @@ const SwingsModal = ({
   handleSwingParams,
   selectedStateUT,
   selectedStateUTData,
-  constituencyOptions
+  constituencyOptions,
 }) => {
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
   const [newPartiesCount, setNewPartiesCount] = useState(0)

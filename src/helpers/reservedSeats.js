@@ -8,10 +8,15 @@ import { getDistricts } from "../helpers/regions"
  * @param {String} electionType assembly/general
  * @returns {Object} - Filtered GeoJson with respect to seatType
  */
-export const getReservedGeoJson = (geoJson, seatType, selectedStateUT, selectedRegion) => {
+export const getReservedGeoJson = (
+  geoJson,
+  seatType,
+  selectedStateUT,
+  selectedRegion
+) => {
   let filteredBySeatGeoJson = []
   let filteredByRegionGeoJSON = []
-  let districts =[]
+  let districts = []
   if (seatType !== SEAT_DEFAULT_SELECT) {
     filteredBySeatGeoJson = geoJson.features.filter((d) => {
       if (seatType === "Unreserved") {
@@ -23,12 +28,12 @@ export const getReservedGeoJson = (geoJson, seatType, selectedStateUT, selectedR
   } else {
     filteredBySeatGeoJson = geoJson.features
   }
-  if(selectedRegion === REGION_DEFAULT_SELECT) {
+  if (selectedRegion === REGION_DEFAULT_SELECT) {
     filteredByRegionGeoJSON = filteredBySeatGeoJson
   } else {
     districts = getDistricts(selectedStateUT, selectedRegion)
     filteredByRegionGeoJSON = filteredBySeatGeoJson.filter((d) => {
-      if(districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0) {
+      if (districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0) {
         return d
       }
     })
@@ -39,5 +44,4 @@ export const getReservedGeoJson = (geoJson, seatType, selectedStateUT, selectedR
     crs: geoJson.crs,
     features: filteredByRegionGeoJSON
   }
-
 }

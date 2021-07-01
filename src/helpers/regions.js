@@ -23,8 +23,6 @@ export const getRegions = (stateUT) => {
   return [...regionOptions]
 }
 
-
-
 export const getDistricts = (stateUT, region) => {
   let districts = new Set()
   const allDistricts = allRegions.filter((d) => d.ST_NAME === stateUT)

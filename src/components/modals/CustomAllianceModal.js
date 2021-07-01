@@ -23,7 +23,8 @@ const CustomAllianceModal = ({
   const [resetAlliances, setResetAlliances] = useState(true)
   const [rows, setRows] = useState(rowsInit)
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
-  const [customedPartyAlliance, setCustomedPartyAlliance] = useState(partyAllianceInit)
+  const [customedPartyAlliance, setCustomedPartyAlliance] =
+    useState(partyAllianceInit)
 
   useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
@@ -64,14 +65,15 @@ const CustomAllianceModal = ({
           alliancePartyData[tempAllianceIndex].parties.push(d.party)
         }
       })
-      swingParams && swingParams.map((d) => {
-      if(d.newParty === true) {
-        alliancePartyData.push({
-          alliance: d.alliance,
-          parties: [ d.alliance ]
-        })
-      }
-    })
+    swingParams &&
+      swingParams.map((d) => {
+        if (d.newParty === true) {
+          alliancePartyData.push({
+            alliance: d.alliance,
+            parties: [d.alliance]
+          })
+        }
+      })
     setRowsInit(alliancePartyData)
     setRows(alliancePartyData)
     const tempCustomedPartyAlliance = []
@@ -93,7 +95,7 @@ const CustomAllianceModal = ({
     })
     customAlliance(tempCustomedPartyAlliance)
   }, [partyAllianceInit, resetAlliances, customedPartyAlliance, swingParams])
-  
+
   const openCustomAllianceModal = () => {
     const customAllianceModal = document.getElementById("customAllianceModal")
     customAllianceModal.style.display === "none"

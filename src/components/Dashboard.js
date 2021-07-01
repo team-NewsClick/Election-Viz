@@ -25,7 +25,7 @@ import {
 import {
   ConstituencyConstestantsStats,
   RegionStatsSVG,
-  RegionStatsTable
+  RegionStatsTable,
 } from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
 import Loading from "./helpers/Loading"
@@ -35,7 +35,7 @@ import {
   getStateUTs,
   getConstituencies,
   getMapData,
-  getConstituenciesResults
+  getConstituenciesResults,
 } from "../helpers/utils"
 import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
@@ -51,7 +51,7 @@ import { calculateSwings } from "../helpers/swings"
 const Dashboard = ({
   stateGeojson,
   parliamentaryConstituenciesGeojson,
-  assemblyConstituenciesGeojson
+  assemblyConstituenciesGeojson,
 }) => {
   const windowWidth = window.innerWidth
   const [electionType, setElectionType] = useState(ELECTION_TYPE_ASSEMBLY)
@@ -130,7 +130,7 @@ const Dashboard = ({
     electionType,
     seatType,
     stateUTOptions,
-    filteredGeoJSON
+    filteredGeoJSON,
   ])
 
   useEffect(() => {
@@ -148,7 +148,7 @@ const Dashboard = ({
     selectedYearData,
     seatType,
     filteredGeoJSON,
-    stateUTOptions
+    stateUTOptions,
   ])
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const Dashboard = ({
     yearOptions,
     constituencyOptions,
     seatType,
-    filteredGeoJSON
+    filteredGeoJSON,
   ])
 
   useEffect(() => {
@@ -179,7 +179,7 @@ const Dashboard = ({
     selectedStateUT,
     constituencyOptions,
     selectedConstituency,
-    filteredGeoJSON
+    filteredGeoJSON,
   ])
 
   useEffect(() => {
@@ -193,7 +193,7 @@ const Dashboard = ({
     filteredGeoJSON,
     stateUTOptions,
     constituencyOptions,
-    selectedRegion
+    selectedRegion,
   ])
 
   useEffect(() => {
@@ -236,7 +236,7 @@ const Dashboard = ({
     groupType,
     selectedYear,
     partyAlliance,
-    selectedRegion
+    selectedRegion,
   ])
 
   useEffect(() => {
@@ -247,7 +247,7 @@ const Dashboard = ({
     selectedStateUT,
     selectedYear,
     selectedConstituency,
-    selectedYear
+    selectedYear,
   ])
 
   useEffect(() => {
@@ -309,27 +309,28 @@ const Dashboard = ({
 
   useEffect(() => {
     const result = []
-    if(partyAlliance && swingParams && swingParams.length !== 0) {
+    if (partyAlliance && swingParams && swingParams.length !== 0) {
       partyAlliance.map((d) => {
-        const tempSwing = swingParams.find((e) => e.alliance ===  d.ALLIANCE)
-        if(tempSwing) {
+        const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
+        if (tempSwing) {
           result.push({
             PARTY: d.PARTY,
             ALLIANCE: d.ALLIANCE,
             swing: tempSwing.swing,
-            newParty: tempSwing.newParty
+            newParty: tempSwing.newParty,
           })
         }
       })
     } else {
-      partyAlliance && partyAlliance.map((d) => {
-        result.push({
-          PARTY: d.PARTY,
-          ALLIANCE: d.ALLIANCE,
-          swing: 0,
-          newParty: false
+      partyAlliance &&
+        partyAlliance.map((d) => {
+          result.push({
+            PARTY: d.PARTY,
+            ALLIANCE: d.ALLIANCE,
+            swing: 0,
+            newParty: false,
+          })
         })
-      })
     }
     setPartiesSwing([...result])
   }, [swingParams, partyAlliance])
@@ -340,17 +341,26 @@ const Dashboard = ({
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
-    if(electionType === "assembly" && selectedStateUT !== STATE_UT_DEFAULT_SELECT && selectedYearData) {
-      const temp = selectedYearData.length !== 0 && calculateSwings(
-        selectedYearData,
-        selectedStateUT,
-        constituencyOptions,
-        partiesSwing
-        )
-        setSelectedYearData([...temp])
-      }
-    }, [partiesSwing])
-    
+    if (
+      electionType === "assembly" &&
+      selectedStateUT !== STATE_UT_DEFAULT_SELECT &&
+      selectedYearData
+    ) {
+      axios
+        .get(`/data/csv/${electionType}_${selectedYear}.csv`)
+        .then((response) => {
+          const parsedData = csvParse(response.data)
+          const temp = calculateSwings(
+            parsedData,
+            selectedStateUT,
+            constituencyOptions,
+            partiesSwing
+          )
+          setSelectedYearData([...temp])
+        })
+    }
+  }, [partiesSwing])
+
   useEffect(() => {
     const temp = getDataConstituency(
       selectedStateUTData,
@@ -372,7 +382,6 @@ const Dashboard = ({
         (btnText.innerHTML = "Show Advance Options"),
         (btnIcon.style.transform = "rotate(0deg)"))
   }
-
 
   const _home = () => {
     if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
@@ -802,7 +811,7 @@ const Dashboard = ({
                       width: "29px",
                       height: "29px",
                       zIndex: "1",
-                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)",
                     }
                   : {
                       top: "90px",
@@ -810,7 +819,7 @@ const Dashboard = ({
                       width: "29px",
                       height: "29px",
                       zIndex: "1",
-                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)",
                     }
                 : {
                     top: "60px",
@@ -818,7 +827,7 @@ const Dashboard = ({
                     width: "29px",
                     height: "29px",
                     zIndex: "1",
-                    boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+                    boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)",
                   }
             }
           >
