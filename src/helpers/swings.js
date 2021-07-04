@@ -14,7 +14,7 @@ export const addParams = (arr) => {
       rangeId: "range_" + d,
       valueSwingDisaplyId: "valueSwingDisaply_" + d,
       swing: 0,
-      newParty: false,
+      newParty: false
     }
   })
   return arrParams
@@ -63,11 +63,16 @@ export const calculateSwings = (
       selectedStateUT,
       constituencies
     )
-    const swings = calculateVoteShare(
+    const swingState = calculateVoteShare(
       totalVotesPolledData,
       constituencies,
       partiesSwing
     )
+    const allStates = selectedYearData.filter((state) => {
+      return state.ST_NAME !== selectedStateUT
+    })
+    console.log("swingState: ", swingState)
+    const swings = [...swingState, ...allStates]
     return swings
   }
 }
@@ -99,7 +104,7 @@ const calculateConstituencyVotesPolled = (
     const addedVotesArray = assemblyFilter.map((row) => {
       return {
         ...row,
-        TOTAL_VOTES_POLLED: total,
+        TOTAL_VOTES_POLLED: total
       }
     })
     return addedVotesArray
@@ -137,7 +142,7 @@ const calculateVoteShare = (
       return {
         ...row,
         VOTES:
-          swingVotes !== 0 ? Number(row.VOTES) + swingVotes : Number(row.VOTES),
+          swingVotes !== 0 ? Number(row.VOTES) + swingVotes : Number(row.VOTES)
       }
     })
     return newVoteShare

@@ -20,12 +20,12 @@ import {
   SEAT_DEFAULT_SELECT,
   REGION_DEFAULT_SELECT,
   ELECTION_TYPE_ASSEMBLY,
-  DEFAULT_GROUP_TYPE,
+  DEFAULT_GROUP_TYPE
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
   RegionStatsSVG,
-  RegionStatsTable,
+  RegionStatsTable
 } from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
 import Loading from "./helpers/Loading"
@@ -35,7 +35,7 @@ import {
   getStateUTs,
   getConstituencies,
   getMapData,
-  getConstituenciesResults,
+  getConstituenciesResults
 } from "../helpers/utils"
 import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
@@ -51,7 +51,7 @@ import { calculateSwings } from "../helpers/swings"
 const Dashboard = ({
   stateGeojson,
   parliamentaryConstituenciesGeojson,
-  assemblyConstituenciesGeojson,
+  assemblyConstituenciesGeojson
 }) => {
   const windowWidth = window.innerWidth
   const [electionType, setElectionType] = useState(ELECTION_TYPE_ASSEMBLY)
@@ -130,7 +130,7 @@ const Dashboard = ({
     electionType,
     seatType,
     stateUTOptions,
-    filteredGeoJSON,
+    filteredGeoJSON
   ])
 
   useEffect(() => {
@@ -148,7 +148,7 @@ const Dashboard = ({
     selectedYearData,
     seatType,
     filteredGeoJSON,
-    stateUTOptions,
+    stateUTOptions
   ])
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const Dashboard = ({
     yearOptions,
     constituencyOptions,
     seatType,
-    filteredGeoJSON,
+    filteredGeoJSON
   ])
 
   useEffect(() => {
@@ -179,7 +179,7 @@ const Dashboard = ({
     selectedStateUT,
     constituencyOptions,
     selectedConstituency,
-    filteredGeoJSON,
+    filteredGeoJSON
   ])
 
   useEffect(() => {
@@ -193,7 +193,7 @@ const Dashboard = ({
     filteredGeoJSON,
     stateUTOptions,
     constituencyOptions,
-    selectedRegion,
+    selectedRegion
   ])
 
   useEffect(() => {
@@ -236,7 +236,7 @@ const Dashboard = ({
     groupType,
     selectedYear,
     partyAlliance,
-    selectedRegion,
+    selectedRegion
   ])
 
   useEffect(() => {
@@ -247,7 +247,7 @@ const Dashboard = ({
     selectedStateUT,
     selectedYear,
     selectedConstituency,
-    selectedYear,
+    selectedYear
   ])
 
   useEffect(() => {
@@ -317,7 +317,7 @@ const Dashboard = ({
             PARTY: d.PARTY,
             ALLIANCE: d.ALLIANCE,
             swing: tempSwing.swing,
-            newParty: tempSwing.newParty,
+            newParty: tempSwing.newParty
           })
         }
       })
@@ -328,7 +328,7 @@ const Dashboard = ({
             PARTY: d.PARTY,
             ALLIANCE: d.ALLIANCE,
             swing: 0,
-            newParty: false,
+            newParty: false
           })
         })
     }
@@ -338,6 +338,12 @@ const Dashboard = ({
   useEffect(() => {
     const temp = getDataStateUT(selectedYearData, selectedStateUT)
     setSelectedStateUTData([...temp])
+    axios
+      .get(`/data/csv/${electionType}_${selectedYear}.csv`)
+      .then((response) => {
+        const parsedData = csvParse(response.data)
+        setSelectedYearData(parsedData)
+      })
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
@@ -811,7 +817,7 @@ const Dashboard = ({
                       width: "29px",
                       height: "29px",
                       zIndex: "1",
-                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)",
+                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
                     }
                   : {
                       top: "90px",
@@ -819,7 +825,7 @@ const Dashboard = ({
                       width: "29px",
                       height: "29px",
                       zIndex: "1",
-                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)",
+                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
                     }
                 : {
                     top: "60px",
@@ -827,7 +833,7 @@ const Dashboard = ({
                     width: "29px",
                     height: "29px",
                     zIndex: "1",
-                    boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)",
+                    boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
                   }
             }
           >
