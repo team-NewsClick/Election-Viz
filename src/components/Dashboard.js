@@ -338,12 +338,6 @@ const Dashboard = ({
   useEffect(() => {
     const temp = getDataStateUT(selectedYearData, selectedStateUT)
     setSelectedStateUTData([...temp])
-    axios
-      .get(`/data/csv/${electionType}_${selectedYear}.csv`)
-      .then((response) => {
-        const parsedData = csvParse(response.data)
-        setSelectedYearData(parsedData)
-      })
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
