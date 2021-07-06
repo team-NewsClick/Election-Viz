@@ -71,7 +71,6 @@ export const calculateSwings = (
     const allStates = selectedYearData.filter((state) => {
       return state.ST_NAME !== selectedStateUT
     })
-    console.log("swingState: ", swingState)
     const swings = [...swingState, ...allStates]
     return swings
   }

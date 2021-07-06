@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import {
   STATE_UT_DEFAULT_SELECT,
   PARTY_COLOR,
@@ -5,6 +6,7 @@ import {
 } from "../constants"
 
 import { assignColor } from "./utils"
+var _ = require('lodash');
 
 /**
  * To Calculate list of Parties/Alliances and their seats won in a region
@@ -146,6 +148,22 @@ export const seatsCount = (data, groupType) => {
 }
 
 /**
+ * To get assembly elections data of a region by no of votes
+ * @param {Array<Object>} data Selected region data
+ * @returns {Array<Object>} - Election data of a region
+ */
+export const getAssemblyResultsByVotes = (data) => {
+  var grouped = _.mapValues(_.groupBy(data, 'AC_NAME'))
+  var keys = Object.keys(grouped)
+  const finalResult = []
+  keys.map((key) => {
+    let candidateElected = grouped[key].reduce((max, obj) => (max.VOTES > obj.VOTES) ? max : obj);
+    finalResult.push(candidateElected)
+  })
+  return finalResult
+}
+
+/**
  * To get assembly elections data of a regon
  * @param {Array<Object>} data Selected region data
  * @param {string} groupType party or alliance
@@ -154,6 +172,7 @@ export const seatsCount = (data, groupType) => {
  */
 export const getAssemblyResults = (data, groupType, partyAlliance) => {
   const finalData = []
+  // const finalResult = getAssemblyResultsByVotes(data)
   if (groupType === "party") {
     data
       .filter((candidates) => candidates.POSITION === "1")
