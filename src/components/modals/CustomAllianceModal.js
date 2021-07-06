@@ -67,10 +67,10 @@ const CustomAllianceModal = ({
       })
     swingParams &&
       swingParams.map((d) => {
-        if (d.newParty === true) {
+        if (d.newAlliance === true) {
           alliancePartyData.push({
             alliance: d.alliance,
-            parties: [d.alliance]
+            parties: []
           })
         }
       })

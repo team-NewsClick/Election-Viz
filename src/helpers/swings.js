@@ -14,7 +14,7 @@ export const addParams = (arr) => {
       rangeId: "range_" + d,
       valueSwingDisaplyId: "valueSwingDisaply_" + d,
       swing: 0,
-      newParty: false
+      newAlliance: false
     }
   })
   return arrParams
@@ -71,7 +71,6 @@ export const calculateSwings = (
     const allStates = selectedYearData.filter((state) => {
       return state.ST_NAME !== selectedStateUT
     })
-    console.log("swingState: ", swingState)
     const swings = [...swingState, ...allStates]
     return swings
   }
