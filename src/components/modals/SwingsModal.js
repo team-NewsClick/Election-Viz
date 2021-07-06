@@ -19,7 +19,7 @@ const SwingsModal = ({
   constituencyOptions,
 }) => {
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
-  const [newPartiesCount, setNewPartiesCount] = useState(0)
+  const [newAllianceCount, setNewAllianceCount] = useState(0)
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
   const [swingTotal, setSwingTotal] = useState(0)
   const [swingUpdate, setSwingUpdate] = useState()
@@ -37,9 +37,9 @@ const SwingsModal = ({
   }, [])
 
   useEffect(() => {
-    if (newPartiesCount !== 0) {
+    if (newAllianceCount !== 0) {
       const temp = partyAllianceParams
-      const tempAlliance = "NEW-" + newPartiesCount
+      const tempAlliance = "NEW-" + newAllianceCount
       temp.push({
         alliance: tempAlliance,
         inputId: "input_" + tempAlliance,
@@ -48,11 +48,11 @@ const SwingsModal = ({
         rangeId: "range_" + tempAlliance,
         valueSwingDisaplyId: "valueSwingDisaply_" + tempAlliance,
         swing: 0,
-        newParty: true,
+        newAlliance: true,
       })
       setPartyAllianceParams([...temp])
     }
-  }, [newPartiesCount])
+  }, [newAllianceCount])
 
   useEffect(() => {
     setSwingUpdate([])
@@ -100,15 +100,15 @@ const SwingsModal = ({
     setPartyAllianceParams([...temp])
   }
 
-  const _addNewParty = () => {
-    if (newPartiesCount < 3) {
-      setNewPartiesCount((prevNewPartiesCount) => prevNewPartiesCount + 1)
+  const _addNewAlliance = () => {
+    if (newAllianceCount < 3) {
+      setNewAllianceCount((prevNewAllianceCount) => prevNewAllianceCount + 1)
     }
   }
 
   const _reset = () => {
     if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
-      setNewPartiesCount(0)
+      setNewAllianceCount(0)
       let initParmas = getParams(partyAllianceInit)
       let tempParams = initParmas.map((d) => {
         let thumbLeft = document.getElementById(d.thumbId)
@@ -131,7 +131,7 @@ const SwingsModal = ({
       return {
         alliance: d.alliance,
         swing: parseInt(d.swing),
-        newParty: d.newParty,
+        newAlliance: d.newAlliance,
       }
     })
     setSwingUpdate([...temp])
@@ -254,8 +254,8 @@ const SwingsModal = ({
           </div>
           <input
             type="button"
-            value="Add New Party"
-            onClick={() => _addNewParty()}
+            value="Add New Alliance"
+            onClick={() => _addNewAlliance()}
             className="black-btn cursor-pointer w-auto px-4 flex mx-auto"
           />
           <div className="flex justify-between">

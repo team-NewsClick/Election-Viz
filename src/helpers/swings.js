@@ -14,7 +14,7 @@ export const addParams = (arr) => {
       rangeId: "range_" + d,
       valueSwingDisaplyId: "valueSwingDisaply_" + d,
       swing: 0,
-      newParty: false
+      newAlliance: false
     }
   })
   return arrParams
