@@ -50,7 +50,7 @@ export const getRegionStatsSVGData = (
           return d
         }
       })
-      const electedCandidates = getAssemblyResults(
+      const electedCandidates = getAssemblyResultsByVotes(
         filteredData,
         groupType,
         partyAlliance
@@ -152,14 +152,33 @@ export const seatsCount = (data, groupType) => {
  * @param {Array<Object>} data Selected region data
  * @returns {Array<Object>} - Election data of a region
  */
-export const getAssemblyResultsByVotes = (data) => {
-  var grouped = _.mapValues(_.groupBy(data, 'AC_NAME'))
-  var keys = Object.keys(grouped)
+export const getAssemblyResultsByVotes = (data, groupType, partyAlliance) => {
   const finalResult = []
-  keys.map((key) => {
-    let candidateElected = grouped[key].reduce((max, obj) => (max.VOTES > obj.VOTES) ? max : obj);
-    finalResult.push(candidateElected)
-  })
+  if(groupType === "party") {
+    var grouped = _.mapValues(_.groupBy(data, 'AC_NAME'))
+    var keys = Object.keys(grouped)
+    keys.map((key) => {
+      let candidateElected = grouped[key].reduce((max, obj) => (max.VOTES > obj.VOTES) ? max : obj);
+      finalResult.push(candidateElected)
+    })
+  } else {
+    var grouped = _.mapValues(_.groupBy(data, 'AC_NAME'))
+    var keys = Object.keys(grouped)
+    keys.map((key) => {
+      let candidateElected = grouped[key].reduce((max, obj) => (max.VOTES > obj.VOTES) ? max : obj);
+      const alliance = partyAlliance.find((e) => e.PARTY == candidateElected.PARTY) && partyAlliance.find((e) => e.PARTY == candidateElected.PARTY).ALLIANCE
+      finalResult.push({
+        candidate: candidateElected.CANDIDATE,
+        color:
+          PARTY_COLOR.find((e) => e.party == alliance) == undefined
+            ? DEFAULT_PARTY_ALLIANCE_COLOR
+            : PARTY_COLOR.find((e) => e.party == alliance).color,
+        alliance: alliance,
+        ac_name: candidateElected.AC_NAME,
+        votes: candidateElected.VOTES
+      })
+    })
+  }
   return finalResult
 }
 
