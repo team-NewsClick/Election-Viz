@@ -39,7 +39,7 @@ const SwingsModal = ({
   useEffect(() => {
     if (newAllianceCount !== 0) {
       const temp = partyAllianceParams
-      const tempAlliance = "NEW-" + newAllianceCount
+      const tempAlliance = document.getElementById('new-alliance').value.trim()
       temp.push({
         alliance: tempAlliance,
         inputId: "input_" + tempAlliance,
@@ -51,6 +51,7 @@ const SwingsModal = ({
         newAlliance: true,
       })
       setPartyAllianceParams([...temp])
+      document.getElementById('new-alliance').value = ""
     }
   }, [newAllianceCount])
 
@@ -101,7 +102,9 @@ const SwingsModal = ({
   }
 
   const _addNewAlliance = () => {
-    if (newAllianceCount < 3) {
+    const tempAlliance = document.getElementById('new-alliance').value.trim()
+    const allianceExist = partyAllianceParams.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
+    if (newAllianceCount < 3 && tempAlliance.length !== 0 && !allianceExist) {
       setNewAllianceCount((prevNewAllianceCount) => prevNewAllianceCount + 1)
     }
   }
@@ -253,12 +256,24 @@ const SwingsModal = ({
               Total Swing must be 0%, otherwise it will reset to default.
             </div>
           </div>
-          <input
-            type="button"
-            value="Add New Alliance"
-            onClick={() => _addNewAlliance()}
-            className="black-btn cursor-pointer w-auto px-4 flex mx-auto"
-          />
+          <div>
+            <div className="flex justify-center mt-10">
+              <input
+                type="text"
+                placeholder="Enter New Alliance Name"
+                id="new-alliance"
+                name="new-alliance"
+                className="border-2 border-gray-500 rounded w-auto px-1 mx-1.5"
+              />
+              <input
+                type="button"
+                value="Add New Alliance"
+                onClick={() => _addNewAlliance()}
+                className="black-btn cursor-pointer w-auto px-4 m-0 mx-1.5"
+              />
+            </div>
+            <div className="flex justify-center">New alliance name cannot be empty or duplicate.</div>
+          </div>
           <div className="flex justify-between">
             <input
               type="button"
