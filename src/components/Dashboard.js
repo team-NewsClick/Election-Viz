@@ -341,22 +341,22 @@ const Dashboard = ({
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
-    if (
-      electionType === "assembly" &&
-      selectedStateUT !== STATE_UT_DEFAULT_SELECT &&
-      selectedYearData
-    ) {
+    if (electionType === "assembly") {
       axios
         .get(`/data/csv/${electionType}_${selectedYear}.csv`)
         .then((response) => {
           const parsedData = csvParse(response.data)
-          const temp = calculateSwings(
-            parsedData,
-            selectedStateUT,
-            constituencyOptions,
-            partiesSwing
-          )
-          setSelectedYearData([...temp])
+          if(selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+            setSelectedYearData(parsedData)
+          } else {
+            const temp = calculateSwings(
+              parsedData,
+              selectedStateUT,
+              constituencyOptions,
+              partiesSwing
+            )
+            setSelectedYearData([...temp])
+          }
         })
     }
   }, [partiesSwing])

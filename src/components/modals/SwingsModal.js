@@ -107,7 +107,7 @@ const SwingsModal = ({
   }
 
   const _reset = () => {
-    if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
+    if (partyAllianceInit.length !== 0) {
       setNewAllianceCount(0)
       let initParmas = getParams(partyAllianceInit)
       let tempParams = initParmas.map((d) => {
@@ -118,7 +118,8 @@ const SwingsModal = ({
         valueSwingDisaply.style.left = "50%"
         range.style.right = "50%"
         range.style.left = "50%"
-        return { ...d, swing: 0 }
+        d.swing = 0
+        return d
       })
       setPartyAllianceParams([...tempParams])
     }
