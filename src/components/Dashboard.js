@@ -56,7 +56,9 @@ const Dashboard = ({
   const windowWidth = window.innerWidth
   const [electionType, setElectionType] = useState(ELECTION_TYPE_ASSEMBLY)
   const [yearOptions, setYearOptions] = useState(ASSEMBLY_YEAR_OPTIONS)
+  const [compareYearOptions, setCompareYearOptions] = useState([])
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
+  const [compareYear, setCompareYear] = useState(compareYearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(
     STATE_UT_DEFAULT_SELECT
@@ -92,6 +94,16 @@ const Dashboard = ({
       yearOptions.indexOf(selectedYear) > -1 ? selectedYear : yearOptions[0]
     )
   }, [electionType, yearOptions])
+  
+  useEffect(() => {
+    if(selectedYear) {
+      let temp = [...yearOptions]
+      const tempIndex = temp.indexOf(selectedYear)
+      temp.splice(tempIndex, 1)
+      setCompareYearOptions(temp)
+      setCompareYear(temp[0])
+    }
+  }, [selectedYear])
 
   useEffect(() => {
     axios
@@ -429,6 +441,9 @@ const Dashboard = ({
   const _handleSelectedYear = (v) => {
     setSelectedYear(v)
   }
+  const _handleCompareYear = (v) => {
+    setCompareYear(v)
+  }
   const _handleSelectedRegion = (v) => {
     setSelectedRegion(v)
   }
@@ -593,50 +608,72 @@ const Dashboard = ({
             </div>
           </div>
           <div className="mx-auto max-w-4xl justify-center">
-            <div className="flex flex-wrap mx-auto justify-around md:justify-center ">
-              <div>
-                <select
-                  name="region"
-                  onChange={(e) => _handleSelectedRegion(e.target.value)}
-                  id="region"
-                  className="advance-select"
-                  value={selectedRegion}
-                >
-                  {regionOptions.map((d, index) => (
-                    <option key={index} value={d}>
-                      {d}
-                    </option>
-                  ))}
-                </select>
+            <div>
+              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+                <div>
+                  <select
+                    name="region"
+                    onChange={(e) => _handleSelectedRegion(e.target.value)}
+                    id="region"
+                    className="advance-select md:w-64"
+                    value={selectedRegion}
+                  >
+                    {regionOptions.map((d, index) => (
+                      <option key={index} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    name="seatType"
+                    onChange={(e) => _handleSelectedSeatType(e.target.value)}
+                    id="seatType"
+                    className="advance-select md:w-64"
+                    value={seatType}
+                  >
+                    {SEAT_TYPE_OPTIONS.map((d, index) => (
+                      <option key={index} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <div>
-                <select
-                  name="seatType"
-                  onChange={(e) => _handleSelectedSeatType(e.target.value)}
-                  id="seatType"
-                  className="advance-select"
-                  value={seatType}
-                >
-                  {SEAT_TYPE_OPTIONS.map((d, index) => (
-                    <option key={index} value={d}>
-                      {d}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              {selectedStateUT !== STATE_UT_DEFAULT_SELECT && (
+              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+                {selectedStateUT !== STATE_UT_DEFAULT_SELECT && (
+                  <div
+                    onClick={openSwingModal}
+                    className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                  >
+                    Add Swings
+                  </div>
+                )}
                 <div
-                  onClick={openSwingModal}
+                  onClick={openCustomAllianceModal}
                   className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
                 >
-                  Add Swings
+                  Customise Alliances
                 </div>
-              )}
-              <div
-                onClick={openCustomAllianceModal}
-                className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-              >
-                Customise Alliances
+              </div>
+              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+                  <div className="md:w-64 inline-block align-text-bottom my-auto">
+                  Select a year to compare with:
+                  </div>
+                  <select
+                    name="year"
+                    onChange={(e) => _handleCompareYear(e.target.value)}
+                    id="year"
+                    className="w-40 md:w-64"
+                    value={compareYear}
+                  >
+                    {compareYearOptions.map((d, index) => (
+                      <option key={index} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
               </div>
               {/* <div>
                 <select
