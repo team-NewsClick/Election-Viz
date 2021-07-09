@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-
+import { PARTY_COLOR } from "../../constants"
 /**
  * A modal box with customizable alliances
  * @param {Array<Object>} param0 Election result of a constituency
@@ -25,6 +25,9 @@ const CustomAllianceModal = ({
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
   const [customedPartyAlliance, setCustomedPartyAlliance] =
     useState(partyAllianceInit)
+  const [customedPartyAllianceColor, setCustomedPartyAllianceColor] = useState(
+    []
+  )
 
   useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
@@ -94,6 +97,15 @@ const CustomAllianceModal = ({
       })
     })
     customAlliance(tempCustomedPartyAlliance)
+    const partyColors = tempCustomedPartyAlliance.map((row) => {
+      const party = PARTY_COLOR.find((e) => e.party === row.PARTY)
+      if (party) {
+        return {
+          ...row,
+          COLOR: party.color
+        }
+      }
+    })
   }, [partyAllianceInit, resetAlliances, customedPartyAlliance, swingParams])
 
   const openCustomAllianceModal = () => {
