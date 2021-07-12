@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import { STATE_UT_DEFAULT_SELECT } from "../../constants"
-import { getParams, calculateSwings } from "../../helpers/swings"
+import { getParams, addParams } from "../../helpers/swings"
 
 /**
  * Modal Box for adding swings to alliances
@@ -17,13 +17,13 @@ const SwingsModal = ({
   selectedStateUT,
   selectedStateUTData,
   constituencyOptions,
+  partyAlliance
 }) => {
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
   const [newAllianceCount, setNewAllianceCount] = useState(0)
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
   const [swingTotal, setSwingTotal] = useState(0)
   const [swingUpdate, setSwingUpdate] = useState()
-  const [swingsData, setSwingsData] = useState([])
 
   useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
@@ -73,6 +73,16 @@ const SwingsModal = ({
   useEffect(() => {
     handleSwingParams(swingUpdate)
   }, [swingUpdate])
+
+  useEffect(() => {
+    partyAlliance && partyAlliance.map((d) => {
+      const alliancePresent = partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) >= 0 ? true : false
+      if(!alliancePresent) {
+        const temp = addParams([d.ALLIANCE])
+        setPartyAllianceParams([...partyAllianceParams, ...temp])
+      }
+    })
+  }, [partyAlliance])
 
   const _handelchange = (swing, index) => {
     let temp = partyAllianceParams
@@ -255,24 +265,6 @@ const SwingsModal = ({
             <div>
               Total Swing must be 0%, otherwise it will reset to default.
             </div>
-          </div>
-          <div>
-            <div className="flex justify-center mt-10">
-              <input
-                type="text"
-                placeholder="Enter New Alliance Name"
-                id="new-alliance"
-                name="new-alliance"
-                className="border-2 border-gray-500 rounded w-auto px-1 mx-1.5"
-              />
-              <input
-                type="button"
-                value="Add New Alliance"
-                onClick={() => _addNewAlliance()}
-                className="black-btn cursor-pointer w-auto px-4 m-0 mx-1.5"
-              />
-            </div>
-            <div className="flex justify-center">New alliance name cannot be empty or duplicate.</div>
           </div>
           <div className="flex justify-between">
             <input

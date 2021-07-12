@@ -19,6 +19,23 @@ export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015"]
 export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
 
 /**
+ * Options to compare selected election result with
+ */
+export let COMPARE_OPTIONS = []
+ASSEMBLY_YEAR_OPTIONS.map((d) => {
+  COMPARE_OPTIONS.push({
+    value: d + "-assembly",
+    label: "Assembly Election " + d
+  })
+})
+GENERAL_YEAR_OPTIONS.map((d) => {
+  COMPARE_OPTIONS.push({
+    value: d + "-general",
+    label: "General Election " + d
+  })
+})
+
+/**
  * Default Group type
  */
 export const DEFAULT_GROUP_TYPE = "party"

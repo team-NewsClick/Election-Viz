@@ -20,7 +20,8 @@ import {
   SEAT_DEFAULT_SELECT,
   REGION_DEFAULT_SELECT,
   ELECTION_TYPE_ASSEMBLY,
-  DEFAULT_GROUP_TYPE
+  DEFAULT_GROUP_TYPE,
+  COMPARE_OPTIONS
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -56,9 +57,9 @@ const Dashboard = ({
   const windowWidth = window.innerWidth
   const [electionType, setElectionType] = useState(ELECTION_TYPE_ASSEMBLY)
   const [yearOptions, setYearOptions] = useState(ASSEMBLY_YEAR_OPTIONS)
-  const [compareYearOptions, setCompareYearOptions] = useState([])
+  const [compareElection, setCompareElection] = useState(COMPARE_OPTIONS[0].value)
+
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
-  const [compareYear, setCompareYear] = useState(compareYearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(
     STATE_UT_DEFAULT_SELECT
@@ -94,16 +95,6 @@ const Dashboard = ({
       yearOptions.indexOf(selectedYear) > -1 ? selectedYear : yearOptions[0]
     )
   }, [electionType, yearOptions])
-  
-  useEffect(() => {
-    if(selectedYear) {
-      let temp = [...yearOptions]
-      const tempIndex = temp.indexOf(selectedYear)
-      temp.splice(tempIndex, 1)
-      setCompareYearOptions(temp)
-      setCompareYear(temp[0])
-    }
-  }, [selectedYear])
 
   useEffect(() => {
     axios
@@ -435,6 +426,9 @@ const Dashboard = ({
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
   }
+  const _handleCompareElection = (v) => {
+    setCompareElection(v)
+  }
   const _updatedRegion = (state) => {
     setSelectedStateUT(state)
   }
@@ -642,6 +636,12 @@ const Dashboard = ({
                 </div>
               </div>
               <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+                <div
+                  onClick={openCustomAllianceModal}
+                  className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                  >
+                  Customise Alliances
+                </div>
                 {selectedStateUT !== STATE_UT_DEFAULT_SELECT && (
                   <div
                     onClick={openSwingModal}
@@ -650,30 +650,26 @@ const Dashboard = ({
                     Add Swings
                   </div>
                 )}
-                <div
-                  onClick={openCustomAllianceModal}
-                  className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-                >
-                  Customise Alliances
-                </div>
               </div>
               <div className="flex flex-wrap mx-auto justify-around md:justify-center">
                   <div className="md:w-64 inline-block align-text-bottom my-auto">
-                  Select a year to compare with:
+                  Select an election to compare:
                   </div>
-                  <select
-                    name="year"
-                    onChange={(e) => _handleCompareYear(e.target.value)}
-                    id="year"
-                    className="w-40 md:w-64"
-                    value={compareYear}
-                  >
-                    {compareYearOptions.map((d, index) => (
-                      <option key={index} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
+                  <div>
+                    <select
+                      name="compareElection"
+                      onChange={(e) => _handleCompareElection(e.target.value)}
+                      id="compareElection"
+                      className="advance-select md:w-64"
+                      value={compareElection}
+                    >
+                      {COMPARE_OPTIONS.map((d, index) => (
+                        <option key={index} value={d.value}>
+                          {d.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
               </div>
               {/* <div>
                 <select
@@ -804,6 +800,7 @@ const Dashboard = ({
             selectedStateUT={selectedStateUT}
             selectedStateUTData={selectedStateUTData}
             constituencyOptions={constituencyOptions}
+            partyAlliance={partyAlliance}
           />
         </div>
         <div className="lg:flex lg:flex-row-reverse relative py-8">
