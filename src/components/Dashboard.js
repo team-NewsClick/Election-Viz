@@ -798,8 +798,6 @@ const Dashboard = ({
             selectedYear={selectedYear}
             handleSwingParams={handleSwingParams}
             selectedStateUT={selectedStateUT}
-            selectedStateUTData={selectedStateUTData}
-            constituencyOptions={constituencyOptions}
             partyAlliance={partyAlliance}
           />
         </div>

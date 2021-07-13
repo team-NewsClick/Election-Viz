@@ -107,7 +107,6 @@ const CustomAllianceModal = ({
       setRows(tempRows)
       document.getElementById('new-alliance').value = ''
     }
-    // console.log({rows,tempAlliance, allianceExist})
   }
 
   const openCustomAllianceModal = () => {

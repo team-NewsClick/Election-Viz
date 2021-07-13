@@ -15,12 +15,9 @@ const SwingsModal = ({
   selectedYear,
   handleSwingParams,
   selectedStateUT,
-  selectedStateUTData,
-  constituencyOptions,
   partyAlliance
 }) => {
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
-  const [newAllianceCount, setNewAllianceCount] = useState(0)
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
   const [swingTotal, setSwingTotal] = useState(0)
   const [swingUpdate, setSwingUpdate] = useState()
@@ -35,25 +32,6 @@ const SwingsModal = ({
       _reset()
     })
   }, [])
-
-  useEffect(() => {
-    if (newAllianceCount !== 0) {
-      const temp = partyAllianceParams
-      const tempAlliance = document.getElementById('new-alliance').value.trim()
-      temp.push({
-        alliance: tempAlliance,
-        inputId: "input_" + tempAlliance,
-        sliderId: "slider_" + tempAlliance,
-        thumbId: "thumb_" + tempAlliance,
-        rangeId: "range_" + tempAlliance,
-        valueSwingDisaplyId: "valueSwingDisaply_" + tempAlliance,
-        swing: 0,
-        newAlliance: true,
-      })
-      setPartyAllianceParams([...temp])
-      document.getElementById('new-alliance').value = ""
-    }
-  }, [newAllianceCount])
 
   useEffect(() => {
     setSwingUpdate([])
@@ -111,28 +89,25 @@ const SwingsModal = ({
     setPartyAllianceParams([...temp])
   }
 
-  const _addNewAlliance = () => {
-    const tempAlliance = document.getElementById('new-alliance').value.trim()
-    const allianceExist = partyAllianceParams.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
-    if (newAllianceCount < 3 && tempAlliance.length !== 0 && !allianceExist) {
-      setNewAllianceCount((prevNewAllianceCount) => prevNewAllianceCount + 1)
-    }
-  }
-
   const _reset = () => {
-    if (partyAllianceInit.length !== 0) {
-      setNewAllianceCount(0)
+    if (partyAllianceParams.length !== 0 && partyAllianceInit.length !== 0) {
       let initParmas = getParams(partyAllianceInit)
-      let tempParams = initParmas.map((d) => {
-        let thumbLeft = document.getElementById(d.thumbId)
-        let range = document.getElementById(d.rangeId)
-        let valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
-        thumbLeft.style.left = "50%"
-        valueSwingDisaply.style.left = "50%"
-        range.style.right = "50%"
-        range.style.left = "50%"
-        d.swing = 0
-        return d
+      let tempParams = []
+      initParmas.map((d) => {
+        if(document.getElementById(d.thumbId) &&
+        document.getElementById(d.rangeId) &&
+        document.getElementById(d.valueSwingDisaplyId)
+        ) {
+          const thumbLeft = document.getElementById(d.thumbId)
+          const range = document.getElementById(d.rangeId)
+          const valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
+          thumbLeft.style.left = "50%"
+          valueSwingDisaply.style.left = "50%"
+          range.style.right = "50%"
+          range.style.left = "50%"
+          d.swing = 0
+          tempParams.push(d)
+        }
       })
       setPartyAllianceParams([...tempParams])
     }
