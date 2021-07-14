@@ -23,11 +23,9 @@ const CustomAllianceModal = ({
   const [resetAlliances, setResetAlliances] = useState(true)
   const [rows, setRows] = useState(rowsInit)
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
+  const [newAllianceCount, setNewAllianceCount] = useState(0)
   const [customedPartyAlliance, setCustomedPartyAlliance] =
     useState(partyAllianceInit)
-  const [customedPartyAllianceColor, setCustomedPartyAllianceColor] = useState(
-    []
-  )
 
   useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
@@ -79,14 +77,6 @@ const CustomAllianceModal = ({
       })
     setRowsInit(alliancePartyData)
     setRows(alliancePartyData)
-    const tempCustomedPartyAlliance = []
-    rows.map((a) => {
-      a.parties.map((p) => {
-        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-      })
-    })
-    setCustomedPartyAlliance(tempCustomedPartyAlliance)
-    customAlliance(tempCustomedPartyAlliance)
   }, [resetAlliances, partyAllianceInit])
 
   useEffect(() => {
@@ -108,11 +98,30 @@ const CustomAllianceModal = ({
     })
   }, [partyAllianceInit, resetAlliances, customedPartyAlliance, swingParams])
 
+  const _addNewAlliance = (v) => {
+    const tempAlliance = document.getElementById('new-alliance').value.trim()
+    const allianceExist = rows.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
+    if (newAllianceCount < 3 && tempAlliance.length !== 0 && !allianceExist) {
+      setNewAllianceCount((prevNewAllianceCount) => prevNewAllianceCount + 1)
+      const tempRows = [...rows, {alliance: tempAlliance, parties: []}]
+      setRows(tempRows)
+      document.getElementById('new-alliance').value = ''
+    }
+  }
+
   const openCustomAllianceModal = () => {
     const customAllianceModal = document.getElementById("customAllianceModal")
     customAllianceModal.style.display === "none"
       ? (customAllianceModal.style.display = "flex")
       : (customAllianceModal.style.display = "none")
+    let tempCustomedPartyAlliance = []
+    rows.map((a) => {
+      a.parties.map((p) => {
+        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+      })
+    })
+    setCustomedPartyAlliance(tempCustomedPartyAlliance)
+    customAlliance(tempCustomedPartyAlliance)
   }
 
   const _ondragEnd = (result) => {
@@ -134,17 +143,11 @@ const CustomAllianceModal = ({
       result.draggableId
     )
     setRows(tempRows)
-    tempRows.map((a) => {
-      a.parties.map((p) => {
-        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-      })
-    })
-    setCustomedPartyAlliance(tempCustomedPartyAlliance)
-    customAlliance(tempCustomedPartyAlliance)
   }
 
   const _resetPartyAlliance = () => {
     setResetAlliances(resetAlliances ? false : true)
+    setNewAllianceCount(0)
   }
 
   return (
@@ -233,11 +236,31 @@ const CustomAllianceModal = ({
             )
           })}
         </DragDropContext>
+
+        <div>
+          <div className="flex justify-center mt-10">
+            <input
+              type="text"
+              placeholder="Enter New Alliance Name"
+              id="new-alliance"
+              name="new-alliance"
+              className="border-2 border-gray-500 rounded w-auto px-1 mx-1.5"
+            />
+            <input
+              type="button"
+              value="Add New Alliance"
+              onClick={() => _addNewAlliance()}
+              className="black-btn cursor-pointer w-auto px-4 m-0 mx-1.5"
+            />
+          </div>
+          <div className="flex justify-center">New alliance name cannot be empty or duplicate.</div>
+        </div>
+
         <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between">
           <div>
             <input
               type="button"
-              value="RESET / LOAD NEW ALLIANCES"
+              value="RESET"
               className="black-btn cursor-pointer w-full"
               onClick={_resetPartyAlliance}
             />

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import { STATE_UT_DEFAULT_SELECT } from "../../constants"
-import { getParams, calculateSwings } from "../../helpers/swings"
+import { getParams, addParams } from "../../helpers/swings"
 
 /**
  * Modal Box for adding swings to alliances
@@ -15,15 +15,12 @@ const SwingsModal = ({
   selectedYear,
   handleSwingParams,
   selectedStateUT,
-  selectedStateUTData,
-  constituencyOptions,
+  partyAlliance
 }) => {
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
-  const [newAllianceCount, setNewAllianceCount] = useState(0)
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
   const [swingTotal, setSwingTotal] = useState(0)
   const [swingUpdate, setSwingUpdate] = useState()
-  const [swingsData, setSwingsData] = useState([])
 
   useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
@@ -35,25 +32,6 @@ const SwingsModal = ({
       _reset()
     })
   }, [])
-
-  useEffect(() => {
-    if (newAllianceCount !== 0) {
-      const temp = partyAllianceParams
-      const tempAlliance = document.getElementById('new-alliance').value.trim()
-      temp.push({
-        alliance: tempAlliance,
-        inputId: "input_" + tempAlliance,
-        sliderId: "slider_" + tempAlliance,
-        thumbId: "thumb_" + tempAlliance,
-        rangeId: "range_" + tempAlliance,
-        valueSwingDisaplyId: "valueSwingDisaply_" + tempAlliance,
-        swing: 0,
-        newAlliance: true,
-      })
-      setPartyAllianceParams([...temp])
-      document.getElementById('new-alliance').value = ""
-    }
-  }, [newAllianceCount])
 
   useEffect(() => {
     setSwingUpdate([])
@@ -73,6 +51,17 @@ const SwingsModal = ({
   useEffect(() => {
     handleSwingParams(swingUpdate)
   }, [swingUpdate])
+
+  useEffect(() => {
+    partyAlliance && partyAlliance.map((d) => {
+      const alliancePresent = partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) >= 0 ? true : false
+      if(!alliancePresent) {
+        let temp = addParams([d.ALLIANCE])
+        temp[0].newAlliance = true
+        setPartyAllianceParams([...partyAllianceParams, ...temp])
+      }
+    })
+  }, [partyAlliance])
 
   const _handelchange = (swing, index) => {
     let temp = partyAllianceParams
@@ -101,28 +90,25 @@ const SwingsModal = ({
     setPartyAllianceParams([...temp])
   }
 
-  const _addNewAlliance = () => {
-    const tempAlliance = document.getElementById('new-alliance').value.trim()
-    const allianceExist = partyAllianceParams.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
-    if (newAllianceCount < 3 && tempAlliance.length !== 0 && !allianceExist) {
-      setNewAllianceCount((prevNewAllianceCount) => prevNewAllianceCount + 1)
-    }
-  }
-
   const _reset = () => {
-    if (partyAllianceInit.length !== 0) {
-      setNewAllianceCount(0)
+    if (partyAllianceParams.length !== 0 && partyAllianceInit.length !== 0) {
       let initParmas = getParams(partyAllianceInit)
-      let tempParams = initParmas.map((d) => {
-        let thumbLeft = document.getElementById(d.thumbId)
-        let range = document.getElementById(d.rangeId)
-        let valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
-        thumbLeft.style.left = "50%"
-        valueSwingDisaply.style.left = "50%"
-        range.style.right = "50%"
-        range.style.left = "50%"
-        d.swing = 0
-        return d
+      let tempParams = []
+      initParmas.map((d) => {
+        if(document.getElementById(d.thumbId) &&
+        document.getElementById(d.rangeId) &&
+        document.getElementById(d.valueSwingDisaplyId)
+        ) {
+          const thumbLeft = document.getElementById(d.thumbId)
+          const range = document.getElementById(d.rangeId)
+          const valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
+          thumbLeft.style.left = "50%"
+          valueSwingDisaply.style.left = "50%"
+          range.style.right = "50%"
+          range.style.left = "50%"
+          d.swing = 0
+          tempParams.push(d)
+        }
       })
       setPartyAllianceParams([...tempParams])
     }
@@ -255,24 +241,6 @@ const SwingsModal = ({
             <div>
               Total Swing must be 0%, otherwise it will reset to default.
             </div>
-          </div>
-          <div>
-            <div className="flex justify-center mt-10">
-              <input
-                type="text"
-                placeholder="Enter New Alliance Name"
-                id="new-alliance"
-                name="new-alliance"
-                className="border-2 border-gray-500 rounded w-auto px-1 mx-1.5"
-              />
-              <input
-                type="button"
-                value="Add New Alliance"
-                onClick={() => _addNewAlliance()}
-                className="black-btn cursor-pointer w-auto px-4 m-0 mx-1.5"
-              />
-            </div>
-            <div className="flex justify-center">New alliance name cannot be empty or duplicate.</div>
           </div>
           <div className="flex justify-between">
             <input
