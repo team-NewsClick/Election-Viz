@@ -260,7 +260,7 @@ const CustomAllianceModal = ({
           <div>
             <input
               type="button"
-              value="RESET / LOAD NEW ALLIANCES"
+              value="RESET"
               className="black-btn cursor-pointer w-full"
               onClick={_resetPartyAlliance}
             />
