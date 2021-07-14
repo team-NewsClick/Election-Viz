@@ -56,7 +56,8 @@ const SwingsModal = ({
     partyAlliance && partyAlliance.map((d) => {
       const alliancePresent = partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) >= 0 ? true : false
       if(!alliancePresent) {
-        const temp = addParams([d.ALLIANCE])
+        let temp = addParams([d.ALLIANCE])
+        temp[0].newAlliance = true
         setPartyAllianceParams([...partyAllianceParams, ...temp])
       }
     })
