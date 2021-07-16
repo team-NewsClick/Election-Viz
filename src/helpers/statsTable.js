@@ -18,7 +18,7 @@ import {
  * @param {Array<Object>} partyAlliance party and their respective alliance
  * @param {String} selectedStateUT Selected State or UT
  * @param {String} selectedConstituency Selected Constituency
- * @returns {Array<Objects>} - Data of Party and their seats won, votes received, seats difference with respect to previous election, percentage of votes received, difference of percentage of votes received with respect to last election
+ * @returns {Array<Objects>} - Data of Party and their seats won, votes received, seats difference with respect to selected election to compare, percentage of votes received, difference of percentage of votes received with respect to last election
  */
 export const getRegionStatsTable = (
   presentYearData,
@@ -28,15 +28,15 @@ export const getRegionStatsTable = (
   partyAlliance,
   selectedStateUT,
   selectedConstituency,
-  prevYearData,
+  compareYearData,
   mapDataConstituencies,
   filteredGeoJSON
 ) => {
   let tableData = []
   let presentYearDataTable = []
-  let prevYearDataTable = []
+  let compareYearDataTable = []
   let filteredPresData = []
-  let filteredPrevData = []
+  let filteredCompareData = []
 
   if (electionType === "general") {
     filteredPresData = presentYearData.filter((d) => {
@@ -48,7 +48,7 @@ export const getRegionStatsTable = (
         return d
       }
     })
-    filteredPrevData = prevYearData.filter((d) => {
+    filteredCompareData = compareYearData.filter((d) => {
       if (
         filteredGeoJSON.features.findIndex(
           (e) => e.properties.PC_NAME === d.PC_NAME
@@ -67,7 +67,7 @@ export const getRegionStatsTable = (
         return d
       }
     })
-    filteredPrevData = prevYearData.filter((d) => {
+    filteredCompareData = compareYearData.filter((d) => {
       if (
         filteredGeoJSON.features.findIndex(
           (e) => e.properties.AC_NAME === d.AC_NAME
@@ -86,9 +86,9 @@ export const getRegionStatsTable = (
     selectedStateUT,
     selectedConstituency
   )
-  if (prevYearData.length != 0) {
-    prevYearDataTable = getPrevYearDataTable(
-      filteredPrevData,
+  if (compareYearData.length != 0) {
+    compareYearDataTable = getCompareYearDataTable(
+      filteredCompareData,
       SVGData,
       electionType,
       groupType,
@@ -99,8 +99,8 @@ export const getRegionStatsTable = (
     )
   }
   if (
-    filteredPrevData.length === 0 ||
-    (prevYearDataTable && prevYearDataTable.length === 0)
+    filteredCompareData.length === 0 ||
+    (compareYearDataTable && compareYearDataTable.length === 0)
   ) {
     if (groupType === "party") {
       presentYearDataTable.map((d, index) => {
@@ -128,19 +128,19 @@ export const getRegionStatsTable = (
     return tableData
   } else {
     presentYearDataTable &&
-      prevYearDataTable &&
+      compareYearDataTable &&
       presentYearDataTable.map((d, index) => {
         if (groupType === "party") {
           tableData.push({
             party: d.party,
             seats: d.seats,
             seatsDiff:
-              parseInt(d.seats) - parseInt(prevYearDataTable[index].seats),
+              parseInt(d.seats) - parseInt(compareYearDataTable[index].seats),
             votes: d.votes,
             votesPercent: d.votesPercent,
             votesPercentDiff: (
               parseFloat(d.votesPercent) -
-              parseFloat(prevYearDataTable[index].votesPercent)
+              parseFloat(compareYearDataTable[index].votesPercent)
             ).toFixed(2)
           })
         } else {
@@ -148,12 +148,12 @@ export const getRegionStatsTable = (
             alliance: d.alliance,
             seats: d.seats,
             seatsDiff:
-              parseInt(d.seats) - parseInt(prevYearDataTable[index].seats),
+              parseInt(d.seats) - parseInt(compareYearDataTable[index].seats),
             votes: d.votes,
             votesPercent: d.votesPercent,
             votesPercentDiff: (
               parseFloat(d.votesPercent) -
-              parseFloat(prevYearDataTable[index].votesPercent)
+              parseFloat(compareYearDataTable[index].votesPercent)
             ).toFixed(2)
           })
         }
@@ -325,8 +325,8 @@ const getCurrYearDataTable = (
 }
 
 /**
- * TO get list of parties and their respective seats-won and votes-won-percentage in previous year
- * @param {Array<Object>} prevYearData Previous Elections's Year Data
+ * To get list of parties and their respective seats-won and votes-won-percentage in selected election to compare
+ * @param {Array<Object>} compareYearData Selected Elections to compare  Data
  * @param {Object<Object>} SVGData List of parties and the number of seats won
  * @param {string} electionType general or assembly
  * @param {string} groupType party or alliance
@@ -334,10 +334,10 @@ const getCurrYearDataTable = (
  * @param {string} selectedStateUT Selected State/UT
  * @param {string} selectedConstituency Selected Constituency
  * @param {Array<Object>} mapDataConstituencies Current year elections data of a constituency for List of Parties
- * @returns {Array<Object>} - List of parties and their respective seats-won and votes-won-percentage in previous year
+ * @returns {Array<Object>} - List of parties and their respective seats-won and votes-won-percentage in election to be compared
  */
-const getPrevYearDataTable = (
-  prevYearData,
+const getCompareYearDataTable = (
+  compareYearData,
   SVGData,
   electionType,
   groupType,
@@ -346,27 +346,27 @@ const getPrevYearDataTable = (
   selectedConstituency,
   mapDataConstituencies
 ) => {
-  let prevMapData = {}
-  let prevSVGData = {}
-  let prevSelectedStateUTData = []
-  let prevStats = []
+  let compareMapData = {}
+  let compareSVGData = {}
+  let compareSelectedStateUTData = []
+  let compareStats = []
 
-  if (prevYearData) {
-    prevSelectedStateUTData = getDataStateUT(prevYearData, selectedStateUT)
-    const prevSelectedConstituencyData =
-      prevSelectedStateUTData &&
+  if (compareYearData) {
+    compareSelectedStateUTData = getDataStateUT(compareYearData, selectedStateUT)
+    const compareSelectedConstituencyData =
+      compareSelectedStateUTData &&
       getDataConstituency(
-        prevSelectedStateUTData,
+        compareSelectedStateUTData,
         selectedConstituency,
         electionType
       )
-    if (prevYearData) {
-      prevMapData = getMapData(prevYearData, selectedStateUT, electionType)
+    if (compareYearData) {
+      compareMapData = getMapData(compareYearData, selectedStateUT, electionType)
     }
-    const prevConstituenciesResults =
-      prevMapData &&
+    const compareConstituenciesResults =
+      compareMapData &&
       getConstituenciesResults(
-        prevMapData,
+        compareMapData,
         selectedConstituency,
         electionType,
         groupType,
@@ -377,12 +377,12 @@ const getPrevYearDataTable = (
         selectedStateUT === STATE_UT_DEFAULT_SELECT ||
         selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
       ) {
-        prevStats =
-          prevConstituenciesResults &&
+        compareStats =
+          compareConstituenciesResults &&
           SVGData &&
-          prevSeatsVotesCount(
-            prevSelectedStateUTData,
-            prevConstituenciesResults,
+          compareSeatsVotesCount(
+            compareSelectedStateUTData,
+            compareConstituenciesResults,
             SVGData,
             selectedStateUT,
             selectedConstituency,
@@ -392,12 +392,12 @@ const getPrevYearDataTable = (
             partyAlliance
           )
       } else {
-        prevStats =
-          prevConstituenciesResults &&
+        compareStats =
+          compareConstituenciesResults &&
           SVGData &&
-          prevSeatsVotesCount(
-            prevMapData.constituencies,
-            prevConstituenciesResults,
+          compareSeatsVotesCount(
+            compareMapData.constituencies,
+            compareConstituenciesResults,
             SVGData,
             selectedStateUT,
             selectedConstituency,
@@ -409,16 +409,16 @@ const getPrevYearDataTable = (
       }
     } else {
       if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
-        prevStats = []
+        compareStats = []
       } else {
-        prevStats =
-          prevConstituenciesResults &&
+        compareStats =
+          compareConstituenciesResults &&
           SVGData &&
-          prevSeatsVotesCount(
+          compareSeatsVotesCount(
             selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-              ? prevSelectedStateUTData
-              : prevSelectedConstituencyData,
-            prevConstituenciesResults,
+              ? compareSelectedStateUTData
+              : compareSelectedConstituencyData,
+            compareConstituenciesResults,
             SVGData,
             selectedStateUT,
             selectedConstituency,
@@ -429,12 +429,12 @@ const getPrevYearDataTable = (
           )
       }
     }
-    return prevStats
+    return compareStats
   }
 }
 
 /**
- * Calculates for Previous year data table and return list of parties and their respective seats-won and votes-won-percentage in previous year
+ * Calculates for selected election to be compared's data table and return list of parties and their respective seats-won and votes-won-percentage
  * @param {Array<Object>} data Data for a Selected State/UT or Constituency
  * @param {Array<Object>} constituenciesResults List of winning parties and candidates in each constituency
  * @param {Object<Object>} SVGData List of parties and the number of seats won
@@ -444,9 +444,9 @@ const getPrevYearDataTable = (
  * @param {string} electionType general or assembly
  * @param {string} groupType party or alliance
  * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
- * @returns {Array<Object>} - List of parties and their respective seats-won and votes-won-percentage in previous year
+ * @returns {Array<Object>} - List of parties and their respective seats-won and votes-won-percentage in selected election to be comapared
  */
-const prevSeatsVotesCount = (
+const compareSeatsVotesCount = (
   data,
   constituenciesResults,
   SVGData,
@@ -557,7 +557,7 @@ const prevSeatsVotesCount = (
       return stats
     } else {
       let groups = []
-      let previousStats = []
+      let compareStats = []
       if (mapDataConstituencies.length != 0) {
         groups = mapDataConstituencies
           .find((e) => e.PC_NAME === selectedConstituency)
@@ -572,10 +572,10 @@ const prevSeatsVotesCount = (
               votesPercent: 0
             })
           )
-          previousStats = data.find((e) => e.PC_NAME === selectedConstituency)
+          compareStats = data.find((e) => e.PC_NAME === selectedConstituency)
             ? data.find((e) => e.PC_NAME === selectedConstituency).stats
             : []
-          previousStats.map((d) => {
+          compareStats.map((d) => {
             const temp =
               stats.findIndex(
                 (e) => e == stats.find(({ party }) => party === d.party)
@@ -616,10 +616,10 @@ const prevSeatsVotesCount = (
               votesPercent: 0
             })
           )
-          previousStats = data.find(
+          compareStats = data.find(
             (e) => e.PC_NAME === selectedConstituency
           ).stats
-          previousStats.map((d) => {
+          compareStats.map((d) => {
             const allianceTemp = partyAlliance.find((e) => e.PARTY == d.party)
               ? partyAlliance.find((e) => e.PARTY === d.party).ALLIANCE
               : "OTHERS"

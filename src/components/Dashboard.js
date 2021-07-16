@@ -38,7 +38,7 @@ import {
   getMapData,
   getConstituenciesResults
 } from "../helpers/utils"
-import { getRegionStatsSVGData } from "../helpers/statsSVG"
+import { getRegionStatsSVGData, getResultsByPolling } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
 import { getReservedGeoJson } from "../helpers/reservedSeats"
 import { getRegions } from "../helpers/regions"
@@ -58,15 +58,10 @@ const Dashboard = ({
   const [electionType, setElectionType] = useState(ELECTION_TYPE_ASSEMBLY)
   const [yearOptions, setYearOptions] = useState(ASSEMBLY_YEAR_OPTIONS)
   const [compareElection, setCompareElection] = useState(COMPARE_OPTIONS[0].value)
-
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(
-    STATE_UT_DEFAULT_SELECT
-  )
-  const [selectedConstituency, setSelectedConstituency] = useState(
-    CONSTITUENCIES_DEFAULT_SELECT
-  )
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [selectedStateUTData, setSelectedStateUTData] = useState([])
   const [selectedConstituencyData, setSelectedConstituencyData] = useState([])
   const [mapData, setMapData] = useState({})
@@ -78,7 +73,7 @@ const Dashboard = ({
   const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
-  const [prevYearData, setPrevYearData] = useState([])
+  const [compareYearData, setCompareYearData] = useState([])
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
   const [stateUTOptions, setStateUTOptions] = useState([])
   const [constituencyOptions, setConstituencyOptions] = useState([])
@@ -103,14 +98,33 @@ const Dashboard = ({
         const parsedData = csvParse(response.data)
         setSelectedYearData(parsedData)
       })
-    axios
-      .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
-      .then((response) => {
-        const parsedData = csvParse(response.data)
-        setPrevYearData(parsedData)
-      })
-      .catch((e) => setPrevYearData([]))
   }, [selectedYear])
+
+  useEffect(() => {
+    const comapreWith = compareElection.split("-")
+    const compareYear = comapreWith[0]
+    const compareElectionType = comapreWith[1]
+    if(compareElectionType === electionType && compareYear === selectedYear) {
+      setCompareYearData([])
+    } else if(electionType === compareElectionType && compareYear !== selectedYear) {
+      axios
+        .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
+        .then((response) => {
+          const parsedData = csvParse(response.data)
+          setCompareYearData(parsedData)
+        })
+        .catch((e) => setCompareYearData([]))
+    } else {
+      axios
+        .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
+        .then((response) => {
+          const parsedData = csvParse(response.data)
+          const tempCompareYearData = getResultsByPolling(parsedData, compareElectionType)
+          setCompareYearData(tempCompareYearData)
+        })
+        .catch((e) => setCompareYearData([]))
+    }
+  }, [compareElection])
 
   useEffect(() => {
     setStateUTOptions(
@@ -299,7 +313,7 @@ const Dashboard = ({
         partyAlliance,
         selectedStateUT,
         selectedConstituency,
-        prevYearData,
+        compareYearData,
         mapData.constituencies,
         filteredGeoJSON
       )
