@@ -189,19 +189,26 @@ export const getAssemblyResultsByVotes = (data, groupType, partyAlliance) => {
  * @returns {Array<Object>} - Election data of a region
  */
 
- export const getResultsByPolling = (data,election_type) => {
-   const finalResult = []
+ export const getResultsByPolling = (data,election_type,stateUTOptions) => {
+   let finalResult = []
    if(election_type === 'general') {
-    var grouped = _.mapValues(_.groupBy(data, 'PC_NO'))
+    var grouped = _.mapValues(_.groupBy(data, 'ST_NAME'))
+    stateUTOptions.map((p) => {
+      if (grouped[p]) {
+        finalResult.push(...grouped[p])
+      }
+
+    }) 
    } else {
     var grouped = _.mapValues(_.groupBy(data, 'AC_NO'))
    }
-   var keys = Object.keys(grouped)
-    keys.map((key) => {
-      let candidateElected = grouped[key].reduce((max, obj) => (max.VOTES > obj.VOTES) ? max : obj);
-      finalResult.push(candidateElected)
-    })
-    return finalResult
+  //  var keys = Object.keys(grouped)
+  //   keys.map((key) => {
+  //     let candidateElected = grouped[key].reduce((max, obj) => (max.VOTES > obj.VOTES) ? max : obj);
+  //     finalResult.push(candidateElected)
+  //   })
+  console.log(finalResult)
+  return finalResult
  }
 
 /**
