@@ -202,12 +202,6 @@ export const getAssemblyResultsByVotes = (data, groupType, partyAlliance) => {
    } else {
     var grouped = _.mapValues(_.groupBy(data, 'AC_NO'))
    }
-  //  var keys = Object.keys(grouped)
-  //   keys.map((key) => {
-  //     let candidateElected = grouped[key].reduce((max, obj) => (max.VOTES > obj.VOTES) ? max : obj);
-  //     finalResult.push(candidateElected)
-  //   })
-  console.log(finalResult)
   return finalResult
  }
 

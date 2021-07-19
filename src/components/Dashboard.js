@@ -119,12 +119,12 @@ const Dashboard = ({
         .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
         .then((response) => {
           const parsedData = csvParse(response.data)
-          const tempCompareYearData = getResultsByPolling(parsedData, compareElectionType,stateUTOptions)
+          const tempCompareYearData = getResultsByPolling(parsedData, compareElectionType, stateUTOptions)
           setCompareYearData(tempCompareYearData)
         })
         .catch((e) => setCompareYearData([]))
     }
-  }, [compareElection])
+  }, [compareElection, stateUTOptions])
 
   useEffect(() => {
     setStateUTOptions(
@@ -307,18 +307,19 @@ const Dashboard = ({
           : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
           : mapData.constituencies,
+        compareYearData,
         regionStatsSVGData,
         electionType,
+        compareElection.split("-")[1],
         groupType,
         partyAlliance,
         selectedStateUT,
         selectedConstituency,
-        compareYearData,
         mapData.constituencies,
         filteredGeoJSON
       )
     )
-  }, [regionStatsSVGData])
+  }, [regionStatsSVGData, compareYearData])
 
   useEffect(() => {
     setRegionOptions(getRegions(selectedStateUT))
