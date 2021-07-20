@@ -101,6 +101,7 @@ const Dashboard = ({
   }, [selectedYear])
 
   useEffect(() => {
+    setRegionStatsLoading(true)
     const comapreWith = compareElection.split("-")
     const compareYear = comapreWith[0]
     const compareElectionType = comapreWith[1]
@@ -319,6 +320,7 @@ const Dashboard = ({
         filteredGeoJSON
       )
     )
+    setRegionStatsLoading(false)
   }, [regionStatsSVGData, compareYearData])
 
   useEffect(() => {
