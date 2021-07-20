@@ -182,29 +182,6 @@ export const getAssemblyResultsByVotes = (data, groupType, partyAlliance) => {
   return finalResult
 }
 
-
-/**
- *To get any elections data of a region by no of votes
- * @param {Array<Object>} data Selected region data
- * @returns {Array<Object>} - Election data of a region
- */
-
- export const getResultsByPolling = (data,election_type,stateUTOptions) => {
-   let finalResult = []
-   if(election_type === 'general') {
-    var grouped = _.mapValues(_.groupBy(data, 'ST_NAME'))
-    stateUTOptions.map((p) => {
-      if (grouped[p]) {
-        finalResult.push(...grouped[p])
-      }
-
-    }) 
-   } else {
-    var grouped = _.mapValues(_.groupBy(data, 'AC_NO'))
-   }
-  return finalResult
- }
-
 /**
  * To get assembly elections data of a regon
  * @param {Array<Object>} data Selected region data

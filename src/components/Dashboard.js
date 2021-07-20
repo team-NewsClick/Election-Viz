@@ -120,8 +120,7 @@ const Dashboard = ({
         .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
         .then((response) => {
           const parsedData = csvParse(response.data)
-          const tempCompareYearData = getResultsByPolling(parsedData, compareElectionType, stateUTOptions)
-          setCompareYearData(tempCompareYearData)
+          setCompareYearData(parsedData)
         })
         .catch((e) => setCompareYearData([]))
     }
