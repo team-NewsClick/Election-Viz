@@ -22,6 +22,10 @@ export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
  * Options to compare selected election result with
  */
 export let COMPARE_OPTIONS = []
+COMPARE_OPTIONS.push({
+  value: "none-none",
+  label: "None"
+})
 ASSEMBLY_YEAR_OPTIONS.map((d) => {
   COMPARE_OPTIONS.push({
     value: d + "-assembly",

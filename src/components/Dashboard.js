@@ -57,7 +57,7 @@ const Dashboard = ({
   const windowWidth = window.innerWidth
   const [electionType, setElectionType] = useState(ELECTION_TYPE_ASSEMBLY)
   const [yearOptions, setYearOptions] = useState(ASSEMBLY_YEAR_OPTIONS)
-  const [compareElection, setCompareElection] = useState(COMPARE_OPTIONS[0].value)
+  const [compareElection, setCompareElection] = useState()
   const [selectedYear, setSelectedYear] = useState(yearOptions[0])
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
@@ -98,33 +98,41 @@ const Dashboard = ({
         const parsedData = csvParse(response.data)
         setSelectedYearData(parsedData)
       })
+      axios
+      .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
+      .then((response) => {
+        setCompareElection(`${parseInt(selectedYear) - 5}-${electionType}`)
+      })
+      .catch((e) => setCompareElection(COMPARE_OPTIONS[0].value))
   }, [selectedYear])
 
   useEffect(() => {
     setRegionStatsLoading(true)
-    const comapreWith = compareElection.split("-")
-    const compareYear = comapreWith[0]
-    const compareElectionType = comapreWith[1]
-    if(compareElectionType === electionType && compareYear === selectedYear) {
-      setCompareYearData([])
-    } else if(electionType === compareElectionType && compareYear !== selectedYear) {
-      axios
-        .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
-        .then((response) => {
-          const parsedData = csvParse(response.data)
-          setCompareYearData(parsedData)
-        })
-        .catch((e) => setCompareYearData([]))
-    } else {
-      axios
-        .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
-        .then((response) => {
-          const parsedData = csvParse(response.data)
-          setCompareYearData(parsedData)
-        })
-        .catch((e) => setCompareYearData([]))
+    if(compareElection) {
+      const comapreWith = compareElection.split("-")
+      const compareYear = comapreWith[0]
+      const compareElectionType = comapreWith[1]
+      if(compareElectionType === electionType && compareYear === selectedYear) {
+        setCompareYearData([])
+      } else if(electionType === compareElectionType && compareYear !== selectedYear) {
+        axios
+          .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
+          .then((response) => {
+            const parsedData = csvParse(response.data)
+            setCompareYearData(parsedData)
+          })
+          .catch((e) => setCompareYearData([]))
+      } else {
+        axios
+          .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
+          .then((response) => {
+            const parsedData = csvParse(response.data)
+            setCompareYearData(parsedData)
+          })
+          .catch((e) => setCompareYearData([]))
+      }
     }
-  }, [compareElection, stateUTOptions])
+  }, [compareElection])
 
   useEffect(() => {
     setStateUTOptions(
@@ -300,26 +308,28 @@ const Dashboard = ({
   }, [constituenciesResults, filteredGeoJSON])
 
   useEffect(() => {
-    setRegionStatsTableData(
-      getRegionStatsTable(
-        selectedStateUT === STATE_UT_DEFAULT_SELECT
-          ? selectedYearData
-          : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-          ? selectedStateUTData
-          : mapData.constituencies,
-        compareYearData,
-        regionStatsSVGData,
-        electionType,
-        compareElection.split("-")[1],
-        groupType,
-        partyAlliance,
-        selectedStateUT,
-        selectedConstituency,
-        mapData.constituencies,
-        filteredGeoJSON
+    if(compareElection) {
+      setRegionStatsTableData(
+        getRegionStatsTable(
+          selectedStateUT === STATE_UT_DEFAULT_SELECT
+            ? selectedYearData
+            : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+            ? selectedStateUTData
+            : mapData.constituencies,
+          compareYearData,
+          regionStatsSVGData,
+          electionType,
+          compareElection.split("-")[1],
+          groupType,
+          partyAlliance,
+          selectedStateUT,
+          selectedConstituency,
+          mapData.constituencies,
+          filteredGeoJSON
+        )
       )
-    )
-    setRegionStatsLoading(false)
+      setRegionStatsLoading(false)
+    }
   }, [regionStatsSVGData, compareYearData])
 
   useEffect(() => {
