@@ -49,31 +49,34 @@ export const calculateSwings = (
   selectedYearData,
   selectedStateUT,
   constituencyOptions,
-  partiesSwing
+  partiesSwing,
+  electionType
 ) => {
-  if (
-    constituencyOptions.length !== 0 &&
-    partiesSwing.length !== 0 &&
-    selectedStateUT !== STATE_UT_DEFAULT_SELECT &&
-    selectedYearData.length !== 0
-  ) {
-    const constituencies = constituencyOptions.slice(1)
-    const totalVotesPolledData = calculateConstituencyVotesPolled(
-      selectedYearData,
-      selectedStateUT,
-      constituencies
-    )
-    const swingState = calculateVoteShare(
-      totalVotesPolledData,
-      constituencies,
-      partiesSwing
-    )
-    const allStates = selectedYearData.filter((state) => {
-      return state.ST_NAME !== selectedStateUT
-    })
-    const swings = [...swingState, ...allStates]
-    return swings
-  }
+    if (
+      constituencyOptions.length !== 0 &&
+      partiesSwing.length !== 0 &&
+      selectedStateUT !== STATE_UT_DEFAULT_SELECT &&
+      selectedYearData.length !== 0
+    ) {
+      const constituencies = constituencyOptions.slice(1)
+      const totalVotesPolledData = calculateConstituencyVotesPolled(
+        selectedYearData,
+        selectedStateUT,
+        constituencies,
+        electionType
+      )
+      const swingState = calculateVoteShare(
+        totalVotesPolledData,
+        constituencies,
+        partiesSwing,
+        electionType
+      )
+      const allStates = selectedYearData.filter((state) => {
+        return state.ST_NAME !== selectedStateUT
+      })
+      const swings = [...swingState, ...allStates]
+      return swings
+    }
 }
 
 /**
@@ -86,28 +89,46 @@ export const calculateSwings = (
 const calculateConstituencyVotesPolled = (
   selectedYearData,
   selectedStateUT,
-  constituencies
+  constituencies,
+  electionType
 ) => {
   const selectedState = selectedYearData.filter((state) => {
     return state.ST_NAME === selectedStateUT
   })
-  const totalVotes = constituencies.map((constituency) => {
-    const assemblyFilter = selectedState.filter((row) => {
-      return row.AC_NAME === constituency
+  let totalVotes = []
+  if(electionType === "general") {
+    totalVotes = constituencies.map((constituency) => {
+      const assemblyFilter = selectedState.filter((row) => {
+        return row.PC_NAME === constituency
+      })
+      const total = assemblyFilter
+        .map((row) => row.VOTES)
+        .reduce((prev, next) => Number(prev) + Number(next), 0)
+      const addedVotesArray = assemblyFilter.map((row) => {
+        return {
+          ...row,
+          TOTAL_VOTES_POLLED: total
+        }
+      })
+      return addedVotesArray
     })
-
-    const total = assemblyFilter
-      .map((row) => row.VOTES)
-      .reduce((prev, next) => Number(prev) + Number(next), 0)
-
-    const addedVotesArray = assemblyFilter.map((row) => {
-      return {
-        ...row,
-        TOTAL_VOTES_POLLED: total
-      }
+  } else {
+    totalVotes = constituencies.map((constituency) => {
+      const assemblyFilter = selectedState.filter((row) => {
+        return row.AC_NAME === constituency
+      })
+      const total = assemblyFilter
+        .map((row) => row.VOTES)
+        .reduce((prev, next) => Number(prev) + Number(next), 0)
+      const addedVotesArray = assemblyFilter.map((row) => {
+        return {
+          ...row,
+          TOTAL_VOTES_POLLED: total
+        }
+      })
+      return addedVotesArray
     })
-    return addedVotesArray
-  })
+  }
   const totalVotesPolled = totalVotes.filter((row) => {
     return row.length !== 0
   })
@@ -124,27 +145,52 @@ const calculateConstituencyVotesPolled = (
 const calculateVoteShare = (
   totalVotesPolledData,
   constituencies,
-  partiesSwing
+  partiesSwing,
+  electionType
 ) => {
-  const updateVotes = constituencies.map((constituency) => {
-    const assemblyFilter = totalVotesPolledData.filter((row) => {
-      return row.AC_NAME === constituency
+  let updateVotes = []
+  if(electionType === "general") {
+    updateVotes = constituencies.map((constituency) => {
+      const assemblyFilter = totalVotesPolledData.filter((row) => {
+        return row.PC_NAME === constituency
+      })
+      const newVoteShare = assemblyFilter.map((row) => {
+        const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)
+        let swingVotes = 0
+        if (swingParty) {
+          swingVotes = Math.round(
+            (Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100
+          )
+        }
+        return {
+          ...row,
+          VOTES:
+            swingVotes !== 0 ? Number(row.VOTES) + swingVotes : Number(row.VOTES)
+        }
+      })
+      return newVoteShare
     })
-    const newVoteShare = assemblyFilter.map((row) => {
-      const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)
-      let swingVotes = 0
-      if (swingParty) {
-        swingVotes = Math.round(
-          (Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100
-        )
-      }
-      return {
-        ...row,
-        VOTES:
-          swingVotes !== 0 ? Number(row.VOTES) + swingVotes : Number(row.VOTES)
-      }
+  } else {
+    updateVotes = constituencies.map((constituency) => {
+      const assemblyFilter = totalVotesPolledData.filter((row) => {
+        return row.AC_NAME === constituency
+      })
+      const newVoteShare = assemblyFilter.map((row) => {
+        const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)
+        let swingVotes = 0
+        if (swingParty) {
+          swingVotes = Math.round(
+            (Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100
+          )
+        }
+        return {
+          ...row,
+          VOTES:
+            swingVotes !== 0 ? Number(row.VOTES) + swingVotes : Number(row.VOTES)
+        }
+      })
+      return newVoteShare
     })
-    return newVoteShare
-  })
+  }
   return updateVotes.flat()
 }
