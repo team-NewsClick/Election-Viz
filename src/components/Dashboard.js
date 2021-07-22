@@ -21,7 +21,9 @@ import {
   REGION_DEFAULT_SELECT,
   ELECTION_TYPE_ASSEMBLY,
   DEFAULT_GROUP_TYPE,
-  COMPARE_OPTIONS
+  COMPARE_OPTIONS,
+  LIVE_ELECTIONS,
+  DELAY_INTERVAL
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -58,10 +60,14 @@ const Dashboard = ({
   const [electionType, setElectionType] = useState(ELECTION_TYPE_ASSEMBLY)
   const [yearOptions, setYearOptions] = useState(ASSEMBLY_YEAR_OPTIONS)
   const [compareElection, setCompareElection] = useState()
-  const [selectedYear, setSelectedYear] = useState(yearOptions[0])
+  const [selectedYear, setSelectedYear] = useState(yearOptions[0].value)
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
-  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
+  const [selectedStateUT, setSelectedStateUT] = useState(
+    STATE_UT_DEFAULT_SELECT
+  )
+  const [selectedConstituency, setSelectedConstituency] = useState(
+    CONSTITUENCIES_DEFAULT_SELECT
+  )
   const [selectedStateUTData, setSelectedStateUTData] = useState([])
   const [selectedConstituencyData, setSelectedConstituencyData] = useState([])
   const [mapData, setMapData] = useState({})
@@ -87,34 +93,68 @@ const Dashboard = ({
       electionType == "general" ? GENERAL_YEAR_OPTIONS : ASSEMBLY_YEAR_OPTIONS
     )
     setSelectedYear(
-      yearOptions.indexOf(selectedYear) > -1 ? selectedYear : yearOptions[0]
+      yearOptions.indexOf(selectedYear) > -1
+        ? selectedYear
+        : yearOptions[0].value
     )
   }, [electionType, yearOptions])
 
   useEffect(() => {
-    axios
-      .get(`/data/csv/${electionType}_${selectedYear}.csv`)
-      .then((response) => {
+    if (selectedYear === "2021") {
+      const interval = setInterval(() => {
+        console.log("Live Elections")
+        axios.get(`${process.env.LIVE_ELECTIONS}`).then((response) => {
+          const parsedData = csvParse(response.data)
+          setSelectedYearData(parsedData)
+        })
+      }, 1000)
+      return () => clearInterval(interval)
+    }
+    console.log("Inside useEffect")
+  }, [])
+  useEffect(() => {
+    if (selectedYear !== "2021") {
+        axios
+          .get(`/data/csv/${electionType}_${selectedYear}.csv`)
+          .then((response) => {
+            const parsedData = csvParse(response.data)
+            setSelectedYearData(parsedData)
+          })
+        axios
+          .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
+          .then((response) => {
+            setCompareElection(`${parseInt(selectedYear) - 5}-${electionType}`)
+          })
+          .catch((e) => setCompareElection(COMPARE_OPTIONS[0].value))
+    } else {
+      axios.get(`${process.env.LIVE_ELECTIONS}`).then((response) => {
         const parsedData = csvParse(response.data)
         setSelectedYearData(parsedData)
       })
       axios
-      .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
-      .then((response) => {
-        setCompareElection(`${parseInt(selectedYear) - 5}-${electionType}`)
-      })
-      .catch((e) => setCompareElection(COMPARE_OPTIONS[0].value))
+        .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
+        .then((response) => {
+          setCompareElection(`${parseInt(selectedYear) - 5}-${electionType}`)
+        })
+        .catch((e) => setCompareElection(COMPARE_OPTIONS[0].value))
+    }
   }, [selectedYear])
 
   useEffect(() => {
     setRegionStatsLoading(true)
-    if(compareElection) {
+    if (compareElection) {
       const comapreWith = compareElection.split("-")
       const compareYear = comapreWith[0]
       const compareElectionType = comapreWith[1]
-      if(compareElectionType === electionType && compareYear === selectedYear) {
+      if (
+        compareElectionType === electionType &&
+        compareYear === selectedYear
+      ) {
         setCompareYearData([])
-      } else if(electionType === compareElectionType && compareYear !== selectedYear) {
+      } else if (
+        electionType === compareElectionType &&
+        compareYear !== selectedYear
+      ) {
         axios
           .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
           .then((response) => {
@@ -308,7 +348,7 @@ const Dashboard = ({
   }, [constituenciesResults, filteredGeoJSON])
 
   useEffect(() => {
-    if(compareElection) {
+    if (compareElection) {
       setRegionStatsTableData(
         getRegionStatsTable(
           selectedStateUT === STATE_UT_DEFAULT_SELECT
@@ -371,22 +411,29 @@ const Dashboard = ({
 
   useEffect(() => {
     if (electionType === "assembly") {
-      axios
-        .get(`/data/csv/${electionType}_${selectedYear}.csv`)
-        .then((response) => {
+      if (selectedYear !== "2021") {
+        axios
+          .get(`/data/csv/${electionType}_${selectedYear}.csv`)
+          .then((response) => {
+            const parsedData = csvParse(response.data)
+            if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+              setSelectedYearData(parsedData)
+            } else {
+              const temp = calculateSwings(
+                parsedData,
+                selectedStateUT,
+                constituencyOptions,
+                partiesSwing
+              )
+              setSelectedYearData([...temp])
+            }
+          })
+      } else {
+        axios.get(`${process.env.LIVE_ELECTIONS}`).then((response) => {
           const parsedData = csvParse(response.data)
-          if(selectedStateUT === STATE_UT_DEFAULT_SELECT) {
-            setSelectedYearData(parsedData)
-          } else {
-            const temp = calculateSwings(
-              parsedData,
-              selectedStateUT,
-              constituencyOptions,
-              partiesSwing
-            )
-            setSelectedYearData([...temp])
-          }
+          setSelectedYearData(parsedData)
         })
+      }
     }
   }, [partiesSwing])
 
@@ -550,8 +597,8 @@ const Dashboard = ({
               value={selectedYear}
             >
               {yearOptions.map((d, index) => (
-                <option key={index} value={d}>
-                  {d}
+                <option key={index} value={d.value}>
+                  {d.label}
                 </option>
               ))}
             </select>
@@ -665,7 +712,7 @@ const Dashboard = ({
                 <div
                   onClick={openCustomAllianceModal}
                   className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-                  >
+                >
                   Customise Alliances
                 </div>
                 {selectedStateUT !== STATE_UT_DEFAULT_SELECT && (
@@ -678,24 +725,24 @@ const Dashboard = ({
                 )}
               </div>
               <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-                  <div className="md:w-64 inline-block align-text-bottom my-auto">
+                <div className="md:w-64 inline-block align-text-bottom my-auto">
                   Select an election to compare:
-                  </div>
-                  <div>
-                    <select
-                      name="compareElection"
-                      onChange={(e) => _handleCompareElection(e.target.value)}
-                      id="compareElection"
-                      className="advance-select md:w-64"
-                      value={compareElection}
-                    >
-                      {COMPARE_OPTIONS.map((d, index) => (
-                        <option key={index} value={d.value}>
-                          {d.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                </div>
+                <div>
+                  <select
+                    name="compareElection"
+                    onChange={(e) => _handleCompareElection(e.target.value)}
+                    id="compareElection"
+                    className="advance-select md:w-64"
+                    value={compareElection}
+                  >
+                    {COMPARE_OPTIONS.map((d, index) => (
+                      <option key={index} value={d.value}>
+                        {d.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
               {/* <div>
                 <select

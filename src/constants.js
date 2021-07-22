@@ -11,12 +11,45 @@ export const ELECTION_TYPE_ASSEMBLY = "assembly"
 /**
  * Options for Year for Assembly Elections
  */
-export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015"]
+export const ASSEMBLY_YEAR_OPTIONS = [
+  {
+    label: "2016",
+    value: "2016"
+  },
+  {
+    label: "2015",
+    value: "2015"
+  },
+  {
+    label: "Live",
+    value: "2021"
+  }
+]
 
 /**
  * Options for Year for General Elections
  */
-export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
+export const GENERAL_YEAR_OPTIONS = [
+  {
+    label: "2019",
+    value: "2019"
+  },
+  {
+    label: "2014",
+    value: "2014"
+  }
+]
+
+/**
+ * Live Election
+ */
+export const LIVE_ELECTIONS = "Live"
+
+/**
+ * Time Delay for Live Update in Minutes
+ */
+
+export const DELAY_INTERVAL = 1
 
 /**
  * Options to compare selected election result with
