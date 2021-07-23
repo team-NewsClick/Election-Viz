@@ -9,6 +9,16 @@ export const ELECTION_TYPE_DEFAULT = "general"
 export const ELECTION_TYPE_ASSEMBLY = "assembly"
 
 /**
+ * Live Election
+ */
+ export const LIVE_ELECTION = "Live"
+
+ /**
+  * Live Election Year
+  */
+ export const LIVE_ELECTION_YEAR = "2021"
+ 
+/**
  * Options for Year for Assembly Elections
  */
 export const ASSEMBLY_YEAR_OPTIONS = [
@@ -21,8 +31,8 @@ export const ASSEMBLY_YEAR_OPTIONS = [
     value: "2015"
   },
   {
-    label: "Live",
-    value: "2021"
+    label: LIVE_ELECTION,
+    value: LIVE_ELECTION
   }
 ]
 
@@ -41,15 +51,10 @@ export const GENERAL_YEAR_OPTIONS = [
 ]
 
 /**
- * Live Election
- */
-export const LIVE_ELECTIONS = "Live"
-
-/**
  * Time Delay for Live Update in Minutes
  */
 
-export const DELAY_INTERVAL = 1
+export const DELAY_INTERVAL_MINUTES = 1
 
 /**
  * Options to compare selected election result with

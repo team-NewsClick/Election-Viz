@@ -8,6 +8,6 @@ module.exports = {
   },
   env: {
     MAPBOX_BOX_ACCESS_TOKEN: process.env.MAPBOX_BOX_ACCESS_TOKEN,
-    LIVE_ELECTIONS:process.env.LIVE_ELECTIONS
+    LIVE_ELECTION:process.env.LIVE_ELECTIONS
   }
 }

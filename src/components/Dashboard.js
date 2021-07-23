@@ -22,8 +22,9 @@ import {
   ELECTION_TYPE_ASSEMBLY,
   DEFAULT_GROUP_TYPE,
   COMPARE_OPTIONS,
-  LIVE_ELECTIONS,
-  DELAY_INTERVAL
+  LIVE_ELECTION,
+  LIVE_ELECTION_YEAR,
+  DELAY_INTERVAL_MINUTES
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -100,44 +101,39 @@ const Dashboard = ({
   }, [electionType, yearOptions])
 
   useEffect(() => {
-    if (selectedYear === "2021") {
+    if (selectedYear === LIVE_ELECTION) {
       const interval = setInterval(() => {
-        console.log("Live Elections")
-        axios.get(`${process.env.LIVE_ELECTIONS}`).then((response) => {
+        axios.get(`${process.env.LIVE_ELECTION}`).then((response) => {
           const parsedData = csvParse(response.data)
           setSelectedYearData(parsedData)
         })
-      }, 1000)
+      }, 1000 * 60 * DELAY_INTERVAL_MINUTES)
       return () => clearInterval(interval)
     }
-    console.log("Inside useEffect")
-  }, [])
+  })
   useEffect(() => {
-    if (selectedYear !== "2021") {
-        axios
-          .get(`/data/csv/${electionType}_${selectedYear}.csv`)
-          .then((response) => {
-            const parsedData = csvParse(response.data)
-            setSelectedYearData(parsedData)
-          })
-        axios
-          .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
-          .then((response) => {
-            setCompareElection(`${parseInt(selectedYear) - 5}-${electionType}`)
-          })
-          .catch((e) => setCompareElection(COMPARE_OPTIONS[0].value))
+    let URL, COMPARE_URL, COMPARE_ELECTION
+    if(selectedYear === LIVE_ELECTION) {
+      URL = `${process.env.LIVE_ELECTION}`
+      COMPARE_URL = `/data/csv/${electionType}_${parseInt(LIVE_ELECTION_YEAR) - 5}.csv`
+      COMPARE_ELECTION = `${parseInt(LIVE_ELECTION_YEAR) - 5}-${electionType}`
     } else {
-      axios.get(`${process.env.LIVE_ELECTIONS}`).then((response) => {
+      URL = `/data/csv/${electionType}_${selectedYear}.csv`
+      COMPARE_URL = `/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`
+      COMPARE_ELECTION = `${parseInt(selectedYear) - 5}-${electionType}`
+    }
+    axios
+      .get(URL)
+      .then((response) => {
         const parsedData = csvParse(response.data)
         setSelectedYearData(parsedData)
       })
-      axios
-        .get(`/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`)
-        .then((response) => {
-          setCompareElection(`${parseInt(selectedYear) - 5}-${electionType}`)
-        })
-        .catch((e) => setCompareElection(COMPARE_OPTIONS[0].value))
-    }
+    axios
+      .get(COMPARE_URL)
+      .then((response) => {
+        setCompareElection(COMPARE_ELECTION)
+      })
+      .catch((e) => setCompareElection(COMPARE_OPTIONS[0].value))
   }, [selectedYear])
 
   useEffect(() => {
@@ -411,7 +407,7 @@ const Dashboard = ({
 
   useEffect(() => {
     if (electionType === "assembly") {
-      if (selectedYear !== "2021") {
+      if (selectedYear !== LIVE_ELECTION) {
         axios
           .get(`/data/csv/${electionType}_${selectedYear}.csv`)
           .then((response) => {
@@ -429,7 +425,7 @@ const Dashboard = ({
             }
           })
       } else {
-        axios.get(`${process.env.LIVE_ELECTIONS}`).then((response) => {
+        axios.get(`${process.env.LIVE_ELECTION}`).then((response) => {
           const parsedData = csvParse(response.data)
           setSelectedYearData(parsedData)
         })
