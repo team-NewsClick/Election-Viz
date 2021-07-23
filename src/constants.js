@@ -54,7 +54,7 @@ export const GENERAL_YEAR_OPTIONS = [
  * Time Delay for Live Update in Minutes
  */
 
-export const DELAY_INTERVAL_MINUTES = 1
+export const DELAY_INTERVAL_MINUTES = 3
 
 /**
  * Options to compare selected election result with

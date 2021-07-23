@@ -41,7 +41,7 @@ import {
   getMapData,
   getConstituenciesResults
 } from "../helpers/utils"
-import { getRegionStatsSVGData, getResultsByPolling } from "../helpers/statsSVG"
+import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
 import { getReservedGeoJson } from "../helpers/reservedSeats"
 import { getRegions } from "../helpers/regions"
@@ -312,33 +312,15 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
-    if (electionType === "general") {
-      setRegionStatsSVGData(
-        getRegionStatsSVGData(
-          constituenciesResults,
-          electionType,
-          groupType,
-          partyAlliance,
-          selectedStateUT,
-          filteredGeoJSON
-        )
-      )
-    } else {
-      setRegionStatsSVGData(
-        getRegionStatsSVGData(
-          selectedStateUT === STATE_UT_DEFAULT_SELECT
-            ? selectedYearData
-            : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-            ? selectedStateUTData
-            : selectedConstituencyData,
-          electionType,
-          groupType,
-          partyAlliance,
-          selectedStateUT,
-          filteredGeoJSON
-        )
-      )
-    }
+    const temp = getRegionStatsSVGData(
+      constituenciesResults,
+      electionType,
+      groupType,
+      partyAlliance,
+      selectedStateUT,
+      filteredGeoJSON
+    )
+    setRegionStatsSVGData(temp)
     setMapWidgetLoading(false)
     setRegionStatsLoading(false)
   }, [constituenciesResults, filteredGeoJSON])

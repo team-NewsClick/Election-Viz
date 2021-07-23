@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import {
   STATE_UT_DEFAULT_SELECT,
   PARTY_COLOR,
@@ -44,18 +43,13 @@ export const getRegionStatsSVGData = (
       const filteredData = data.filter((d) => {
         if (
           filteredGeoJSON.features.findIndex(
-            (e) => e.properties.AC_NAME === d.AC_NAME
+            (e) => e.properties.AC_NAME === d.ac_name
           ) > -1
         ) {
           return d
         }
       })
-      const electedCandidates = getAssemblyResultsByVotes(
-        filteredData,
-        groupType,
-        partyAlliance
-      )
-      const count = seatsCount(electedCandidates, groupType, partyAlliance)
+      const count = seatsCount(filteredData, groupType)
       return count
     }
   }
@@ -144,78 +138,5 @@ export const seatsCount = (data, groupType) => {
       colour: assignColor(row)
     }
   })
-  return finalData
-}
-
-/**
- * To get assembly elections data of a region by no of votes
- * @param {Array<Object>} data Selected region data
- * @returns {Array<Object>} - Election data of a region
- */
-export const getAssemblyResultsByVotes = (data, groupType, partyAlliance) => {
-  const finalResult = []
-  if(groupType === "party") {
-    var grouped = _.mapValues(_.groupBy(data, 'AC_NAME'))
-    var keys = Object.keys(grouped)
-    keys.map((key) => {
-      let candidateElected = grouped[key].reduce((max, obj) => (max.VOTES > obj.VOTES) ? max : obj);
-      finalResult.push(candidateElected)
-    })
-  } else {
-    var grouped = _.mapValues(_.groupBy(data, 'AC_NAME'))
-    var keys = Object.keys(grouped)
-    keys.map((key) => {
-      let candidateElected = grouped[key].reduce((max, obj) => (max.VOTES > obj.VOTES) ? max : obj);
-      const alliance = partyAlliance.find((e) => e.PARTY == candidateElected.PARTY) && partyAlliance.find((e) => e.PARTY == candidateElected.PARTY).ALLIANCE
-      finalResult.push({
-        candidate: candidateElected.CANDIDATE,
-        color:
-          PARTY_COLOR.find((e) => e.party == alliance) == undefined
-            ? DEFAULT_PARTY_ALLIANCE_COLOR
-            : PARTY_COLOR.find((e) => e.party == alliance).color,
-        alliance: alliance,
-        ac_name: candidateElected.AC_NAME,
-        votes: candidateElected.VOTES
-      })
-    })
-  }
-  return finalResult
-}
-
-/**
- * To get assembly elections data of a regon
- * @param {Array<Object>} data Selected region data
- * @param {string} groupType party or alliance
- * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
- * @returns {Array<Object>} - Election data of a region
- */
-export const getAssemblyResults = (data, groupType, partyAlliance) => {
-  const finalData = []
-  // const finalResult = getAssemblyResultsByVotes(data)
-  if (groupType === "party") {
-    data
-      .filter((candidates) => candidates.POSITION === "1")
-      .map((row) => {
-        finalData.push(row)
-      })
-  } else {
-    data
-      .filter((candidates) => candidates.POSITION === "1")
-      .map((row) => {
-        const alliance = partyAlliance.find((e) => e.PARTY == row.PARTY)
-          ? partyAlliance.find((e) => e.PARTY === row.PARTY).ALLIANCE
-          : "OTHERS"
-        finalData.push({
-          candidate: row.CANDIDATE,
-          color:
-            PARTY_COLOR.find((e) => e.party == alliance) == undefined
-              ? DEFAULT_PARTY_ALLIANCE_COLOR
-              : PARTY_COLOR.find((e) => e.party == alliance).color,
-          alliance: alliance,
-          ac_name: row.AC_NAME,
-          votes: row.VOTES
-        })
-      })
-  }
   return finalData
 }
