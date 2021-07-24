@@ -316,7 +316,6 @@ const Dashboard = ({
       constituenciesResults,
       electionType,
       groupType,
-      partyAlliance,
       selectedStateUT,
       filteredGeoJSON
     )
