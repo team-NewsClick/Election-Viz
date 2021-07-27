@@ -16,8 +16,7 @@ const CustomAllianceModal = ({
   constituenciesResults,
   customAlliance,
   swingParams,
-  selectedYear,
-  selectedStateUT
+  constituencyOptions
 }) => {
   const [rowsInit, setRowsInit] = useState([])
   const [resetAlliances, setResetAlliances] = useState(true)
@@ -33,7 +32,7 @@ const CustomAllianceModal = ({
       setPartyAllianceInit(parsedData)
       setCustomedPartyAlliance(parsedData)
     })
-  }, [selectedYear, selectedStateUT])
+  }, [constituencyOptions])
 
   useEffect(() => {
     setCustomedPartyAlliance(partyAllianceInit)

@@ -11,7 +11,7 @@ export const ELECTION_TYPE_ASSEMBLY = "assembly"
 /**
  * Option when no particular State/UT is selected
  */
-export const FIRST_SELECT_STATEUT = "First Select a State or UT"
+export const FIRST_SELECT_STATEUT = "First select a State/UT"
 
 /**
  * Live Election

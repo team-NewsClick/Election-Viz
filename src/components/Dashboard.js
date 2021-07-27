@@ -183,34 +183,6 @@ const Dashboard = ({
     }
   }, [selectedYear])
 
-  // useEffect(() => {
-  //   if(electionType === "assembly") {
-  //     let URL, COMPARE_URL, COMPARE_ELECTION
-  //     if(selectedYear === LIVE_ELECTION) {
-  //       URL = `${process.env.LIVE_ELECTION}`
-  //       COMPARE_URL = `/data/csv/${electionType}_${parseInt(LIVE_ELECTION_YEAR) - 5}.csv`
-  //       COMPARE_ELECTION = `${parseInt(LIVE_ELECTION_YEAR) - 5}-${electionType}`
-  //     } else {
-  //       URL = `/data/csv/${electionType}_${selectedYear}.csv`
-  //       COMPARE_URL = `/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`
-  //       COMPARE_ELECTION = `${parseInt(selectedYear) - 5}-${electionType}`
-  //     }
-  //     axios
-  //       .get(URL)
-  //       .then((response) => {
-  //         const parsedData = csvParse(response.data)
-  //         setSelectedYearData(parsedData)
-  //       })
-  //       .catch((e) => setSelectedYearData([]))
-  //     axios
-  //       .get(COMPARE_URL)
-  //       .then((response) => {
-  //         setCompareElection(COMPARE_ELECTION)
-  //       })
-  //       .catch((e) => setCompareElection(COMPARE_OPTIONS[0].value))
-  //   }
-  // }, [selectedStateUT, selectedYear])
-
   useEffect(() => {
     setRegionStatsLoading(true)
     if (compareElection) {
@@ -562,7 +534,7 @@ const Dashboard = ({
   const _handleSelectedSeatType = (v) => {
     setSeatType(v)
   }
-
+  
   if (stateUTOptions && stateUTOptions.length !== 0) {
     return (
       <div>
@@ -876,8 +848,7 @@ const Dashboard = ({
             constituenciesResults={constituenciesResults}
             customAlliance={customAlliance}
             swingParams={swingParams}
-            selectedYear={selectedYear}
-            selectedStateUT={selectedStateUT}
+            constituencyOptions={constituencyOptions}
           />
         </div>
         <div
@@ -901,7 +872,7 @@ const Dashboard = ({
             {electionType === "assembly" &&
             selectedStateUT === STATE_UT_DEFAULT_SELECT ? (
               <div className="flex h-full">
-                <div className="text-center m-auto text-xl px-4">
+                <div className="text-center m-auto text-xl px-4 py-10">
                   Please select a region from the drop-down or by clicking on
                   the map.
                 </div>
