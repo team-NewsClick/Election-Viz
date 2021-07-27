@@ -173,7 +173,7 @@ const Dashboard = ({
           const parsedData = csvParse(response.data)
           setSelectedYearData(parsedData)
         })
-        .catch((e) => console.log(e))
+        .catch((e) => setSelectedYearData([]))
       axios
         .get(COMPARE_URL)
         .then((response) => {
@@ -534,7 +534,7 @@ const Dashboard = ({
   const _handleSelectedSeatType = (v) => {
     setSeatType(v)
   }
-  
+
   if (stateUTOptions && stateUTOptions.length !== 0) {
     return (
       <div>
