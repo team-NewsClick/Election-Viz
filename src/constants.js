@@ -9,6 +9,11 @@ export const ELECTION_TYPE_DEFAULT = "general"
 export const ELECTION_TYPE_ASSEMBLY = "assembly"
 
 /**
+ * Option when no particular State/UT is selected
+ */
+export const FIRST_SELECT_STATEUT = "First Select a State or UT"
+
+/**
  * Live Election
  */
  export const LIVE_ELECTION = "Live"
@@ -21,61 +26,41 @@ export const ELECTION_TYPE_ASSEMBLY = "assembly"
 /**
  * Options for Year for Assembly Elections
  */
-export const ASSEMBLY_YEAR_OPTIONS = [
-  {
-    label: "2016",
-    value: "2016"
-  },
-  {
-    label: "2015",
-    value: "2015"
-  },
-  {
-    label: LIVE_ELECTION,
-    value: LIVE_ELECTION
-  }
-]
+export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015", LIVE_ELECTION]
 
 /**
  * Options for Year for General Elections
  */
-export const GENERAL_YEAR_OPTIONS = [
-  {
-    label: "2019",
-    value: "2019"
+export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
+
+export const ELECTION_YEAR_STATEUT = {
+  general : {
+    2019 : [
+      "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Goa", "Gujarat", "Haryana", "Himachal Pradesh",
+      "Jammu & Kashmir", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
+      "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar Pradesh", "West Bengal",
+      "Chhattisgarh", "Jharkhand", "Uttarakhand", "Telangana", "Andaman & Nicobar Islands", "Chandigarh",
+      "Dadra & Nagar Haveli", "Daman & Diu", "NCT of Delhi", "Lakshadweep", "Puducherry"
+    ],
+    2014 : [
+      "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Goa", "Gujarat", "Haryana", "Himachal Pradesh",
+      "Jammu & Kashmir", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
+      "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar Pradesh", "West Bengal",
+      "Chhattisgarh", "Jharkhand", "Uttarakhand", "Andaman & Nicobar Islands", "Chandigarh",
+      "Dadra & Nagar Haveli", "Daman & Diu", "NCT of Delhi", "Lakshadweep", "Puducherry"
+    ]
   },
-  {
-    label: "2014",
-    value: "2014"
+  assembly : {
+    2016 : ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
+    2015 : ["Bihar"]
   }
-]
+}
 
 /**
  * Time Delay for Live Update in Minutes
  */
 
 export const DELAY_INTERVAL_MINUTES = 3
-
-/**
- * Options to compare selected election result with
- */
-export let COMPARE_OPTIONS = []
-COMPARE_OPTIONS.push({
-  value: "none-none",
-  label: "None"
-})
-ASSEMBLY_YEAR_OPTIONS.map((d) => {
-  COMPARE_OPTIONS.push({
-    value: d + "-assembly",
-    label: "Assembly Election " + d
-  })
-})
-GENERAL_YEAR_OPTIONS.map((d) => {
-  COMPARE_OPTIONS.push({
-    value: d + "-general",
-    label: "General Election " + d
-  })
-})
 
 /**
  * Default Group type

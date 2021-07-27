@@ -3,6 +3,8 @@ import {
   PARTY_COLOR,
   CONSTITUENCIES_DEFAULT_SELECT,
   DEFAULT_PARTY_ALLIANCE_COLOR,
+  ELECTION_YEAR_STATEUT,
+  FIRST_SELECT_STATEUT
 } from "../constants"
 
 /**
@@ -10,38 +12,54 @@ import {
  * @param {Array.<Object>} data - Array of Objects having a year of data
  * @return {Array} List of States and UTS that had election in a year
  */
-export const getStateUTs = (data, electionType, filteredGeoJSON) => {
-  if (data === null) {
-    return null
-  } else {
-    let stateUTs = new Set()
-    data.map((row) => {
-      if (electionType === "general") {
-        if (
-          filteredGeoJSON.features &&
-          filteredGeoJSON.features.findIndex(
-            (e) => e.properties.PC_NAME === row.PC_NAME
-          ) > -1
-        ) {
-          stateUTs.add(row.ST_NAME)
-        }
-      } else {
-        if (
-          filteredGeoJSON.features &&
-          filteredGeoJSON.features.findIndex(
-            (e) => e.properties.AC_NAME === row.AC_NAME
-          ) > -1
-        ) {
-          stateUTs.add(row.ST_NAME)
-        }
+export const getStateUTs = (year, seatType, electionType, geoJSON) => {
+  if (geoJSON.features && geoJSON.features.length !== 0) {
+    let stateUTFromData = new Set(), stateUTFromGeoJson = new Set(), stateUTs = []
+    if (electionType === "general") {
+      stateUTFromData = [...ELECTION_YEAR_STATEUT[electionType][year]]   
+    } else {
+      for(const YEAR in ELECTION_YEAR_STATEUT[electionType]) {
+        const tempStates = ELECTION_YEAR_STATEUT[electionType][YEAR]
+        tempStates.map((d) => stateUTFromData.add(d))
       }
+      stateUTFromData = [...stateUTFromData]
+    }
+    if(seatType === "Reserved") {
+      geoJSON.features.map((d) => {
+        if(d.properties.Res !== "GEN") stateUTFromGeoJson.add(d.properties.ST_NAME)
+      })
+    } else if(seatType === "Unreserved") {
+      geoJSON.features.map((d) => {
+        if(d.properties.Res === "GEN") stateUTFromGeoJson.add(d.properties.ST_NAME)
+      })
+    } else {
+      geoJSON.features.map((d) => stateUTFromGeoJson.add(d.properties.ST_NAME))
+    }
+    stateUTFromGeoJson = [...stateUTFromGeoJson]
+    stateUTs.push(STATE_UT_DEFAULT_SELECT)
+    stateUTFromData.map((d) => {
+      if(stateUTFromGeoJson.findIndex((e) => e === d) > -1) stateUTs.push(d)
     })
-    stateUTs = [...stateUTs]
-    if (stateUTs.length > 1) {
-      stateUTs.unshift(STATE_UT_DEFAULT_SELECT)
+    if (stateUTs.length === 2) {
+      stateUTs.shift()
     }
     return stateUTs
   }
+}
+
+export const getAssemblyYearOptions = (electionType, selectedStateUT) => {
+  let yearOptions = []
+  if(selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+    yearOptions.push(FIRST_SELECT_STATEUT)
+  } else {
+    for(const YEAR in ELECTION_YEAR_STATEUT[electionType]) {
+      const tempStates = ELECTION_YEAR_STATEUT[electionType][YEAR]
+      tempStates.findIndex((d) => d === selectedStateUT) > -1
+        ? yearOptions.push(YEAR)
+        : ""
+    }
+  }
+  return yearOptions
 }
 
 /**
@@ -60,7 +78,7 @@ export const getConstituencies = (
     return null
   } else {
     if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
-      return ["First Select a State or UT"]
+      return [FIRST_SELECT_STATEUT]
     } else {
       if (electionType === "general") {
         data.map((row) => {
@@ -134,6 +152,54 @@ export const getDataConstituency = (data, constituency, electionType) => {
       )
     }
   }
+}
+
+/**
+ * To get ist of elections that was held for the selected State or UT for dropdown menu
+ * @param {String} electionType general or assembly
+ * @param {String} selectedYear year of election
+ * @param {String} selectedStateUT Name of State or UT
+ * @returns {Array<Object>} List of elections for the selected
+ */
+export const getCompareOptions = (electionType, selectedYear, selectedStateUT) => {
+  const compareOptions = [{
+    value: "none-none",
+    label: "None"
+  }]
+  if(electionType ==="general" && selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+    for(const ELECTION in ELECTION_YEAR_STATEUT) {
+      for(const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
+        if(ELECTION === electionType && YEAR !== selectedYear) {
+          let tempValue = YEAR + "-" + ELECTION
+          let tempLabel = ELECTION + " Election " + YEAR
+          tempLabel = tempLabel.charAt(0).toUpperCase() +tempLabel.slice(1)
+          compareOptions.push({
+            value: tempValue,
+            label: tempLabel
+          })
+        }
+      }
+    }
+  } else {
+    for(const ELECTION in ELECTION_YEAR_STATEUT) {
+      for(const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
+        if(electionType !== ELECTION || selectedYear !== YEAR) {
+          ELECTION_YEAR_STATEUT[ELECTION][YEAR].map((STATE_UT) => {
+            if(selectedStateUT === STATE_UT) {
+              let tempValue = YEAR + "-" + ELECTION
+              let tempLabel = ELECTION + " Election " + YEAR
+              tempLabel = tempLabel.charAt(0).toUpperCase() +tempLabel.slice(1)
+              compareOptions.push({
+                value: tempValue,
+                label: tempLabel
+              })
+            }
+          })
+        }
+      }
+    }
+  }
+  return compareOptions
 }
 
 /**
@@ -234,7 +300,7 @@ export const getConstituenciesResults = (
   if (data.constituencies) {
     if (
       selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
-      selectedConstituency === "First Select a State or UT"
+      selectedConstituency === FIRST_SELECT_STATEUT
     ) {
       data.constituencies.map((d) => {
         if (groupType === "party") {
