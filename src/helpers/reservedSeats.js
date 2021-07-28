@@ -5,7 +5,7 @@ import { getDistricts } from "../helpers/regions"
  * To filter GeoJSON with respect   to seatType
  * @param {Object} geoJson Constituencies GeoJSON
  * @param {String} seatType All Seats/Reserved/Unreserved
- * @param {String} electionType assembly/general
+ * @param {String} electionViewType assembly/general
  * @returns {Object} - Filtered GeoJson with respect to seatType
  */
 export const getReservedGeoJson = (

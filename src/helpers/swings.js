@@ -50,7 +50,7 @@ export const calculateSwings = (
   selectedStateUT,
   constituencyOptions,
   partiesSwing,
-  electionType
+  electionViewType
 ) => {
     if (
       constituencyOptions.length !== 0 &&
@@ -63,13 +63,13 @@ export const calculateSwings = (
         selectedYearData,
         selectedStateUT,
         constituencies,
-        electionType
+        electionViewType
       )
       const swingState = calculateVoteShare(
         totalVotesPolledData,
         constituencies,
         partiesSwing,
-        electionType
+        electionViewType
       )
       const allStates = selectedYearData.filter((state) => {
         return state.ST_NAME !== selectedStateUT
@@ -90,13 +90,13 @@ const calculateConstituencyVotesPolled = (
   selectedYearData,
   selectedStateUT,
   constituencies,
-  electionType
+  electionViewType
 ) => {
   const selectedState = selectedYearData.filter((state) => {
     return state.ST_NAME === selectedStateUT
   })
   let totalVotes = []
-  if(electionType === "general") {
+  if(electionViewType === "general") {
     totalVotes = constituencies.map((constituency) => {
       const assemblyFilter = selectedState.filter((row) => {
         return row.PC_NAME === constituency
@@ -146,10 +146,10 @@ const calculateVoteShare = (
   totalVotesPolledData,
   constituencies,
   partiesSwing,
-  electionType
+  electionViewType
 ) => {
   let updateVotes = []
-  if(electionType === "general") {
+  if(electionViewType === "general") {
     updateVotes = constituencies.map((constituency) => {
       const assemblyFilter = totalVotesPolledData.filter((row) => {
         return row.PC_NAME === constituency

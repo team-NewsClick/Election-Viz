@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
+import { getWinningParties, getPartyAlliance } from "../../helpers/customAlliance"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import { PARTY_COLOR } from "../../constants"
+import { FIRST_SELECT_STATEUT, PARTY_COLOR } from "../../constants"
 /**
  * A modal box with customizable alliances
  * @param {Array<Object>} param0 Election result of a constituency
@@ -13,70 +14,45 @@ import { PARTY_COLOR } from "../../constants"
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
 const CustomAllianceModal = ({
-  constituenciesResults,
+  selectedElection,
+  selectedStateUT,
+  constituencyOptions,
+  electionViewType,
   customAlliance,
-  swingParams,
-  constituencyOptions
 }) => {
-  const [rowsInit, setRowsInit] = useState([])
-  const [resetAlliances, setResetAlliances] = useState(true)
-  const [rows, setRows] = useState(rowsInit)
-  const [partyAllianceInit, setPartyAllianceInit] = useState([])
+  const [yearData, setYearData] = useState([])
+  const [rows, setRows] = useState([])
+  const [defaultPartyAlliance, setDefaultPartyAlliance] = useState([])
   const [newAllianceCount, setNewAllianceCount] = useState(0)
-  const [customedPartyAlliance, setCustomedPartyAlliance] =
-    useState(partyAllianceInit)
+  const [resetAlliances, setResetAlliances] = useState(true)
 
   useEffect(() => {
+    const electionType = selectedElection.type
+    const year = selectedElection.year
+    if(year){
+      axios
+      .get(`/data/csv/${electionType}_${year}.csv`)
+      .then((response) => {
+        const parsedData = csvParse(response.data)
+        setYearData(parsedData)
+      })
+      .catch((e) => {
+        setYearData([])
+      })
+    }
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
-      setPartyAllianceInit(parsedData)
-      setCustomedPartyAlliance(parsedData)
+      setDefaultPartyAlliance(parsedData)
     })
-  }, [constituencyOptions])
+  }, [selectedStateUT, selectedElection])
 
   useEffect(() => {
-    setCustomedPartyAlliance(partyAllianceInit)
-    let allParties = new Set()
-    constituenciesResults.map((d) => {
-      allParties.add(d.party)
-    })
-    let alliances = new Set()
-    let alliancePartyData = []
-    partyAllianceInit.length > 0 &&
-      partyAllianceInit.map((d) => alliances.add(d.ALLIANCE))
-    alliances = [...alliances, "OTHERS"]
-    alliances.map((d) => {
-      alliancePartyData.push({
-        alliance: d,
-        parties: []
-      })
-    })
-    constituenciesResults.length > 0 &&
-      constituenciesResults.map((d) => {
-        let tempAlliance = partyAllianceInit.find((p) => p.PARTY === d.party)
-        tempAlliance = tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
-        let tempAllianceIndex = alliancePartyData.findIndex(
-          (e) => e.alliance === tempAlliance
-        )
-        let tempPartyIndex = alliancePartyData[
-          tempAllianceIndex
-        ].parties.findIndex((e) => e === d.party)
-        if (tempPartyIndex < 0) {
-          alliancePartyData[tempAllianceIndex].parties.push(d.party)
-        }
-      })
-    swingParams &&
-      swingParams.map((d) => {
-        if (d.newAlliance === true) {
-          alliancePartyData.push({
-            alliance: d.alliance,
-            parties: []
-          })
-        }
-      })
-    setRowsInit(alliancePartyData)
-    setRows(alliancePartyData)
-  }, [resetAlliances, partyAllianceInit])
+    if(defaultPartyAlliance.length !== 0) {
+      const parties = getWinningParties(yearData, selectedStateUT, electionViewType)
+      const tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
+      setRows(tempPartyAlliance)
+    }
+  }, [yearData, selectedElection, selectedStateUT])
 
   useEffect(() => {
     const tempCustomedPartyAlliance = []
@@ -95,7 +71,11 @@ const CustomAllianceModal = ({
         }
       }
     })
-  }, [partyAllianceInit, resetAlliances, customedPartyAlliance, swingParams])
+  }, [defaultPartyAlliance])
+
+  useEffect(() => {
+    _resetPartyAlliance()
+  }, [selectedElection, selectedStateUT])
 
   const _addNewAlliance = (v) => {
     const tempAlliance = document.getElementById('new-alliance').value.trim()
@@ -119,7 +99,6 @@ const CustomAllianceModal = ({
         tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
       })
     })
-    setCustomedPartyAlliance(tempCustomedPartyAlliance)
     customAlliance(tempCustomedPartyAlliance)
   }
 
@@ -145,8 +124,23 @@ const CustomAllianceModal = ({
   }
 
   const _resetPartyAlliance = () => {
-    setResetAlliances(resetAlliances ? false : true)
+    setResetAlliances(true)
     setNewAllianceCount(0)
+  }
+
+  if(resetAlliances === true && selectedElection !== FIRST_SELECT_STATEUT) {
+    const electionType = selectedElection.type
+    const year = selectedElection.year
+    axios
+    .get(`/data/csv/${electionType}_${year}.csv`)
+    .then((response) => {
+      const parsedData = csvParse(response.data)
+      setYearData(parsedData)
+    })
+    .catch((e) => {
+      setYearData([])
+    })
+    setResetAlliances(false)
   }
 
   return (
@@ -235,7 +229,6 @@ const CustomAllianceModal = ({
             )
           })}
         </DragDropContext>
-
         <div>
           <div className="flex justify-center mt-10">
             <input

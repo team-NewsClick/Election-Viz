@@ -36,7 +36,7 @@ const MapWidget = ({
   parliamentaryConstituenciesGeojson,
   assemblyConstituenciesGeojson,
   onMapUpdate,
-  electionType,
+  electionViewType,
   stateUTOptions,
   selectedStateUT,
   selectedConstituency,
@@ -79,7 +79,7 @@ const MapWidget = ({
   )
 
   useEffect(() => {
-    if (electionType === "general") {
+    if (electionViewType === "general") {
       const filterdGeoJson = getReservedGeoJson(
         parliamentaryConstituenciesGeojson,
         seatType,
@@ -144,7 +144,7 @@ const MapWidget = ({
             }
       )
     }
-  }, [selectedStateUT, electionType, constituenciesResults])
+  }, [selectedStateUT, electionViewType, constituenciesResults])
 
   const _handleMap = (object) => {
     const state = object.properties.ST_NAME
@@ -166,7 +166,7 @@ const MapWidget = ({
   const _fillGeoJsonColor = (d) => {
     let results = null
     let sortByKey = null
-    if (electionType === "general") {
+    if (electionViewType === "general") {
       sortByKey = d.properties.PC_NAME
       results = constituenciesResults.find((row) => {
         if (
@@ -208,7 +208,7 @@ const MapWidget = ({
 
   const _getTooltip = ({ object }) => {
     if (object) {
-      if (electionType === "general") {
+      if (electionViewType === "general") {
         if (
           selectedConstituency === object.properties.PC_NAME ||
           selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
@@ -301,7 +301,7 @@ const MapWidget = ({
       lineWidthScale: 200,
       getFillColor: (d) => _fillGeoJsonColor(d),
       getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
-      getLineWidth: electionType === "general" ? 10 : 2,
+      getLineWidth: electionViewType === "general" ? 10 : 2,
       onClick: ({ object }) => _handleMap(object)
     })
   ]

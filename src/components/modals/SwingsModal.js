@@ -53,14 +53,16 @@ const SwingsModal = ({
   }, [swingUpdate])
 
   useEffect(() => {
+    const tempParams = []
     partyAlliance && partyAlliance.map((d) => {
-      const alliancePresent = partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) >= 0 ? true : false
-      if(!alliancePresent) {
+      const alliancePresent = partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1 ? false : true
+      if(alliancePresent === false) {
         let temp = addParams([d.ALLIANCE])
         temp[0].newAlliance = true
-        setPartyAllianceParams([...partyAllianceParams, ...temp])
+        tempParams.push(...temp)
       }
     })
+    setPartyAllianceParams(partyAllianceParams.concat(tempParams))
   }, [partyAlliance])
 
   const _handelchange = (swing, index) => {
@@ -69,9 +71,7 @@ const SwingsModal = ({
     let input = document.getElementById(temp[index].inputId)
     let thumbLeft = document.getElementById(temp[index].thumbId)
     let range = document.getElementById(temp[index].rangeId)
-    let valueSwingDisaply = document.getElementById(
-      temp[index].valueSwingDisaplyId
-    )
+    let valueSwingDisaply = document.getElementById(temp[index].valueSwingDisaplyId)
     let min = parseInt(input.min)
     let max = parseInt(input.max)
     let value = parseInt(input.value)
@@ -92,7 +92,7 @@ const SwingsModal = ({
 
   const _reset = () => {
     if (partyAllianceParams.length !== 0 && partyAllianceInit.length !== 0) {
-      let initParmas = getParams(partyAllianceInit)
+      let initParmas = getParams(partyAlliance)
       let tempParams = []
       initParmas.map((d) => {
         if(document.getElementById(d.thumbId) &&

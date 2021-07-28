@@ -13,7 +13,7 @@ import {
  * Calculate Data for selected region stats table
  * @param {Array<Object>} data Selected State or UT data
  * @param {object<Object>} SVGData Data for region stats SVG
- * @param {String} electionType general or assembly
+ * @param {String} electionViewType general or assembly
  * @param {String} groupType party or alliance
  * @param {Array<Object>} partyAlliance party and their respective alliance
  * @param {String} selectedStateUT Selected State or UT
@@ -24,8 +24,8 @@ export const getRegionStatsTable = (
   presentYearData,
   compareYearData,
   SVGData,
-  electionType,
-  compareElectionType,
+  electionViewType,
+  compareElection,
   groupType,
   partyAlliance,
   selectedStateUT,
@@ -33,13 +33,14 @@ export const getRegionStatsTable = (
   mapDataConstituencies,
   filteredGeoJSON
 ) => {
+  const compareElectionType = compareElection.type
   let tableData = []
   let presentYearDataTable = []
   let compareYearDataTable = []
   let filteredPresData = []
   let filteredCompareData = []
 
-  if (electionType === "general") {
+  if (electionViewType === "general") {
     filteredPresData = presentYearData.filter((d) => {
       if (
         filteredGeoJSON.features.findIndex(
@@ -49,7 +50,7 @@ export const getRegionStatsTable = (
         return d
       }
     })
-    if(selectedStateUT === STATE_UT_DEFAULT_SELECT && compareElectionType !== electionType) {
+    if(selectedStateUT === STATE_UT_DEFAULT_SELECT && compareElectionType !== electionViewType) {
       filteredCompareData = []
     } else {
       filteredCompareData = compareYearData.filter((d) => {
@@ -85,7 +86,7 @@ export const getRegionStatsTable = (
   presentYearDataTable = getCurrYearDataTable(
     filteredPresData,
     SVGData,
-    electionType,
+    electionViewType,
     groupType,
     partyAlliance,
     selectedStateUT,
@@ -95,7 +96,7 @@ export const getRegionStatsTable = (
     compareYearDataTable = getCompareYearDataTable(
       filteredCompareData,
       SVGData,
-      electionType,
+      electionViewType,
       groupType,
       partyAlliance,
       selectedStateUT,
@@ -163,7 +164,7 @@ export const getRegionStatsTable = (
           })
         }
       })
-    // if(electionType !== compareElectionType) {
+    // if(electionViewType !== compareElectionType) {
     //   tableData.map((d) => d.seatsDiff = "--")
     // }
     return tableData
@@ -174,7 +175,7 @@ export const getRegionStatsTable = (
  * Function for getting total seats-won and votes-won-percentage by each group in a current year
  * @param {Array<Object>} data Data of a selected State/UT or Constituency
  * @param {Object<Object>} SVGData List of parties and the number of seats won
- * @param {string} electionType general or assembly
+ * @param {string} electionViewType general or assembly
  * @param {string} groupType party or alliance
  * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
  * @param {string} selectedStateUT Selected State/UT
@@ -184,7 +185,7 @@ export const getRegionStatsTable = (
 const getCurrYearDataTable = (
   data,
   SVGData,
-  electionType,
+  electionViewType,
   groupType,
   partyAlliance,
   selectedStateUT,
@@ -272,7 +273,7 @@ const getCurrYearDataTable = (
     }
   } else {
     let constituencyStats = []
-    if (electionType === "general") {
+    if (electionViewType === "general") {
       if (data.find((c) => c.PC_NAME == selectedConstituency)) {
         constituencyStats = data.find(
           (c) => c.PC_NAME == selectedConstituency
@@ -336,7 +337,7 @@ const getCurrYearDataTable = (
  * To get list of parties and their respective seats-won and votes-won-percentage in selected election to compare
  * @param {Array<Object>} compareYearData Selected Elections to compare  Data
  * @param {Object<Object>} SVGData List of parties and the number of seats won
- * @param {string} electionType general or assembly
+ * @param {string} electionViewType general or assembly
  * @param {string} groupType party or alliance
  * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
  * @param {string} selectedStateUT Selected State/UT
@@ -347,7 +348,7 @@ const getCurrYearDataTable = (
 const getCompareYearDataTable = (
   compareYearData,
   SVGData,
-  electionType,
+  electionViewType,
   groupType,
   partyAlliance,
   selectedStateUT,
@@ -365,19 +366,19 @@ const getCompareYearDataTable = (
       getDataConstituency(
         compareSelectedStateUTData,
         selectedConstituency,
-        electionType
+        electionViewType
       )
-    compareMapData = getMapData(compareYearData, selectedStateUT, electionType)
+    compareMapData = getMapData(compareYearData, selectedStateUT, electionViewType)
     const compareConstituenciesResults =
       compareMapData &&
       getConstituenciesResults(
         compareMapData,
         selectedConstituency,
-        electionType,
+        electionViewType,
         groupType,
         partyAlliance
       )
-    if (electionType === "general") {
+    if (electionViewType === "general") {
       if (
         selectedStateUT === STATE_UT_DEFAULT_SELECT ||
         selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
@@ -392,7 +393,7 @@ const getCompareYearDataTable = (
             selectedStateUT,
             selectedConstituency,
             mapDataConstituencies,
-            electionType,
+            electionViewType,
             groupType,
             partyAlliance
           )
@@ -407,7 +408,7 @@ const getCompareYearDataTable = (
             selectedStateUT,
             selectedConstituency,
             mapDataConstituencies,
-            electionType,
+            electionViewType,
             groupType,
             partyAlliance
           )
@@ -428,7 +429,7 @@ const getCompareYearDataTable = (
             selectedStateUT,
             selectedConstituency,
             mapDataConstituencies,
-            electionType,
+            electionViewType,
             groupType,
             partyAlliance
           )          
@@ -446,7 +447,7 @@ const getCompareYearDataTable = (
  * @param {string} selectedStateUT Selected State/UT
  * @param {string} selectedConstituency Selected Constituency
  * @param {Array<Object>} mapDataConstituencies Current year elections data of a constituency for List of Parties
- * @param {string} electionType general or assembly
+ * @param {string} electionViewType general or assembly
  * @param {string} groupType party or alliance
  * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
  * @returns {Array<Object>} - List of parties and their respective seats-won and votes-won-percentage in selected election to be comapared
@@ -458,7 +459,7 @@ const compareSeatsVotesCount = (
   selectedStateUT,
   selectedConstituency,
   mapDataConstituencies,
-  electionType,
+  electionViewType,
   groupType,
   partyAlliance
 ) => {
@@ -563,7 +564,7 @@ const compareSeatsVotesCount = (
       let groups = []
       let compareStats = []
       if (mapDataConstituencies.length != 0) {
-        if(electionType === "general") {
+        if(electionViewType === "general") {
           groups = selectedConstituency !== undefined && mapDataConstituencies
             .find((e) => e.PC_NAME === selectedConstituency)
             .stats.map((d) => d.party)
@@ -581,7 +582,7 @@ const compareSeatsVotesCount = (
               votesPercent: 0
             })
           )
-            if(electionType === "general") {
+            if(electionViewType === "general") {
               compareStats = data.find((e) => e.PC_NAME === selectedConstituency)
                 ? data.find((e) => e.PC_NAME === selectedConstituency).stats
                 : []
@@ -637,7 +638,7 @@ const compareSeatsVotesCount = (
               })
             }
         } else {
-          if(electionType === "general") {
+          if(electionViewType === "general") {
             let tempGroups = new Set()
             groups.map((d) => {
               const temp = partyAlliance.find((e) => e.PARTY == d)

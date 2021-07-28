@@ -6,19 +6,19 @@ import {
 /**
  * To Calculate list of Parties/Alliances and their seats won in a region
  * @param {Array<Object>} data  Selected year data
- * @param {string} electionType general or assembly
+ * @param {string} electionViewType general or assembly
  * @param {string} groupType party or alliance
  * @param {string} selectedStateUT Selected State/UT
  * @returns {Object<Object>} - List of Parties/Alliances and their seats won in a region
  */
 export const getRegionStatsSVGData = (
   data,
-  electionType,
+  electionViewType,
   groupType,
   selectedStateUT,
   filteredGeoJSON
 ) => {
-  if (electionType === "general") {
+  if (electionViewType === "general") {
     const filteredData = data.filter((d) => {
       if (
         filteredGeoJSON.features.findIndex(

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
-  ELECTION_TYPE_DEFAULT,
+  ELECTION_VIEW_TYPE_DEFAULT,
   GENERAL_YEAR_OPTIONS,
   ASSEMBLY_YEAR_OPTIONS,
   YEAR_OPTIONS,
@@ -19,7 +19,7 @@ import {
   SEAT_TYPE_OPTIONS,
   SEAT_DEFAULT_SELECT,
   REGION_DEFAULT_SELECT,
-  ELECTION_TYPE_ASSEMBLY,
+  ELECTION_VIEW_TYPE_ASSEMBLY,
   DEFAULT_GROUP_TYPE,
   LIVE_ELECTION,
   LIVE_ELECTION_YEAR,
@@ -35,12 +35,11 @@ import MapWidget from "../components/maps/MapWidget"
 import Loading from "./helpers/Loading"
 import {
   getDataStateUT,
-  getDataConstituency,
   getStateUTs,
   getConstituencies,
   getMapData,
   getConstituenciesResults,
-  getAssemblyYearOptions,
+  getYearOptions,
   getCompareOptions
 } from "../helpers/utils"
 import { getRegionStatsSVGData } from "../helpers/statsSVG"
@@ -60,19 +59,14 @@ const Dashboard = ({
   assemblyConstituenciesGeojson
 }) => {
   const windowWidth = window.innerWidth
-  const [electionType, setElectionType] = useState(ELECTION_TYPE_ASSEMBLY)
-  const [yearOptions, setYearOptions] = useState([FIRST_SELECT_STATEUT])
+  const [electionViewType, SetElectionViewType] = useState(ELECTION_VIEW_TYPE_ASSEMBLY)
+  const [selectedElection, setSelectedElection] = useState(FIRST_SELECT_STATEUT)
+  const [electionOptions, setElectionOptions] = useState([FIRST_SELECT_STATEUT])
   const [compareElection, setCompareElection] = useState()
-  const [selectedYear, setSelectedYear] = useState(FIRST_SELECT_STATEUT)
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(
-    STATE_UT_DEFAULT_SELECT
-  )
-  const [selectedConstituency, setSelectedConstituency] = useState(
-    CONSTITUENCIES_DEFAULT_SELECT
-  )
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [selectedStateUTData, setSelectedStateUTData] = useState([])
-  const [selectedConstituencyData, setSelectedConstituencyData] = useState([])
   const [mapData, setMapData] = useState({})
   const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState({})
@@ -93,41 +87,56 @@ const Dashboard = ({
   const [partiesSwing, setPartiesSwing] = useState([])
 
   useEffect(() => {
-    if(electionType === "general") {
-      setYearOptions(GENERAL_YEAR_OPTIONS)
-    }
-    if(electionType === "assembly") {
-      const tempStateUTOptions = getStateUTs(selectedYear, seatType, electionType, assemblyConstituenciesGeojson)
-      const tempYearOptions = getAssemblyYearOptions(electionType, selectedStateUT)
-      setStateUTOptions(tempStateUTOptions)
-      setYearOptions(tempYearOptions)
-    }
-  }, [electionType])
+    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
+      const parsedData = csvParse(response.data)
+      setPartyAlliance(parsedData)
+    })
+  }, [selectedElection, selectedStateUT])
 
   useEffect(() => {
-    if(electionType === "assembly") {
-      const temp = getAssemblyYearOptions(electionType, selectedStateUT)
-      setYearOptions(temp)
+    if(electionViewType === "general") {
+      const tempElectionOptions = getYearOptions(electionViewType, selectedStateUT)
+      setElectionOptions(tempElectionOptions)
+    }
+    if(electionViewType === "assembly") {
+      const tempStateUTOptions = getStateUTs(selectedElection, seatType, electionViewType, assemblyConstituenciesGeojson)
+      const tempElectionOptions = getYearOptions(electionViewType, selectedStateUT)
+      setStateUTOptions(tempStateUTOptions)
+      setElectionOptions(tempElectionOptions)
+    }
+  }, [electionViewType])
+
+  useEffect(() => {
+    if(electionViewType === "assembly") {
+      const temp = getYearOptions(electionViewType, selectedStateUT)
+      setElectionOptions(temp)
     }
   }, [selectedStateUT])
 
   useEffect(() => {
-    const temp = yearOptions.indexOf(selectedYear) > -1
-      ? selectedYear
-      : yearOptions[0]
-    setSelectedYear(temp)
-  }, [yearOptions])
+    if(electionOptions[0].value !== FIRST_SELECT_STATEUT) {
+      const temp = electionOptions.indexOf(selectedElection) > -1
+        ? selectedElection
+        : {type: electionOptions[0].value.type, year: (electionOptions[0].value.year).toString()}
+      setSelectedElection(temp)
+    } else {
+      const temp = electionOptions.indexOf(selectedElection) > -1
+        ? selectedElection
+        : electionOptions[0].value
+      setSelectedElection(temp)
+    }
+  }, [electionOptions])
 
   useEffect(() => {
-    if(electionType === "general") {
+    if(electionViewType === "general") {
       setStateUTOptions(
-        getStateUTs(selectedYear, seatType, electionType, parliamentaryConstituenciesGeojson)
+        getStateUTs(selectedElection, seatType, electionViewType, parliamentaryConstituenciesGeojson)
       )
     }
-  }, [selectedYear, seatType])
+  }, [selectedElection, seatType])
 
   useEffect(() => {
-    if(electionType === "general") {
+    if(electionViewType === "general") {
       setMapWidgetLoading(true)
       setRegionStatsLoading(true)
       stateUTOptions.length > 0 &&
@@ -145,7 +154,7 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
-    if (selectedYear === LIVE_ELECTION) {
+    if (selectedElection === LIVE_ELECTION) {
       const interval = setInterval(() => {
         axios.get(`${process.env.LIVE_ELECTION}`).then((response) => {
           const parsedData = csvParse(response.data)
@@ -157,15 +166,17 @@ const Dashboard = ({
   })
   useEffect(() => {
     if(compareOptions.length !== 0) {
+      const electionType = selectedElection.type
+      const year = selectedElection.year
       let URL, COMPARE_URL, COMPARE_ELECTION
-      if(selectedYear === LIVE_ELECTION) {
+      if(selectedElection === LIVE_ELECTION) {
         URL = `${process.env.LIVE_ELECTION}`
         COMPARE_URL = `/data/csv/${electionType}_${parseInt(LIVE_ELECTION_YEAR) - 5}.csv`
-        COMPARE_ELECTION = `${parseInt(LIVE_ELECTION_YEAR) - 5}-${electionType}`
+        COMPARE_ELECTION = {type: electionType, year: parseInt(LIVE_ELECTION_YEAR) -5}
       } else {
-        URL = `/data/csv/${electionType}_${selectedYear}.csv`
-        COMPARE_URL = `/data/csv/${electionType}_${parseInt(selectedYear) - 5}.csv`
-        COMPARE_ELECTION = `${parseInt(selectedYear) - 5}-${electionType}`
+        URL = `/data/csv/${electionType}_${year}.csv`
+        COMPARE_URL = `/data/csv/${electionType}_${parseInt(year) - 5}.csv`
+        COMPARE_ELECTION = {type: electionType, year: (parseInt(year) -5).toString()}
       }
       axios
         .get(URL)
@@ -181,30 +192,20 @@ const Dashboard = ({
         })
         .catch((e) => setCompareElection(compareOptions[0].value))
     }
-  }, [selectedYear])
+  }, [selectedElection])
 
   useEffect(() => {
     setRegionStatsLoading(true)
     if (compareElection) {
-      const comapreWith = compareElection.split("-")
-      const compareYear = comapreWith[0]
-      const compareElectionType = comapreWith[1]
+      const electionType = selectedElection.type
+      const year = selectedElection.year
+      const compareElectionType = compareElection.type
+      const compareYear = compareElection.year
       if (
         compareElectionType === electionType &&
-        compareYear === selectedYear
+        compareYear === year
       ) {
         setCompareYearData([])
-      } else if (
-        electionType === compareElectionType &&
-        compareYear !== selectedYear
-      ) {
-        axios
-          .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
-          .then((response) => {
-            const parsedData = csvParse(response.data)
-            setCompareYearData(parsedData)
-          })
-          .catch((e) => setCompareYearData([]))
       } else {
         axios
           .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
@@ -222,11 +223,11 @@ const Dashboard = ({
         getConstituencies(
           selectedStateUTData,
           selectedStateUT,
-          electionType,
+          electionViewType,
           filteredGeoJSON
           )
         )
-  }, [selectedStateUT, selectedStateUTData, filteredGeoJSON])
+  }, [selectedStateUTData, filteredGeoJSON])
 
   useEffect(() => {
     setSelectedConstituency(
@@ -234,9 +235,7 @@ const Dashboard = ({
         ? selectedConstituency
         : constituencyOptions[0]
     )
-  }, [
-    constituencyOptions
-  ])
+  }, [constituencyOptions])
 
   useEffect(() => {
     setSelectedRegion(
@@ -245,8 +244,8 @@ const Dashboard = ({
         : REGION_DEFAULT_SELECT
     )
   }, [
-    yearOptions,
-    selectedYear,
+    electionOptions,
+    selectedElection,
     stateUTOptions,
     selectedStateUT,
     constituencyOptions,
@@ -256,7 +255,7 @@ const Dashboard = ({
 
   useEffect(() => {
     if (selectedYearData != []) {
-      setMapData(getMapData(selectedYearData, selectedStateUT, electionType))
+      setMapData(getMapData(selectedYearData, selectedStateUT, electionViewType))
     }
   }, [
     selectedYearData,
@@ -269,7 +268,7 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
-    if (electionType === "general") {
+    if (electionViewType === "general") {
       setFilteredGeoJSON(
         getReservedGeoJson(
           parliamentaryConstituenciesGeojson,
@@ -288,7 +287,7 @@ const Dashboard = ({
         )
       )
     }
-  }, [seatType, electionType, selectedRegion, selectedStateUT])
+  }, [seatType, electionViewType, selectedRegion, selectedStateUT])
 
   useEffect(() => {
     if(mapData.length !== 0) {
@@ -296,7 +295,7 @@ const Dashboard = ({
         getConstituenciesResults(
           mapData,
           selectedConstituency,
-          electionType,
+          electionViewType,
           groupType,
           partyAlliance
         )
@@ -306,9 +305,9 @@ const Dashboard = ({
     mapData,
     selectedConstituency,
     selectedStateUT,
-    electionType,
+    electionViewType,
     groupType,
-    selectedYear,
+    selectedElection,
     partyAlliance,
     selectedRegion
   ])
@@ -317,9 +316,9 @@ const Dashboard = ({
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
   }, [
-    electionType,
+    electionViewType,
     selectedStateUT,
-    selectedYear,
+    selectedElection,
     selectedConstituency
   ])
 
@@ -327,7 +326,7 @@ const Dashboard = ({
     if(constituenciesResults.length !== 0) {
       const temp = getRegionStatsSVGData(
         constituenciesResults,
-        electionType,
+        electionViewType,
         groupType,
         selectedStateUT,
         filteredGeoJSON
@@ -349,8 +348,8 @@ const Dashboard = ({
             : mapData.constituencies,
           compareYearData,
           regionStatsSVGData,
-          electionType,
-          compareElection.split("-")[1],
+          electionViewType,
+          compareElection,
           groupType,
           partyAlliance,
           selectedStateUT,
@@ -391,10 +390,12 @@ const Dashboard = ({
   }, [selectedYearData, selectedStateUT])
 
   useEffect(() => {
+    const electionType = selectedElection.type
+    const year = selectedElection.year
     if(partiesSwing.length !== 0) {
-      if (selectedYear !== LIVE_ELECTION) {
+      if (selectedElection !== LIVE_ELECTION) {
         axios
-          .get(`/data/csv/${electionType}_${selectedYear}.csv`)
+          .get(`/data/csv/${electionType}_${year}.csv`)
           .then((response) => {
             const parsedData = csvParse(response.data)
             if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
@@ -405,7 +406,7 @@ const Dashboard = ({
                 selectedStateUT,
                 constituencyOptions,
                 partiesSwing,
-                electionType
+                electionViewType
               )
               setSelectedYearData([...temp])
             }
@@ -423,18 +424,9 @@ const Dashboard = ({
   }, [partiesSwing])
 
   useEffect(() => {
-    const temp = getDataConstituency(
-      selectedStateUTData,
-      selectedConstituency,
-      electionType
-    )
-    setSelectedConstituencyData(temp)
-  }, [selectedStateUTData, selectedConstituency])
-
-  useEffect(() => {
-    const temp = getCompareOptions(electionType, selectedYear, selectedStateUT)
+    const temp = getCompareOptions(selectedElection, selectedStateUT)
     setCompareOptions(temp)
-  }, [selectedStateUT, electionType, selectedYear])
+  }, [selectedStateUT, electionViewType, selectedElection])
 
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -487,16 +479,16 @@ const Dashboard = ({
   const _handleElectionType = (v) => {
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
-    setElectionType(v)
+    SetElectionViewType(v)
   }
   const _handleCompareElection = (v) => {
-    setCompareElection(v)
+    setCompareElection(JSON.parse(v))
   }
   const _updatedRegion = (state) => {
     setSelectedStateUT(state)
   }
-  const _handleSelectedYear = (v) => {
-    setSelectedYear(v)
+  const _handleSelectedElection = (v) => {
+    setSelectedElection(JSON.parse(v))
   }
   const _handleCompareYear = (v) => {
     setCompareYear(v)
@@ -548,7 +540,7 @@ const Dashboard = ({
               value="general"
               onChange={(e) => _handleElectionType(e.currentTarget.value)}
             />
-            <label htmlFor="general">General Elections</label>
+            <label htmlFor="general">General</label>
             <input
               type="radio"
               id="assembly"
@@ -557,7 +549,7 @@ const Dashboard = ({
               defaultChecked
               onChange={(e) => _handleElectionType(e.currentTarget.value)}
             />
-            <label htmlFor="assembly">Assembly Elections</label>
+            <label htmlFor="assembly">Assembly</label>
           </div>
           <div className="radio-toolbar md:mx-2 my-2">
             <input
@@ -598,14 +590,14 @@ const Dashboard = ({
           <div>
             <select
               name="year"
-              onChange={(e) => _handleSelectedYear(e.target.value)}
+              onChange={(e) => _handleSelectedElection(e.target.value)}
               id="year"
               className="w-40 md:w-64"
-              value={selectedYear}
+              value={JSON.stringify(selectedElection)}
             >
-              {yearOptions.map((d, index) => (
-                <option key={index} value={d}>
-                  {d}
+              {electionOptions.map((d, index) => (
+                <option key={index} value={JSON.stringify(d.value)}>
+                  {d.label}
                 </option>
               ))}
             </select>
@@ -724,10 +716,10 @@ const Dashboard = ({
                     onChange={(e) => _handleCompareElection(e.target.value)}
                     id="compareElection"
                     className="advance-select md:w-64"
-                    value={compareElection}
+                    value={JSON.stringify(compareElection)}
                   >
                     {compareOptions.map((d, index) => (
-                      <option key={index} value={d.value}>
+                      <option key={index} value={JSON.stringify(d.value)}>
                         {d.label}
                       </option>
                     ))}
@@ -845,10 +837,11 @@ const Dashboard = ({
           className="fixed left-0 top-0 bottom-0 overflow-y-scroll"
         >
           <CustomAllianceModal
-            constituenciesResults={constituenciesResults}
-            customAlliance={customAlliance}
-            swingParams={swingParams}
+            selectedElection={selectedElection}
+            selectedStateUT={selectedStateUT}
             constituencyOptions={constituencyOptions}
+            electionViewType={electionViewType}
+            customAlliance={customAlliance}
           />
         </div>
         <div
@@ -857,7 +850,7 @@ const Dashboard = ({
           style={{ display: "none", zIndex: "2" }}
         >
           <SwingsModal
-            selectedYear={selectedYear}
+            selectedElection={selectedElection}
             handleSwingParams={handleSwingParams}
             selectedStateUT={selectedStateUT}
             partyAlliance={partyAlliance}
@@ -869,7 +862,7 @@ const Dashboard = ({
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
-            {electionType === "assembly" &&
+            {electionViewType === "assembly" &&
             selectedStateUT === STATE_UT_DEFAULT_SELECT ? (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
@@ -937,7 +930,7 @@ const Dashboard = ({
                   }
                   assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
                   onMapUpdate={_updatedRegion}
-                  electionType={electionType}
+                  electionViewType={electionViewType}
                   stateUTOptions={stateUTOptions}
                   selectedStateUT={selectedStateUT}
                   selectedConstituency={selectedConstituency}

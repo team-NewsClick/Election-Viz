@@ -1,12 +1,12 @@
 /**
  * Default selection from general or assembly election
  */
-export const ELECTION_TYPE_DEFAULT = "general"
+export const ELECTION_VIEW_TYPE_DEFAULT = "general"
 
 /**
  * Assembly Election
  */
-export const ELECTION_TYPE_ASSEMBLY = "assembly"
+export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
 
 /**
  * Option when no particular State/UT is selected
@@ -33,6 +33,9 @@ export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015", LIVE_ELECTION]
  */
 export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
 
+/**
+ * Election details: their type, year and state/UTs that had the election
+ */
 export const ELECTION_YEAR_STATEUT = {
   general : {
     2019 : [
