@@ -12,7 +12,7 @@ import { getParams, addParams } from "../../helpers/swings"
  * @returns {JSX.Element} Modal Box for adding swings to alliances
  */
 const SwingsModal = ({
-  selectedYear,
+  selectedElection,
   handleSwingParams,
   selectedStateUT,
   partyAlliance
@@ -36,7 +36,7 @@ const SwingsModal = ({
   useEffect(() => {
     setSwingUpdate([])
     _reset()
-  }, [selectedStateUT, selectedYear])
+  }, [selectedStateUT, selectedElection])
 
   useEffect(() => {
     let temp = 0
@@ -55,14 +55,16 @@ const SwingsModal = ({
   useEffect(() => {
     const tempParams = []
     partyAlliance && partyAlliance.map((d) => {
-      const alliancePresent = partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1 ? false : true
-      if(alliancePresent === false) {
-        let temp = addParams([d.ALLIANCE])
+      if(partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1) {
+        let temp = []
+        temp = addParams([d.ALLIANCE])
         temp[0].newAlliance = true
-        tempParams.push(...temp)
+        if(tempParams.findIndex((p) => p.alliance === temp[0].alliance) === -1) {
+          tempParams.push(...temp)
+        }
       }
+      setPartyAllianceParams(partyAllianceParams.concat(tempParams))
     })
-    setPartyAllianceParams(partyAllianceParams.concat(tempParams))
   }, [partyAlliance])
 
   const _handelchange = (swing, index) => {
@@ -92,7 +94,8 @@ const SwingsModal = ({
 
   const _reset = () => {
     if (partyAllianceParams.length !== 0 && partyAllianceInit.length !== 0) {
-      let initParmas = getParams(partyAlliance)
+      const tempPartyAlliance = partyAllianceInit.concat(partyAlliance)
+      let initParmas = getParams(tempPartyAlliance)
       let tempParams = []
       initParmas.map((d) => {
         if(document.getElementById(d.thumbId) &&
