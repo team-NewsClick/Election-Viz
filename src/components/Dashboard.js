@@ -420,25 +420,6 @@ const Dashboard = ({
     setCompareOptions(temp)
   }, [selectedStateUT, electionViewType, selectedElection])
 
-  useEffect(() => {
-    if(selectedElection !== FIRST_SELECT_STATEUT){
-      setMapWidgetLoading(true)
-    }
-    setRegionStatsLoading(true)
-  }, [
-    electionViewType,
-    selectedStateUT,
-    selectedConstituency,
-    groupType,
-    selectedElection,
-    compareElection,
-    selectedRegion,
-    seatType,
-    partyAlliance,
-    swingParams,
-    partiesSwing
-  ])
-
   const _home = () => {
     if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
       setMapWidgetLoading(true)
