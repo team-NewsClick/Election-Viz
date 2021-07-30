@@ -352,7 +352,7 @@ const Dashboard = ({
       )
       setRegionStatsLoading(false)
     }
-  }, [regionStatsSVGData, compareYearData])
+  }, [regionStatsSVGData, compareYearData, partiesSwing])
 
   useEffect(() => {
     setRegionOptions(getRegions(selectedStateUT))

@@ -51,8 +51,15 @@ const CustomAllianceModal = ({
       const parties = getWinningParties(yearData, selectedStateUT, electionViewType)
       const tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
       setRows(tempPartyAlliance)
+      let tempCustomedPartyAlliance = []
+      rows.map((a) => {
+        a.parties.map((p) => {
+          tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+        })
+      })
+      customAlliance(tempCustomedPartyAlliance)
     }
-  }, [yearData, selectedElection, selectedStateUT])
+  }, [selectedElection, selectedStateUT, yearData, defaultPartyAlliance])
 
   useEffect(() => {
     const tempCustomedPartyAlliance = []
