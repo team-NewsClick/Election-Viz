@@ -3,11 +3,6 @@ import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
   ELECTION_VIEW_TYPE_DEFAULT,
-  GENERAL_YEAR_OPTIONS,
-  ASSEMBLY_YEAR_OPTIONS,
-  YEAR_OPTIONS,
-  YEAR_DEFAULT_SELECT,
-  REGION_OPTIONS,
   STATE_UT_DEFAULT_SELECT,
   CONSTITUENCIES_DEFAULT_SELECT,
   LOCALITY_OPTIONS,
@@ -16,7 +11,6 @@ import {
   EDUCATION_OPTIONS,
   EXPERIENCE_OPTIONS,
   CRIMINALITY_OPTIONS,
-  SEAT_TYPE_OPTIONS,
   SEAT_DEFAULT_SELECT,
   REGION_DEFAULT_SELECT,
   ELECTION_VIEW_TYPE_ASSEMBLY,
@@ -32,6 +26,7 @@ import {
   RegionStatsTable
 } from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
+import DashboardOptions from "./DashboardOptions"
 import Loading from "./helpers/Loading"
 import {
   getDataStateUT,
@@ -46,8 +41,6 @@ import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
 import { getReservedGeoJson } from "../helpers/reservedSeats"
 import { getRegions } from "../helpers/regions"
-import CustomAllianceModal from "./modals/CustomAllianceModal"
-import SwingsModal from "./modals/SwingsModal"
 import { calculateSwings } from "../helpers/swings"
 
 /**
@@ -334,7 +327,6 @@ const Dashboard = ({
       setRegionStatsSVGData(temp)
     }
     setMapWidgetLoading(false)
-    setRegionStatsLoading(false)
   }, [constituenciesResults, filteredGeoJSON])
 
   useEffect(() => {
@@ -428,18 +420,24 @@ const Dashboard = ({
     setCompareOptions(temp)
   }, [selectedStateUT, electionViewType, selectedElection])
 
-  const showHideAdvanceOptions = () => {
-    const options = document.getElementById("advanceOptionsWeb")
-    const btnText = document.getElementById("showHideAdvance-btn")
-    const btnIcon = document.getElementById("showHideAdvance-btn-icon")
-    options.style.display === "none"
-      ? ((options.style.display = "block"),
-        (btnText.innerHTML = "Hide Advance Options"),
-        (btnIcon.style.transform = "rotate(180deg)"))
-      : ((options.style.display = "none"),
-        (btnText.innerHTML = "Show Advance Options"),
-        (btnIcon.style.transform = "rotate(0deg)"))
-  }
+  useEffect(() => {
+    if(selectedElection !== FIRST_SELECT_STATEUT){
+      setMapWidgetLoading(true)
+    }
+    setRegionStatsLoading(true)
+  }, [
+    electionViewType,
+    selectedStateUT,
+    selectedConstituency,
+    groupType,
+    selectedElection,
+    compareElection,
+    selectedRegion,
+    seatType,
+    partyAlliance,
+    swingParams,
+    partiesSwing
+  ])
 
   const _home = () => {
     if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
@@ -457,26 +455,13 @@ const Dashboard = ({
     btnIcon.style.transform = "rotate(0deg)"
   }
 
-  const openCustomAllianceModal = () => {
-    const customAllianceModal = document.getElementById("customAllianceModal")
-    customAllianceModal.style.display === "none"
-      ? (customAllianceModal.style.display = "flex")
-      : (customAllianceModal.style.display = "none")
-  }
-
-  const openSwingModal = () => {
-    const swingModal = document.getElementById("swingModal")
-    swingModal.style.display === "none"
-      ? (swingModal.style.display = "flex")
-      : (swingModal.style.display = "none")
-  }
   const customAlliance = (customAlliance) => {
     setPartyAlliance(customAlliance)
   }
   const handleSwingParams = (params) => {
     setSwingParams(params)
   }
-  const _handleElectionType = (v) => {
+  const _handleElectionViewType = (v) => {
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
     SetElectionViewType(v)
@@ -489,9 +474,6 @@ const Dashboard = ({
   }
   const _handleSelectedElection = (v) => {
     setSelectedElection(JSON.parse(v))
-  }
-  const _handleCompareYear = (v) => {
-    setCompareYear(v)
   }
   const _handleSelectedRegion = (v) => {
     setSelectedRegion(v)
@@ -508,6 +490,9 @@ const Dashboard = ({
   const _handleSelectedConstituency = (v) => {
     setSelectedConstituency(v)
   }
+  const _handleSelectedSeatType = (v) => {
+    setSeatType(v)
+  }
   const _handleSelectedCommunity = (v) => {
     console.log(v)
   }
@@ -523,339 +508,37 @@ const Dashboard = ({
   const _handleSelectedCriminality = (v) => {
     console.log(v)
   }
-  const _handleSelectedSeatType = (v) => {
-    setSeatType(v)
-  }
 
   if (stateUTOptions && stateUTOptions.length !== 0) {
     return (
       <div>
-        <div className="h-10" />
-        <div className="flex flex-wrap justify-center mx-auto">
-          <div className="radio-toolbar md:mx-2 my-2">
-            <input
-              type="radio"
-              id="general"
-              name="election"
-              value="general"
-              onChange={(e) => _handleElectionType(e.currentTarget.value)}
-            />
-            <label htmlFor="general">General</label>
-            <input
-              type="radio"
-              id="assembly"
-              name="election"
-              value="assembly"
-              defaultChecked
-              onChange={(e) => _handleElectionType(e.currentTarget.value)}
-            />
-            <label htmlFor="assembly">Assembly</label>
-          </div>
-          <div className="radio-toolbar md:mx-2 my-2">
-            <input
-              type="radio"
-              id="alliance"
-              name="group"
-              value="alliance"
-              onChange={(e) => _handleGroupType(e.currentTarget.value)}
-            />
-            <label htmlFor="alliance">Alliance</label>
-            <input
-              type="radio"
-              id="party"
-              name="group"
-              value="party"
-              defaultChecked
-              onChange={(e) => _handleGroupType(e.currentTarget.value)}
-            />
-            <label htmlFor="party">Party</label>
-          </div>
-          <div>
-            <select
-              name="state-ut"
-              onChange={(e) => _handleSelectedStateUT(e.target.value)}
-              id="state-ut"
-              className="advance-select w-40 md:w-64"
-              value={selectedStateUT}
-            >
-              {stateUTOptions.map((d, index) => (
-                <option key={index} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="flex flex-wrap justify-center mx-auto">
-          <div>
-            <select
-              name="year"
-              onChange={(e) => _handleSelectedElection(e.target.value)}
-              id="year"
-              className="w-40 md:w-64"
-              value={JSON.stringify(selectedElection)}
-            >
-              {electionOptions.map((d, index) => (
-                <option key={index} value={JSON.stringify(d.value)}>
-                  {d.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <select
-              name="constituency"
-              onChange={(e) => _handleSelectedConstituency(e.target.value)}
-              id="constituency"
-              className="advance-select w-40 md:w-64"
-              value={selectedConstituency}
-            >
-              {constituencyOptions.map((d, index) => (
-                <option key={index} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div
-            onClick={showHideAdvanceOptions}
-            className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm"
-          >
-            <div id="showHideAdvance-btn" className="my-auto mx-3">
-              Show Advance Options
-            </div>
-            <div>
-              <img
-                id="showHideAdvance-btn-icon"
-                src="../img/down-arrow.svg"
-                alt="Show Advance Options"
-                className="w-3 h-3 md:ml-14 m-1.5"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          id="advanceOptionsWeb"
-          style={{ display: "none", zIndex: "2" }}
-          className="bg-gray-100 h-full md:h-auto md:relative inset-0 top-0 md:top-auto fixed"
-        >
-          <div className="h-0.5 bg-gray-300 w-full max-w-4xl my-3.5 mx-auto hidden md:block">
-            &nbsp;
-          </div>
-          <div className="flex justify-center my-8 md:hidden">
-            <div className="font-bold">Advance Options</div>
-            <div
-              className="absolute top-8 right-6 cursor-pointer"
-              onClick={showHideAdvanceOptions}
-            >
-              <img
-                id="showHideAdvance-btn-icon"
-                src="../img/close-btn.svg"
-                alt="Close Button"
-                className="w-4 h-4"
-              />
-            </div>
-          </div>
-          <div className="mx-auto max-w-4xl justify-center">
-            <div>
-              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-                <div>
-                  <select
-                    name="region"
-                    onChange={(e) => _handleSelectedRegion(e.target.value)}
-                    id="region"
-                    className="advance-select md:w-64"
-                    value={selectedRegion}
-                  >
-                    {regionOptions.map((d, index) => (
-                      <option key={index} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <select
-                    name="seatType"
-                    onChange={(e) => _handleSelectedSeatType(e.target.value)}
-                    id="seatType"
-                    className="advance-select md:w-64"
-                    value={seatType}
-                  >
-                    {SEAT_TYPE_OPTIONS.map((d, index) => (
-                      <option key={index} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-                <div
-                  onClick={openCustomAllianceModal}
-                  className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-                >
-                  Customise Alliances
-                </div>
-                {selectedStateUT !== STATE_UT_DEFAULT_SELECT && (
-                  <div
-                    onClick={openSwingModal}
-                    className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-                  >
-                    Add Swings
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-                <div className="md:w-64 inline-block align-text-bottom my-auto">
-                  Select an election to compare:
-                </div>
-                <div>
-                  <select
-                    name="compareElection"
-                    onChange={(e) => _handleCompareElection(e.target.value)}
-                    id="compareElection"
-                    className="advance-select md:w-64"
-                    value={JSON.stringify(compareElection)}
-                  >
-                    {compareOptions.map((d, index) => (
-                      <option key={index} value={JSON.stringify(d.value)}>
-                        {d.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              {/* <div>
-                <select
-                  name="locality"
-                  onChange={(e) => _handleSelectedLocality(e.target.value)}
-                  id="locality"
-                  className="advance-select"
-                >
-                  {LOCALITY_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="community"
-                  onChange={(e) => _handleSelectedCommunity(e.target.value)}
-                  id="community"
-                  className="advance-select"
-                >
-                  {COMMUNITY_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="gender"
-                  onChange={(e) => _handleSelectedGender(e.target.value)}
-                  id="gender"
-                  className="advance-select"
-                >
-                  {GENDER_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="education"
-                  onChange={(e) => _handleSelectedEducation(e.target.value)}
-                  id="education"
-                  className="advance-select"
-                >
-                  {CRIMINALITY_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="experience"
-                  onChange={(e) => _handleSelectedExperience(e.target.value)}
-                  id="experience"
-                  className="advance-select"
-                >
-                  {EXPERIENCE_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="criminality"
-                  onChange={(e) => _handleSelectedCriminality(e.target.value)}
-                  id="criminality"
-                  className="advance-select"
-                >
-                  {EDUCATION_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div> */}
-            </div>
-            <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between md:hidden">
-              <div>
-                <input
-                  type="button"
-                  value="RESET"
-                  className="black-btn"
-                  onClick={_home}
-                />
-              </div>
-              <div>
-                <input
-                  type="button"
-                  value="OK"
-                  onClick={showHideAdvanceOptions}
-                  className="black-btn"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          id="customAllianceModal"
-          style={{ display: "none", zIndex: "2" }}
-          className="fixed left-0 top-0 bottom-0 overflow-y-scroll"
-        >
-          <CustomAllianceModal
-            selectedElection={selectedElection}
-            selectedStateUT={selectedStateUT}
-            constituencyOptions={constituencyOptions}
-            electionViewType={electionViewType}
-            customAlliance={customAlliance}
-          />
-        </div>
-        <div
-          id="swingModal"
-          className="fixed left-0 top-0 bottom-0 overflow-y-scroll"
-          style={{ display: "none", zIndex: "2" }}
-        >
-          <SwingsModal
-            selectedElection={selectedElection}
-            handleSwingParams={handleSwingParams}
-            selectedStateUT={selectedStateUT}
-            partyAlliance={partyAlliance}
-          />
-        </div>
+        <DashboardOptions 
+          updateElectionViewType={_handleElectionViewType}
+          updateCompareElection={_handleCompareElection}
+          updateSelectedElection={_handleSelectedElection}
+          updateSelectedRegion={_handleSelectedRegion}
+          updateGroupType={_handleGroupType}
+          updateSelectedStateUT={_handleSelectedStateUT}
+          updateSelectedConstituency={_handleSelectedConstituency}
+          updateSelectedSeatType={_handleSelectedSeatType}
+          homeReset={_home}
+          customAlliance={customAlliance}
+          handleSwingParams={handleSwingParams}
+          electionOptions={electionOptions}
+          stateUTOptions={stateUTOptions}
+          constituencyOptions={constituencyOptions}
+          regionOptions={regionOptions}
+          compareOptions={compareOptions}
+          electionViewType={electionViewType}
+          groupType={groupType}
+          selectedElection={selectedElection}
+          selectedStateUT={selectedStateUT}
+          selectedConstituency={selectedConstituency}
+          selectedRegion={selectedRegion}
+          seatType={seatType}
+          compareElection={compareElection}
+          partyAlliance={partyAlliance}
+        />
         <div className="lg:flex lg:flex-row-reverse relative py-8">
           <div
             className={windowWidth > 800 ? "" : "widthImp100 heightImp100"}
@@ -954,7 +637,6 @@ const Dashboard = ({
   } else {
     return (
       <div
-        // className="min-h-screen my-auto"
         style={{ minHeight: screen.height, height: "100%", margin: "auto" }}
       >
         <Loading />

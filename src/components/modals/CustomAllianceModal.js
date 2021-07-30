@@ -16,7 +16,6 @@ import { FIRST_SELECT_STATEUT, PARTY_COLOR } from "../../constants"
 const CustomAllianceModal = ({
   selectedElection,
   selectedStateUT,
-  constituencyOptions,
   electionViewType,
   customAlliance,
 }) => {
@@ -43,6 +42,7 @@ const CustomAllianceModal = ({
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setDefaultPartyAlliance(parsedData)
+      customAlliance(parsedData)
     })
   }, [selectedStateUT, selectedElection])
 
