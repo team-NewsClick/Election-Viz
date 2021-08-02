@@ -164,9 +164,6 @@ export const getRegionStatsTable = (
           })
         }
       })
-    // if(electionViewType !== compareElectionType) {
-    //   tableData.map((d) => d.seatsDiff = "--")
-    // }
     return tableData
   }
 }
@@ -226,18 +223,16 @@ const getCurrYearDataTable = (
         })
       }
       if (
-        tableData.indexOf(
-          tableData.find(({ alliance }) => alliance == "OTHERS")
-        ) < 0
-      ) {
-        tableData.push({
-          alliance: "OTHERS",
-          seats: 0,
-          votes: 0,
-          votesPercent: 0
-        })
+        tableData.indexOf(tableData.find(({ alliance }) => alliance == "OTHERS")) < 0
+        ) {
+          tableData.push({
+            alliance: "OTHERS",
+            seats: 0,
+            votes: 0,
+            votesPercent: 0
+          })
+        }
       }
-    }
     if (groupType === "party") {
       data.map((d) => {
         let temp = tableData.indexOf(
