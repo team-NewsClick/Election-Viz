@@ -6492,13 +6492,13 @@
 "S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","None of the Above","NULL","NULL","NULL","NOTA",1142,6
 "S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","ALEXANDER J","M","GEN",45,"PMK",615,7
 "S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","HENRY J","M","GEN",63,"IND",341,8
-"S22",1,"Cooch Behar","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","RAJESH M","M","GEN",27,"IND",325,9
-"S22",1,"Cooch Behar","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","RATHISH P","M","GEN",33,"IND",303,10
-"S22",1,"Cooch Behar","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","VATHANA NISHA J","F","GEN",36,"IND",292,11
-"S22",1,"Cooch Behar","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","SUNIL BABU K","M","GEN",41,"IND",282,12
-"S22",1,"Cooch Behar","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","THANKAMONY C","M","GEN",57,"ICF",253,13
-"S22",1,"Cooch Behar","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","PAL RAJ M","M","GEN",49,"IND",247,14
-"S22",1,"Cooch Behar","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","DHANAPAUL P","M","GEN",53,"CPIM",162,15
+"S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","RAJESH M","M","GEN",27,"IND",325,9
+"S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","RATHISH P","M","GEN",33,"IND",303,10
+"S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","VATHANA NISHA J","F","GEN",36,"IND",292,11
+"S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","SUNIL BABU K","M","GEN",41,"IND",282,12
+"S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","THANKAMONY C","M","GEN",57,"ICF",253,13
+"S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","PAL RAJ M","M","GEN",49,"IND",247,14
+"S22",3,"Jalpaiguri","Tamil Nadu",5,2016,"KANNIYAKUMARI",234,"Killiyoor","GEN","DHANAPAUL P","M","GEN",53,"CPIM",162,15
 "S25",1,"Cooch Behar","West Bengal",5,2016,"Coochbehar",1,"Mekliganj","SC","ARGHYA ROY PRADHAN (BILU)","M","SC",44,"AITC",74823,1
 "S25",1,"Cooch Behar","West Bengal",5,2016,"Coochbehar",1,"Mekliganj","SC","PARESH CHANDRA ADHIKARY","M","SC",63,"AIFB",68186,2
 "S25",1,"Cooch Behar","West Bengal",5,2016,"Coochbehar",1,"Mekliganj","SC","DADHIRAM RAY","M","SC",32,"BJP",23355,3
@@ -8235,29 +8235,29 @@
 "S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",219,"Dantan","GEN","SHAKTIPADA NAYAK","M","GEN",56,"BJP",13357,3
 "S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",219,"Dantan","GEN","BALARAM DAS","M","GEN",59,"SUCI",1797,4
 "S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",219,"Dantan","GEN","None of the Above","NULL","NULL","NULL","NOTA",1741,5
-"S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",220,"Nayagram","ST","DULAL MURMU","M","ST",40,"AITC",98395,1
-"S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",220,"Nayagram","ST","BAKUL MURMU","M","ST",47,"BJP",55140,2
-"S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",220,"Nayagram","ST","MANOJ KUMAR TUDU","M","ST",41,"INC",14094,3
-"S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",220,"Nayagram","ST","None of the Above","NULL","NULL","NULL","NOTA",3456,4
-"S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",220,"Nayagram","ST","NARAN HEMBRAM","M","ST",29,"SUCI",1451,5
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",220,"Nayagram","ST","RAMESH CHANDRA SING","M","ST",61,"IND",1302,6
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",220,"Nayagram","ST","RUPAI HEMBRAM","M","ST",52,"IND",1173,7
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",221,"Gopiballavpur","GEN","CHURAMANI MAHATA","M","GEN",58,"AITC",100323,1
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",221,"Gopiballavpur","GEN","PULIN BIHARI BASKE","M","ST",47,"CPM",50765,2
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",221,"Gopiballavpur","GEN","SUSIL KUMAR GHOSH","M","GEN",51,"BJP",21338,3
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",221,"Gopiballavpur","GEN","None of the Above","NULL","NULL","NULL","NOTA",3622,4
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",221,"Gopiballavpur","GEN","SUBODH KUMAR MANDI","M","ST",45,"IND",1914,5
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",221,"Gopiballavpur","GEN","RAJESH MAHATA","M","GEN",42,"AJSUP",1472,6
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",221,"Gopiballavpur","GEN","DHARMAPAL BISUI","M","GEN",42,"SUCI",1302,7
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",222,"Jhargram","GEN","SUKUMAR HANSDA","M","ST",62,"AITC",99233,1
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",222,"Jhargram","GEN","CHUNIBALA HANSDA","F","ST",54,"JKP(N)",44005,2
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",222,"Jhargram","GEN","AJOY KUMAR SEN","M","GEN",51,"BJP",18843,3
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",222,"Jhargram","GEN","SUBRATA BHATTACHARYA","M","GEN",61,"INC",7017,4
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",222,"Jhargram","GEN","None of the Above","NULL","NULL","NULL","NOTA",4578,5
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",222,"Jhargram","GEN","MAHADEB PRATIHAR","M","GEN",44,"SUCI",2343,6
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",222,"Jhargram","GEN","BABLU MURMU","M","ST",39,"IND",1754,7
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",222,"Jhargram","GEN","GUNADHAR MAHATO","M","GEN",60,"AJSUP",1599,8
-"S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",222,"Jhargram","GEN","ASHOKE MAHATA","M","GEN",26,"NDPOI",1165,9
+"S25",33,"Jhargram","West Bengal",5,2016,"Jhargram",220,"Nayagram","ST","DULAL MURMU","M","ST",40,"AITC",98395,1
+"S25",33,"Jhargram","West Bengal",5,2016,"Jhargram",220,"Nayagram","ST","BAKUL MURMU","M","ST",47,"BJP",55140,2
+"S25",33,"Jhargram","West Bengal",5,2016,"Jhargram",220,"Nayagram","ST","MANOJ KUMAR TUDU","M","ST",41,"INC",14094,3
+"S25",33,"Jhargram","West Bengal",5,2016,"Jhargram",220,"Nayagram","ST","None of the Above","NULL","NULL","NULL","NOTA",3456,4
+"S25",33,"Jhargram","West Bengal",5,2016,"Jhargram",220,"Nayagram","ST","NARAN HEMBRAM","M","ST",29,"SUCI",1451,5
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",220,"Nayagram","ST","RAMESH CHANDRA SING","M","ST",61,"IND",1302,6
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",220,"Nayagram","ST","RUPAI HEMBRAM","M","ST",52,"IND",1173,7
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",221,"Gopiballavpur","GEN","CHURAMANI MAHATA","M","GEN",58,"AITC",100323,1
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",221,"Gopiballavpur","GEN","PULIN BIHARI BASKE","M","ST",47,"CPM",50765,2
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",221,"Gopiballavpur","GEN","SUSIL KUMAR GHOSH","M","GEN",51,"BJP",21338,3
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",221,"Gopiballavpur","GEN","None of the Above","NULL","NULL","NULL","NOTA",3622,4
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",221,"Gopiballavpur","GEN","SUBODH KUMAR MANDI","M","ST",45,"IND",1914,5
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",221,"Gopiballavpur","GEN","RAJESH MAHATA","M","GEN",42,"AJSUP",1472,6
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",221,"Gopiballavpur","GEN","DHARMAPAL BISUI","M","GEN",42,"SUCI",1302,7
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",222,"Jhargram","GEN","SUKUMAR HANSDA","M","ST",62,"AITC",99233,1
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",222,"Jhargram","GEN","CHUNIBALA HANSDA","F","ST",54,"JKP(N)",44005,2
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",222,"Jhargram","GEN","AJOY KUMAR SEN","M","GEN",51,"BJP",18843,3
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",222,"Jhargram","GEN","SUBRATA BHATTACHARYA","M","GEN",61,"INC",7017,4
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",222,"Jhargram","GEN","None of the Above","NULL","NULL","NULL","NOTA",4578,5
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",222,"Jhargram","GEN","MAHADEB PRATIHAR","M","GEN",44,"SUCI",2343,6
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",222,"Jhargram","GEN","BABLU MURMU","M","ST",39,"IND",1754,7
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",222,"Jhargram","GEN","GUNADHAR MAHATO","M","GEN",60,"AJSUP",1599,8
+"S25",34,"Medinipur","West Bengal",5,2016,"Jhargram",222,"Jhargram","GEN","ASHOKE MAHATA","M","GEN",26,"NDPOI",1165,9
 "S25",34,"Medinipur","West Bengal",5,2016,"Paschim Medinipur",223,"Keshiary","ST","PARESH MURMU","M","ST",50,"AITC",104890,1
 "S25",32,"Ghatal","West Bengal",5,2016,"Paschim Medinipur",223,"Keshiary","ST","BIRAM MANDI","M","ST",56,"CPM",64141,2
 "S25",32,"Ghatal","West Bengal",5,2016,"Paschim Medinipur",223,"Keshiary","ST","BINOD BIHARI MURMU","M","ST",42,"BJP",18056,3
@@ -8340,13 +8340,13 @@
 "S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",236,"Medinipur","GEN","SOVA DAS","F","GEN",52,"AMB",2171,5
 "S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",236,"Medinipur","GEN","SUSANTA SAHU","M","GEN",56,"SUCI",2069,6
 "S25",33,"Jhargram","West Bengal",5,2016,"Paschim Medinipur",236,"Medinipur","GEN","SK. ALI UDDIN ALI","M","GEN",43,"AJSUP",1655,7
-"S25",35,"Purulia","West Bengal",5,2016,"Paschim Medinipur",237,"Binpur","ST","KHAGENDRANATH HEMBRAM","M","ST",68,"AITC",95804,1
-"S25",35,"Purulia","West Bengal",5,2016,"Paschim Medinipur",237,"Binpur","ST","DIBAKAR HANSDA","M","ST",57,"CPM",46481,2
-"S25",35,"Purulia","West Bengal",5,2016,"Paschim Medinipur",237,"Binpur","ST","MURARI MOHAN BASKE","M","ST",67,"BJP",15467,3
-"S25",35,"Purulia","West Bengal",5,2016,"Paschim Medinipur",237,"Binpur","ST","BIRBAHA HANSDA","F","ST",33,"JKP(N)",7094,4
-"S25",35,"Purulia","West Bengal",5,2016,"Paschim Medinipur",237,"Binpur","ST","None of the Above","NULL","NULL","NULL","NOTA",5158,5
-"S25",35,"Purulia","West Bengal",5,2016,"Paschim Medinipur",237,"Binpur","ST","SUBODH SAREN","M","ST",35,"AJSUP",2250,6
-"S25",35,"Purulia","West Bengal",5,2016,"Paschim Medinipur",237,"Binpur","ST","RAJIB MUDI","M","ST",30,"SUCI",1701,7
+"S25",35,"Purulia","West Bengal",5,2016,"Jhargram",237,"Binpur","ST","KHAGENDRANATH HEMBRAM","M","ST",68,"AITC",95804,1
+"S25",35,"Purulia","West Bengal",5,2016,"Jhargram",237,"Binpur","ST","DIBAKAR HANSDA","M","ST",57,"CPM",46481,2
+"S25",35,"Purulia","West Bengal",5,2016,"Jhargram",237,"Binpur","ST","MURARI MOHAN BASKE","M","ST",67,"BJP",15467,3
+"S25",35,"Purulia","West Bengal",5,2016,"Jhargram",237,"Binpur","ST","BIRBAHA HANSDA","F","ST",33,"JKP(N)",7094,4
+"S25",35,"Purulia","West Bengal",5,2016,"Jhargram",237,"Binpur","ST","None of the Above","NULL","NULL","NULL","NOTA",5158,5
+"S25",35,"Purulia","West Bengal",5,2016,"Jhargram",237,"Binpur","ST","SUBODH SAREN","M","ST",35,"AJSUP",2250,6
+"S25",35,"Purulia","West Bengal",5,2016,"Jhargram",237,"Binpur","ST","RAJIB MUDI","M","ST",30,"SUCI",1701,7
 "S25",35,"Purulia","West Bengal",5,2016,"Purulia",238,"Bandwan","ST","RAJIB LOCHAN SAREN","M","ST",42,"AITC",104323,1
 "S25",35,"Purulia","West Bengal",5,2016,"Purulia",238,"Bandwan","ST","BESRA SUSANTA","M","ST",35,"CPM",84016,2
 "S25",35,"Purulia","West Bengal",5,2016,"Purulia",238,"Bandwan","ST","LABSEN BASKEY","M","ST",44,"BJP",14371,3
@@ -8516,164 +8516,164 @@
 "S25",38,"Bardhaman Purba","West Bengal",5,2016,"Bankura",258,"Sonamukhi","SC","DEBJANI ROY","F","SC",35,"BJP",15118,3
 "S25",38,"Bardhaman Purba","West Bengal",5,2016,"Bankura",258,"Sonamukhi","SC","None of the Above","NULL","NULL","NULL","NOTA",4811,4
 "S25",38,"Bardhaman Purba","West Bengal",5,2016,"Bankura",258,"Sonamukhi","SC","JAYANTA LOHAR","M","SC",29,"BSP",3575,5
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",259,"Khandaghosh","SC","NABIN CHANDRA BAG","M","SC",40,"AITC",90151,1
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",259,"Khandaghosh","SC","ASIMA ROY","F","SC",30,"CPM",86949,2
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",259,"Khandaghosh","SC","ASHOKE SANTRA","M","SC",49,"BJP",13973,3
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",259,"Khandaghosh","SC","PROTUL BISWAS","M","SC",40,"BSP",2780,4
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",259,"Khandaghosh","SC","None of the Above","NULL","NULL","NULL","NOTA",2624,5
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",260,"Bardhaman Dakshin","GEN","RABIRANJAN CHATTOPADHYAY","M","GEN",75,"AITC",91882,1
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",260,"Bardhaman Dakshin","GEN","AINUL HAQUE","M","GEN",57,"CPM",62444,2
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",260,"Bardhaman Dakshin","GEN","SAMIR KUMAR ROY","M","GEN",63,"IND",17205,3
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",260,"Bardhaman Dakshin","GEN","PRABAL ROY","M","GEN",50,"BJP",16192,4
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",260,"Bardhaman Dakshin","GEN","None of the Above","NULL","NULL","NULL","NOTA",3394,5
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",260,"Bardhaman Dakshin","GEN","MD. HARUN","M","GEN",46,"BSP",1616,6
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",260,"Bardhaman Dakshin","GEN","PARIKSHIT GORAIN","M","GEN",42,"SUCI",1363,7
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",261,"Raina","SC","NEPAL GHORUI","M","SC",38,"AITC",94323,1
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",261,"Raina","SC","KHAN BASUDEB","M","SC",62,"CPM",93875,2
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",261,"Raina","SC","KASHINATH PATRA","M","SC",56,"BJP",14589,3
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",261,"Raina","SC","None of the Above","NULL","NULL","NULL","NOTA",3306,4
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",262,"Jamalpur","SC","SAMAR HAZRA","M","SC",54,"CPM",85491,1
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",262,"Jamalpur","SC","UJJAL PRAMANICK","M","SC",55,"AITC",84068,2
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",262,"Jamalpur","SC","PALLAB KUMAR ROY","M","SC",43,"BJP",15094,3
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",262,"Jamalpur","SC","None of the Above","NULL","NULL","NULL","NOTA",2616,4
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",262,"Jamalpur","SC","BANKIM SANTRA","M","SC",59,"BSP",1902,5
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",262,"Jamalpur","SC","KISHORE KUMAR BISWAS","M","SC",38,"JDP",1424,6
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",262,"Jamalpur","SC","SANAT BHANGI","M","SC",33,"IND",1391,7
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",263,"Monteswar","GEN","SAJAL PANJA","M","GEN",54,"AITC",84134,1
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",263,"Monteswar","GEN","CHAUDHURI MD. HEDAYATULLAH","M","GEN",68,"CPM",83428,2
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",263,"Monteswar","GEN","BISWAJIT PODDAR","M","GEN",41,"BJP",15452,3
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",263,"Monteswar","GEN","KHOKAN DAS","M","SC",52,"BSP",2644,4
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",263,"Monteswar","GEN","None of the Above","NULL","NULL","NULL","NOTA",2445,5
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",263,"Monteswar","GEN","JAGABANDHU MALIK","M","SC",55,"MPOI",1437,6
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",263,"Monteswar","GEN","PREMCHAND SOREN","M","ST",35,"JDP",1190,7
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",264,"Kalna","SC","KUNDU BISWAJIT","M","SC",42,"AITC",97430,1
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",264,"Kalna","SC","SUKUL CHANDRA SIKDAR","M","SC",59,"CPM",72169,2
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",264,"Kalna","SC","NEWTON MAJUMDAR","M","SC",36,"BJP",17577,3
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",264,"Kalna","SC","None of the Above","NULL","NULL","NULL","NOTA",2865,4
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",264,"Kalna","SC","RADHESYAM MANDAL","M","SC",68,"BSP",1976,5
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",264,"Kalna","SC","PEJUSH KUMAR SAHANA","M","SC",48,"CPI(ML)(L)",1612,6
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",265,"Memari","GEN","BEGUM NARGIS","F","GEN",51,"AITC",94406,1
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",265,"Memari","GEN","DEBASHIS GHOSH","M","GEN",52,"CPM",85523,2
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",265,"Memari","GEN","BHISMADEB BHATTACHARYA","M","GEN",62,"BJP",15231,3
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",265,"Memari","GEN","SRABANTI MAJUMDER","F","SC",32,"IND",2344,4
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",265,"Memari","GEN","DINESH SIKDAR","M","SC",49,"BSP",2325,5
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",265,"Memari","GEN","None of the Above","NULL","NULL","NULL","NOTA",2287,6
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",265,"Memari","GEN","BUDO MURMU","M","ST",25,"JDP",1558,7
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",266,"Bardhaman Uttar","SC","NISITH KUMAR MALIK","M","SC",47,"AITC",102886,1
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",266,"Bardhaman Uttar","SC","APARNA SAHA","F","SC",48,"CPM",91381,2
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",266,"Bardhaman Uttar","SC","PRASANTA SAHA","M","SC",39,"BJP",15275,3
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",266,"Bardhaman Uttar","SC","None of the Above","NULL","NULL","NULL","NOTA",3401,4
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",266,"Bardhaman Uttar","SC","TARUN KANTI MAJHI","M","SC",60,"CPI(ML)(L)",2275,5
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",266,"Bardhaman Uttar","SC","MAHADEV MALIK","M","SC",25,"BSP",1715,6
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",267,"Bhatar","GEN","SUBHASH MONDAL","M","GEN",48,"AITC",92544,1
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",267,"Bhatar","GEN","BAMACHARAN BANERJEE","M","GEN",63,"CPM",86264,2
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",267,"Bhatar","GEN","ANJAN MUKHERJEE","M","GEN",62,"BJP",12950,3
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",267,"Bhatar","GEN","DHANANJAY GHOSHAL","M","GEN",56,"BSP",2176,4
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",267,"Bhatar","GEN","None of the Above","NULL","NULL","NULL","NOTA",2108,5
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",267,"Bhatar","GEN","SANTOSH NANDI","M","GEN",28,"IND",1438,6
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",268,"Purbasthali Dakshin","GEN","SWAPAN DEBNATH","M","GEN",64,"AITC",104398,1
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",268,"Purbasthali Dakshin","GEN","ABHIJIT BHATTACHARYYA","M","GEN",34,"INC",66732,2
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",268,"Purbasthali Dakshin","GEN","RAJIB KUMAR BHOWMICK","M","GEN",41,"BJP",19003,3
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",268,"Purbasthali Dakshin","GEN","None of the Above","NULL","NULL","NULL","NOTA",1916,4
-"S25",38,"Bardhaman Purba","West Bengal",5,2016,"Burdwan",268,"Purbasthali Dakshin","GEN","NASIMUL GANI SAYED","M","GEN",52,"PDS",1555,5
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",268,"Purbasthali Dakshin","GEN","JIYADUL SEIKH","M","GEN",39,"CPI(ML)(L)",1318,6
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",268,"Purbasthali Dakshin","GEN","MANORANJAN BOLL","M","SC",56,"BSP",1223,7
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",268,"Purbasthali Dakshin","GEN","RAM HANSDA","M","ST",58,"IND",796,8
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",268,"Purbasthali Dakshin","GEN","ABUL KALAM SEIKH","M","GEN",44,"IND",602,9
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",269,"Purbasthali Uttar","GEN","PRADIP KUMAR SAHA","M","GEN",52,"CPM",84549,1
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",269,"Purbasthali Uttar","GEN","TAPAN CHATTERJEE","M","GEN",61,"AITC",81721,2
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",269,"Purbasthali Uttar","GEN","SWAPAN BHATTACHARYA","M","GEN",66,"BJP",22410,3
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",269,"Purbasthali Uttar","GEN","JYOTSNA GOLDAR","F","SC",41,"BSP",2193,4
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",269,"Purbasthali Uttar","GEN","None of the Above","NULL","NULL","NULL","NOTA",1534,5
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",269,"Purbasthali Uttar","GEN","ANSARUL AMAN MONDAL (BABU)","M","GEN",46,"CPI(ML)(L)",1516,6
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",269,"Purbasthali Uttar","GEN","BINOD BIHARI DEBNATH","M","GEN",80,"SP(I)",997,7
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",270,"Katwa","GEN","RABINDRANATH CHATTERJEE","M","GEN",66,"AITC",91489,1
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",270,"Katwa","GEN","SHYAMA MAJUMDAR","F","GEN",64,"INC",90578,2
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",270,"Katwa","GEN","ANIL DUTTA","M","GEN",50,"BJP",14939,3
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",270,"Katwa","GEN","None of the Above","NULL","NULL","NULL","NOTA",2081,4
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",270,"Katwa","GEN","KRISHNADAS SAHA","M","GEN",68,"PDS",1800,5
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",270,"Katwa","GEN","APURBA CHAKRABORTY","M","GEN",55,"SUCI",1690,6
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",270,"Katwa","GEN","SRIDAM GOLDAR","M","SC",65,"BSP",1614,7
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",271,"Ketugram","GEN","SEKH SAHONAWEZ","M","GEN",57,"AITC",89441,1
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",271,"Ketugram","GEN","ABUL KADAR SYED","M","GEN",46,"CPM",80712,2
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",271,"Ketugram","GEN","BANKUBIHARI GHOSH","M","GEN",37,"BJP",16641,3
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",271,"Ketugram","GEN","None of the Above","NULL","NULL","NULL","NOTA",4414,4
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",271,"Ketugram","GEN","M. H. MUNSI (KACHI MUNSI)","M","GEN",59,"SUCI",2391,5
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",272,"Mangalkot","GEN","CHOWDHURY SIDDIQULLAH","M","GEN",67,"AITC",89812,1
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",272,"Mangalkot","GEN","CHOUDHURY SAHAJAHAN","M","GEN",57,"CPM",77938,2
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",272,"Mangalkot","GEN","GOPAL CHATTOPADHYAY","M","GEN",39,"BJP",20780,3
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",272,"Mangalkot","GEN","RAMKRISHNA MALIK","M","SC",29,"BSP",3315,4
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",272,"Mangalkot","GEN","None of the Above","NULL","NULL","NULL","NOTA",2210,5
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",272,"Mangalkot","GEN","RASIK SAREN","M","ST",54,"SUCI",1731,6
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",273,"Ausgram","SC","ABHEDANANDA THANDER","M","SC",53,"AITC",90450,1
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",273,"Ausgram","SC","BASUDEV METE","M","SC",46,"CPM",84198,2
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",273,"Ausgram","SC","SANATAN MAJI","M","SC",47,"BJP",14686,3
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",273,"Ausgram","SC","None of the Above","NULL","NULL","NULL","NOTA",3817,4
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",273,"Ausgram","SC","KALPANA ANKURE","F","SC",45,"IND",2263,5
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",273,"Ausgram","SC","MANASA METE","M","SC",49,"SUCI",1485,6
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",274,"Galsi","SC","ALOK KUMAR MAJHI","M","SC",33,"AITC",95203,1
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",274,"Galsi","SC","NANDALAL PONDIT","M","SC",64,"AIFB",84432,2
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",274,"Galsi","SC","SUNDAR PASWAN","M","SC",53,"BJP",21435,3
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",274,"Galsi","SC","None of the Above","NULL","NULL","NULL","NOTA",3927,4
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",275,"Pandabeswar","GEN","KUMAR JITENDRA TEWARI","M","GEN",42,"AITC",68600,1
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",275,"Pandabeswar","GEN","GOURANGA CHATTERJEE","M","GEN",56,"CPM",63130,2
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",275,"Pandabeswar","GEN","JITEN CHATTERJEE","M","GEN",36,"BJP",13604,3
-"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"Burdwan",275,"Pandabeswar","GEN","None of the Above","NULL","NULL","NULL","NOTA",2653,4
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",275,"Pandabeswar","GEN","ASIM KUMAR BHATTACHARJEE","M","GEN",60,"SUCI",1580,5
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",275,"Pandabeswar","GEN","PURNENDU CHAUDHURI","M","GEN",42,"IND",1435,6
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",275,"Pandabeswar","GEN","MOYNA RUIDAS","F","SC",28,"BMUP",1323,7
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",276,"Durgapur Purba","GEN","SANTOSH DEBRAY","M","GEN",73,"CPM",84200,1
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",276,"Durgapur Purba","GEN","PRADIP MAZUMDAR","M","GEN",69,"AITC",75069,2
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",276,"Durgapur Purba","GEN","AKHIL MONDAL","M","GEN",55,"BJP",23302,3
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",276,"Durgapur Purba","GEN","None of the Above","NULL","NULL","NULL","NOTA",3680,4
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",276,"Durgapur Purba","GEN","ASIT BARAN MONDAL","M","SC",61,"SUCI",1676,5
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",276,"Durgapur Purba","GEN","SUKAMAL SAHA","M","GEN",32,"IND",1354,6
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",276,"Durgapur Purba","GEN","ANIRUDDHA CHATTERJEE","M","GEN",38,"IND",1138,7
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",277,"Durgapur Paschim","GEN","BISHWANATH PARIAL","M","GEN",50,"INC",108533,1
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",277,"Durgapur Paschim","GEN","APURBA MUKHERJEE","M","GEN",61,"AITC",63709,2
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",277,"Durgapur Paschim","GEN","KALYAN DUBEY","M","GEN",45,"BJP",18313,3
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",277,"Durgapur Paschim","GEN","None of the Above","NULL","NULL","NULL","NOTA",3879,4
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",277,"Durgapur Paschim","GEN","SHYAMALI BANERJEE (ROY CHOWDHURY)","F","GEN",68,"SUCI",1917,5
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",277,"Durgapur Paschim","GEN","SANDIP SARKAR","M","SC",50,"BSP",1506,6
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",277,"Durgapur Paschim","GEN","KANAI DUTTA","M","GEN",45,"IND",839,7
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",277,"Durgapur Paschim","GEN","ATUL CHANDRA BAURI","M","SC",62,"BMUP",679,8
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",278,"Raniganj","GEN","RUNU DUTTA","M","GEN",62,"CPM",74995,1
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",278,"Raniganj","GEN","BANO NARGIS","F","GEN",47,"AITC",62610,2
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",278,"Raniganj","GEN","MANISH SHARMA","M","GEN",45,"BJP",32214,3
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",278,"Raniganj","GEN","None of the Above","NULL","NULL","NULL","NOTA",2708,4
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",278,"Raniganj","GEN","AJIT KUMAR BADYAKAR","M","SC",69,"BSP",2599,5
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",278,"Raniganj","GEN","MAMONI ORANG","F","ST",31,"BMUP",2081,6
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",279,"Jamuria","GEN","JAHANARA KHAN","F","GEN",50,"CPM",67214,1
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",279,"Jamuria","GEN","V. SIVADASAN (DASU)","M","GEN",55,"AITC",59457,2
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",279,"Jamuria","GEN","SANTOSH SINGH","M","GEN",46,"BJP",22040,3
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",279,"Jamuria","GEN","None of the Above","NULL","NULL","NULL","NOTA",3018,4
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",279,"Jamuria","GEN","KRIPAMAY DAS","M","GEN",31,"IND",2051,5
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",279,"Jamuria","GEN","PRADIP RUIDAS","M","SC",36,"BMUP",1513,6
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",280,"Asansol Dakshin","GEN","TAPAS BANERJEE","M","GEN",60,"AITC",71515,1
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",280,"Asansol Dakshin","GEN","HEMANT PRABHAKAR","M","GEN",36,"CPM",57232,2
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",280,"Asansol Dakshin","GEN","COL. DIPTANSU CHAUDHURY","M","GEN",46,"BJP",49199,3
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",280,"Asansol Dakshin","GEN","None of the Above","NULL","NULL","NULL","NOTA",3911,4
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",280,"Asansol Dakshin","GEN","CHHOTON RUIDAS","M","SC",29,"BMUP",2096,5
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",280,"Asansol Dakshin","GEN","SUKANTA HEMBRAM","M","ST",30,"JDP",1601,6
-"S25",40,"Asansol","West Bengal",5,2016,"Burdwan",281,"Asansol Uttar","GEN","MOLOY GHATAK","M","GEN",60,"AITC",84715,1
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",281,"Asansol Uttar","GEN","NIRMAL KARMAKAR","M","GEN",58,"BJP",60818,2
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",281,"Asansol Uttar","GEN","INDRANI MISHRA","F","GEN",34,"INC",31892,3
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",281,"Asansol Uttar","GEN","None of the Above","NULL","NULL","NULL","NOTA",2795,4
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",281,"Asansol Uttar","GEN","DIPALI RUIDAS","F","SC",39,"BMUP",2178,5
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",281,"Asansol Uttar","GEN","SHYAMA CHARAN DUTTA","M","GEN",68,"ABHM",1268,6
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",282,"Kulti","GEN","UJJAL CHATTERJEE","M","GEN",57,"AITC",68952,1
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",282,"Kulti","GEN","AJAY KUMAR PODDAR","M","GEN",58,"BJP",49464,2
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",282,"Kulti","GEN","ABHIJIT ACHARYYA(BAPPA)","M","GEN",36,"INC",42895,3
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",282,"Kulti","GEN","None of the Above","NULL","NULL","NULL","NOTA",2848,4
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",282,"Kulti","GEN","MD. SHAKIL ANSARI","M","GEN",36,"JMM",1896,5
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",282,"Kulti","GEN","KALLOL RAY","M","GEN",51,"SUCI",1629,6
-"S25",42,"Birbhum","West Bengal",5,2016,"Burdwan",282,"Kulti","GEN","SAJAL DAS","M","SC",43,"IND",1279,7
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",283,"Barabani","GEN","BIDHAN UPADHYAY","M","GEN",46,"AITC",77464,1
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",283,"Barabani","GEN","SHIPRA MUKHERJEE","F","GEN",43,"CPM",53415,2
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",283,"Barabani","GEN","AMAL ROY","M","GEN",60,"BJP",25224,3
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",283,"Barabani","GEN","KRISHNAPADA NATH GOSWAMI","M","GEN",53,"SHS",3480,4
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",283,"Barabani","GEN","None of the Above","NULL","NULL","NULL","NOTA",2761,5
-"S25",41,"Bolpur","West Bengal",5,2016,"Burdwan",283,"Barabani","GEN","PRANABESH DUTTA","M","GEN",63,"SUCI",2032,6
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",259,"Khandaghosh","SC","NABIN CHANDRA BAG","M","SC",40,"AITC",90151,1
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",259,"Khandaghosh","SC","ASIMA ROY","F","SC",30,"CPM",86949,2
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",259,"Khandaghosh","SC","ASHOKE SANTRA","M","SC",49,"BJP",13973,3
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",259,"Khandaghosh","SC","PROTUL BISWAS","M","SC",40,"BSP",2780,4
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",259,"Khandaghosh","SC","None of the Above","NULL","NULL","NULL","NOTA",2624,5
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",260,"Bardhaman Dakshin","GEN","RABIRANJAN CHATTOPADHYAY","M","GEN",75,"AITC",91882,1
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",260,"Bardhaman Dakshin","GEN","AINUL HAQUE","M","GEN",57,"CPM",62444,2
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",260,"Bardhaman Dakshin","GEN","SAMIR KUMAR ROY","M","GEN",63,"IND",17205,3
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",260,"Bardhaman Dakshin","GEN","PRABAL ROY","M","GEN",50,"BJP",16192,4
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",260,"Bardhaman Dakshin","GEN","None of the Above","NULL","NULL","NULL","NOTA",3394,5
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",260,"Bardhaman Dakshin","GEN","MD. HARUN","M","GEN",46,"BSP",1616,6
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",260,"Bardhaman Dakshin","GEN","PARIKSHIT GORAIN","M","GEN",42,"SUCI",1363,7
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",261,"Raina","SC","NEPAL GHORUI","M","SC",38,"AITC",94323,1
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",261,"Raina","SC","KHAN BASUDEB","M","SC",62,"CPM",93875,2
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",261,"Raina","SC","KASHINATH PATRA","M","SC",56,"BJP",14589,3
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",261,"Raina","SC","None of the Above","NULL","NULL","NULL","NOTA",3306,4
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",262,"Jamalpur","SC","SAMAR HAZRA","M","SC",54,"CPM",85491,1
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",262,"Jamalpur","SC","UJJAL PRAMANICK","M","SC",55,"AITC",84068,2
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",262,"Jamalpur","SC","PALLAB KUMAR ROY","M","SC",43,"BJP",15094,3
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",262,"Jamalpur","SC","None of the Above","NULL","NULL","NULL","NOTA",2616,4
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",262,"Jamalpur","SC","BANKIM SANTRA","M","SC",59,"BSP",1902,5
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",262,"Jamalpur","SC","KISHORE KUMAR BISWAS","M","SC",38,"JDP",1424,6
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",262,"Jamalpur","SC","SANAT BHANGI","M","SC",33,"IND",1391,7
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",263,"Monteswar","GEN","SAJAL PANJA","M","GEN",54,"AITC",84134,1
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",263,"Monteswar","GEN","CHAUDHURI MD. HEDAYATULLAH","M","GEN",68,"CPM",83428,2
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",263,"Monteswar","GEN","BISWAJIT PODDAR","M","GEN",41,"BJP",15452,3
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",263,"Monteswar","GEN","KHOKAN DAS","M","SC",52,"BSP",2644,4
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",263,"Monteswar","GEN","None of the Above","NULL","NULL","NULL","NOTA",2445,5
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",263,"Monteswar","GEN","JAGABANDHU MALIK","M","SC",55,"MPOI",1437,6
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",263,"Monteswar","GEN","PREMCHAND SOREN","M","ST",35,"JDP",1190,7
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",264,"Kalna","SC","KUNDU BISWAJIT","M","SC",42,"AITC",97430,1
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",264,"Kalna","SC","SUKUL CHANDRA SIKDAR","M","SC",59,"CPM",72169,2
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",264,"Kalna","SC","NEWTON MAJUMDAR","M","SC",36,"BJP",17577,3
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",264,"Kalna","SC","None of the Above","NULL","NULL","NULL","NOTA",2865,4
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",264,"Kalna","SC","RADHESYAM MANDAL","M","SC",68,"BSP",1976,5
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",264,"Kalna","SC","PEJUSH KUMAR SAHANA","M","SC",48,"CPI(ML)(L)",1612,6
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",265,"Memari","GEN","BEGUM NARGIS","F","GEN",51,"AITC",94406,1
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",265,"Memari","GEN","DEBASHIS GHOSH","M","GEN",52,"CPM",85523,2
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",265,"Memari","GEN","BHISMADEB BHATTACHARYA","M","GEN",62,"BJP",15231,3
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",265,"Memari","GEN","SRABANTI MAJUMDER","F","SC",32,"IND",2344,4
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",265,"Memari","GEN","DINESH SIKDAR","M","SC",49,"BSP",2325,5
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",265,"Memari","GEN","None of the Above","NULL","NULL","NULL","NOTA",2287,6
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",265,"Memari","GEN","BUDO MURMU","M","ST",25,"JDP",1558,7
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",266,"Bardhaman Uttar","SC","NISITH KUMAR MALIK","M","SC",47,"AITC",102886,1
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",266,"Bardhaman Uttar","SC","APARNA SAHA","F","SC",48,"CPM",91381,2
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",266,"Bardhaman Uttar","SC","PRASANTA SAHA","M","SC",39,"BJP",15275,3
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",266,"Bardhaman Uttar","SC","None of the Above","NULL","NULL","NULL","NOTA",3401,4
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",266,"Bardhaman Uttar","SC","TARUN KANTI MAJHI","M","SC",60,"CPI(ML)(L)",2275,5
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",266,"Bardhaman Uttar","SC","MAHADEV MALIK","M","SC",25,"BSP",1715,6
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",267,"Bhatar","GEN","SUBHASH MONDAL","M","GEN",48,"AITC",92544,1
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",267,"Bhatar","GEN","BAMACHARAN BANERJEE","M","GEN",63,"CPM",86264,2
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",267,"Bhatar","GEN","ANJAN MUKHERJEE","M","GEN",62,"BJP",12950,3
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",267,"Bhatar","GEN","DHANANJAY GHOSHAL","M","GEN",56,"BSP",2176,4
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",267,"Bhatar","GEN","None of the Above","NULL","NULL","NULL","NOTA",2108,5
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",267,"Bhatar","GEN","SANTOSH NANDI","M","GEN",28,"IND",1438,6
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",268,"Purbasthali Dakshin","GEN","SWAPAN DEBNATH","M","GEN",64,"AITC",104398,1
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",268,"Purbasthali Dakshin","GEN","ABHIJIT BHATTACHARYYA","M","GEN",34,"INC",66732,2
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",268,"Purbasthali Dakshin","GEN","RAJIB KUMAR BHOWMICK","M","GEN",41,"BJP",19003,3
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",268,"Purbasthali Dakshin","GEN","None of the Above","NULL","NULL","NULL","NOTA",1916,4
+"S25",38,"Bardhaman Purba","West Bengal",5,2016,"PURBA BARDHAMAN",268,"Purbasthali Dakshin","GEN","NASIMUL GANI SAYED","M","GEN",52,"PDS",1555,5
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",268,"Purbasthali Dakshin","GEN","JIYADUL SEIKH","M","GEN",39,"CPI(ML)(L)",1318,6
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",268,"Purbasthali Dakshin","GEN","MANORANJAN BOLL","M","SC",56,"BSP",1223,7
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",268,"Purbasthali Dakshin","GEN","RAM HANSDA","M","ST",58,"IND",796,8
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",268,"Purbasthali Dakshin","GEN","ABUL KALAM SEIKH","M","GEN",44,"IND",602,9
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",269,"Purbasthali Uttar","GEN","PRADIP KUMAR SAHA","M","GEN",52,"CPM",84549,1
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",269,"Purbasthali Uttar","GEN","TAPAN CHATTERJEE","M","GEN",61,"AITC",81721,2
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",269,"Purbasthali Uttar","GEN","SWAPAN BHATTACHARYA","M","GEN",66,"BJP",22410,3
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",269,"Purbasthali Uttar","GEN","JYOTSNA GOLDAR","F","SC",41,"BSP",2193,4
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",269,"Purbasthali Uttar","GEN","None of the Above","NULL","NULL","NULL","NOTA",1534,5
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",269,"Purbasthali Uttar","GEN","ANSARUL AMAN MONDAL (BABU)","M","GEN",46,"CPI(ML)(L)",1516,6
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",269,"Purbasthali Uttar","GEN","BINOD BIHARI DEBNATH","M","GEN",80,"SP(I)",997,7
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",270,"Katwa","GEN","RABINDRANATH CHATTERJEE","M","GEN",66,"AITC",91489,1
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",270,"Katwa","GEN","SHYAMA MAJUMDAR","F","GEN",64,"INC",90578,2
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",270,"Katwa","GEN","ANIL DUTTA","M","GEN",50,"BJP",14939,3
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",270,"Katwa","GEN","None of the Above","NULL","NULL","NULL","NOTA",2081,4
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",270,"Katwa","GEN","KRISHNADAS SAHA","M","GEN",68,"PDS",1800,5
+"S25",41,"Bolpur","West Bengal",5,2016,"PURBA BARDHAMAN",270,"Katwa","GEN","APURBA CHAKRABORTY","M","GEN",55,"SUCI",1690,6
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",270,"Katwa","GEN","SRIDAM GOLDAR","M","SC",65,"BSP",1614,7
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",271,"Ketugram","GEN","SEKH SAHONAWEZ","M","GEN",57,"AITC",89441,1
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",271,"Ketugram","GEN","ABUL KADAR SYED","M","GEN",46,"CPM",80712,2
+"S25","PURBA BARDHAMAN","Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",271,"Ketugram","GEN","BANKUBIHARI GHOSH","M","GEN",37,"BJP",16641,3
+"S25",40,"Asansol","West Bengal",5,2016,"PURBA BARDHAMAN",271,"Ketugram","GEN","None of the Above","NULL","NULL","NULL","NOTA",4414,4
+"S25",40,"Asansol","West Bengal",5,2016,"PURBA BARDHAMAN",271,"Ketugram","GEN","M. H. MUNSI (KACHI MUNSI)","M","GEN",59,"SUCI",2391,5
+"S25",40,"Asansol","West Bengal",5,2016,"PURBA BARDHAMAN",272,"Mangalkot","GEN","CHOWDHURY SIDDIQULLAH","M","GEN",67,"AITC",89812,1
+"S25",40,"Asansol","West Bengal",5,2016,"PURBA BARDHAMAN",272,"Mangalkot","GEN","CHOUDHURY SAHAJAHAN","M","GEN",57,"CPM",77938,2
+"S25",40,"Asansol","West Bengal",5,2016,"PURBA BARDHAMAN",272,"Mangalkot","GEN","GOPAL CHATTOPADHYAY","M","GEN",39,"BJP",20780,3
+"S25",40,"Asansol","West Bengal",5,2016,"PURBA BARDHAMAN",272,"Mangalkot","GEN","RAMKRISHNA MALIK","M","SC",29,"BSP",3315,4
+"S25",40,"Asansol","West Bengal",5,2016,"PURBA BARDHAMAN",272,"Mangalkot","GEN","None of the Above","NULL","NULL","NULL","NOTA",2210,5
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",272,"Mangalkot","GEN","RASIK SAREN","M","ST",54,"SUCI",1731,6
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",273,"Ausgram","SC","ABHEDANANDA THANDER","M","SC",53,"AITC",90450,1
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",273,"Ausgram","SC","BASUDEV METE","M","SC",46,"CPM",84198,2
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",273,"Ausgram","SC","SANATAN MAJI","M","SC",47,"BJP",14686,3
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",273,"Ausgram","SC","None of the Above","NULL","NULL","NULL","NOTA",3817,4
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",273,"Ausgram","SC","KALPANA ANKURE","F","SC",45,"IND",2263,5
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",273,"Ausgram","SC","MANASA METE","M","SC",49,"SUCI",1485,6
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",274,"Galsi","SC","ALOK KUMAR MAJHI","M","SC",33,"AITC",95203,1
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",274,"Galsi","SC","NANDALAL PONDIT","M","SC",64,"AIFB",84432,2
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",274,"Galsi","SC","SUNDAR PASWAN","M","SC",53,"BJP",21435,3
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PURBA BARDHAMAN",274,"Galsi","SC","None of the Above","NULL","NULL","NULL","NOTA",3927,4
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PASCHIM BARDHAMAN",275,"Pandabeswar","GEN","KUMAR JITENDRA TEWARI","M","GEN",42,"AITC",68600,1
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PASCHIM BARDHAMAN",275,"Pandabeswar","GEN","GOURANGA CHATTERJEE","M","GEN",56,"CPM",63130,2
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PASCHIM BARDHAMAN",275,"Pandabeswar","GEN","JITEN CHATTERJEE","M","GEN",36,"BJP",13604,3
+"S25",39,"Bardhaman-Durgapur","West Bengal",5,2016,"PASCHIM BARDHAMAN",275,"Pandabeswar","GEN","None of the Above","NULL","NULL","NULL","NOTA",2653,4
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",275,"Pandabeswar","GEN","ASIM KUMAR BHATTACHARJEE","M","GEN",60,"SUCI",1580,5
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",275,"Pandabeswar","GEN","PURNENDU CHAUDHURI","M","GEN",42,"IND",1435,6
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",275,"Pandabeswar","GEN","MOYNA RUIDAS","F","SC",28,"BMUP",1323,7
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",276,"Durgapur Purba","GEN","SANTOSH DEBRAY","M","GEN",73,"CPM",84200,1
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",276,"Durgapur Purba","GEN","PRADIP MAZUMDAR","M","GEN",69,"AITC",75069,2
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",276,"Durgapur Purba","GEN","AKHIL MONDAL","M","GEN",55,"BJP",23302,3
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",276,"Durgapur Purba","GEN","None of the Above","NULL","NULL","NULL","NOTA",3680,4
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",276,"Durgapur Purba","GEN","ASIT BARAN MONDAL","M","SC",61,"SUCI",1676,5
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",276,"Durgapur Purba","GEN","SUKAMAL SAHA","M","GEN",32,"IND",1354,6
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",276,"Durgapur Purba","GEN","ANIRUDDHA CHATTERJEE","M","GEN",38,"IND",1138,7
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",277,"Durgapur Paschim","GEN","BISHWANATH PARIAL","M","GEN",50,"INC",108533,1
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",277,"Durgapur Paschim","GEN","APURBA MUKHERJEE","M","GEN",61,"AITC",63709,2
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",277,"Durgapur Paschim","GEN","KALYAN DUBEY","M","GEN",45,"BJP",18313,3
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",277,"Durgapur Paschim","GEN","None of the Above","NULL","NULL","NULL","NOTA",3879,4
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",277,"Durgapur Paschim","GEN","SHYAMALI BANERJEE (ROY CHOWDHURY)","F","GEN",68,"SUCI",1917,5
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",277,"Durgapur Paschim","GEN","SANDIP SARKAR","M","SC",50,"BSP",1506,6
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",277,"Durgapur Paschim","GEN","KANAI DUTTA","M","GEN",45,"IND",839,7
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",277,"Durgapur Paschim","GEN","ATUL CHANDRA BAURI","M","SC",62,"BMUP",679,8
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",278,"Raniganj","GEN","RUNU DUTTA","M","GEN",62,"CPM",74995,1
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",278,"Raniganj","GEN","BANO NARGIS","F","GEN",47,"AITC",62610,2
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",278,"Raniganj","GEN","MANISH SHARMA","M","GEN",45,"BJP",32214,3
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",278,"Raniganj","GEN","None of the Above","NULL","NULL","NULL","NOTA",2708,4
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",278,"Raniganj","GEN","AJIT KUMAR BADYAKAR","M","SC",69,"BSP",2599,5
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",278,"Raniganj","GEN","MAMONI ORANG","F","ST",31,"BMUP",2081,6
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",279,"Jamuria","GEN","JAHANARA KHAN","F","GEN",50,"CPM",67214,1
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",279,"Jamuria","GEN","V. SIVADASAN (DASU)","M","GEN",55,"AITC",59457,2
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",279,"Jamuria","GEN","SANTOSH SINGH","M","GEN",46,"BJP",22040,3
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",279,"Jamuria","GEN","None of the Above","NULL","NULL","NULL","NOTA",3018,4
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",279,"Jamuria","GEN","KRIPAMAY DAS","M","GEN",31,"IND",2051,5
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",279,"Jamuria","GEN","PRADIP RUIDAS","M","SC",36,"BMUP",1513,6
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",280,"Asansol Dakshin","GEN","TAPAS BANERJEE","M","GEN",60,"AITC",71515,1
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",280,"Asansol Dakshin","GEN","HEMANT PRABHAKAR","M","GEN",36,"CPM",57232,2
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",280,"Asansol Dakshin","GEN","COL. DIPTANSU CHAUDHURY","M","GEN",46,"BJP",49199,3
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",280,"Asansol Dakshin","GEN","None of the Above","NULL","NULL","NULL","NOTA",3911,4
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",280,"Asansol Dakshin","GEN","CHHOTON RUIDAS","M","SC",29,"BMUP",2096,5
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",280,"Asansol Dakshin","GEN","SUKANTA HEMBRAM","M","ST",30,"JDP",1601,6
+"S25",40,"Asansol","West Bengal",5,2016,"PASCHIM BARDHAMAN",281,"Asansol Uttar","GEN","MOLOY GHATAK","M","GEN",60,"AITC",84715,1
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",281,"Asansol Uttar","GEN","NIRMAL KARMAKAR","M","GEN",58,"BJP",60818,2
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",281,"Asansol Uttar","GEN","INDRANI MISHRA","F","GEN",34,"INC",31892,3
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",281,"Asansol Uttar","GEN","None of the Above","NULL","NULL","NULL","NOTA",2795,4
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",281,"Asansol Uttar","GEN","DIPALI RUIDAS","F","SC",39,"BMUP",2178,5
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",281,"Asansol Uttar","GEN","SHYAMA CHARAN DUTTA","M","GEN",68,"ABHM",1268,6
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",282,"Kulti","GEN","UJJAL CHATTERJEE","M","GEN",57,"AITC",68952,1
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",282,"Kulti","GEN","AJAY KUMAR PODDAR","M","GEN",58,"BJP",49464,2
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",282,"Kulti","GEN","ABHIJIT ACHARYYA(BAPPA)","M","GEN",36,"INC",42895,3
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",282,"Kulti","GEN","None of the Above","NULL","NULL","NULL","NOTA",2848,4
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",282,"Kulti","GEN","MD. SHAKIL ANSARI","M","GEN",36,"JMM",1896,5
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",282,"Kulti","GEN","KALLOL RAY","M","GEN",51,"SUCI",1629,6
+"S25",42,"Birbhum","West Bengal",5,2016,"PASCHIM BARDHAMAN",282,"Kulti","GEN","SAJAL DAS","M","SC",43,"IND",1279,7
+"S25",41,"Bolpur","West Bengal",5,2016,"PASCHIM BARDHAMAN",283,"Barabani","GEN","BIDHAN UPADHYAY","M","GEN",46,"AITC",77464,1
+"S25",41,"Bolpur","West Bengal",5,2016,"PASCHIM BARDHAMAN",283,"Barabani","GEN","SHIPRA MUKHERJEE","F","GEN",43,"CPM",53415,2
+"S25",41,"Bolpur","West Bengal",5,2016,"PASCHIM BARDHAMAN",283,"Barabani","GEN","AMAL ROY","M","GEN",60,"BJP",25224,3
+"S25",41,"Bolpur","West Bengal",5,2016,"PASCHIM BARDHAMAN",283,"Barabani","GEN","KRISHNAPADA NATH GOSWAMI","M","GEN",53,"SHS",3480,4
+"S25",41,"Bolpur","West Bengal",5,2016,"PASCHIM BARDHAMAN",283,"Barabani","GEN","None of the Above","NULL","NULL","NULL","NOTA",2761,5
+"S25",41,"Bolpur","West Bengal",5,2016,"PASCHIM BARDHAMAN",283,"Barabani","GEN","PRANABESH DUTTA","M","GEN",63,"SUCI",2032,6
 "S25",41,"Bolpur","West Bengal",5,2016,"Birbhum",284,"Dubrajpur","SC","CHANDRA NARESH  BAURI","M","SC",49,"AITC",94309,1
 "S25",41,"Bolpur","West Bengal",5,2016,"Birbhum",284,"Dubrajpur","SC","BIJOY BAGDI","M","SC",59,"AIFB",54415,2
 "S25",41,"Bolpur","West Bengal",5,2016,"Birbhum",284,"Dubrajpur","SC","RAMPRASAD DAS","M","SC",50,"BJP",25258,3
