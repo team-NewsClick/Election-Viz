@@ -18,7 +18,9 @@ import {
   LIVE_ELECTION,
   LIVE_ELECTION_YEAR,
   DELAY_INTERVAL_MINUTES,
-  FIRST_SELECT_STATEUT
+  FIRST_SELECT_STATEUT,
+  SELECT_STATE_UT,
+  SELECT_ELECTION
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -34,7 +36,7 @@ import {
   getConstituencies,
   getMapData,
   getConstituenciesResults,
-  getYearOptions,
+  getElectionOptions,
   getCompareOptions
 } from "../helpers/utils"
 import { getRegionStatsSVGData } from "../helpers/statsSVG"
@@ -53,11 +55,11 @@ const Dashboard = ({
 }) => {
   const windowWidth = window.innerWidth
   const [electionViewType, SetElectionViewType] = useState(ELECTION_VIEW_TYPE_ASSEMBLY)
-  const [selectedElection, setSelectedElection] = useState(FIRST_SELECT_STATEUT)
+  const [selectedElection, setSelectedElection] = useState(SELECT_ELECTION)
   const [electionOptions, setElectionOptions] = useState([FIRST_SELECT_STATEUT])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedStateUT, setSelectedStateUT] = useState(SELECT_STATE_UT)
   const [selectedConstituency, setSelectedConstituency] = useState(CONSTITUENCIES_DEFAULT_SELECT)
   const [selectedStateUTData, setSelectedStateUTData] = useState([])
   const [mapData, setMapData] = useState({})
@@ -78,55 +80,56 @@ const Dashboard = ({
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
   const [swingParams, setSwingParams] = useState([])
   const [partiesSwing, setPartiesSwing] = useState([])
+  const [getAssemblyStateElectionOptions, setGetAssemblyStateElectionOptions] = useState(false)
 
   useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setPartyAlliance(parsedData)
     })
-  }, [selectedElection, selectedStateUT])
+  }, [selectedElection, selectedStateUT, electionViewType])
 
   useEffect(() => {
     if(electionViewType === "general") {
-      const tempElectionOptions = getYearOptions(electionViewType, selectedStateUT)
+      const tempElectionOptions = getElectionOptions(electionViewType, selectedStateUT)
       setElectionOptions(tempElectionOptions)
+      setSelectedElection(tempElectionOptions[0].value)
+      const tempStateUTOptions = getStateUTs(tempElectionOptions[0].value, seatType, electionViewType, parliamentaryConstituenciesGeojson)
+      setStateUTOptions(tempStateUTOptions)
+      setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
     }
     if(electionViewType === "assembly") {
+      setSelectedElection(SELECT_ELECTION)
+      setSelectedStateUT(SELECT_STATE_UT)
       const tempStateUTOptions = getStateUTs(selectedElection, seatType, electionViewType, assemblyConstituenciesGeojson)
-      const tempElectionOptions = getYearOptions(electionViewType, selectedStateUT)
+      const tempElectionOptions = getElectionOptions(electionViewType, selectedStateUT)
       setStateUTOptions(tempStateUTOptions)
       setElectionOptions(tempElectionOptions)
     }
   }, [electionViewType])
 
   useEffect(() => {
-    if(electionViewType === "assembly") {
-      const temp = getYearOptions(electionViewType, selectedStateUT)
-      setElectionOptions(temp)
+    if(electionViewType === "assembly"
+    && selectedStateUT === SELECT_STATE_UT && selectedElection === SELECT_ELECTION) {
+      const tempStateUTOptions = getStateUTs(selectedElection, seatType, electionViewType, assemblyConstituenciesGeojson)
+      const tempElectionOptions = getElectionOptions(electionViewType, selectedStateUT, selectedElection)
+      setStateUTOptions(tempStateUTOptions)
+      setElectionOptions(tempElectionOptions)
     }
-  }, [selectedStateUT])
+  }, [selectedElection, selectedStateUT])
 
   useEffect(() => {
-    if(electionOptions[0].value !== FIRST_SELECT_STATEUT) {
-      const temp = electionOptions.indexOf(selectedElection) > -1
-        ? selectedElection
-        : {type: electionOptions[0].value.type, year: (electionOptions[0].value.year).toString()}
-      setSelectedElection(temp)
-    } else {
-      const temp = electionOptions.indexOf(selectedElection) > -1
-        ? selectedElection
-        : electionOptions[0].value
-      setSelectedElection(temp)
+    if(getAssemblyStateElectionOptions === true && electionViewType === "assembly") {
+      const tempElectionOptions = getElectionOptions(electionViewType, selectedStateUT)
+      setElectionOptions(tempElectionOptions)
+      const tempStateUTOptions = getStateUTs(selectedElection, seatType, electionViewType, assemblyConstituenciesGeojson)
+      setStateUTOptions(tempStateUTOptions)
+      tempStateUTOptions && tempStateUTOptions.findIndex((d) => d === selectedStateUT) > -1
+        ? setSelectedStateUT(selectedStateUT)
+        : setSelectedStateUT(tempStateUTOptions[0])
+      setGetAssemblyStateElectionOptions(false)
     }
-  }, [electionOptions])
-
-  useEffect(() => {
-    if(electionViewType === "general") {
-      setStateUTOptions(
-        getStateUTs(selectedElection, seatType, electionViewType, parliamentaryConstituenciesGeojson)
-      )
-    }
-  }, [selectedElection, seatType])
+  }, [selectedStateUT, selectedElection])
 
   useEffect(() => {
     if(electionViewType === "general") {
@@ -350,8 +353,8 @@ const Dashboard = ({
           filteredGeoJSON
         )
       )
-      setRegionStatsLoading(false)
     }
+    setRegionStatsLoading(false)
   }, [regionStatsSVGData, compareYearData, partiesSwing])
 
   useEffect(() => {
@@ -446,6 +449,9 @@ const Dashboard = ({
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
     SetElectionViewType(v)
+    if(electionViewType === "assembly") {
+      setGetAssemblyStateElectionOptions(false)
+    }
   }
   const _handleCompareElection = (v) => {
     setCompareElection(JSON.parse(v))
@@ -455,6 +461,9 @@ const Dashboard = ({
   }
   const _handleSelectedElection = (v) => {
     setSelectedElection(JSON.parse(v))
+    if(electionViewType === "assembly") {
+      setGetAssemblyStateElectionOptions(true)
+    }
   }
   const _handleSelectedRegion = (v) => {
     setSelectedRegion(v)
@@ -464,6 +473,9 @@ const Dashboard = ({
   }
   const _handleSelectedStateUT = (v) => {
     setSelectedStateUT(v)
+    if(electionViewType === "assembly") {
+      setGetAssemblyStateElectionOptions(true)
+    }
   }
   const _handleSelectedLocality = (v) => {
     console.log(v)
@@ -526,7 +538,45 @@ const Dashboard = ({
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
-            {electionViewType === "assembly" &&
+            {
+            electionViewType === "assembly" &&
+            (selectedStateUT === SELECT_STATE_UT || selectedStateUT === STATE_UT_DEFAULT_SELECT)
+            && (selectedElection === SELECT_ELECTION || selectedElection === FIRST_SELECT_STATEUT) &&
+            <div className="flex h-full">
+              <div className="text-center m-auto text-xl px-4 py-10">
+                Please select a region from the drop-down or by clicking on the map.
+              </div>
+            </div>
+            }
+            {
+            electionViewType === "assembly" &&
+            (selectedStateUT !== (SELECT_STATE_UT || STATE_UT_DEFAULT_SELECT)
+            || selectedElection !== (SELECT_ELECTION || FIRST_SELECT_STATEUT))
+            && selectedStateUTData.length === 0 &&
+              <div className="flex h-full">
+                <div className="text-center m-auto text-xl px-4 py-10">
+                  Data for selected options does not exist.
+                </div>
+              </div>
+
+            }
+            {
+            selectedStateUT !== SELECT_STATE_UT
+            && selectedElection !== SELECT_ELECTION
+            && selectedStateUTData.length !== 0 &&
+              <div>
+                <RegionStatsSVG
+                  regionStatsSVGData={regionStatsSVGData}
+                  selectedConstituency={selectedConstituency}
+                  regionStatsLoading={regionStatsLoading}
+                />
+                <RegionStatsTable
+                  regionStatsTableData={regionStatsTableData}
+                  regionStatsLoading={regionStatsLoading}
+                />
+              </div>
+            }
+            {/* {electionViewType === "assembly" &&
             selectedStateUT === STATE_UT_DEFAULT_SELECT ? (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
@@ -546,7 +596,7 @@ const Dashboard = ({
                   regionStatsLoading={regionStatsLoading}
                 />
               </div>
-            )}
+            )} */}
           </div>
           <div
             onClick={_home}

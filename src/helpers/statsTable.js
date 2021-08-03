@@ -1,6 +1,7 @@
 import {
   STATE_UT_DEFAULT_SELECT,
-  CONSTITUENCIES_DEFAULT_SELECT
+  CONSTITUENCIES_DEFAULT_SELECT,
+  FIRST_SELECT_STATEUT
 } from "../constants"
 import {
   getConstituenciesResults,
@@ -466,7 +467,8 @@ const compareSeatsVotesCount = (
   }
   if (
     selectedStateUT === STATE_UT_DEFAULT_SELECT ||
-    selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+    selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
+    selectedConstituency === FIRST_SELECT_STATEUT
   ) {
     const groups = Object.keys(SVGData)
     groups.indexOf("OTHERS") === -1 ? groups.push("OTHERS") : ""

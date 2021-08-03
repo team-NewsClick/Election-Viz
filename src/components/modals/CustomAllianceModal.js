@@ -44,7 +44,7 @@ const CustomAllianceModal = ({
       setDefaultPartyAlliance(parsedData)
       customAlliance(parsedData)
     })
-  }, [selectedStateUT, selectedElection])
+  }, [selectedStateUT, selectedElection, electionViewType])
 
   useEffect(() => {
     if(defaultPartyAlliance.length !== 0) {

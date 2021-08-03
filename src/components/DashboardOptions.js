@@ -104,23 +104,6 @@ const DashboardOptions = ({
           </div>
           <div>
             <select
-              name="state-ut"
-              onChange={(e) => updateSelectedStateUT(e.target.value)}
-              id="state-ut"
-              className="advance-select w-40 md:w-64"
-              value={selectedStateUT}
-            >
-              {stateUTOptions.map((d, index) => (
-                <option key={index} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="flex flex-wrap justify-center mx-auto">
-          <div>
-            <select
               name="year"
               onChange={(e) => updateSelectedElection(e.target.value)}
               id="year"
@@ -130,6 +113,23 @@ const DashboardOptions = ({
               {electionOptions.map((d, index) => (
                 <option key={index} value={JSON.stringify(d.value)}>
                   {d.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="flex flex-wrap justify-center mx-auto">
+          <div>
+            <select
+              name="state-ut"
+              onChange={(e) => updateSelectedStateUT(e.target.value)}
+              id="state-ut"
+              className="advance-select w-40 md:w-64"
+              value={selectedStateUT}
+            >
+              {stateUTOptions.map((d, index) => (
+                <option key={index} value={d}>
+                  {d}
                 </option>
               ))}
             </select>
