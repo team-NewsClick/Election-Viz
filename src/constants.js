@@ -31,13 +31,13 @@ export const NO_CONSTITUENCIES = "No Constituencies Available"
 /**
  * Live Election
  */
- export const LIVE_ELECTION = "Live"
+export const LIVE_ELECTION = "Live"
 
- /**
-  * Live Election Year
-  */
- export const LIVE_ELECTION_YEAR = "2021"
- 
+/**
+ * Live Election Year
+ */
+export const LIVE_ELECTION_YEAR = "2021"
+
 /**
  * Options for Year for Assembly Elections
  */
@@ -52,25 +52,86 @@ export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
  * Election details: their type, year and state/UTs that had the election
  */
 export const ELECTION_YEAR_STATEUT = {
-  general : {
-    2019 : [
-      "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Goa", "Gujarat", "Haryana", "Himachal Pradesh",
-      "Jammu & Kashmir", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
-      "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar Pradesh", "West Bengal",
-      "Chhattisgarh", "Jharkhand", "Uttarakhand", "Telangana", "Andaman & Nicobar Islands", "Chandigarh",
-      "Dadra & Nagar Haveli", "Daman & Diu", "NCT of Delhi", "Lakshadweep", "Puducherry"
+  general: {
+    2019: [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu & Kashmir",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Tripura",
+      "Uttar Pradesh",
+      "West Bengal",
+      "Chhattisgarh",
+      "Jharkhand",
+      "Uttarakhand",
+      "Telangana",
+      "Andaman & Nicobar Islands",
+      "Chandigarh",
+      "Dadra & Nagar Haveli",
+      "Daman & Diu",
+      "NCT of Delhi",
+      "Lakshadweep",
+      "Puducherry"
     ],
-    2014 : [
-      "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Goa", "Gujarat", "Haryana", "Himachal Pradesh",
-      "Jammu & Kashmir", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
-      "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar Pradesh", "West Bengal",
-      "Chhattisgarh", "Jharkhand", "Uttarakhand", "Andaman & Nicobar Islands", "Chandigarh",
-      "Dadra & Nagar Haveli", "Daman & Diu", "NCT of Delhi", "Lakshadweep", "Puducherry"
+    2014: [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu & Kashmir",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Tripura",
+      "Uttar Pradesh",
+      "West Bengal",
+      "Chhattisgarh",
+      "Jharkhand",
+      "Uttarakhand",
+      "Andaman & Nicobar Islands",
+      "Chandigarh",
+      "Dadra & Nagar Haveli",
+      "Daman & Diu",
+      "NCT of Delhi",
+      "Lakshadweep",
+      "Puducherry"
     ]
   },
-  assembly : {
-    2016 : ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
-    2015 : ["Bihar"]
+  assembly: {
+    2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
+    2015: ["Bihar"]
   }
 }
 
@@ -78,11 +139,42 @@ export const ELECTION_YEAR_STATEUT = {
  * List of all States and UTs
  */
 export const STATE_UT_LIST = [
-  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Goa", "Gujarat", "Haryana", "Himachal Pradesh",
-  "Jammu & Kashmir", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
-  "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar Pradesh", "West Bengal",
-  "Chhattisgarh", "Jharkhand", "Uttarakhand", "Telangana", "Andaman & Nicobar Islands", "Chandigarh",
-  "Dadra & Nagar Haveli", "Daman & Diu", "NCT of Delhi", "Lakshadweep", "Puducherry"
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu & Kashmir",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Tripura",
+  "Uttar Pradesh",
+  "West Bengal",
+  "Chhattisgarh",
+  "Jharkhand",
+  "Uttarakhand",
+  "Telangana",
+  "Andaman & Nicobar Islands",
+  "Chandigarh",
+  "Dadra & Nagar Haveli",
+  "Daman & Diu",
+  "NCT of Delhi",
+  "Lakshadweep",
+  "Puducherry"
 ]
 
 /**

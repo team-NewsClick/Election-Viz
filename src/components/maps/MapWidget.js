@@ -1,6 +1,4 @@
-import { getDistricts } from "../../helpers/regions"
 import { useEffect, useState } from "react"
-import ReactDOMServer from "react-dom/server"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import {
@@ -11,14 +9,12 @@ import {
 import {
   STATE_COORDINATES,
   STATE_UT_DEFAULT_SELECT,
-  DEFAULT_STATE_FILL_COLOR,
   DEFAULT_DISTRICT_FILL_COLOR,
   DEFAULT_STATE_LINE_COLOR,
   DEFAULT_DISTRICT_LINE_COLOR,
   TRANSPARENT_COLOR,
   CONSTITUENCIES_DEFAULT_SELECT,
-  SEAT_DEFAULT_SELECT,
-  REGION_DEFAULT_SELECT
+  SELECT_STATE_UT
 } from "../../constants"
 import { indPlaceVal } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
@@ -101,7 +97,7 @@ const MapWidget = ({
 
   useEffect(() => {
     const state = selectedStateUT
-    if (state !== STATE_UT_DEFAULT_SELECT) {
+    if (state !== STATE_UT_DEFAULT_SELECT && state !== SELECT_STATE_UT) {
       const stateObject = STATE_COORDINATES.filter((row) => {
         if (state == row.state) {
           return row

@@ -51,7 +51,10 @@ export const getRegionStatsTable = (
         return d
       }
     })
-    if(selectedStateUT === STATE_UT_DEFAULT_SELECT && compareElectionType !== electionViewType) {
+    if (
+      selectedStateUT === STATE_UT_DEFAULT_SELECT &&
+      compareElectionType !== electionViewType
+    ) {
       filteredCompareData = []
     } else {
       filteredCompareData = compareYearData.filter((d) => {
@@ -224,16 +227,18 @@ const getCurrYearDataTable = (
         })
       }
       if (
-        tableData.indexOf(tableData.find(({ alliance }) => alliance == "OTHERS")) < 0
-        ) {
-          tableData.push({
-            alliance: "OTHERS",
-            seats: 0,
-            votes: 0,
-            votesPercent: 0
-          })
-        }
+        tableData.indexOf(
+          tableData.find(({ alliance }) => alliance == "OTHERS")
+        ) < 0
+      ) {
+        tableData.push({
+          alliance: "OTHERS",
+          seats: 0,
+          votes: 0,
+          votesPercent: 0
+        })
       }
+    }
     if (groupType === "party") {
       data.map((d) => {
         let temp = tableData.indexOf(
@@ -356,7 +361,10 @@ const getCompareYearDataTable = (
   let compareStats = []
 
   if (compareYearData) {
-    compareSelectedStateUTData = getDataStateUT(compareYearData, selectedStateUT)
+    compareSelectedStateUTData = getDataStateUT(
+      compareYearData,
+      selectedStateUT
+    )
     const compareSelectedConstituencyData =
       compareSelectedStateUTData &&
       getDataConstituency(
@@ -364,7 +372,11 @@ const getCompareYearDataTable = (
         selectedConstituency,
         electionViewType
       )
-    compareMapData = getMapData(compareYearData, selectedStateUT, electionViewType)
+    compareMapData = getMapData(
+      compareYearData,
+      selectedStateUT,
+      electionViewType
+    )
     const compareConstituenciesResults =
       compareMapData &&
       getConstituenciesResults(
@@ -428,7 +440,7 @@ const getCompareYearDataTable = (
             electionViewType,
             groupType,
             partyAlliance
-          )          
+          )
       }
     }
     return compareStats
@@ -520,8 +532,7 @@ const compareSeatsVotesCount = (
           : "OTHERS"
         const temp =
           stats.findIndex(
-            (e) =>
-              e == stats.find(({ alliance }) => alliance === allianceTemp)
+            (e) => e == stats.find(({ alliance }) => alliance === allianceTemp)
           ) != -1
             ? stats.findIndex(
                 (e) =>
@@ -557,18 +568,21 @@ const compareSeatsVotesCount = (
       )
     return stats
   } else {
-    if(selectedConstituency) {
+    if (selectedConstituency) {
       let groups = []
       let compareStats = []
       if (mapDataConstituencies.length != 0) {
-        if(electionViewType === "general") {
-          groups = selectedConstituency !== undefined && mapDataConstituencies
-            .find((e) => e.PC_NAME === selectedConstituency)
+        if (electionViewType === "general") {
+          groups =
+            selectedConstituency !== undefined &&
+            mapDataConstituencies
+              .find((e) => e.PC_NAME === selectedConstituency)
+              .stats.map((d) => d.party)
+        } else {
+          groups = mapDataConstituencies
+            .find((e) => e.AC_NAME === selectedConstituency)
             .stats.map((d) => d.party)
-        } else {groups = mapDataConstituencies
-          .find((e) => e.AC_NAME === selectedConstituency)
-          .stats.map((d) => d.party)      
-        }      
+        }
         groups.indexOf("OTHERS") === -1 ? groups.push("OTHERS") : ""
         if (groupType === "party") {
           groups.map((d) =>
@@ -579,11 +593,23 @@ const compareSeatsVotesCount = (
               votesPercent: 0
             })
           )
-            if(electionViewType === "general") {
-              compareStats = data.find((e) => e.PC_NAME === selectedConstituency)
-                ? data.find((e) => e.PC_NAME === selectedConstituency).stats
-                : []
-              compareStats.map((d) => {
+          if (electionViewType === "general") {
+            compareStats = data.find((e) => e.PC_NAME === selectedConstituency)
+              ? data.find((e) => e.PC_NAME === selectedConstituency).stats
+              : []
+            compareStats.map((d) => {
+              const temp =
+                stats.findIndex(
+                  (e) => e == stats.find(({ party }) => party === d.party)
+                ) != -1
+                  ? stats.findIndex(
+                      (e) => e == stats.find(({ party }) => party === d.party)
+                    )
+                  : stats.length - 1
+              if (temp === 1) {
+                stats[temp].seats += 1
+                stats[temp].votes += d.votesReceived
+              } else {
                 const temp =
                   stats.findIndex(
                     (e) => e == stats.find(({ party }) => party === d.party)
@@ -592,24 +618,26 @@ const compareSeatsVotesCount = (
                         (e) => e == stats.find(({ party }) => party === d.party)
                       )
                     : stats.length - 1
-                if (temp === 1) {
-                  stats[temp].seats += 1
-                  stats[temp].votes += d.votesReceived
-                } else {
-                  const temp =
-                    stats.findIndex(
-                      (e) => e == stats.find(({ party }) => party === d.party)
-                    ) != -1
-                      ? stats.findIndex(
-                          (e) => e == stats.find(({ party }) => party === d.party)
-                        )
-                      : stats.length - 1
-                  stats[temp].votes += d.votesReceived
-                }
-              })
-            } else {
-              compareStats = data.filter((e) => e.AC_NAME === selectedConstituency)
-              compareStats.map((d) => {
+                stats[temp].votes += d.votesReceived
+              }
+            })
+          } else {
+            compareStats = data.filter(
+              (e) => e.AC_NAME === selectedConstituency
+            )
+            compareStats.map((d) => {
+              const temp =
+                stats.findIndex(
+                  (e) => e == stats.find(({ party }) => party === d.PARTY)
+                ) != -1
+                  ? stats.findIndex(
+                      (e) => e == stats.find(({ party }) => party === d.PARTY)
+                    )
+                  : stats.length - 1
+              if (temp === 1) {
+                stats[temp].seats += 1
+                stats[temp].votes += parseInt(d.VOTES)
+              } else {
                 const temp =
                   stats.findIndex(
                     (e) => e == stats.find(({ party }) => party === d.PARTY)
@@ -618,24 +646,12 @@ const compareSeatsVotesCount = (
                         (e) => e == stats.find(({ party }) => party === d.PARTY)
                       )
                     : stats.length - 1
-                if (temp === 1) {
-                  stats[temp].seats += 1
-                  stats[temp].votes += parseInt(d.VOTES)
-                } else {
-                  const temp =
-                    stats.findIndex(
-                      (e) => e == stats.find(({ party }) => party === d.PARTY)
-                    ) != -1
-                      ? stats.findIndex(
-                          (e) => e == stats.find(({ party }) => party === d.PARTY)
-                        )
-                      : stats.length - 1
-                  stats[temp].votes += parseInt(d.VOTES)
-                }
-              })
-            }
+                stats[temp].votes += parseInt(d.VOTES)
+              }
+            })
+          }
         } else {
-          if(electionViewType === "general") {
+          if (electionViewType === "general") {
             let tempGroups = new Set()
             groups.map((d) => {
               const temp = partyAlliance.find((e) => e.PARTY == d)
@@ -652,7 +668,9 @@ const compareSeatsVotesCount = (
                 votesPercent: 0
               })
             )
-            compareStats = data.find((e) => e.PC_NAME === selectedConstituency).stats
+            compareStats = data.find(
+              (e) => e.PC_NAME === selectedConstituency
+            ).stats
             compareStats.map((d) => {
               const allianceTemp = partyAlliance.find((e) => e.PARTY == d.party)
                 ? partyAlliance.find((e) => e.PARTY === d.party).ALLIANCE
@@ -675,12 +693,15 @@ const compareSeatsVotesCount = (
                 const temp =
                   stats.findIndex(
                     (e) =>
-                      e == stats.find(({ alliance }) => alliance === allianceTemp)
+                      e ==
+                      stats.find(({ alliance }) => alliance === allianceTemp)
                   ) != -1
                     ? stats.findIndex(
                         (e) =>
                           e ==
-                          stats.find(({ alliance }) => alliance === allianceTemp)
+                          stats.find(
+                            ({ alliance }) => alliance === allianceTemp
+                          )
                       )
                     : stats.length - 1
                 stats[temp].votes += d.votesReceived
@@ -703,7 +724,9 @@ const compareSeatsVotesCount = (
                 votesPercent: 0
               })
             )
-            compareStats = data.filter((e) => e.AC_NAME === selectedConstituency)
+            compareStats = data.filter(
+              (e) => e.AC_NAME === selectedConstituency
+            )
             compareStats.map((d) => {
               const allianceTemp = partyAlliance.find((e) => e.PARTY == d.PARTY)
                 ? partyAlliance.find((e) => e.PARTY === d.PARTY).ALLIANCE
@@ -726,12 +749,15 @@ const compareSeatsVotesCount = (
                 const temp =
                   stats.findIndex(
                     (e) =>
-                      e == stats.find(({ alliance }) => alliance === allianceTemp)
+                      e ==
+                      stats.find(({ alliance }) => alliance === allianceTemp)
                   ) != -1
                     ? stats.findIndex(
                         (e) =>
                           e ==
-                          stats.find(({ alliance }) => alliance === allianceTemp)
+                          stats.find(
+                            ({ alliance }) => alliance === allianceTemp
+                          )
                       )
                     : stats.length - 1
                 stats[temp].votes += parseInt(d.VOTES)

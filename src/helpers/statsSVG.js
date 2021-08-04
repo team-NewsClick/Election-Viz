@@ -56,23 +56,24 @@ export const getRegionStatsSVGData = (
  * @returns {Array<Object>} - Party/Alliance and their respective seats won
  */
 export const seatsCount = (data, groupType) => {
-  let groups = {}, finalData = {}
-  if(groupType === "party") {
+  let groups = {},
+    finalData = {}
+  if (groupType === "party") {
     data.map((d) => {
-      if(groups[d.party]) {
+      if (groups[d.party]) {
         groups[d.party].seats += 1
       } else {
-        groups[d.party] = {seats: 1, colour: d.color}
+        groups[d.party] = { seats: 1, colour: d.color }
       }
     })
-} else {
-  data.map((d) => {
-    if(groups[d.alliance]) {
-      groups[d.alliance].seats += 1
-    } else {
-      groups[d.alliance] = {seats: 1, colour: d.color}
-    }
-  })
+  } else {
+    data.map((d) => {
+      if (groups[d.alliance]) {
+        groups[d.alliance].seats += 1
+      } else {
+        groups[d.alliance] = { seats: 1, colour: d.color }
+      }
+    })
   }
   const preSort = Object.entries(groups)
   const sortedData = preSort.sort((a, b) =>
@@ -82,7 +83,7 @@ export const seatsCount = (data, groupType) => {
   if (sortedData.length <= 9) {
     topNine = sortedData
     const tempIndexOTHERS = topNine.findIndex((d) => d[0] === "OTHERS")
-    if(tempIndexOTHERS !== -1) {
+    if (tempIndexOTHERS !== -1) {
       const tempDataOTHERS = topNine.splice(tempIndexOTHERS, 1)
       topNine.push(...tempDataOTHERS)
     }
@@ -91,14 +92,17 @@ export const seatsCount = (data, groupType) => {
       if (index < 8) {
         topNine[index] = d
       }
-      topNine.push(["OTHERS", {seats: 0, colour: DEFAULT_PARTY_ALLIANCE_COLOR}])
+      topNine.push([
+        "OTHERS",
+        { seats: 0, colour: DEFAULT_PARTY_ALLIANCE_COLOR }
+      ])
       if (index >= 8) {
-        topNine[8][1].seats+= parseInt(d[1].seats)
+        topNine[8][1].seats += parseInt(d[1].seats)
       }
     })
-  } 
+  }
   topNine.map((d) => {
-    finalData[d[0]] = {seats: d[1].seats, colour: d[1].colour}
+    finalData[d[0]] = { seats: d[1].seats, colour: d[1].colour }
   })
   return finalData
 }
