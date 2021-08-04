@@ -1,6 +1,4 @@
-import { getDistricts } from "../../helpers/regions"
 import { useEffect, useState } from "react"
-import ReactDOMServer from "react-dom/server"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import {
@@ -11,14 +9,12 @@ import {
 import {
   STATE_COORDINATES,
   STATE_UT_DEFAULT_SELECT,
-  DEFAULT_STATE_FILL_COLOR,
   DEFAULT_DISTRICT_FILL_COLOR,
   DEFAULT_STATE_LINE_COLOR,
   DEFAULT_DISTRICT_LINE_COLOR,
   TRANSPARENT_COLOR,
   CONSTITUENCIES_DEFAULT_SELECT,
-  SEAT_DEFAULT_SELECT,
-  REGION_DEFAULT_SELECT
+  SELECT_STATE_UT
 } from "../../constants"
 import { indPlaceVal } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
@@ -36,7 +32,7 @@ const MapWidget = ({
   parliamentaryConstituenciesGeojson,
   assemblyConstituenciesGeojson,
   onMapUpdate,
-  electionType,
+  electionViewType,
   stateUTOptions,
   selectedStateUT,
   selectedConstituency,
@@ -79,7 +75,7 @@ const MapWidget = ({
   )
 
   useEffect(() => {
-    if (electionType === "general") {
+    if (electionViewType === "general") {
       const filterdGeoJson = getReservedGeoJson(
         parliamentaryConstituenciesGeojson,
         seatType,
@@ -101,7 +97,7 @@ const MapWidget = ({
 
   useEffect(() => {
     const state = selectedStateUT
-    if (state !== STATE_UT_DEFAULT_SELECT) {
+    if (state !== STATE_UT_DEFAULT_SELECT && state !== SELECT_STATE_UT) {
       const stateObject = STATE_COORDINATES.filter((row) => {
         if (state == row.state) {
           return row
@@ -144,7 +140,7 @@ const MapWidget = ({
             }
       )
     }
-  }, [selectedStateUT, electionType, constituenciesResults])
+  }, [selectedStateUT, electionViewType, constituenciesResults])
 
   const _handleMap = (object) => {
     const state = object.properties.ST_NAME
@@ -166,7 +162,7 @@ const MapWidget = ({
   const _fillGeoJsonColor = (d) => {
     let results = null
     let sortByKey = null
-    if (electionType === "general") {
+    if (electionViewType === "general") {
       sortByKey = d.properties.PC_NAME
       results = constituenciesResults.find((row) => {
         if (
@@ -208,7 +204,7 @@ const MapWidget = ({
 
   const _getTooltip = ({ object }) => {
     if (object) {
-      if (electionType === "general") {
+      if (electionViewType === "general") {
         if (
           selectedConstituency === object.properties.PC_NAME ||
           selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
@@ -301,7 +297,7 @@ const MapWidget = ({
       lineWidthScale: 200,
       getFillColor: (d) => _fillGeoJsonColor(d),
       getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
-      getLineWidth: electionType === "general" ? 10 : 2,
+      getLineWidth: electionViewType === "general" ? 10 : 2,
       onClick: ({ object }) => _handleMap(object)
     })
   ]

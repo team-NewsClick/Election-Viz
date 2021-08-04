@@ -1,81 +1,120 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
+import {
+  getWinningParties,
+  getPartyAlliance
+} from "../../helpers/customAlliance"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-
+import { FIRST_SELECT_STATEUT, PARTY_COLOR } from "../../constants"
 /**
  * A modal box with customizable alliances
- * @param {Array<Object>} param0 List of parties and their respective alliances
+ * @param {Array<Object>} param0 Election result of a constituency
+ * @param {Function} param1 Funciton to update "customed Alliance" on parent component
+ * @param {Array<Object>} param2 List of Alliances and their respective swings
+ * @param {String} param3 Selected Year
+ * @param {String} param3 Name of selected State/UT
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
 const CustomAllianceModal = ({
-  constituenciesResults,
-  customAlliance,
-  regionStatsLoading
+  selectedElection,
+  selectedStateUT,
+  electionViewType,
+  customAlliance
 }) => {
-  const [rowsInit, setRowsInit] = useState([])
+  const [yearData, setYearData] = useState([])
+  const [rows, setRows] = useState([])
+  const [defaultPartyAlliance, setDefaultPartyAlliance] = useState([])
+  const [newAllianceCount, setNewAllianceCount] = useState(0)
   const [resetAlliances, setResetAlliances] = useState(true)
-  const [rows, setRows] = useState(rowsInit)
-  const [partyAllianceInit, setPartyAllianceInit] = useState([])
-  const [customedPartyAlliance, setCustomedPartyAlliance] =
-    useState(partyAllianceInit)
 
   useEffect(() => {
+    const electionType = selectedElection.type
+    const year = selectedElection.year
+    if (year) {
+      axios
+        .get(`/data/csv/${electionType}_${year}.csv`)
+        .then((response) => {
+          const parsedData = csvParse(response.data)
+          setYearData(parsedData)
+        })
+        .catch((e) => {
+          setYearData([])
+        })
+    }
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
-      setPartyAllianceInit(parsedData)
-      setCustomedPartyAlliance(parsedData)
+      setDefaultPartyAlliance(parsedData)
+      customAlliance(parsedData)
     })
-  }, [regionStatsLoading])
+  }, [selectedStateUT, selectedElection, electionViewType])
 
   useEffect(() => {
-    setCustomedPartyAlliance(partyAllianceInit)
-    let allParties = new Set()
-    constituenciesResults.map((d) => {
-      allParties.add(d.party)
-    })
-    let alliances = new Set()
-    let alliancePartyData = []
-    partyAllianceInit.length > 0 &&
-      partyAllianceInit.map((d) => alliances.add(d.ALLIANCE))
-    alliances = [...alliances, "OTHERS"]
-    alliances.map((d) => {
-      alliancePartyData.push({
-        alliance: d,
-        parties: []
+    if (defaultPartyAlliance.length !== 0) {
+      const parties = getWinningParties(
+        yearData,
+        selectedStateUT,
+        electionViewType
+      )
+      const tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
+      setRows(tempPartyAlliance)
+      let tempCustomedPartyAlliance = []
+      rows.map((a) => {
+        a.parties.map((p) => {
+          tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+        })
+      })
+      customAlliance(tempCustomedPartyAlliance)
+    }
+  }, [selectedElection, selectedStateUT, yearData, defaultPartyAlliance])
+
+  useEffect(() => {
+    const tempCustomedPartyAlliance = []
+    rows.map((a) => {
+      a.parties.map((p) => {
+        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
       })
     })
-    constituenciesResults.length > 0 &&
-      constituenciesResults.map((d) => {
-        let tempAlliance = partyAllianceInit.find((p) => p.PARTY === d.party)
-        tempAlliance = tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
-        let tempAllianceIndex = alliancePartyData.findIndex(
-          (e) => e.alliance === tempAlliance
-        )
-        let tempPartyIndex = alliancePartyData[
-          tempAllianceIndex
-        ].parties.findIndex((e) => e === d.party)
-        if (tempPartyIndex < 0) {
-          alliancePartyData[tempAllianceIndex].parties.push(d.party)
+    customAlliance(tempCustomedPartyAlliance)
+    const partyColors = tempCustomedPartyAlliance.map((row) => {
+      const party = PARTY_COLOR.find((e) => e.party === row.PARTY)
+      if (party) {
+        return {
+          ...row,
+          COLOR: party.color
         }
-      })
-    setRowsInit(alliancePartyData)
-    setRows(alliancePartyData)
-  }, [regionStatsLoading, partyAllianceInit, resetAlliances])
+      }
+    })
+  }, [defaultPartyAlliance])
 
   useEffect(() => {
-    customAlliance(customedPartyAlliance)
-  }, [partyAllianceInit, resetAlliances, customedPartyAlliance])
+    _resetPartyAlliance()
+  }, [selectedElection, selectedStateUT])
 
-  useEffect(() => {
-    setResetAlliances(resetAlliances ? false : true)
-  }, [partyAllianceInit])
+  const _addNewAlliance = (v) => {
+    const tempAlliance = document.getElementById("new-alliance").value.trim()
+    const allianceExist =
+      rows.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
+    if (newAllianceCount < 3 && tempAlliance.length !== 0 && !allianceExist) {
+      setNewAllianceCount((prevNewAllianceCount) => prevNewAllianceCount + 1)
+      const tempRows = [...rows, { alliance: tempAlliance, parties: [] }]
+      setRows(tempRows)
+      document.getElementById("new-alliance").value = ""
+    }
+  }
 
   const openCustomAllianceModal = () => {
     const customAllianceModal = document.getElementById("customAllianceModal")
     customAllianceModal.style.display === "none"
       ? (customAllianceModal.style.display = "flex")
       : (customAllianceModal.style.display = "none")
+    let tempCustomedPartyAlliance = []
+    rows.map((a) => {
+      a.parties.map((p) => {
+        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+      })
+    })
+    customAlliance(tempCustomedPartyAlliance)
   }
 
   const _ondragEnd = (result) => {
@@ -97,17 +136,26 @@ const CustomAllianceModal = ({
       result.draggableId
     )
     setRows(tempRows)
-    tempRows.map((a) => {
-      a.parties.map((p) => {
-        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-      })
-    })
-    setCustomedPartyAlliance(tempCustomedPartyAlliance)
-    customAlliance(partyAllianceInit)
   }
 
   const _resetPartyAlliance = () => {
-    setResetAlliances(resetAlliances ? false : true)
+    setResetAlliances(true)
+    setNewAllianceCount(0)
+  }
+
+  if (resetAlliances === true && selectedElection !== FIRST_SELECT_STATEUT) {
+    const electionType = selectedElection.type
+    const year = selectedElection.year
+    axios
+      .get(`/data/csv/${electionType}_${year}.csv`)
+      .then((response) => {
+        const parsedData = csvParse(response.data)
+        setYearData(parsedData)
+      })
+      .catch((e) => {
+        setYearData([])
+      })
+    setResetAlliances(false)
   }
 
   return (
@@ -196,12 +244,33 @@ const CustomAllianceModal = ({
             )
           })}
         </DragDropContext>
+        <div>
+          <div className="flex justify-center mt-10">
+            <input
+              type="text"
+              placeholder="Enter New Alliance Name"
+              id="new-alliance"
+              name="new-alliance"
+              className="border-2 border-gray-500 rounded w-auto px-1 mx-1.5"
+            />
+            <input
+              type="button"
+              value="Add New Alliance"
+              onClick={() => _addNewAlliance()}
+              className="black-btn cursor-pointer w-auto px-4 m-0 mx-1.5"
+            />
+          </div>
+          <div className="flex justify-center">
+            New alliance name cannot be empty or duplicate.
+          </div>
+        </div>
+
         <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between">
           <div>
             <input
               type="button"
               value="RESET"
-              className="black-btn cursor-pointer"
+              className="black-btn cursor-pointer w-full"
               onClick={_resetPartyAlliance}
             />
           </div>

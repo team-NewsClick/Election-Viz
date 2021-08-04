@@ -7,6 +7,7 @@ module.exports = {
     return config
   },
   env: {
-    MAPBOX_BOX_ACCESS_TOKEN: process.env.MAPBOX_BOX_ACCESS_TOKEN
+    MAPBOX_BOX_ACCESS_TOKEN: process.env.MAPBOX_BOX_ACCESS_TOKEN,
+    LIVE_ELECTION:process.env.LIVE_ELECTIONS
   }
 }

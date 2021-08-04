@@ -19,6 +19,7 @@
     "deck.gl": "^8.4.9",
     "hex-rgb": "^4.2.0",
     "html-react-parser": "^1.2.4",
+    "lodash": "^4.17.21",
     "next": "10.0.6",
     "next-on-netlify": "^2.8.6",
     "parliament-svg": "^2.1.4",
