@@ -20,7 +20,8 @@ import {
   DELAY_INTERVAL_MINUTES,
   FIRST_SELECT_STATEUT,
   SELECT_STATE_UT,
-  SELECT_ELECTION
+  SELECT_ELECTION,
+  SEAT_TYPE_OPTIONS
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -424,13 +425,15 @@ const Dashboard = ({
   }, [selectedStateUT, electionViewType, selectedElection])
 
   const _home = () => {
-    if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
-      setMapWidgetLoading(true)
+    if(electionViewType === "general") {
       setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
-      setSeatType(SEAT_DEFAULT_SELECT)
-      setSelectedRegion(REGION_DEFAULT_SELECT)
-      setSeatType(SEAT_DEFAULT_SELECT)
+      setSelectedElection(electionOptions[0].value)
+    } else {
+      setSelectedStateUT(SELECT_STATE_UT)
+      setSelectedElection(SELECT_ELECTION)
     }
+    setSelectedRegion(REGION_DEFAULT_SELECT)
+    setSeatType(SEAT_DEFAULT_SELECT)
     const option = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
     const btnIcon = document.getElementById("showHideAdvance-btn-icon")
