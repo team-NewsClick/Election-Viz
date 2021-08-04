@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
-import { getWinningParties, getPartyAlliance } from "../../helpers/customAlliance"
+import {
+  getWinningParties,
+  getPartyAlliance
+} from "../../helpers/customAlliance"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import { FIRST_SELECT_STATEUT, PARTY_COLOR } from "../../constants"
 /**
@@ -17,7 +20,7 @@ const CustomAllianceModal = ({
   selectedElection,
   selectedStateUT,
   electionViewType,
-  customAlliance,
+  customAlliance
 }) => {
   const [yearData, setYearData] = useState([])
   const [rows, setRows] = useState([])
@@ -28,27 +31,31 @@ const CustomAllianceModal = ({
   useEffect(() => {
     const electionType = selectedElection.type
     const year = selectedElection.year
-    if(year){
+    if (year) {
       axios
-      .get(`/data/csv/${electionType}_${year}.csv`)
-      .then((response) => {
-        const parsedData = csvParse(response.data)
-        setYearData(parsedData)
-      })
-      .catch((e) => {
-        setYearData([])
-      })
+        .get(`/data/csv/${electionType}_${year}.csv`)
+        .then((response) => {
+          const parsedData = csvParse(response.data)
+          setYearData(parsedData)
+        })
+        .catch((e) => {
+          setYearData([])
+        })
     }
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setDefaultPartyAlliance(parsedData)
       customAlliance(parsedData)
     })
-  }, [selectedStateUT, selectedElection])
+  }, [selectedStateUT, selectedElection, electionViewType])
 
   useEffect(() => {
-    if(defaultPartyAlliance.length !== 0) {
-      const parties = getWinningParties(yearData, selectedStateUT, electionViewType)
+    if (defaultPartyAlliance.length !== 0) {
+      const parties = getWinningParties(
+        yearData,
+        selectedStateUT,
+        electionViewType
+      )
       const tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
       setRows(tempPartyAlliance)
       let tempCustomedPartyAlliance = []
@@ -85,13 +92,14 @@ const CustomAllianceModal = ({
   }, [selectedElection, selectedStateUT])
 
   const _addNewAlliance = (v) => {
-    const tempAlliance = document.getElementById('new-alliance').value.trim()
-    const allianceExist = rows.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
+    const tempAlliance = document.getElementById("new-alliance").value.trim()
+    const allianceExist =
+      rows.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
     if (newAllianceCount < 3 && tempAlliance.length !== 0 && !allianceExist) {
       setNewAllianceCount((prevNewAllianceCount) => prevNewAllianceCount + 1)
-      const tempRows = [...rows, {alliance: tempAlliance, parties: []}]
+      const tempRows = [...rows, { alliance: tempAlliance, parties: [] }]
       setRows(tempRows)
-      document.getElementById('new-alliance').value = ''
+      document.getElementById("new-alliance").value = ""
     }
   }
 
@@ -135,18 +143,18 @@ const CustomAllianceModal = ({
     setNewAllianceCount(0)
   }
 
-  if(resetAlliances === true && selectedElection !== FIRST_SELECT_STATEUT) {
+  if (resetAlliances === true && selectedElection !== FIRST_SELECT_STATEUT) {
     const electionType = selectedElection.type
     const year = selectedElection.year
     axios
-    .get(`/data/csv/${electionType}_${year}.csv`)
-    .then((response) => {
-      const parsedData = csvParse(response.data)
-      setYearData(parsedData)
-    })
-    .catch((e) => {
-      setYearData([])
-    })
+      .get(`/data/csv/${electionType}_${year}.csv`)
+      .then((response) => {
+        const parsedData = csvParse(response.data)
+        setYearData(parsedData)
+      })
+      .catch((e) => {
+        setYearData([])
+      })
     setResetAlliances(false)
   }
 
@@ -252,7 +260,9 @@ const CustomAllianceModal = ({
               className="black-btn cursor-pointer w-auto px-4 m-0 mx-1.5"
             />
           </div>
-          <div className="flex justify-center">New alliance name cannot be empty or duplicate.</div>
+          <div className="flex justify-center">
+            New alliance name cannot be empty or duplicate.
+          </div>
         </div>
 
         <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between">

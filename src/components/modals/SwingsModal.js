@@ -54,17 +54,22 @@ const SwingsModal = ({
 
   useEffect(() => {
     const tempParams = []
-    partyAlliance && partyAlliance.map((d) => {
-      if(partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1) {
-        let temp = []
-        temp = addParams([d.ALLIANCE])
-        temp[0].newAlliance = true
-        if(tempParams.findIndex((p) => p.alliance === temp[0].alliance) === -1) {
-          tempParams.push(...temp)
+    partyAlliance &&
+      partyAlliance.map((d) => {
+        if (
+          partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1
+        ) {
+          let temp = []
+          temp = addParams([d.ALLIANCE])
+          temp[0].newAlliance = true
+          if (
+            tempParams.findIndex((p) => p.alliance === temp[0].alliance) === -1
+          ) {
+            tempParams.push(...temp)
+          }
         }
-      }
-      setPartyAllianceParams(partyAllianceParams.concat(tempParams))
-    })
+        setPartyAllianceParams(partyAllianceParams.concat(tempParams))
+      })
   }, [partyAlliance])
 
   const _handelchange = (swing, index) => {
@@ -73,7 +78,9 @@ const SwingsModal = ({
     let input = document.getElementById(temp[index].inputId)
     let thumbLeft = document.getElementById(temp[index].thumbId)
     let range = document.getElementById(temp[index].rangeId)
-    let valueSwingDisaply = document.getElementById(temp[index].valueSwingDisaplyId)
+    let valueSwingDisaply = document.getElementById(
+      temp[index].valueSwingDisaplyId
+    )
     let min = parseInt(input.min)
     let max = parseInt(input.max)
     let value = parseInt(input.value)
@@ -98,13 +105,16 @@ const SwingsModal = ({
       let initParmas = getParams(tempPartyAlliance)
       let tempParams = []
       initParmas.map((d) => {
-        if(document.getElementById(d.thumbId) &&
-        document.getElementById(d.rangeId) &&
-        document.getElementById(d.valueSwingDisaplyId)
+        if (
+          document.getElementById(d.thumbId) &&
+          document.getElementById(d.rangeId) &&
+          document.getElementById(d.valueSwingDisaplyId)
         ) {
           const thumbLeft = document.getElementById(d.thumbId)
           const range = document.getElementById(d.rangeId)
-          const valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
+          const valueSwingDisaply = document.getElementById(
+            d.valueSwingDisaplyId
+          )
           thumbLeft.style.left = "50%"
           valueSwingDisaply.style.left = "50%"
           range.style.right = "50%"
@@ -124,7 +134,7 @@ const SwingsModal = ({
       return {
         alliance: d.alliance,
         swing: parseInt(d.swing),
-        newAlliance: d.newAlliance,
+        newAlliance: d.newAlliance
       }
     })
     setSwingUpdate([...temp])
@@ -189,7 +199,7 @@ const SwingsModal = ({
                       style={{
                         transform: "translate(0.5rem, -0.25rem)",
                         right: "50%",
-                        zIndex: 3,
+                        zIndex: 3
                       }}
                     />
                     <div
@@ -198,7 +208,7 @@ const SwingsModal = ({
                       style={{
                         transform: "translate(-0.5rem, -0.25rem)",
                         left: "50%",
-                        zIndex: 3,
+                        zIndex: 3
                       }}
                     />
                     <div
@@ -211,7 +221,7 @@ const SwingsModal = ({
                       className="absolute text-gray-400"
                       style={{
                         transform: "translate(-0.5rem, 1rem)",
-                        left: "50%",
+                        left: "50%"
                       }}
                     >
                       0%
@@ -220,7 +230,7 @@ const SwingsModal = ({
                       className="absolute text-gray-400"
                       style={{
                         transform: "translate(-1.5rem, 1rem)",
-                        left: "100%",
+                        left: "100%"
                       }}
                     >
                       +25%
@@ -230,7 +240,7 @@ const SwingsModal = ({
                       className="absolute rounded-full left-1/4 font-bold"
                       style={{
                         transform: "translate(-0.5rem, -2rem)",
-                        left: "50%",
+                        left: "50%"
                       }}
                     >
                       {d.swing > 0 ? "+" + d.swing : d.swing}%
