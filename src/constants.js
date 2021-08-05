@@ -144,7 +144,8 @@ export const ELECTION_YEAR_STATEUT = {
   },
   assembly: {
     2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
-    2015: ["Bihar"]
+    2015: ["Bihar"],
+    "Live" : ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"]
   }
 }
 
