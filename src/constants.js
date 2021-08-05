@@ -39,27 +39,14 @@ export const LIVE_ELECTION = "Live"
 export const LIVE_ELECTION_YEAR = "2021"
 
 /**
- * Options for Year for Assembly Elections
+ * Live Election Type
  */
-// export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015", LIVE_ELECTION]
-export const ASSEMBLY_YEAR_OPTIONS = [
-  {
-    label: "2016",
-    value: "2016"
-  },
-  {
-    label: "2015",
-    value: "2015"
-  },
-  {
-    label: LIVE_ELECTION,
-    value: LIVE_ELECTION
-  }
-]
+export const LIVE_ELECTION_TYPE = "assembly"
+
 /**
- * Options for Year for General Elections
+ * Live Election States/UTs
  */
-export const GENERAL_YEAR_OPTIONS = ["2019", "2014"]
+export const LIVE_ELECTION_STATEUT = ["Bihar"]
 
 /**
  * Election details: their type, year and state/UTs that had the election
@@ -145,7 +132,7 @@ export const ELECTION_YEAR_STATEUT = {
   assembly: {
     2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
     2015: ["Bihar"],
-    "Live" : ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"]
+    Live : LIVE_ELECTION_STATEUT
   }
 }
 
