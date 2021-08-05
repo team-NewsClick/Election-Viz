@@ -552,8 +552,6 @@ const Dashboard = ({
     console.log(v)
   }
 
-  console.log({selectedYearData})
-
   if (stateUTOptions && stateUTOptions.length !== 0) {
     return (
       <div>
