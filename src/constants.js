@@ -41,8 +41,21 @@ export const LIVE_ELECTION_YEAR = "2021"
 /**
  * Options for Year for Assembly Elections
  */
-export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015", LIVE_ELECTION]
-
+// export const ASSEMBLY_YEAR_OPTIONS = ["2016", "2015", LIVE_ELECTION]
+export const ASSEMBLY_YEAR_OPTIONS = [
+  {
+    label: "2016",
+    value: "2016"
+  },
+  {
+    label: "2015",
+    value: "2015"
+  },
+  {
+    label: LIVE_ELECTION,
+    value: LIVE_ELECTION
+  }
+]
 /**
  * Options for Year for General Elections
  */
