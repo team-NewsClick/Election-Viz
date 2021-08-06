@@ -6,7 +6,7 @@ import {
   getPartyAlliance
 } from "../../helpers/customAlliance"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import { FIRST_SELECT_STATEUT, PARTY_COLOR } from "../../constants"
+import { FIRST_SELECT_STATEUT, LIVE_ELECTION, PARTY_COLOR } from "../../constants"
 /**
  * A modal box with customizable alliances
  * @param {Array<Object>} param0 Election result of a constituency
@@ -29,19 +29,23 @@ const CustomAllianceModal = ({
   const [resetAlliances, setResetAlliances] = useState(true)
 
   useEffect(() => {
+    let URL
+    if(selectedElection === LIVE_ELECTION) {
+      URL = `${process.env.LIVE_ELECTION}`
+    } else {
+      URL = `/data/csv/${electionType}_${year}.csv`
+    }
     const electionType = selectedElection.type
     const year = selectedElection.year
-    if (year) {
-      axios
-        .get(`/data/csv/${electionType}_${year}.csv`)
-        .then((response) => {
-          const parsedData = csvParse(response.data)
-          setYearData(parsedData)
-        })
-        .catch((e) => {
-          setYearData([])
-        })
-    }
+    axios
+      .get(URL)
+      .then((response) => {
+        const parsedData = csvParse(response.data)
+        setYearData(parsedData)
+      })
+      .catch((e) => {
+        setYearData([])
+      })
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setDefaultPartyAlliance(parsedData)
@@ -144,10 +148,16 @@ const CustomAllianceModal = ({
   }
 
   if (resetAlliances === true && selectedElection !== FIRST_SELECT_STATEUT) {
+    let URL
+    if(selectedElection === LIVE_ELECTION) {
+      URL = `${process.env.LIVE_ELECTION}`
+    } else {
+      URL = `/data/csv/${electionType}_${year}.csv`
+    }
     const electionType = selectedElection.type
     const year = selectedElection.year
     axios
-      .get(`/data/csv/${electionType}_${year}.csv`)
+      .get(URL)
       .then((response) => {
         const parsedData = csvParse(response.data)
         setYearData(parsedData)

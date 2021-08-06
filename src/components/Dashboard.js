@@ -20,7 +20,8 @@ import {
   FIRST_SELECT_STATEUT,
   SELECT_STATE_UT,
   SELECT_ELECTION,
-  SEAT_TYPE_OPTIONS
+  SEAT_TYPE_OPTIONS,
+  LIVE_ELECTION_TYPE
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -207,11 +208,11 @@ const Dashboard = ({
       let URL, COMPARE_URL, COMPARE_ELECTION
       if (selectedElection === LIVE_ELECTION) {
         URL = `${process.env.LIVE_ELECTION}`
-        COMPARE_URL = `/data/csv/${electionType}_${
+        COMPARE_URL = `/data/csv/${LIVE_ELECTION_TYPE}_${
           parseInt(LIVE_ELECTION_YEAR) - 5
         }.csv`
         COMPARE_ELECTION = {
-          type: electionType,
+          type: LIVE_ELECTION_TYPE,
           year: parseInt(LIVE_ELECTION_YEAR) - 5
         }
       } else {
