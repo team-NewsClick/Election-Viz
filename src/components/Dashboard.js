@@ -101,10 +101,10 @@ const Dashboard = ({
     seatType,
     selectedYearData,
     selectedStateUTData,
+    electionOptions,
     stateUTOptions,
-    electionOptions
+    constituencyOptions,
   ])
-
 
   useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
