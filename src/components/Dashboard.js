@@ -89,6 +89,24 @@ const Dashboard = ({
     useState(false)
 
   useEffect(() => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
+  }, [
+    electionViewType,
+    selectedElection,
+    groupType,
+    selectedStateUT,
+    selectedConstituency,
+    selectedRegion,
+    seatType,
+    selectedYearData,
+    selectedStateUTData,
+    stateUTOptions,
+    electionOptions
+  ])
+
+
+  useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setPartyAlliance(parsedData)
@@ -489,8 +507,6 @@ const Dashboard = ({
   const _handleElectionViewType = (v) => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
     SetElectionViewType(v)
@@ -533,9 +549,6 @@ const Dashboard = ({
       setGetAssemblyStateElectionOptions(true)
     }
   }
-  const _handleSelectedLocality = (v) => {
-    console.log(v)
-  }
   const _handleSelectedConstituency = (v) => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
@@ -545,6 +558,9 @@ const Dashboard = ({
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
     setSeatType(v)
+  }
+  const _handleSelectedLocality = (v) => {
+    console.log(v)
   }
   const _handleSelectedCommunity = (v) => {
     console.log(v)

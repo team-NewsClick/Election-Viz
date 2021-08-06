@@ -33,10 +33,10 @@ const CustomAllianceModal = ({
     if(selectedElection === LIVE_ELECTION) {
       URL = `${process.env.LIVE_ELECTION}`
     } else {
+      const electionType = selectedElection.type
+      const year = selectedElection.year
       URL = `/data/csv/${electionType}_${year}.csv`
     }
-    const electionType = selectedElection.type
-    const year = selectedElection.year
     axios
       .get(URL)
       .then((response) => {
@@ -152,10 +152,10 @@ const CustomAllianceModal = ({
     if(selectedElection === LIVE_ELECTION) {
       URL = `${process.env.LIVE_ELECTION}`
     } else {
+      const electionType = selectedElection.type
+      const year = selectedElection.year
       URL = `/data/csv/${electionType}_${year}.csv`
     }
-    const electionType = selectedElection.type
-    const year = selectedElection.year
     axios
       .get(URL)
       .then((response) => {
