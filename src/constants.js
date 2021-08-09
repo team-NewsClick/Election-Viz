@@ -46,7 +46,7 @@ export const LIVE_ELECTION_TYPE = "assembly"
 /**
  * Live Election States/UTs
  */
-export const LIVE_ELECTION_STATEUT = ["Bihar"]
+export const LIVE_ELECTION_STATEUT = ["Kerala"]
 
 /**
  * Election details: their type, year and state/UTs that had the election
@@ -132,7 +132,7 @@ export const ELECTION_YEAR_STATEUT = {
   assembly: {
     2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
     2015: ["Bihar"],
-    Live : LIVE_ELECTION_STATEUT
+    Live: LIVE_ELECTION_STATEUT
   }
 }
 
