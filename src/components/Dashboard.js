@@ -89,6 +89,24 @@ const Dashboard = ({
     useState(false)
 
   useEffect(() => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
+  }, [
+    electionViewType,
+    selectedElection,
+    groupType,
+    selectedStateUT,
+    selectedConstituency,
+    selectedRegion,
+    seatType,
+    selectedYearData,
+    selectedStateUTData,
+    electionOptions,
+    stateUTOptions,
+    constituencyOptions,
+  ])
+
+  useEffect(() => {
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setPartyAlliance(parsedData)
@@ -179,8 +197,6 @@ const Dashboard = ({
 
   useEffect(() => {
     if (electionViewType === "general") {
-      setMapWidgetLoading(true)
-      setRegionStatsLoading(true)
       stateUTOptions.length > 0 &&
         setSelectedStateUT(
           stateUTOptions.indexOf(selectedStateUT) > -1
@@ -240,7 +256,6 @@ const Dashboard = ({
   }, [selectedElection])
 
   useEffect(() => {
-    setRegionStatsLoading(true)
     if (compareElection) {
       const electionType = selectedElection.type
       const year = selectedElection.year
@@ -345,6 +360,7 @@ const Dashboard = ({
         )
       )
     }
+    setMapWidgetLoading(false)
   }, [
     mapData,
     selectedConstituency,
@@ -354,16 +370,6 @@ const Dashboard = ({
     selectedElection,
     partyAlliance,
     selectedRegion
-  ])
-
-  useEffect(() => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
-  }, [
-    electionViewType,
-    selectedStateUT,
-    selectedElection,
-    selectedConstituency
   ])
 
   useEffect(() => {
@@ -377,7 +383,6 @@ const Dashboard = ({
       )
       setRegionStatsSVGData(temp)
     }
-    setMapWidgetLoading(false)
   }, [constituenciesResults, filteredGeoJSON])
 
   useEffect(() => {
@@ -490,12 +495,18 @@ const Dashboard = ({
   }
 
   const customAlliance = (customAlliance) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setPartyAlliance(customAlliance)
   }
   const handleSwingParams = (params) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSwingParams(params)
   }
   const _handleElectionViewType = (v) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
     SetElectionViewType(v)
@@ -504,37 +515,52 @@ const Dashboard = ({
     }
   }
   const _handleCompareElection = (v) => {
+    setRegionStatsLoading(true)
     setCompareElection(JSON.parse(v))
   }
   const _updatedRegion = (state) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedStateUT(state)
   }
   const _handleSelectedElection = (v) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedElection(JSON.parse(v))
     if (electionViewType === "assembly") {
       setGetAssemblyStateElectionOptions(true)
     }
   }
   const _handleSelectedRegion = (v) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedRegion(v)
   }
   const _handleGroupType = (v) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setGroupType(v)
   }
   const _handleSelectedStateUT = (v) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedStateUT(v)
     if (electionViewType === "assembly") {
       setGetAssemblyStateElectionOptions(true)
     }
   }
-  const _handleSelectedLocality = (v) => {
-    console.log(v)
-  }
   const _handleSelectedConstituency = (v) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedConstituency(v)
   }
   const _handleSelectedSeatType = (v) => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSeatType(v)
+  }
+  const _handleSelectedLocality = (v) => {
+    console.log(v)
   }
   const _handleSelectedCommunity = (v) => {
     console.log(v)
