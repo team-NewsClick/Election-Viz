@@ -10,7 +10,8 @@ import {
   SELECT_ELECTION,
   NO_CONSTITUENCIES,
   LIVE_ELECTION,
-  LIVE_ELECTION_TYPE
+  LIVE_ELECTION_TYPE,
+  STATE_COLORS
 } from "../constants"
 
 /**
@@ -77,6 +78,11 @@ export const getStateUTs = (
     return stateUTs
   }
 }
+
+export const getInitalStateUTcolors = (stateUTs) => {
+  console.log(stateUTs)
+}
+
 
 export const getElectionOptions = (
   electionViewType,

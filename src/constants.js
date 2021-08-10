@@ -137,6 +137,18 @@ export const ELECTION_YEAR_STATEUT = {
 }
 
 /**
+ * Distinct colors for states
+ */
+const STATE_COLORS = [
+  "#015069",
+  "#349935",
+  "#F29B34",
+  "#774936",
+  "#8E44AD",
+  "C71E1D"
+]
+
+/**
  * List of all States and UTs
  */
 export const STATE_UT_LIST = [
@@ -603,7 +615,7 @@ export const STATE_COORDINATES = [
 /**
  * Parties color
  */
- export const PARTY_COLOR = [
+export const PARTY_COLOR = [
   {
     party: "BJP",
     color: "#ED8918"
@@ -702,7 +714,8 @@ export const STATE_COORDINATES = [
   },
   {
     party: "IND",
-    color: "#A6A6A6" },
+    color: "#A6A6A6"
+  },
   {
     party: "DMK",
     color: "#DF481C"
