@@ -16,7 +16,7 @@ import {
   CONSTITUENCIES_DEFAULT_SELECT,
   SELECT_STATE_UT
 } from "../../constants"
-import { indPlaceVal } from "../../helpers/utils"
+import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
 import Loading from "../helpers/Loading"
 import { getReservedGeoJson } from "../../helpers/reservedSeats"
@@ -40,10 +40,12 @@ const MapWidget = ({
   constituenciesResults,
   mapWidgetLoading,
   seatType,
-  selectedRegion
+  selectedRegion,
+  selectedElection
 }) => {
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState("")
+  const [initialstateColors, setInitialStateColors] = useState([])
   const [filterdGeoJsonData, setFilterdGeoJsonData] = useState(
     parliamentaryConstituenciesGeojson
   )
@@ -73,6 +75,19 @@ const MapWidget = ({
           bearing: 0
         }
   )
+
+  useEffect(() => {
+    const tempInitialStateColors = getInitalStateUTcolors(
+      stateUTOptions,
+      selectedElection
+    )
+    if (tempInitialStateColors) {
+      const stateColors = tempInitialStateColors.filter((d) => {
+        return d !== undefined
+      })
+      setInitialStateColors(stateColors)
+    }
+  }, [stateUTOptions])
 
   useEffect(() => {
     if (electionViewType === "general") {
@@ -202,6 +217,21 @@ const MapWidget = ({
     }
   }
 
+  const _fillInitGeoJsonColor = (d) => {
+    const sortByKey = d.properties.ST_NM
+    const results = initialstateColors.find((row) => {
+      if (row.state === sortByKey) {
+        return row
+      }
+    })
+    if (results) {
+      const hexColor = hexRgb(results.color)
+      return [hexColor.red, hexColor.green, hexColor.blue]
+    } else {
+      return DEFAULT_DISTRICT_FILL_COLOR
+    }
+  }
+
   const _getTooltip = ({ object }) => {
     if (object) {
       if (electionViewType === "general") {
@@ -286,6 +316,7 @@ const MapWidget = ({
       }
     }
   }
+
   let layers = []
   layers = [
     new GeoJsonLayer({
@@ -302,18 +333,36 @@ const MapWidget = ({
     })
   ]
 
-  layers.push(
-    new GeoJsonLayer({
-      id: "state-geojson-layer-2",
-      data: stateData,
-      stroked: true,
-      filled: false,
-      lineWidthScale: 600,
-      getLineColor: DEFAULT_STATE_LINE_COLOR,
-      getFillColor: TRANSPARENT_COLOR,
-      getLineWidth: 4
-    })
-  )
+  if (
+    selectedElection.type === "assembly" &&
+    selectedStateUT === SELECT_STATE_UT
+  ) {
+    layers.push(
+      new GeoJsonLayer({
+        id: "state-geojson-layer-2",
+        data: stateData,
+        stroked: true,
+        filled: true,
+        lineWidthScale: 600,
+        getLineColor: DEFAULT_STATE_LINE_COLOR,
+        getFillColor: (d) => _fillInitGeoJsonColor(d),
+        getLineWidth: 4
+      })
+    )
+  } else {
+    layers.push(
+      new GeoJsonLayer({
+        id: "state-geojson-layer-2",
+        data: stateData,
+        stroked: true,
+        filled: false,
+        lineWidthScale: 600,
+        getLineColor: DEFAULT_STATE_LINE_COLOR,
+        getFillColor: TRANSPARENT_COLOR,
+        getLineWidth: 4
+      })
+    )
+  }
 
   const _getCursor = (e) => {
     return e.isHovering ? (e.isDragging ? "grabbing" : "pointer") : ""

@@ -10,7 +10,8 @@ import {
   SELECT_ELECTION,
   NO_CONSTITUENCIES,
   LIVE_ELECTION,
-  LIVE_ELECTION_TYPE
+  LIVE_ELECTION_TYPE,
+  STATE_COLORS
 } from "../constants"
 
 /**
@@ -77,6 +78,21 @@ export const getStateUTs = (
     return stateUTs
   }
 }
+
+export const getInitalStateUTcolors = (stateUTs, selectedElection) => {
+  if(selectedElection.type === "assembly") {
+    const stateColor = stateUTs.map((d, i) => {
+      if(d !== SELECT_STATE_UT) {
+        return {
+          state: d,
+          color: STATE_COLORS[i]
+        }
+      }
+    })
+    return stateColor
+  }
+}
+
 
 export const getElectionOptions = (
   electionViewType,
