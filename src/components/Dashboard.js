@@ -38,7 +38,8 @@ import {
   getMapData,
   getConstituenciesResults,
   getElectionOptions,
-  getCompareOptions
+  getCompareOptions,
+  getInitalStateUTcolors
 } from "../helpers/utils"
 import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
@@ -103,7 +104,7 @@ const Dashboard = ({
     selectedStateUTData,
     electionOptions,
     stateUTOptions,
-    constituencyOptions,
+    constituencyOptions
   ])
 
   useEffect(() => {

@@ -46,7 +46,7 @@ export const LIVE_ELECTION_TYPE = "assembly"
 /**
  * Live Election States/UTs
  */
-export const LIVE_ELECTION_STATEUT = ["Bihar"]
+export const LIVE_ELECTION_STATEUT = ["Kerala"]
 
 /**
  * Election details: their type, year and state/UTs that had the election
@@ -132,9 +132,21 @@ export const ELECTION_YEAR_STATEUT = {
   assembly: {
     2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
     2015: ["Bihar"],
-    Live : LIVE_ELECTION_STATEUT
+    Live: LIVE_ELECTION_STATEUT
   }
 }
+
+/**
+ * Distinct colors for states
+ */
+const STATE_COLORS = [
+  "#015069",
+  "#349935",
+  "#F29B34",
+  "#774936",
+  "#8E44AD",
+  "C71E1D"
+]
 
 /**
  * List of all States and UTs
@@ -606,47 +618,47 @@ export const STATE_COORDINATES = [
 export const PARTY_COLOR = [
   {
     party: "BJP",
-    color: "#F97D09"
+    color: "#ED8918"
   },
   {
     party: "SP",
-    color: "#ED0E0E"
+    color: "#E64A1D"
   },
   {
     party: "BSP",
-    color: "#22409A"
+    color: "#4171FE"
   },
   {
     party: "RLD",
-    color: "#FF0000"
+    color: "#396502"
   },
   {
     party: "IUML",
-    color: "#00FF00"
+    color: "#518D23"
   },
   {
     party: "KC(J)",
-    color: "#BD0026"
+    color: "#CC990B"
   },
   {
     party: "TRS",
-    color: "#FE0175"
+    color: "#E55672"
   },
   {
     party: "KC(M)",
-    color: "#BD0026"
+    color: "#CC990B"
   },
   {
     party: "AGP",
-    color: "#BD0026"
+    color: "#99CCFF"
   },
   {
     party: "KC(B)",
-    color: "#BD0026"
+    color: "#CC990B"
   },
   {
     party: "AINRCongress",
-    color: "#BD0026"
+    color: "#F7BF0E"
   },
   {
     party: "CMPKSC",
@@ -662,11 +674,11 @@ export const PARTY_COLOR = [
   },
   {
     party: "AITC",
-    color: "#009900"
+    color: "#75C848"
   },
   {
     party: "Congress(Secular)",
-    color: "#BD0026"
+    color: "#E97A7E"
   },
   {
     party: "JDS",
@@ -674,31 +686,31 @@ export const PARTY_COLOR = [
   },
   {
     party: "INC",
-    color: "#138808"
+    color: "#5EA449"
   },
   {
     party: "CPI(M)",
-    color: "#DE0000"
+    color: "#E64A1D"
   },
   {
     party: "CPM",
-    color: "#DE0000"
+    color: "#E64A1D"
   },
   {
     party: "CPIM",
-    color: "#DE0000"
+    color: "#E64A1D"
   },
   {
     party: "AIFB",
-    color: "#008D3C"
+    color: "#DA461B"
   },
   {
     party: "GJM",
-    color: "#BD0026"
+    color: "#7CD11B"
   },
   {
     party: "RSP",
-    color: "#FF0000"
+    color: "#E54E47"
   },
   {
     party: "IND",
@@ -706,19 +718,19 @@ export const PARTY_COLOR = [
   },
   {
     party: "DMK",
-    color: "#FF0000"
+    color: "#DF481C"
   },
   {
     party: "NCP",
-    color: "#00BFFF"
+    color: "#5CB4B2"
   },
   {
     party: "CPI",
-    color: "#DE0000"
+    color: "#E64A1D"
   },
   {
     party: "AIUDF",
-    color: "#00FF00"
+    color: "#4A8118"
   },
   {
     party: "NSC",
@@ -730,75 +742,75 @@ export const PARTY_COLOR = [
   },
   {
     party: "AAP",
-    color: "#ffff99"
+    color: "#1B66A4"
   },
   {
     party: "AAAP",
-    color: "#ffff99"
+    color: "#1B66A4"
   },
   {
     party: "SBSP",
-    color: "#BD0026"
+    color: "#F5D50A"
   },
   {
     party: "AD(S)",
-    color: "#008D3C"
+    color: "#E36FCB"
   },
   {
     party: "TDP",
-    color: "#FFFF00"
+    color: "#FBEC23"
   },
   {
     party: "YSRCP",
-    color: "#0266B4"
-  },
-  {
-    party: "SHS",
-    color: "#FF6634"
-  },
-  {
-    party: "RJD",
-    color: "#008000"
-  },
-  {
-    party: "BJD",
-    color: "#01A31C"
-  },
-  {
-    party: "SAD",
-    color: "#FF9900"
-  },
-  {
-    party: "LJP",
-    color: "#28ECF3"
-  },
-  {
-    party: "JD(U)",
-    color: "#228B22"
-  },
-  {
-    party: "RLSP",
-    color: "#008000"
-  },
-  {
-    party: "BLSP",
-    color: "#008000"
-  },
-  {
-    party: "JKPDP",
     color: "#084202"
   },
   {
+    party: "SHS",
+    color: "#E96D1F"
+  },
+  {
+    party: "RJD",
+    color: "#4B8204"
+  },
+  {
+    party: "BJD",
+    color: "#396502"
+  },
+  {
+    party: "SAD",
+    color: "#EF9716"
+  },
+  {
+    party: "LJP",
+    color: "#3294DD"
+  },
+  {
+    party: "JD(U)",
+    color: "#003366"
+  },
+  {
+    party: "RLSP",
+    color: "#999966"
+  },
+  {
+    party: "BLSP",
+    color: "#999966"
+  },
+  {
+    party: "JKPDP",
+    color: "#4D8733"
+  },
+  {
     party: "JMM",
-    color: "#004B1F"
+    color: "#447E5A"
   },
   {
     party: "JKNC",
-    color: "#E92415"
+    color: "#E64C3A"
   },
   {
     party: "INLD",
-    color: "#006400"
+    color: "#3A6600"
   },
   {
     party: "JD(S)",
@@ -806,11 +818,11 @@ export const PARTY_COLOR = [
   },
   {
     party: "BJP+",
-    color: "#F97D09"
+    color: "#ED8918"
   },
   {
     party: "INC+",
-    color: "#138808"
+    color: "#5EA449"
   },
   {
     party: "BSP-SP-RLD",
@@ -822,7 +834,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "AIMIM",
-    color: "#20783B"
+    color: "#5DA13D"
   },
   {
     party: "AJSUP",
@@ -830,15 +842,19 @@ export const PARTY_COLOR = [
   },
   {
     party: "SKM",
-    color: "#ED1E26"
+    color: "#E64A23"
+  },
+  {
+    party: "SDF",
+    color: "#FAEC0D"
   },
   {
     party: "NDPP",
-    color: "#FD4242"
+    color: "#E64A21"
   },
   {
     party: "ADAL",
-    color: "#792DB4"
+    color: "#E36FCB"
   },
   {
     party: "RLTP",
@@ -850,6 +866,6 @@ export const PARTY_COLOR = [
   },
   {
     party: "BOPF",
-    color: "#FF6600"
+    color: "#E8611C"
   }
 ]
