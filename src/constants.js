@@ -139,7 +139,7 @@ export const ELECTION_YEAR_STATEUT = {
 /**
  * Distinct colors for states
  */
-const STATE_COLORS = [
+export const STATE_COLORS = [
   "#015069",
   "#349935",
   "#F29B34",

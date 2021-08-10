@@ -16,7 +16,7 @@ import {
   CONSTITUENCIES_DEFAULT_SELECT,
   SELECT_STATE_UT
 } from "../../constants"
-import { indPlaceVal } from "../../helpers/utils"
+import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
 import Loading from "../helpers/Loading"
 import { getReservedGeoJson } from "../../helpers/reservedSeats"
@@ -40,10 +40,12 @@ const MapWidget = ({
   constituenciesResults,
   mapWidgetLoading,
   seatType,
-  selectedRegion
+  selectedRegion,
+  selectedElection
 }) => {
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState("")
+  const [initialstateColors, setInitialStateColors] = useState([])
   const [filterdGeoJsonData, setFilterdGeoJsonData] = useState(
     parliamentaryConstituenciesGeojson
   )
@@ -73,6 +75,11 @@ const MapWidget = ({
           bearing: 0
         }
   )
+
+  useEffect(() => {
+    const tempInitialStateColors = getInitalStateUTcolors(stateUTOptions, selectedElection)
+    setInitialStateColors(tempInitialStateColors)
+  }, [stateUTOptions])
 
   useEffect(() => {
     if (electionViewType === "general") {

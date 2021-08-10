@@ -79,8 +79,18 @@ export const getStateUTs = (
   }
 }
 
-export const getInitalStateUTcolors = (stateUTs) => {
-  console.log(stateUTs)
+export const getInitalStateUTcolors = (stateUTs, selectedElection) => {
+  if(selectedElection.type === "assembly") {
+    const stateColor = stateUTs.map((d, i) => {
+      if(d !== SELECT_STATE_UT) {
+        return {
+          state: d,
+          color: STATE_COLORS[i]
+        }
+      }
+    })
+    return stateColor
+  }
 }
 
 

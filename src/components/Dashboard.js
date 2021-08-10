@@ -710,6 +710,7 @@ const Dashboard = ({
                   mapWidgetLoading={mapWidgetLoading}
                   seatType={seatType}
                   selectedRegion={selectedRegion}
+                  selectedElection={selectedElection}
                 />
               </div>
             )}
