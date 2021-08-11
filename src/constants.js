@@ -657,7 +657,7 @@ export const PARTY_COLOR = [
     color: "#CC990B"
   },
   {
-    party: "AINRCongress",
+    party: "AINRC",
     color: "#F7BF0E"
   },
   {
@@ -670,7 +670,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "ADMK",
-    color: "#008D3C"
+    color: "#447603"
   },
   {
     party: "AITC",
@@ -883,5 +883,25 @@ export const PARTY_COLOR = [
   {
     party: "MNF",
     color: "#2E5694"
+  },
+  {
+    party: "VCK",
+    color: "#427bb3"
+  },
+  {
+    party: "KEC(J)",
+    color: "#f76940"
+  },
+  {
+    party: "KEC(B)",
+    color: "f76940"
+  },
+  {
+    party: "GOJAM",
+    color: "#7CD11B"
+  },
+  {
+    party: "HAMS",
+    color: "#4B8204"
   }
 ]
