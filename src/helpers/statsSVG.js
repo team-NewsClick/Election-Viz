@@ -88,18 +88,26 @@ export const seatsCount = (data, groupType) => {
       topNine.push(...tempDataOTHERS)
     }
   } else {
-    sortedData.map((d, index) => {
-      if (index < 8) {
-        topNine[index] = d
-      }
+    if(sortedData.length <= 8) {
+      sortedData.map((d, index) => {
+          topNine[index] = d
+      })
+    } else {
+      sortedData.map((d, index) => {
+        if (index < 8) {
+          topNine[index] = d
+        }
+      })
       topNine.push([
         "OTHERS",
         { seats: 0, colour: DEFAULT_PARTY_ALLIANCE_COLOR }
       ])
-      if (index >= 8) {
-        topNine[8][1].seats += parseInt(d[1].seats)
-      }
-    })
+      sortedData.map((d, index) => {
+        if (index >= 8) {
+          topNine[8][1].seats += parseInt(d[1].seats)
+        }
+      })
+    }
   }
   topNine.map((d) => {
     finalData[d[0]] = { seats: d[1].seats, colour: d[1].colour }

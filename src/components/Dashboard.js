@@ -681,8 +681,8 @@ const Dashboard = ({
                     }
                 : {
                     top: "60px",
-                    left: "-29px",
-                    width: "29px",
+                    left: "-30px",
+                    width: "37px",
                     height: "29px",
                     zIndex: "1",
                     boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
