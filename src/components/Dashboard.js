@@ -387,26 +387,25 @@ const Dashboard = ({
   }, [constituenciesResults, filteredGeoJSON])
 
   useEffect(() => {
-    if (compareElection) {
-      setRegionStatsTableData(
-        getRegionStatsTable(
-          selectedStateUT === STATE_UT_DEFAULT_SELECT
-            ? selectedYearData
-            : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-            ? selectedStateUTData
-            : mapData.constituencies,
-          compareYearData,
-          regionStatsSVGData,
-          electionViewType,
-          compareElection,
-          groupType,
-          partyAlliance,
-          selectedStateUT,
-          selectedConstituency,
-          mapData.constituencies,
-          filteredGeoJSON
-        )
+    if (compareElection && constituencyOptions.indexOf(selectedConstituency) != -1) {
+      const tempTableData = getRegionStatsTable(
+        selectedStateUT === STATE_UT_DEFAULT_SELECT
+          ? selectedYearData
+          : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+          ? selectedStateUTData
+          : mapData.constituencies,
+        compareYearData,
+        regionStatsSVGData,
+        electionViewType,
+        compareElection,
+        groupType,
+        partyAlliance,
+        selectedStateUT,
+        selectedConstituency,
+        mapData.constituencies,
+        filteredGeoJSON
       )
+      tempTableData && setRegionStatsTableData(tempTableData)
     }
     setRegionStatsLoading(false)
   }, [regionStatsSVGData, compareYearData, partiesSwing])

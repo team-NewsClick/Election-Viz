@@ -786,7 +786,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "JD(U)",
-    color: "#003366"
+    color: "#255a8e"
   },
   {
     party: "RLSP",
@@ -834,7 +834,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "AIMIM",
-    color: "#5DA13D"
+    color: "#3A6C49"
   },
   {
     party: "AJSUP",
@@ -867,5 +867,21 @@ export const PARTY_COLOR = [
   {
     party: "BOPF",
     color: "#E8611C"
+  },
+  {
+    party: "KEC(M)",
+    color: "#CC990B"
+  },
+  {
+    party : "NPF",
+    color: "#bd678b"
+  },
+  {
+    party: "NPEP",
+    color: "#505d98"
+  },
+  {
+    party: "MNF",
+    color: "#2E5694"
   }
 ]
