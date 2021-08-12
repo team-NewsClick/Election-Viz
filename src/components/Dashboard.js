@@ -478,11 +478,10 @@ const Dashboard = ({
 
   const _home = () => {
     if (electionViewType === "general") {
-      setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
-      setSelectedElection(electionOptions[0].value)
+      setSelectedStateUT(stateUTOptions[0])
     } else {
-      setSelectedStateUT(SELECT_STATE_UT)
-      setSelectedElection(SELECT_ELECTION)
+      setSelectedStateUT(stateUTOptions[0])
+      setGetAssemblyStateElectionOptions(true)
     }
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
