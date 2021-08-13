@@ -483,13 +483,12 @@ const Dashboard = ({
     setSeatType(SEAT_DEFAULT_SELECT)
   }, [advanceReset])
 
+  useEffect(() => {
+    if (electionViewType === "assembly") setGetAssemblyStateElectionOptions(true)
+  }, [electionViewType, selectedElection, selectedStateUT])
+
   const _home = () => {
-    if (electionViewType === "general") {
-      setSelectedStateUT(stateUTOptions[0])
-    } else {
-      setSelectedStateUT(stateUTOptions[0])
-      setGetAssemblyStateElectionOptions(true)
-    }
+    setSelectedStateUT(stateUTOptions[0])
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
     const option = document.getElementById("advanceOptionsWeb")
@@ -536,9 +535,6 @@ const Dashboard = ({
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
     setSelectedElection(JSON.parse(v))
-    if (electionViewType === "assembly") {
-      setGetAssemblyStateElectionOptions(true)
-    }
   }
   const _handleSelectedRegion = (v) => {
     setMapWidgetLoading(true)
@@ -554,9 +550,6 @@ const Dashboard = ({
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
     setSelectedStateUT(v)
-    if (electionViewType === "assembly") {
-      setGetAssemblyStateElectionOptions(true)
-    }
   }
   const _handleSelectedConstituency = (v) => {
     setMapWidgetLoading(true)
