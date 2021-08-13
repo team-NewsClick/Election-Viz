@@ -59,7 +59,7 @@ const Dashboard = ({
   const [electionViewType, SetElectionViewType] = useState(
     ELECTION_VIEW_TYPE_ASSEMBLY
   )
-  const [selectedElection, setSelectedElection] = useState(SELECT_ELECTION)
+  const [selectedElection, setSelectedElection] = useState({type: "assembly", year: "Upcoming"})
   const [electionOptions, setElectionOptions] = useState([FIRST_SELECT_STATEUT])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
@@ -86,6 +86,7 @@ const Dashboard = ({
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
   const [swingParams, setSwingParams] = useState([])
   const [partiesSwing, setPartiesSwing] = useState([])
+  const [advanceReset, setAdvanceReset] = useState(false)
   const [getAssemblyStateElectionOptions, setGetAssemblyStateElectionOptions] =
     useState(false)
 
@@ -146,6 +147,7 @@ const Dashboard = ({
       )
       setStateUTOptions(tempStateUTOptions)
       setElectionOptions(tempElectionOptions)
+      setSelectedElection({type: "assembly", year: "Upcoming"})
     }
   }, [electionViewType])
 
@@ -416,7 +418,7 @@ const Dashboard = ({
 
   useEffect(() => {
     let result = []
-    if (partyAlliance && swingParams && swingParams.length !== 0) {
+    if (partyAlliance) {
       partyAlliance.map((d) => {
         const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
         if (tempSwing) {
@@ -476,6 +478,11 @@ const Dashboard = ({
     setCompareOptions(temp)
   }, [selectedStateUT, electionViewType, selectedElection])
 
+  useEffect(() => {
+    setSelectedRegion(REGION_DEFAULT_SELECT)
+    setSeatType(SEAT_DEFAULT_SELECT)
+  }, [advanceReset])
+
   const _home = () => {
     if (electionViewType === "general") {
       setSelectedStateUT(stateUTOptions[0])
@@ -493,6 +500,9 @@ const Dashboard = ({
     btnIcon.style.transform = "rotate(0deg)"
   }
 
+  const doAdvanceReset = () => {
+    setAdvanceReset(!advanceReset)
+  }
   const customAlliance = (customAlliance) => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
@@ -590,6 +600,7 @@ const Dashboard = ({
           updateSelectedConstituency={_handleSelectedConstituency}
           updateSelectedSeatType={_handleSelectedSeatType}
           homeReset={_home}
+          doAdvanceReset={doAdvanceReset}
           customAlliance={customAlliance}
           handleSwingParams={handleSwingParams}
           electionOptions={electionOptions}
@@ -606,6 +617,7 @@ const Dashboard = ({
           seatType={seatType}
           compareElection={compareElection}
           partyAlliance={partyAlliance}
+          advanceReset={advanceReset}
         />
         <div className="lg:flex lg:flex-row-reverse relative py-8">
           <div

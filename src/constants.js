@@ -138,7 +138,7 @@ export const ELECTION_YEAR_STATEUT = {
     2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
     2015: ["Bihar"],
     Upcoming: UPCOMING_ELECTIONS,
-    Live: LIVE_ELECTION_STATEUT
+    // Live: LIVE_ELECTION_STATEUT
   }
 }
 
