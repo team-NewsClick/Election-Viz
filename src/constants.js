@@ -49,6 +49,11 @@ export const LIVE_ELECTION_TYPE = "assembly"
 export const LIVE_ELECTION_STATEUT = ["Kerala"]
 
 /**
+ * Upcoming Elections
+ */
+const UPCOMING_ELECTIONS = ["Rajasthan", "Maharashtra"]
+
+/**
  * Election details: their type, year and state/UTs that had the election
  */
 export const ELECTION_YEAR_STATEUT = {
@@ -132,7 +137,8 @@ export const ELECTION_YEAR_STATEUT = {
   assembly: {
     2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
     2015: ["Bihar"],
-    Live: LIVE_ELECTION_STATEUT
+    Upcoming: UPCOMING_ELECTIONS,
+    // Live: LIVE_ELECTION_STATEUT
   }
 }
 
@@ -657,7 +663,7 @@ export const PARTY_COLOR = [
     color: "#CC990B"
   },
   {
-    party: "AINRCongress",
+    party: "AINRC",
     color: "#F7BF0E"
   },
   {
@@ -670,7 +676,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "ADMK",
-    color: "#008D3C"
+    color: "#447603"
   },
   {
     party: "AITC",
@@ -786,7 +792,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "JD(U)",
-    color: "#003366"
+    color: "#255a8e"
   },
   {
     party: "RLSP",
@@ -834,7 +840,7 @@ export const PARTY_COLOR = [
   },
   {
     party: "AIMIM",
-    color: "#5DA13D"
+    color: "#3A6C49"
   },
   {
     party: "AJSUP",
@@ -867,5 +873,41 @@ export const PARTY_COLOR = [
   {
     party: "BOPF",
     color: "#E8611C"
+  },
+  {
+    party: "KEC(M)",
+    color: "#CC990B"
+  },
+  {
+    party : "NPF",
+    color: "#bd678b"
+  },
+  {
+    party: "NPEP",
+    color: "#505d98"
+  },
+  {
+    party: "MNF",
+    color: "#2E5694"
+  },
+  {
+    party: "VCK",
+    color: "#427bb3"
+  },
+  {
+    party: "KEC(J)",
+    color: "#f76940"
+  },
+  {
+    party: "KEC(B)",
+    color: "f76940"
+  },
+  {
+    party: "GOJAM",
+    color: "#7CD11B"
+  },
+  {
+    party: "HAMS",
+    color: "#4B8204"
   }
 ]

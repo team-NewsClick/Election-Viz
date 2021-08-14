@@ -382,14 +382,14 @@ const MapWidget = ({
             ? windowWidth > 700
               ? windowWidth * 0.67
               : windowWidth * 0.9
-            : windowWidth * 0.38
+            : windowWidth * 0.42
         }
         height={
           windowWidth < 800
             ? windowWidth > 700
               ? windowWidth * 0.8
               : windowWidth * 1.15
-            : windowWidth * 0.42
+            : windowWidth * 0.44
         }
         ContextProvider={MapContext.Provider}
       >

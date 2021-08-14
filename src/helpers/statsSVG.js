@@ -79,29 +79,37 @@ export const seatsCount = (data, groupType) => {
   const sortedData = preSort.sort((a, b) =>
     a[1].seats < b[1].seats ? 1 : b[1].seats < a[1].seats ? -1 : 0
   )
-  let topNine = []
-  if (sortedData.length <= 9) {
-    topNine = sortedData
-    const tempIndexOTHERS = topNine.findIndex((d) => d[0] === "OTHERS")
+  let topTen = []
+  if (sortedData.length <= 10) {
+    topTen = sortedData
+    const tempIndexOTHERS = topTen.findIndex((d) => d[0] === "OTHERS")
     if (tempIndexOTHERS !== -1) {
-      const tempDataOTHERS = topNine.splice(tempIndexOTHERS, 1)
-      topNine.push(...tempDataOTHERS)
+      const tempDataOTHERS = topTen.splice(tempIndexOTHERS, 1)
+      topTen.push(...tempDataOTHERS)
     }
   } else {
-    sortedData.map((d, index) => {
-      if (index < 8) {
-        topNine[index] = d
-      }
-      topNine.push([
+    if(sortedData.length < 10) {
+      sortedData.map((d, index) => {
+          topTen[index] = d
+      })
+    } else {
+      sortedData.map((d, index) => {
+        if (index < 9) {
+          topTen[index] = d
+        }
+      })
+      topTen.push([
         "OTHERS",
         { seats: 0, colour: DEFAULT_PARTY_ALLIANCE_COLOR }
       ])
-      if (index >= 8) {
-        topNine[8][1].seats += parseInt(d[1].seats)
-      }
-    })
+      sortedData.map((d, index) => {
+        if (index >= 9) {
+          topTen[9][1].seats += parseInt(d[1].seats)
+        }
+      })
+    }
   }
-  topNine.map((d) => {
+  topTen.map((d) => {
     finalData[d[0]] = { seats: d[1].seats, colour: d[1].colour }
   })
   return finalData

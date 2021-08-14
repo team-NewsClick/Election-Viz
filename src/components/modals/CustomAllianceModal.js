@@ -20,7 +20,8 @@ const CustomAllianceModal = ({
   selectedElection,
   selectedStateUT,
   electionViewType,
-  customAlliance
+  customAlliance,
+  advanceReset
 }) => {
   const [yearData, setYearData] = useState([])
   const [rows, setRows] = useState([])
@@ -51,7 +52,7 @@ const CustomAllianceModal = ({
       setDefaultPartyAlliance(parsedData)
       customAlliance(parsedData)
     })
-  }, [selectedStateUT, selectedElection, electionViewType])
+  }, [selectedStateUT, selectedElection, electionViewType, advanceReset])
 
   useEffect(() => {
     if (defaultPartyAlliance.length !== 0) {
@@ -93,7 +94,7 @@ const CustomAllianceModal = ({
 
   useEffect(() => {
     _resetPartyAlliance()
-  }, [selectedElection, selectedStateUT])
+  }, [selectedElection, selectedStateUT, advanceReset])
 
   const _addNewAlliance = (v) => {
     const tempAlliance = document.getElementById("new-alliance").value.trim()

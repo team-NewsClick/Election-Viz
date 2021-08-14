@@ -11,6 +11,7 @@ const DashboardOptions = ({
   updateSelectedStateUT,
   updateSelectedConstituency,
   homeReset,
+  doAdvanceReset,
   customAlliance,
   handleSwingParams,
   updateSelectedSeatType,
@@ -27,7 +28,8 @@ const DashboardOptions = ({
   selectedRegion,
   seatType,
   compareElection,
-  partyAlliance
+  partyAlliance,
+  advanceReset
 }) => {
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsWeb")
@@ -235,23 +237,33 @@ const DashboardOptions = ({
               )}
             </div>
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-              <div className="md:w-64 inline-block align-text-bottom my-auto">
-                Select an election to compare:
+              <div className="flex flex-wrap">
+                <div className="inline-block align-text-bottom my-auto text-right">
+                  Compare with:
+                </div>
+                <div>
+                  <select
+                    name="compareElection"
+                    onChange={(e) => updateCompareElection(e.target.value)}
+                    id="compareElection"
+                    className="advance-select md:w-64"
+                    value={JSON.stringify(compareElection)}
+                  >
+                    {compareOptions.map((d, index) => (
+                      <option key={index} value={JSON.stringify(d.value)}>
+                        {d.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <div>
-                <select
-                  name="compareElection"
-                  onChange={(e) => updateCompareElection(e.target.value)}
-                  id="compareElection"
-                  className="advance-select md:w-64"
-                  value={JSON.stringify(compareElection)}
-                >
-                  {compareOptions.map((d, index) => (
-                    <option key={index} value={JSON.stringify(d.value)}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
+              <div className=" md:ml-14">
+                <input
+                  type="button"
+                  value="RESET"
+                  className="max-w-sm justify-center flex cursor-pointer px-5 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                  onClick={doAdvanceReset}
+                />
               </div>
             </div>
             {/* <div>
@@ -369,6 +381,7 @@ const DashboardOptions = ({
           selectedStateUT={selectedStateUT}
           electionViewType={electionViewType}
           customAlliance={customAlliance}
+          advanceReset={advanceReset}
         />
       </div>
       <div
@@ -381,6 +394,7 @@ const DashboardOptions = ({
           handleSwingParams={handleSwingParams}
           selectedStateUT={selectedStateUT}
           partyAlliance={partyAlliance}
+          advanceReset={advanceReset}
         />
       </div>
     </div>

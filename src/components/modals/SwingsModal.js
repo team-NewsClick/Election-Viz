@@ -15,7 +15,8 @@ const SwingsModal = ({
   selectedElection,
   handleSwingParams,
   selectedStateUT,
-  partyAlliance
+  partyAlliance,
+  advanceReset
 }) => {
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
   const [partyAllianceInit, setPartyAllianceInit] = useState([])
@@ -31,12 +32,36 @@ const SwingsModal = ({
       setSwingUpdate([...tempParmas])
       _reset()
     })
-  }, [])
+  }, [advanceReset])
 
   useEffect(() => {
     setSwingUpdate([])
     _reset()
-  }, [selectedStateUT, selectedElection])
+  }, [selectedStateUT, selectedElection, advanceReset])
+
+  useEffect(() => {
+    if(partyAllianceInit.length !== 0) {
+      setSwingUpdate([])
+      const initParmas = getParams(partyAllianceInit)
+      const tempParams = []
+      initParmas.map((d) => {
+        const thumbLeft = document.getElementById(d.thumbId)
+        const range = document.getElementById(d.rangeId)
+        const valueSwingDisaply = document.getElementById(
+          d.valueSwingDisaplyId
+        )
+        thumbLeft.style.left = "50%"
+        valueSwingDisaply.style.left = "50%"
+        range.style.right = "50%"
+        range.style.left = "50%"
+        d.swing = 0
+        tempParams.push(d)
+      })
+      setPartyAllianceParams([...tempParams])
+      console.log({partyAllianceParams, initParmas, partyAllianceInit})
+    }
+  }, [advanceReset])
+  
 
   useEffect(() => {
     let temp = 0
@@ -98,12 +123,12 @@ const SwingsModal = ({
     }
     setPartyAllianceParams([...temp])
   }
-
+  
   const _reset = () => {
     if (partyAllianceParams.length !== 0 && partyAllianceInit.length !== 0) {
       const tempPartyAlliance = partyAllianceInit.concat(partyAlliance)
-      let initParmas = getParams(tempPartyAlliance)
-      let tempParams = []
+      const initParmas = getParams(tempPartyAlliance)
+      const tempParams = []
       initParmas.map((d) => {
         if (
           document.getElementById(d.thumbId) &&

@@ -59,7 +59,7 @@ const Dashboard = ({
   const [electionViewType, SetElectionViewType] = useState(
     ELECTION_VIEW_TYPE_ASSEMBLY
   )
-  const [selectedElection, setSelectedElection] = useState(SELECT_ELECTION)
+  const [selectedElection, setSelectedElection] = useState({type: "assembly", year: "Upcoming"})
   const [electionOptions, setElectionOptions] = useState([FIRST_SELECT_STATEUT])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
@@ -80,12 +80,13 @@ const Dashboard = ({
   const [compareYearData, setCompareYearData] = useState([])
   const [compareOptions, setCompareOptions] = useState([])
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
-  const [stateUTOptions, setStateUTOptions] = useState([])
+  const [stateUTOptions, setStateUTOptions] = useState([SELECT_STATE_UT])
   const [constituencyOptions, setConstituencyOptions] = useState([])
   const [regionOptions, setRegionOptions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
   const [swingParams, setSwingParams] = useState([])
   const [partiesSwing, setPartiesSwing] = useState([])
+  const [advanceReset, setAdvanceReset] = useState(false)
   const [getAssemblyStateElectionOptions, setGetAssemblyStateElectionOptions] =
     useState(false)
 
@@ -146,6 +147,7 @@ const Dashboard = ({
       )
       setStateUTOptions(tempStateUTOptions)
       setElectionOptions(tempElectionOptions)
+      setSelectedElection({type: "assembly", year: "Upcoming"})
     }
   }, [electionViewType])
 
@@ -387,26 +389,25 @@ const Dashboard = ({
   }, [constituenciesResults, filteredGeoJSON])
 
   useEffect(() => {
-    if (compareElection) {
-      setRegionStatsTableData(
-        getRegionStatsTable(
-          selectedStateUT === STATE_UT_DEFAULT_SELECT
-            ? selectedYearData
-            : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
-            ? selectedStateUTData
-            : mapData.constituencies,
-          compareYearData,
-          regionStatsSVGData,
-          electionViewType,
-          compareElection,
-          groupType,
-          partyAlliance,
-          selectedStateUT,
-          selectedConstituency,
-          mapData.constituencies,
-          filteredGeoJSON
-        )
+    if (compareElection && constituencyOptions.indexOf(selectedConstituency) != -1) {
+      const tempTableData = getRegionStatsTable(
+        selectedStateUT === STATE_UT_DEFAULT_SELECT
+          ? selectedYearData
+          : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+          ? selectedStateUTData
+          : mapData.constituencies,
+        compareYearData,
+        regionStatsSVGData,
+        electionViewType,
+        compareElection,
+        groupType,
+        partyAlliance,
+        selectedStateUT,
+        selectedConstituency,
+        mapData.constituencies,
+        filteredGeoJSON
       )
+      tempTableData && setRegionStatsTableData(tempTableData)
     }
     setRegionStatsLoading(false)
   }, [regionStatsSVGData, compareYearData, partiesSwing])
@@ -417,7 +418,7 @@ const Dashboard = ({
 
   useEffect(() => {
     let result = []
-    if (partyAlliance && swingParams && swingParams.length !== 0) {
+    if (partyAlliance) {
       partyAlliance.map((d) => {
         const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
         if (tempSwing) {
@@ -477,14 +478,17 @@ const Dashboard = ({
     setCompareOptions(temp)
   }, [selectedStateUT, electionViewType, selectedElection])
 
+  useEffect(() => {
+    setSelectedRegion(REGION_DEFAULT_SELECT)
+    setSeatType(SEAT_DEFAULT_SELECT)
+  }, [advanceReset])
+
+  useEffect(() => {
+    if (electionViewType === "assembly") setGetAssemblyStateElectionOptions(true)
+  }, [electionViewType, selectedElection, selectedStateUT])
+
   const _home = () => {
-    if (electionViewType === "general") {
-      setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
-      setSelectedElection(electionOptions[0].value)
-    } else {
-      setSelectedStateUT(SELECT_STATE_UT)
-      setSelectedElection(SELECT_ELECTION)
-    }
+    setSelectedStateUT(stateUTOptions[0])
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
     const option = document.getElementById("advanceOptionsWeb")
@@ -495,6 +499,9 @@ const Dashboard = ({
     btnIcon.style.transform = "rotate(0deg)"
   }
 
+  const doAdvanceReset = () => {
+    setAdvanceReset(!advanceReset)
+  }
   const customAlliance = (customAlliance) => {
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
@@ -528,9 +535,6 @@ const Dashboard = ({
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
     setSelectedElection(JSON.parse(v))
-    if (electionViewType === "assembly") {
-      setGetAssemblyStateElectionOptions(true)
-    }
   }
   const _handleSelectedRegion = (v) => {
     setMapWidgetLoading(true)
@@ -546,9 +550,6 @@ const Dashboard = ({
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
     setSelectedStateUT(v)
-    if (electionViewType === "assembly") {
-      setGetAssemblyStateElectionOptions(true)
-    }
   }
   const _handleSelectedConstituency = (v) => {
     setMapWidgetLoading(true)
@@ -592,6 +593,7 @@ const Dashboard = ({
           updateSelectedConstituency={_handleSelectedConstituency}
           updateSelectedSeatType={_handleSelectedSeatType}
           homeReset={_home}
+          doAdvanceReset={doAdvanceReset}
           customAlliance={customAlliance}
           handleSwingParams={handleSwingParams}
           electionOptions={electionOptions}
@@ -608,6 +610,7 @@ const Dashboard = ({
           seatType={seatType}
           compareElection={compareElection}
           partyAlliance={partyAlliance}
+          advanceReset={advanceReset}
         />
         <div className="lg:flex lg:flex-row-reverse relative py-8">
           <div
@@ -681,8 +684,8 @@ const Dashboard = ({
                     }
                 : {
                     top: "60px",
-                    left: "-29px",
-                    width: "29px",
+                    left: "-30px",
+                    width: "37px",
                     height: "29px",
                     zIndex: "1",
                     boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
