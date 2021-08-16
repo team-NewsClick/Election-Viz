@@ -124,7 +124,7 @@ const MapWidget = ({
           ...initialViewState,
           latitude: stateObject[0].latitude,
           longitude: stateObject[0].longitude,
-          zoom: 5.5
+          zoom: windowWidth < 800 ? stateObject[0].zoom * 0.82 : stateObject[0].zoom
         })
       }
     } else {
@@ -169,7 +169,7 @@ const MapWidget = ({
       ...initialViewState,
       latitude: stateObject[0].latitude,
       longitude: stateObject[0].longitude,
-      zoom: 5.5
+      zoom: windowWidth < 800 ? stateObject[0].zoom * 0.82 : stateObject[0].zoom
     })
     onMapUpdate(state)
   }

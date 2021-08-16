@@ -433,188 +433,225 @@ export const DEFAULT_PARTY_ALLIANCE_COLOR = "#606060"
 export const STATE_COORDINATES = [
   {
     state: "Andaman & Nicobar Islands",
-    latitude: 11.667,
-    longitude: 92.7359
+    latitude: 10.5,
+    longitude: 93,
+    zoom: 5.8
   },
   {
     state: "Andhra Pradesh",
-    latitude: 14.7504291,
-    longitude: 78.57002559
+    latitude: 16.25,
+    longitude: 80.75,
+    zoom: 5.9
   },
   {
     state: "Arunachal Pradesh",
-    latitude: 27.10039878,
-    longitude: 93.61660071
+    latitude: 28.25,
+    longitude: 94.5,
+    zoom: 6.4
   },
   {
     state: "Assam",
-    latitude: 26.7499809,
-    longitude: 94.21666744
+    latitude: 26.75,
+    longitude: 92.75,
+    zoom: 6.2
   },
   {
     state: "Bihar",
-    latitude: 25.78541445,
-    longitude: 87.4799727
+    latitude: 26,
+    longitude: 86,
+    zoom: 6.5
   },
   {
     state: "Chandigarh",
-    latitude: 30.71999697,
-    longitude: 76.78000565
+    latitude: 30.75,
+    longitude: 76.78,
+    zoom: 10
   },
   {
     state: "Chhattisgarh",
-    latitude: 22.09042035,
-    longitude: 82.15998734
+    latitude: 21.0,
+    longitude: 82.35,
+    zoom: 6.2
   },
   {
     state: "Dadra & Nagar Haveli",
-    latitude: 20.26657819,
-    longitude: 73.0166178
+    latitude: 20.2,
+    longitude: 73.1,
+    zoom: 10
   },
   {
     state: "Daman & Diu",
-    latitude: 20.714273,
-    longitude: 70.921616
+    latitude: 20.4,
+    longitude: 72.75,
+    zoom: 10
   },
   {
     state: "NCT of Delhi",
-    latitude: 28.6699929,
-    longitude: 77.23000403
+    latitude: 28.67,
+    longitude: 77.10,
+    zoom: 9.5
   },
   {
     state: "Gujarat",
-    latitude: 22.309425,
-    longitude: 72.13623
+    latitude: 22.5,
+    longitude: 71.25,
+    zoom: 6.3
   },
   {
     state: "Goa",
-    latitude: 15.491997,
-    longitude: 73.81800065
+    latitude: 15.35,
+    longitude: 74,
+    zoom: 8.6
   },
   {
     state: "Haryana",
-    latitude: 28.45000633,
-    longitude: 77.01999101
+    latitude: 29.5,
+    longitude: 76.25,
+    zoom: 7.0
   },
   {
     state: "Himachal Pradesh",
-    latitude: 31.10002545,
-    longitude: 77.16659704
+    latitude: 31.9,
+    longitude: 77.25,
+    zoom: 7
   },
   {
     state: "Jammu & Kashmir",
-    latitude: 34.083656,
-    longitude: 74.797371
+    latitude: 34.75,
+    longitude: 76.5,
+    zoom: 6.0
   },
   {
     state: "Jharkhand",
-    latitude: 23.80039349,
-    longitude: 86.41998572
+    latitude: 23.5,
+    longitude: 85.75,
+    zoom: 6.75
   },
   {
     state: "Karnataka",
-    latitude: 12.57038129,
-    longitude: 76.91999711
+    latitude: 15,
+    longitude: 76.25,
+    zoom: 6.2
   },
   {
     state: "Kerala",
-    latitude: 10.850516,
-    longitude: 76.27108
+    latitude: 10.5,
+    longitude: 76.5,
+    zoom: 6.7
   },
   {
     state: "Ladakh",
-    latitude: 34.209515,
-    longitude: 77.615112
+    latitude: 34.2,
+    longitude: 76.5,
+    zoom: 6.0
   },
   {
     state: "Lakshadweep",
-    latitude: 10.56257331,
-    longitude: 72.63686717
+    latitude: 10.5,
+    longitude: 72.6,
+    zoom: 6.5
   },
   {
     state: "Madhya Pradesh",
-    latitude: 21.30039105,
-    longitude: 76.13001949
+    latitude: 23.75,
+    longitude: 78.5,
+    zoom: 5.8
   },
   {
     state: "Maharashtra",
-    latitude: 19.25023195,
-    longitude: 73.16017493
+    latitude: 19.25,
+    longitude: 76.65,
+    zoom: 5.8
   },
   {
     state: "Manipur",
-    latitude: 24.79997072,
-    longitude: 93.95001705
+    latitude: 24.75,
+    longitude: 94,
+    zoom: 7.6
   },
   {
     state: "Meghalaya",
-    latitude: 25.57049217,
-    longitude: 91.8800142
+    latitude: 25.75,
+    longitude: 91.25,
+    zoom: 7.2
   },
   {
     state: "Mizoram",
-    latitude: 23.71039899,
-    longitude: 92.72001461
+    latitude: 23.5,
+    longitude: 93,
+    zoom: 7.2
   },
   {
     state: "Nagaland",
-    latitude: 25.6669979,
-    longitude: 94.11657019
+    latitude: 26.0,
+    longitude: 94.5,
+    zoom: 7.2
   },
   {
     state: "Odisha",
-    latitude: 19.82042971,
-    longitude: 85.90001746
+    latitude: 20,
+    longitude: 84.65,
+    zoom: 6.2
   },
   {
     state: "Puducherry",
-    latitude: 11.93499371,
-    longitude: 79.83000037
+    latitude: 11.25,
+    longitude: 79.75,
+    zoom: 8.0
   },
   {
     state: "Punjab",
-    latitude: 31.51997398,
-    longitude: 75.98000281
+    latitude: 31.0,
+    longitude: 75.5,
+    zoom: 7.2
   },
   {
     state: "Rajasthan",
-    latitude: 26.44999921,
-    longitude: 74.63998124
+    latitude: 27,
+    longitude: 73.75,
+    zoom: 5.8
   },
   {
     state: "Sikkim",
-    latitude: 27.3333303,
-    longitude: 88.6166475
+    latitude: 27.5,
+    longitude: 88.5,
+    zoom: 7.8
   },
   {
     state: "Tamil Nadu",
-    latitude: 11.127123,
-    longitude: 78.656891
+    latitude: 10.75,
+    longitude: 78.5,
+    zoom: 6.5
   },
   {
     state: "Telangana",
-    latitude: 17.123184,
-    longitude: 79.208824
+    latitude: 18.0,
+    longitude: 79.5,
+    zoom: 6.8
   },
   {
     state: "Tripura",
-    latitude: 23.83540428,
-    longitude: 91.27999914
+    latitude: 23.75,
+    longitude: 91.75,
+    zoom: 8.0
   },
   {
     state: "Uttar Pradesh",
-    latitude: 28.207609,
-    longitude: 79.82666
+    latitude: 27.25,
+    longitude: 80.75,
+    zoom: 6.0
   },
   {
     state: "Uttarakhand",
-    latitude: 30.32040895,
-    longitude: 78.05000565
+    latitude: 30.25,
+    longitude: 79.25,
+    zoom: 7
   },
   {
     state: "West Bengal",
-    latitude: 22.58039044,
-    longitude: 88.32994665
+    latitude: 24.5,
+    longitude: 88.3,
+    zoom: 6.4
   }
 ]
 

@@ -58,7 +58,6 @@ const SwingsModal = ({
         tempParams.push(d)
       })
       setPartyAllianceParams([...tempParams])
-      console.log({partyAllianceParams, initParmas, partyAllianceInit})
     }
   }, [advanceReset])
   
