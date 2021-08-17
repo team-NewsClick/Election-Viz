@@ -26,7 +26,7 @@ export const SELECT_ELECTION = "Select an Election"
 /**
  * Value of selectedConstituencies when no constituencies is Available
  */
-export const NO_CONSTITUENCIES = "No Constituencies Available"
+export const NO_CONSTITUENCIES = "No Constituencies"
 
 /**
  * Live Election
