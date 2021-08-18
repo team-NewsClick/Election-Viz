@@ -73,7 +73,7 @@ const Dashboard = ({
   const [regionStatsSVGData, setRegionStatsSVGData] = useState({})
   const [regionStatsTableData, setRegionStatsTableData] = useState([])
   const [groupType, setGroupType] = useState(DEFAULT_GROUP_TYPE)
-  const [partyAlliance, setPartyAlliance] = useState()
+  const [partyAlliance, setPartyAlliance] = useState([])
   const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
@@ -107,13 +107,6 @@ const Dashboard = ({
     stateUTOptions,
     constituencyOptions
   ])
-
-  useEffect(() => {
-    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
-      const parsedData = csvParse(response.data)
-      setPartyAlliance(parsedData)
-    })
-  }, [selectedElection, selectedStateUT, electionViewType])
 
   useEffect(() => {
     if (electionViewType === "general") {
@@ -419,17 +412,28 @@ const Dashboard = ({
   useEffect(() => {
     let result = []
     if (partyAlliance) {
-      partyAlliance.map((d) => {
-        const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
-        if (tempSwing) {
+      if(swingParams && swingParams.length === 0) {
+        partyAlliance.map((d) => {
           result.push({
             PARTY: d.PARTY,
             ALLIANCE: d.ALLIANCE,
-            swing: tempSwing.swing,
-            newParty: tempSwing.newParty
+            swing: 0,
+            newParty: false
           })
-        }
-      })
+        })
+      } else {
+        partyAlliance.map((d) => {
+          const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
+          if (tempSwing) {
+            result.push({
+              PARTY: d.PARTY,
+              ALLIANCE: d.ALLIANCE,
+              swing: tempSwing.swing,
+              newParty: tempSwing.newParty
+            })
+          }
+        })
+      }
       setPartiesSwing([...result])
     }
   }, [swingParams, partyAlliance])

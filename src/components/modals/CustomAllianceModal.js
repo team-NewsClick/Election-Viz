@@ -61,7 +61,8 @@ const CustomAllianceModal = ({
         selectedStateUT,
         electionViewType
       )
-      const tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
+      let tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
+      tempPartyAlliance = tempPartyAlliance.filter((d) => d.parties.length !== 0)
       setRows(tempPartyAlliance)
       let tempCustomedPartyAlliance = []
       rows.map((a) => {
