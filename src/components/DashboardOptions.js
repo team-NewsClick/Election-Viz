@@ -1,4 +1,4 @@
-import { STATE_UT_DEFAULT_SELECT, SEAT_TYPE_OPTIONS } from "../constants"
+import { STATE_UT_DEFAULT_SELECT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
 import CustomAllianceModal from "./modals/CustomAllianceModal"
 import SwingsModal from "./modals/SwingsModal"
 
@@ -31,8 +31,9 @@ const DashboardOptions = ({
   partyAlliance,
   advanceReset
 }) => {
+
   const showHideAdvanceOptions = () => {
-    const options = document.getElementById("advanceOptionsWeb")
+    const options = document.getElementById("advanceOptionsDashboard")
     const btnText = document.getElementById("showHideAdvance-btn")
     const btnIcon = document.getElementById("showHideAdvance-btn-icon")
     options.style.display === "none"
@@ -161,11 +162,11 @@ const DashboardOptions = ({
               alt="Show Advance Options"
               className="w-3 h-3 md:ml-14 m-1.5"
             />
-          </div>
         </div>
       </div>
+      </div>
       <div
-        id="advanceOptionsWeb"
+        id="advanceOptionsDashboard"
         style={{ display: "none", zIndex: "2" }}
         className="bg-gray-100 h-full md:h-auto md:relative inset-0 top-0 md:top-auto fixed"
       >
@@ -220,22 +221,21 @@ const DashboardOptions = ({
                 </select>
               </div>
             </div>
-            <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+            {(selectedStateUT !== STATE_UT_DEFAULT_SELECT && selectedStateUT !== SELECT_STATE_UT) &&
+              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
               <div
                 onClick={openCustomAllianceModal}
                 className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
               >
                 Customise Alliances
               </div>
-              {selectedStateUT !== STATE_UT_DEFAULT_SELECT && (
-                <div
-                  onClick={openSwingModal}
-                  className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-                >
-                  Add Swings
-                </div>
-              )}
-            </div>
+              <div
+                onClick={openSwingModal}
+                className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+              >
+                Add Swings
+              </div>
+            </div>}
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
               <div className="flex flex-wrap">
                 <div className="inline-block align-text-bottom my-auto text-right">

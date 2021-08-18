@@ -93,7 +93,7 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
   let alliances = new Set(),
     alliancePartyData = []
   defaultPartyAlliance.map((d) => alliances.add(d.ALLIANCE))
-  alliances = [...alliances, "OTHERS"]
+  alliances = [...alliances]
   alliances.map((d) => {
     alliancePartyData.push({
       alliance: d,
@@ -102,11 +102,18 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
   })
   parties.map((d) => {
     let tempAlliance = defaultPartyAlliance.find((p) => p.PARTY === d)
-    tempAlliance = tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
-    const tempIndex = alliancePartyData.findIndex(
-      (r) => r.alliance === tempAlliance
-    )
-    alliancePartyData[tempIndex].parties.push(d)
+    if(tempAlliance !== undefined) {
+      tempAlliance = tempAlliance.ALLIANCE
+      const tempIndex = alliancePartyData.findIndex(
+        (r) => r.alliance === tempAlliance
+      )
+      alliancePartyData[tempIndex].parties.push(d)
+    } else {
+      alliancePartyData.push({
+        alliance: d,
+        parties: [d]
+      })
+    }
   })
   return alliancePartyData
 }

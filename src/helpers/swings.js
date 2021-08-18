@@ -31,7 +31,6 @@ export const getParams = (partyAlliance) => {
     partyAlliance.map((d) => {
       alliances.add(d.ALLIANCE)
     })
-  alliances.add("OTHERS")
   alliances = [...alliances]
   const params = addParams(alliances)
   return params
