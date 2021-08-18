@@ -732,7 +732,7 @@ const Dashboard = ({
     )
   } else {
     return (
-      <div style={{ minHeight: screen.height, height: "100%", margin: "auto" }}>
+      <div style={{ minHeight: "100vh", height: "100%", margin: "auto" }}>
         <Loading />
       </div>
     )
