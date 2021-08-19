@@ -19,7 +19,7 @@ import {
 import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
 import Loading from "../helpers/Loading"
-import { getReservedGeoJson } from "../../helpers/reservedSeats"
+import { getFilteredGeoJson } from "../../helpers/reservedSeats"
 
 /**
  * Plot Map and Deckgl Layers
@@ -91,7 +91,7 @@ const MapWidget = ({
 
   useEffect(() => {
     if (electionViewType === "general") {
-      const filterdGeoJson = getReservedGeoJson(
+      const filterdGeoJson = getFilteredGeoJson(
         parliamentaryConstituenciesGeojson,
         seatType,
         selectedStateUT,
@@ -99,7 +99,7 @@ const MapWidget = ({
       )
       setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
     } else {
-      const filterdGeoJson = getReservedGeoJson(
+      const filterdGeoJson = getFilteredGeoJson(
         assemblyConstituenciesGeojson,
         seatType,
         selectedStateUT,

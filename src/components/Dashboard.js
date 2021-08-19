@@ -43,7 +43,7 @@ import {
 } from "../helpers/utils"
 import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
-import { getReservedGeoJson } from "../helpers/reservedSeats"
+import { getFilteredGeoJson } from "../helpers/reservedSeats"
 import { getRegions } from "../helpers/regions"
 import { calculateSwings } from "../helpers/swings"
 
@@ -325,7 +325,7 @@ const Dashboard = ({
   useEffect(() => {
     if (electionViewType === "general") {
       setFilteredGeoJSON(
-        getReservedGeoJson(
+        getFilteredGeoJson(
           parliamentaryConstituenciesGeojson,
           seatType,
           selectedStateUT,
@@ -334,7 +334,7 @@ const Dashboard = ({
       )
     } else {
       setFilteredGeoJSON(
-        getReservedGeoJson(
+        getFilteredGeoJson(
           assemblyConstituenciesGeojson,
           seatType,
           selectedStateUT,

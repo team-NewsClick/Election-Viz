@@ -8,7 +8,7 @@ import { getDistricts } from "../helpers/regions"
  * @param {String} electionViewType assembly/general
  * @returns {Object} - Filtered GeoJson with respect to seatType
  */
-export const getReservedGeoJson = (
+export const getFilteredGeoJson = (
   geoJson,
   seatType,
   selectedStateUT,
