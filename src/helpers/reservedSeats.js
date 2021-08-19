@@ -19,10 +19,12 @@ export const getFilteredGeoJson = (
   let districts = []
   if (seatType !== SEAT_DEFAULT_SELECT) {
     filteredBySeatGeoJson = geoJson.features.filter((d) => {
-      if (seatType === "Unreserved") {
-        return d.properties.Res === "GEN"
-      } else {
-        return d.properties.Res !== "GEN"
+      if(selectedStateUT === d.properties.ST_NAME) {
+        if (seatType === "Unreserved") {
+          return d.properties.Res === "GEN"
+        } else {
+          return d.properties.Res !== "GEN"
+        }
       }
     })
   } else {
