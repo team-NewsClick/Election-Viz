@@ -1,5 +1,5 @@
 import { filter } from "virtual-dom-stringify/lib/self-closing-tags"
-import { REGION_DEFAULT_SELECT, SEAT_DEFAULT_SELECT, STATE_UT_DEFAULT_SELECT } from "../constants"
+import { REGION_DEFAULT_SELECT, SEAT_DEFAULT_SELECT, SELECT_STATE_UT, STATE_UT_DEFAULT_SELECT } from "../constants"
 import { getDistricts } from "../helpers/regions"
 
 /**
@@ -16,8 +16,13 @@ export const getFilteredGeoJson = (
   selectedRegion
 ) => {
   let filteredBySeatGeoJson = [], filteredByRegionGeoJSON = [], filteredByStateGeoJSON = [], districts = []
+  if(selectedStateUT === STATE_UT_DEFAULT_SELECT || selectedStateUT === SELECT_STATE_UT) {
+    filteredByStateGeoJSON = geoJson.features
+  } else {
+    filteredByStateGeoJSON = geoJson.features.filter((d) => d.properties.ST_NAME === selectedStateUT)
+  }
   if (seatType !== SEAT_DEFAULT_SELECT) {
-    filteredBySeatGeoJson = geoJson.features.filter((d) => {
+    filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => {
       if (seatType === "Unreserved") {
         return d.properties.Res === "GEN"
       } else {
@@ -25,7 +30,7 @@ export const getFilteredGeoJson = (
       }
     })
   } else {
-    filteredBySeatGeoJson = geoJson.features
+    filteredBySeatGeoJson = filteredByStateGeoJSON
   }
   if (selectedRegion === REGION_DEFAULT_SELECT) {
     filteredByRegionGeoJSON = filteredBySeatGeoJson
@@ -37,15 +42,10 @@ export const getFilteredGeoJson = (
       }
     })
   }
-  if(selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
-    filteredByStateGeoJSON = filteredByRegionGeoJSON.filter((d) => d.properties.ST_NAME === selectedStateUT)
-  } else {
-    filteredByStateGeoJSON = filteredByRegionGeoJSON
-  }
   return {
     type: geoJson.type,
     name: geoJson.name,
     crs: geoJson.crs,
-    features: filteredByStateGeoJSON
+    features: filteredByRegionGeoJSON
   }
 }
