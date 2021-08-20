@@ -135,10 +135,11 @@ export const ELECTION_YEAR_STATEUT = {
     ]
   },
   assembly: {
-    2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
-    2017: ["Uttar Pradesh"],
     2015: ["Bihar"],
-    Upcoming: UPCOMING_ELECTIONS,
+    2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
+    2017: ["Uttar Pradesh", "Manipur", "Himachal Pradesh", "Goa", "Uttarakhand", "Gujarat", "Punjab"],
+    2021: ["West Bengal"]
+    // Upcoming: UPCOMING_ELECTIONS,
     // Live: LIVE_ELECTION_STATEUT
   }
 }
