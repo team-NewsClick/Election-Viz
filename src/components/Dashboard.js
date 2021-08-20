@@ -21,7 +21,8 @@ import {
   SELECT_STATE_UT,
   SELECT_ELECTION,
   SEAT_TYPE_OPTIONS,
-  LIVE_ELECTION_TYPE
+  LIVE_ELECTION_TYPE,
+  ELECTION_DEFAULT_SELECT
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -59,11 +60,11 @@ const Dashboard = ({
   const [electionViewType, SetElectionViewType] = useState(
     ELECTION_VIEW_TYPE_ASSEMBLY
   )
-  const [selectedElection, setSelectedElection] = useState({type: "assembly", year: "Upcoming"})
-  const [electionOptions, setElectionOptions] = useState([FIRST_SELECT_STATEUT])
+  const [selectedElection, setSelectedElection] = useState(ELECTION_DEFAULT_SELECT)
+  const [electionOptions, setElectionOptions] = useState([ELECTION_DEFAULT_SELECT])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(SELECT_STATE_UT)
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
   const [selectedConstituency, setSelectedConstituency] = useState(
     CONSTITUENCIES_DEFAULT_SELECT
   )
@@ -81,7 +82,7 @@ const Dashboard = ({
   const [compareYearData, setCompareYearData] = useState([])
   const [compareOptions, setCompareOptions] = useState([])
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
-  const [stateUTOptions, setStateUTOptions] = useState([SELECT_STATE_UT])
+  const [stateUTOptions, setStateUTOptions] = useState([STATE_UT_DEFAULT_SELECT])
   const [constituencyOptions, setConstituencyOptions] = useState([])
   const [regionOptions, setRegionOptions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
@@ -141,7 +142,7 @@ const Dashboard = ({
       )
       setStateUTOptions(tempStateUTOptions)
       setElectionOptions(tempElectionOptions)
-      setSelectedElection({type: "assembly", year: "Upcoming"})
+      setSelectedElection(ELECTION_DEFAULT_SELECT)
     }
   }, [electionViewType])
 

@@ -29,6 +29,11 @@ export const SELECT_ELECTION = "Select an Election"
 export const NO_CONSTITUENCIES = "No Constituencies"
 
 /**
+ * Default selected election value
+ */
+export const ELECTION_DEFAULT_SELECT = {type: "assembly", year: "2021"}
+
+/**
  * Live Election
  */
 export const LIVE_ELECTION = "Live"
@@ -53,6 +58,27 @@ export const LIVE_ELECTION_STATEUT = ["Kerala"]
  */
 const UPCOMING_ELECTIONS = ["Rajasthan", "Maharashtra"]
 
+/**
+ * Default Selection for Region
+ * Default selection for region should be at REGION_OPTIONS[0]
+ */
+ export const REGION_DEFAULT_SELECT = "All Regions"
+
+ /**
+  * Default Selection for States/UTs
+  */
+ export const STATE_UT_DEFAULT_SELECT = SELECT_STATE_UT
+ 
+ /**
+  * Default Selection for Constituencies
+  */
+ export const CONSTITUENCIES_DEFAULT_SELECT = "All Constituencies"
+ 
+ /**
+  * Default Selection for Seats Types
+  */
+ export const SEAT_DEFAULT_SELECT = "All Seats"
+ 
 /**
  * Election details: their type, year and state/UTs that had the election
  */
@@ -242,27 +268,6 @@ export const REGION_OPTIONS = [
     label: "West"
   }
 ]
-
-/**
- * Default Selection for Region
- * Default selection for region should be at REGION_OPTIONS[0]
- */
-export const REGION_DEFAULT_SELECT = "All Regions"
-
-/**
- * Default Selection for States/UTs
- */
-export const STATE_UT_DEFAULT_SELECT = "All States & UTs"
-
-/**
- * Default Selection for Constituencies
- */
-export const CONSTITUENCIES_DEFAULT_SELECT = "All Constituencies"
-
-/**
- * Default Selection for Seats Types
- */
-export const SEAT_DEFAULT_SELECT = "All Seats"
 
 /**
  * Options for Locality
