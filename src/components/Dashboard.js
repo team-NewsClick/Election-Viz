@@ -61,7 +61,7 @@ const Dashboard = ({
     ELECTION_VIEW_TYPE_ASSEMBLY
   )
   const [selectedElection, setSelectedElection] = useState(ELECTION_DEFAULT_SELECT)
-  const [electionOptions, setElectionOptions] = useState([FIRST_SELECT_STATEUT])
+  const [electionOptions, setElectionOptions] = useState([SELECT_ELECTION])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
@@ -251,7 +251,7 @@ const Dashboard = ({
         })
         .catch((e) => setCompareElection(compareOptions[0].value))
     }
-  }, [selectedElection])
+  }, [compareOptions, selectedElection])
 
   useEffect(() => {
     if (compareElection) {
