@@ -1,5 +1,5 @@
 import { filter } from "virtual-dom-stringify/lib/self-closing-tags"
-import { REGION_DEFAULT_SELECT, SEAT_DEFAULT_SELECT } from "../constants"
+import { REGION_DEFAULT_SELECT, SEAT_DEFAULT_SELECT, STATE_UT_DEFAULT_SELECT } from "../constants"
 import { getDistricts } from "../helpers/regions"
 
 /**
@@ -37,7 +37,11 @@ export const getFilteredGeoJson = (
       }
     })
   }
-  filteredByStateGeoJSON = filteredByRegionGeoJSON.filter((d) => d.properties.ST_NAME === selectedStateUT)
+  if(selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
+    filteredByStateGeoJSON = filteredByRegionGeoJSON.filter((d) => d.properties.ST_NAME === selectedStateUT)
+  } else {
+    filteredByStateGeoJSON = filteredByRegionGeoJSON
+  }
   return {
     type: geoJson.type,
     name: geoJson.name,
