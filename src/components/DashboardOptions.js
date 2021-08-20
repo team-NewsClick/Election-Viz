@@ -13,6 +13,7 @@ const DashboardOptions = ({
   homeReset,
   doAdvanceReset,
   customAlliance,
+  handleColorPartyAlliance,
   handleSwingParams,
   updateSelectedSeatType,
   electionOptions,
@@ -381,6 +382,7 @@ const DashboardOptions = ({
           selectedStateUT={selectedStateUT}
           electionViewType={electionViewType}
           customAlliance={customAlliance}
+          handleColorPartyAlliance={handleColorPartyAlliance}
           advanceReset={advanceReset}
         />
       </div>

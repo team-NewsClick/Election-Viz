@@ -74,6 +74,7 @@ const Dashboard = ({
   const [regionStatsTableData, setRegionStatsTableData] = useState([])
   const [groupType, setGroupType] = useState(DEFAULT_GROUP_TYPE)
   const [partyAlliance, setPartyAlliance] = useState([])
+  const [colorPartyAlliance, setColorPartyAlliance] = useState({})
   const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
@@ -309,7 +310,7 @@ const Dashboard = ({
   useEffect(() => {
     if (selectedYearData != []) {
       setMapData(
-        getMapData(selectedYearData, selectedStateUT, electionViewType)
+        getMapData(selectedYearData, selectedStateUT, electionViewType, colorPartyAlliance)
       )
     }
   }, [
@@ -352,7 +353,8 @@ const Dashboard = ({
           selectedConstituency,
           electionViewType,
           groupType,
-          partyAlliance
+          partyAlliance,
+          colorPartyAlliance
         )
       )
     }
@@ -498,9 +500,11 @@ const Dashboard = ({
     const option = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
     const btnIcon = document.getElementById("showHideAdvance-btn-icon")
-    option.style.display = "none"
-    btnText.innerHTML = "Show Advance Options"
-    btnIcon.style.transform = "rotate(0deg)"
+    if(option && btnText && btnIcon) {
+      option.style.display = "none"
+      btnText.innerHTML = "Show Advance Options"
+      btnIcon.style.transform = "rotate(0deg)"
+    }
   }
 
   const doAdvanceReset = () => {
@@ -510,6 +514,9 @@ const Dashboard = ({
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
     setPartyAlliance(customAlliance)
+  }
+  const handleColorPartyAlliance = (params) => {
+    setColorPartyAlliance(params)
   }
   const handleSwingParams = (params) => {
     setMapWidgetLoading(true)
@@ -599,6 +606,7 @@ const Dashboard = ({
           homeReset={_home}
           doAdvanceReset={doAdvanceReset}
           customAlliance={customAlliance}
+          handleColorPartyAlliance={handleColorPartyAlliance}
           handleSwingParams={handleSwingParams}
           electionOptions={electionOptions}
           stateUTOptions={stateUTOptions}

@@ -1,4 +1,4 @@
-import { STATE_UT_DEFAULT_SELECT } from "../constants"
+import { PARTY_ALLIANCE_COLORS, DEFAULT_PARTY_ALLIANCE_COLOR, STATE_UT_DEFAULT_SELECT } from "../constants"
 
 /**
  * To get the list of winnning parties in a state/UT of a election
@@ -116,4 +116,24 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
     }
   })
   return alliancePartyData
+}
+
+export const getColorPartyAlliance = (rows) => {
+  let colorPartyAlliance = {}
+  rows.map((d) => {
+    const color = PARTY_ALLIANCE_COLORS[d.alliance]
+    if(color) {
+      colorPartyAlliance[d.alliance] = color
+    } else {
+      colorPartyAlliance[d.alliance] = PARTY_ALLIANCE_COLORS[d.parties[0]]
+        ? PARTY_ALLIANCE_COLORS[d.parties[0]]
+        : DEFAULT_PARTY_ALLIANCE_COLOR
+    }
+    d.parties.map((party) => {
+      colorPartyAlliance[party] = PARTY_ALLIANCE_COLORS[party]
+        ? PARTY_ALLIANCE_COLORS[party]
+        : DEFAULT_PARTY_ALLIANCE_COLOR
+    })
+  })
+  return colorPartyAlliance
 }

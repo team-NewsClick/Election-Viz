@@ -1,6 +1,5 @@
 import {
   STATE_UT_DEFAULT_SELECT,
-  PARTY_COLOR,
   CONSTITUENCIES_DEFAULT_SELECT,
   DEFAULT_PARTY_ALLIANCE_COLOR,
   ELECTION_YEAR_STATEUT,
@@ -343,18 +342,6 @@ export const getCompareOptions = (selectedElection, selectedStateUT) => {
 }
 
 /**
- * Find Party color
- * @param {*} data - Array of Party and Total Seats
- * @returns - Hex Color
- */
-export const assignColor = (data) => {
-  return PARTY_COLOR.find((e) => e.party == (data.party || data.alliance)) ==
-    undefined
-    ? DEFAULT_PARTY_ALLIANCE_COLOR
-    : PARTY_COLOR.find((e) => e.party == (data.party || data.alliance)).color
-}
-
-/**
  * Convert Number to Indian Decimal System
  * @param {number} x - Number to convert to Indian System
  * @return {number} Number in Indian Place Value System
@@ -434,7 +421,8 @@ export const getConstituenciesResults = (
   selectedConstituency,
   electionViewType,
   groupType,
-  partyAlliance
+  partyAlliance,
+  colorPartyAlliance
 ) => {
   let result = []
   if (data.constituencies) {
@@ -473,10 +461,7 @@ export const getConstituenciesResults = (
               candidate: d.stats[0].candidate,
               alliance: alliance,
               party: d.stats[0].party,
-              color:
-                PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                  ? DEFAULT_PARTY_ALLIANCE_COLOR
-                  : PARTY_COLOR.find((e) => e.party == alliance).color,
+              color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR,
               pc_name: d.PC_NAME
             })
           } else {
@@ -485,10 +470,7 @@ export const getConstituenciesResults = (
               candidate: d.stats[0].candidate,
               alliance: alliance,
               party: d.stats[0].party,
-              color:
-                PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                  ? DEFAULT_PARTY_ALLIANCE_COLOR
-                  : PARTY_COLOR.find((e) => e.party == alliance).color,
+              color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR,
               ac_name: d.AC_NAME
             })
           }
@@ -529,10 +511,7 @@ export const getConstituenciesResults = (
                 candidate: d.stats[0].candidate,
                 alliance: alliance,
                 party: d.stats[0].party,
-                color:
-                  PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                    ? DEFAULT_PARTY_ALLIANCE_COLOR
-                    : PARTY_COLOR.find((e) => e.party == alliance).color,
+                color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR,
                 pc_name: d.PC_NAME
               })
           } else {
@@ -542,10 +521,7 @@ export const getConstituenciesResults = (
                 candidate: d.stats[0].candidate,
                 alliance: alliance,
                 party: d.stats[0].party,
-                color:
-                  PARTY_COLOR.find((e) => e.party == alliance) == undefined
-                    ? DEFAULT_PARTY_ALLIANCE_COLOR
-                    : PARTY_COLOR.find((e) => e.party == alliance).color,
+                color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR,
                 ac_name: d.AC_NAME
               })
           }
@@ -564,7 +540,7 @@ export const getConstituenciesResults = (
  * @param {String} stateUT - Key Name of a State/UT
  * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
  */
-export const getMapData = (data, stateUT, electionViewType) => {
+export const getMapData = (data, stateUT, electionViewType, colorPartyAlliance) => {
   let stateData = []
   let constituenciesList = new Set()
   stateData =
@@ -593,10 +569,7 @@ export const getMapData = (data, stateUT, electionViewType) => {
           candidate: candidate,
           party: party,
           votesReceived: votesReceived,
-          color:
-            PARTY_COLOR.find((e) => e.party == party) == undefined
-              ? DEFAULT_PARTY_ALLIANCE_COLOR
-              : PARTY_COLOR.find((e) => e.party == party).color
+          color: colorPartyAlliance[party] ? colorPartyAlliance[party] : DEFAULT_PARTY_ALLIANCE_COLOR
         }
       })
       let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
@@ -641,10 +614,7 @@ export const getMapData = (data, stateUT, electionViewType) => {
           candidate: candidate,
           party: party,
           votesReceived: votesReceived,
-          color:
-            PARTY_COLOR.find((e) => e.party == party) == undefined
-              ? DEFAULT_PARTY_ALLIANCE_COLOR
-              : PARTY_COLOR.find((e) => e.party == party).color
+          color: colorPartyAlliance[party] ? colorPartyAlliance[party] : DEFAULT_PARTY_ALLIANCE_COLOR
         }
       })
       let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {

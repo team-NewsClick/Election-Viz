@@ -657,295 +657,79 @@ export const STATE_COORDINATES = [
 ]
 
 /**
- * Parties color
+ * Parties & Alliances Color
  */
-export const PARTY_COLOR = [
-  {
-    party: "BJP",
-    color: "#ED8918"
-  },
-  {
-    party: "SP",
-    color: "#E64A1D"
-  },
-  {
-    party: "BSP",
-    color: "#4171FE"
-  },
-  {
-    party: "RLD",
-    color: "#396502"
-  },
-  {
-    party: "IUML",
-    color: "#518D23"
-  },
-  {
-    party: "KC(J)",
-    color: "#CC990B"
-  },
-  {
-    party: "TRS",
-    color: "#E55672"
-  },
-  {
-    party: "KC(M)",
-    color: "#CC990B"
-  },
-  {
-    party: "AGP",
-    color: "#99CCFF"
-  },
-  {
-    party: "KC(B)",
-    color: "#CC990B"
-  },
-  {
-    party: "AINRC",
-    color: "#F7BF0E"
-  },
-  {
-    party: "CMPKSC",
-    color: "#FF0000"
-  },
-  {
-    party: "BPF",
-    color: "#BD0026"
-  },
-  {
-    party: "ADMK",
-    color: "#447603"
-  },
-  {
-    party: "AITC",
-    color: "#75C848"
-  },
-  {
-    party: "Congress(Secular)",
-    color: "#E97A7E"
-  },
-  {
-    party: "JDS",
-    color: "#00923F"
-  },
-  {
-    party: "INC",
-    color: "#5EA449"
-  },
-  {
-    party: "CPI(M)",
-    color: "#E64A1D"
-  },
-  {
-    party: "CPM",
-    color: "#E64A1D"
-  },
-  {
-    party: "CPIM",
-    color: "#E64A1D"
-  },
-  {
-    party: "AIFB",
-    color: "#DA461B"
-  },
-  {
-    party: "GJM",
-    color: "#7CD11B"
-  },
-  {
-    party: "RSP",
-    color: "#E54E47"
-  },
-  {
-    party: "IND",
-    color: "#A6A6A6"
-  },
-  {
-    party: "DMK",
-    color: "#DF481C"
-  },
-  {
-    party: "NCP",
-    color: "#5CB4B2"
-  },
-  {
-    party: "CPI",
-    color: "#E64A1D"
-  },
-  {
-    party: "AIUDF",
-    color: "#4A8118"
-  },
-  {
-    party: "NSC",
-    color: "#BD0026"
-  },
-  {
-    party: "AD",
-    color: "#FFA500"
-  },
-  {
-    party: "AAP",
-    color: "#1B66A4"
-  },
-  {
-    party: "AAAP",
-    color: "#1B66A4"
-  },
-  {
-    party: "SBSP",
-    color: "#F5D50A"
-  },
-  {
-    party: "AD(S)",
-    color: "#E36FCB"
-  },
-  {
-    party: "TDP",
-    color: "#FBEC23"
-  },
-  {
-    party: "YSRCP",
-    color: "#084202"
-  },
-  {
-    party: "SHS",
-    color: "#E96D1F"
-  },
-  {
-    party: "RJD",
-    color: "#4B8204"
-  },
-  {
-    party: "BJD",
-    color: "#396502"
-  },
-  {
-    party: "SAD",
-    color: "#EF9716"
-  },
-  {
-    party: "LJP",
-    color: "#3294DD"
-  },
-  {
-    party: "JD(U)",
-    color: "#255a8e"
-  },
-  {
-    party: "RLSP",
-    color: "#999966"
-  },
-  {
-    party: "BLSP",
-    color: "#999966"
-  },
-  {
-    party: "JKPDP",
-    color: "#4D8733"
-  },
-  {
-    party: "JMM",
-    color: "#447E5A"
-  },
-  {
-    party: "JKNC",
-    color: "#E64C3A"
-  },
-  {
-    party: "INLD",
-    color: "#3A6600"
-  },
-  {
-    party: "JD(S)",
-    color: "#006400"
-  },
-  {
-    party: "BJP+",
-    color: "#ED8918"
-  },
-  {
-    party: "INC+",
-    color: "#5EA449"
-  },
-  {
-    party: "BSP-SP-RLD",
-    color: "#0000FF"
-  },
-  {
-    party: "LEFT",
-    color: "#DE0000"
-  },
-  {
-    party: "AIMIM",
-    color: "#3A6C49"
-  },
-  {
-    party: "AJSUP",
-    color: "#DA251C"
-  },
-  {
-    party: "SKM",
-    color: "#E64A23"
-  },
-  {
-    party: "SDF",
-    color: "#FAEC0D"
-  },
-  {
-    party: "NDPP",
-    color: "#E64A21"
-  },
-  {
-    party: "ADAL",
-    color: "#E36FCB"
-  },
-  {
-    party: "RLTP",
-    color: "#DBE934"
-  },
-  {
-    party: "JKN",
-    color: "#FF0000"
-  },
-  {
-    party: "BOPF",
-    color: "#E8611C"
-  },
-  {
-    party: "KEC(M)",
-    color: "#CC990B"
-  },
-  {
-    party : "NPF",
-    color: "#bd678b"
-  },
-  {
-    party: "NPEP",
-    color: "#505d98"
-  },
-  {
-    party: "MNF",
-    color: "#2E5694"
-  },
-  {
-    party: "VCK",
-    color: "#427bb3"
-  },
-  {
-    party: "KEC(J)",
-    color: "#f76940"
-  },
-  {
-    party: "KEC(B)",
-    color: "f76940"
-  },
-  {
-    party: "GOJAM",
-    color: "#7CD11B"
-  },
-  {
-    party: "HAMS",
-    color: "#4B8204"
-  }
-]
+export const PARTY_ALLIANCE_COLORS = {
+  "BJP": "#ED8918",
+  "SP": "#E64A1D",
+  "BSP": "#4171FE",
+  "RLD": "#396502",
+  "IUML": "#518D23",
+  "KC(J)": "#CC990B",
+  "TRS": "#E55672",
+  "KC(M)": "#CC990B",
+  "AGP": "#99CCFF",
+  "KC(B)": "#CC990B",
+  "AINRC": "#F7BF0E",
+  "CMPKSC": "#FF0000",
+  "BPF": "#BD0026",
+  "ADMK": "#447603",
+  "AITC": "#75C848",
+  "Congress(Secular)": "#E97A7E",
+  "JDS": "#00923F",
+  "INC": "#5EA449",
+  "CPI(M)": "#E64A1D",
+  "CPM": "#E64A1D",
+  "CPIM": "#E64A1D",
+  "AIFB": "#DA461B",
+  "GJM": "#7CD11B",
+  "RSP": "#E54E47",
+  "IND": "#A6A6A6",
+  "DMK": "#DF481C",
+  "NCP": "#5CB4B2",
+  "CPI": "#E64A1D",
+  "AIUDF": "#4A8118",
+  "NSC": "#BD0026",
+  "AD": "#FFA500",
+  "AAP": "#1B66A4",
+  "AAAP": "#1B66A4",
+  "SBSP": "#F5D50A",
+  "AD(S)": "#E36FCB",
+  "TDP": "#FBEC23",
+  "YSRCP": "#084202",
+  "SHS": "#E96D1F",
+  "RJD": "#4B8204",
+  "BJD": "#396502",
+  "SAD": "#EF9716",
+  "LJP": "#3294DD",
+  "JD(U)": "#255a8e",
+  "RLSP": "#999966",
+  "BLSP": "#999966",
+  "JKPDP": "#4D8733",
+  "JMM": "#447E5A",
+  "JKNC": "#E64C3A",
+  "INLD": "#3A6600",
+  "JD(S)": "#006400",
+  "BJP+": "#ED8918",
+  "INC+": "#5EA449",
+  "BSP-SP-RLD": "#0000FF",
+  "LEFT": "#DE0000",
+  "AIMIM": "#3A6C49",
+  "AJSUP": "#DA251C",
+  "SKM": "#E64A23",
+  "SDF": "#FAEC0D",
+  "NDPP": "#E64A21",
+  "ADAL": "#E36FCB",
+  "RLTP": "#DBE934",
+  "JKN": "#FF0000",
+  "BOPF": "#E8611C",
+  "KEC(M)": "#CC990B",
+   "NPF": "#bd678b",
+  "NPEP": "#505d98",
+  "MNF": "#2E5694",
+  "VCK": "#427bb3",
+  "KEC(J)": "#f76940",
+  "KEC(B)": "f76940",
+  "GOJAM": "#7CD11B",
+  "HAMS": "#4B8204",
+}
