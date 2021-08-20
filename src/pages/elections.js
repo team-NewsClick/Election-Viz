@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import axios from "axios"
 import Dashboard from "../components/Dashboard"
 import Loading from "../components/helpers/Loading"
 
@@ -16,31 +17,37 @@ const Elections = () => {
     useState([])
 
   useEffect(() => {
-    const fetchStateGeojson = () => {
-      fetch(`/data/geojson/states.geojson`)
-        .then((res) => res.json())
-        .then(setStateGeojson)
-    }
-    const fetchParliamentaryConstituenciesGeojson = () => {
-      fetch(`/data/geojson/parliament.geojson`)
-        .then((res) => res.json())
-        .then(setParliamentaryConstituenciesGeojson)
-    }
-    const fetchAssemblyConstituenciesGeojson = () => {
-      fetch(`/data/geojson/assembly.geojson`)
-        .then((res) => res.json())
-        .then(setAssemblyConstituenciesGeojson)
-    }
-    fetchStateGeojson()
-    fetchParliamentaryConstituenciesGeojson()
-    fetchAssemblyConstituenciesGeojson()
+    axios
+      .get(`/data/geojson/states.geojson`)
+      .then((response) => {
+        const parsedData = response.data
+        setStateGeojson(parsedData)
+      })
+      .catch((e) => setStateGeojson([]))
+    axios
+      .get(`/data/geojson/parliament.geojson`)
+      .then((response) => {
+        const parsedData = response.data
+        setParliamentaryConstituenciesGeojson(parsedData)
+      })
+      .catch((e) => setParliamentaryConstituenciesGeojson([]))
+    axios
+      .get(`/data/geojson/assembly.geojson`)
+      .then((response) => {
+        const parsedData = response.data
+        setAssemblyConstituenciesGeojson(parsedData)
+      })
+      .catch((e) => seAassemblyConstituenciesGeojson([]))
   }, [])
 
   if (
     stateGeojson.length === 0 ||
-    parliamentaryConstituenciesGeojson.length === 0
+    parliamentaryConstituenciesGeojson.length === 0 ||
+    assemblyConstituenciesGeojson.length === 0
   ) {
-    return <Loading />
+    return <div style={{ minHeight: "100vh", height: "100%", margin: "auto" }}>
+            <Loading />
+          </div>
   } else {
     return (
       <div className="grid grid-cols-12">

@@ -1,4 +1,4 @@
-import { STATE_UT_DEFAULT_SELECT, SEAT_TYPE_OPTIONS } from "../constants"
+import { STATE_UT_DEFAULT_SELECT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
 import CustomAllianceModal from "./modals/CustomAllianceModal"
 import SwingsModal from "./modals/SwingsModal"
 
@@ -13,6 +13,7 @@ const DashboardOptions = ({
   homeReset,
   doAdvanceReset,
   customAlliance,
+  handleColorPartyAlliance,
   handleSwingParams,
   updateSelectedSeatType,
   electionOptions,
@@ -31,8 +32,9 @@ const DashboardOptions = ({
   partyAlliance,
   advanceReset
 }) => {
+
   const showHideAdvanceOptions = () => {
-    const options = document.getElementById("advanceOptionsWeb")
+    const options = document.getElementById("advanceOptionsDashboard")
     const btnText = document.getElementById("showHideAdvance-btn")
     const btnIcon = document.getElementById("showHideAdvance-btn-icon")
     options.style.display === "none"
@@ -105,7 +107,7 @@ const DashboardOptions = ({
             name="year"
             onChange={(e) => updateSelectedElection(e.target.value)}
             id="year"
-            className="w-40 md:w-64"
+            className="w-80 md:w-64"
             value={JSON.stringify(selectedElection)}
           >
             {electionOptions.map((d, index) => (
@@ -122,7 +124,7 @@ const DashboardOptions = ({
             name="state-ut"
             onChange={(e) => updateSelectedStateUT(e.target.value)}
             id="state-ut"
-            className="advance-select w-40 md:w-64"
+            className="advance-select w-36 md:w-64"
             value={selectedStateUT}
           >
             {stateUTOptions.map((d, index) => (
@@ -137,7 +139,7 @@ const DashboardOptions = ({
             name="constituency"
             onChange={(e) => updateSelectedConstituency(e.target.value)}
             id="constituency"
-            className="advance-select w-40 md:w-64"
+            className="advance-select w-36 md:w-64"
             value={selectedConstituency}
           >
             {constituencyOptions.map((d, index) => (
@@ -161,11 +163,11 @@ const DashboardOptions = ({
               alt="Show Advance Options"
               className="w-3 h-3 md:ml-14 m-1.5"
             />
-          </div>
         </div>
       </div>
+      </div>
       <div
-        id="advanceOptionsWeb"
+        id="advanceOptionsDashboard"
         style={{ display: "none", zIndex: "2" }}
         className="bg-gray-100 h-full md:h-auto md:relative inset-0 top-0 md:top-auto fixed"
       >
@@ -220,22 +222,21 @@ const DashboardOptions = ({
                 </select>
               </div>
             </div>
-            <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+            {(selectedStateUT !== STATE_UT_DEFAULT_SELECT && selectedStateUT !== SELECT_STATE_UT) &&
+              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
               <div
                 onClick={openCustomAllianceModal}
-                className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
               >
                 Customise Alliances
               </div>
-              {selectedStateUT !== STATE_UT_DEFAULT_SELECT && (
-                <div
-                  onClick={openSwingModal}
-                  className="max-w-sm justify-center flex cursor-pointer w-42 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-                >
-                  Add Swings
-                </div>
-              )}
-            </div>
+              <div
+                onClick={openSwingModal}
+                className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+              >
+                Add Swings
+              </div>
+            </div>}
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
               <div className="flex flex-wrap">
                 <div className="inline-block align-text-bottom my-auto text-right">
@@ -246,7 +247,7 @@ const DashboardOptions = ({
                     name="compareElection"
                     onChange={(e) => updateCompareElection(e.target.value)}
                     id="compareElection"
-                    className="advance-select md:w-64"
+                    className="advance-select w-60 md:w-64"
                     value={JSON.stringify(compareElection)}
                   >
                     {compareOptions.map((d, index) => (
@@ -257,7 +258,7 @@ const DashboardOptions = ({
                   </select>
                 </div>
               </div>
-              <div className=" md:ml-14">
+              <div className="md:ml-14 hidden md:block">
                 <input
                   type="button"
                   value="RESET"
@@ -357,7 +358,7 @@ const DashboardOptions = ({
                 type="button"
                 value="RESET"
                 className="black-btn"
-                onClick={homeReset}
+                onClick={doAdvanceReset}
               />
             </div>
             <div>
@@ -381,6 +382,7 @@ const DashboardOptions = ({
           selectedStateUT={selectedStateUT}
           electionViewType={electionViewType}
           customAlliance={customAlliance}
+          handleColorPartyAlliance={handleColorPartyAlliance}
           advanceReset={advanceReset}
         />
       </div>

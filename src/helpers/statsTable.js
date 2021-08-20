@@ -32,7 +32,8 @@ export const getRegionStatsTable = (
   selectedStateUT,
   selectedConstituency,
   mapDataConstituencies,
-  filteredGeoJSON
+  filteredGeoJSON,
+  colorPartyAlliance
 ) => {
   const compareElectionType = compareElection.type
   let tableData = []
@@ -105,7 +106,8 @@ export const getRegionStatsTable = (
       partyAlliance,
       selectedStateUT,
       selectedConstituency,
-      mapDataConstituencies
+      mapDataConstituencies,
+      colorPartyAlliance
     )
   }
   if (
@@ -354,7 +356,8 @@ const getCompareYearDataTable = (
   partyAlliance,
   selectedStateUT,
   selectedConstituency,
-  mapDataConstituencies
+  mapDataConstituencies,
+  colorPartyAlliance
 ) => {
   let compareMapData = {}
   let compareSelectedStateUTData = []
@@ -375,7 +378,8 @@ const getCompareYearDataTable = (
     compareMapData = getMapData(
       compareYearData,
       selectedStateUT,
-      electionViewType
+      electionViewType,
+      colorPartyAlliance
     )
     const compareConstituenciesResults =
       compareMapData &&
@@ -384,7 +388,8 @@ const getCompareYearDataTable = (
         selectedConstituency,
         electionViewType,
         groupType,
-        partyAlliance
+        partyAlliance,
+        colorPartyAlliance
       )
     if (electionViewType === "general") {
       if (

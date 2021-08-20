@@ -21,7 +21,8 @@ import {
   SELECT_STATE_UT,
   SELECT_ELECTION,
   SEAT_TYPE_OPTIONS,
-  LIVE_ELECTION_TYPE
+  LIVE_ELECTION_TYPE,
+  ELECTION_DEFAULT_SELECT
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -43,7 +44,7 @@ import {
 } from "../helpers/utils"
 import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
-import { getReservedGeoJson } from "../helpers/reservedSeats"
+import { getFilteredGeoJson } from "../helpers/reservedSeats"
 import { getRegions } from "../helpers/regions"
 import { calculateSwings } from "../helpers/swings"
 
@@ -59,11 +60,11 @@ const Dashboard = ({
   const [electionViewType, SetElectionViewType] = useState(
     ELECTION_VIEW_TYPE_ASSEMBLY
   )
-  const [selectedElection, setSelectedElection] = useState({type: "assembly", year: "Upcoming"})
-  const [electionOptions, setElectionOptions] = useState([FIRST_SELECT_STATEUT])
+  const [selectedElection, setSelectedElection] = useState(ELECTION_DEFAULT_SELECT)
+  const [electionOptions, setElectionOptions] = useState([SELECT_ELECTION])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(SELECT_STATE_UT)
+  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
   const [selectedConstituency, setSelectedConstituency] = useState(
     CONSTITUENCIES_DEFAULT_SELECT
   )
@@ -73,14 +74,15 @@ const Dashboard = ({
   const [regionStatsSVGData, setRegionStatsSVGData] = useState({})
   const [regionStatsTableData, setRegionStatsTableData] = useState([])
   const [groupType, setGroupType] = useState(DEFAULT_GROUP_TYPE)
-  const [partyAlliance, setPartyAlliance] = useState()
+  const [partyAlliance, setPartyAlliance] = useState([])
+  const [colorPartyAlliance, setColorPartyAlliance] = useState({})
   const [constituenciesResults, setConstituenciesResults] = useState([])
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
   const [compareYearData, setCompareYearData] = useState([])
   const [compareOptions, setCompareOptions] = useState([])
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
-  const [stateUTOptions, setStateUTOptions] = useState([SELECT_STATE_UT])
+  const [stateUTOptions, setStateUTOptions] = useState([STATE_UT_DEFAULT_SELECT])
   const [constituencyOptions, setConstituencyOptions] = useState([])
   const [regionOptions, setRegionOptions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
@@ -107,13 +109,6 @@ const Dashboard = ({
     stateUTOptions,
     constituencyOptions
   ])
-
-  useEffect(() => {
-    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
-      const parsedData = csvParse(response.data)
-      setPartyAlliance(parsedData)
-    })
-  }, [selectedElection, selectedStateUT, electionViewType])
 
   useEffect(() => {
     if (electionViewType === "general") {
@@ -147,7 +142,7 @@ const Dashboard = ({
       )
       setStateUTOptions(tempStateUTOptions)
       setElectionOptions(tempElectionOptions)
-      setSelectedElection({type: "assembly", year: "Upcoming"})
+      setSelectedElection(ELECTION_DEFAULT_SELECT)
     }
   }, [electionViewType])
 
@@ -256,7 +251,7 @@ const Dashboard = ({
         })
         .catch((e) => setCompareElection(compareOptions[0].value))
     }
-  }, [selectedElection])
+  }, [compareOptions, selectedElection])
 
   useEffect(() => {
     if (compareElection) {
@@ -316,7 +311,7 @@ const Dashboard = ({
   useEffect(() => {
     if (selectedYearData != []) {
       setMapData(
-        getMapData(selectedYearData, selectedStateUT, electionViewType)
+        getMapData(selectedYearData, selectedStateUT, electionViewType, colorPartyAlliance)
       )
     }
   }, [
@@ -332,7 +327,7 @@ const Dashboard = ({
   useEffect(() => {
     if (electionViewType === "general") {
       setFilteredGeoJSON(
-        getReservedGeoJson(
+        getFilteredGeoJson(
           parliamentaryConstituenciesGeojson,
           seatType,
           selectedStateUT,
@@ -341,7 +336,7 @@ const Dashboard = ({
       )
     } else {
       setFilteredGeoJSON(
-        getReservedGeoJson(
+        getFilteredGeoJson(
           assemblyConstituenciesGeojson,
           seatType,
           selectedStateUT,
@@ -359,7 +354,8 @@ const Dashboard = ({
           selectedConstituency,
           electionViewType,
           groupType,
-          partyAlliance
+          partyAlliance,
+          colorPartyAlliance
         )
       )
     }
@@ -405,7 +401,8 @@ const Dashboard = ({
         selectedStateUT,
         selectedConstituency,
         mapData.constituencies,
-        filteredGeoJSON
+        filteredGeoJSON,
+        colorPartyAlliance
       )
       tempTableData && setRegionStatsTableData(tempTableData)
     }
@@ -419,17 +416,28 @@ const Dashboard = ({
   useEffect(() => {
     let result = []
     if (partyAlliance) {
-      partyAlliance.map((d) => {
-        const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
-        if (tempSwing) {
+      if(swingParams && swingParams.length === 0) {
+        partyAlliance.map((d) => {
           result.push({
             PARTY: d.PARTY,
             ALLIANCE: d.ALLIANCE,
-            swing: tempSwing.swing,
-            newParty: tempSwing.newParty
+            swing: 0,
+            newParty: false
           })
-        }
-      })
+        })
+      } else {
+        partyAlliance.map((d) => {
+          const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
+          if (tempSwing) {
+            result.push({
+              PARTY: d.PARTY,
+              ALLIANCE: d.ALLIANCE,
+              swing: tempSwing.swing,
+              newParty: tempSwing.newParty
+            })
+          }
+        })
+      }
       setPartiesSwing([...result])
     }
   }, [swingParams, partyAlliance])
@@ -494,9 +502,11 @@ const Dashboard = ({
     const option = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
     const btnIcon = document.getElementById("showHideAdvance-btn-icon")
-    option.style.display = "none"
-    btnText.innerHTML = "Show Advance Options"
-    btnIcon.style.transform = "rotate(0deg)"
+    if(option && btnText && btnIcon) {
+      option.style.display = "none"
+      btnText.innerHTML = "Show Advance Options"
+      btnIcon.style.transform = "rotate(0deg)"
+    }
   }
 
   const doAdvanceReset = () => {
@@ -506,6 +516,9 @@ const Dashboard = ({
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
     setPartyAlliance(customAlliance)
+  }
+  const handleColorPartyAlliance = (params) => {
+    setColorPartyAlliance(params)
   }
   const handleSwingParams = (params) => {
     setMapWidgetLoading(true)
@@ -595,6 +608,7 @@ const Dashboard = ({
           homeReset={_home}
           doAdvanceReset={doAdvanceReset}
           customAlliance={customAlliance}
+          handleColorPartyAlliance={handleColorPartyAlliance}
           handleSwingParams={handleSwingParams}
           electionOptions={electionOptions}
           stateUTOptions={stateUTOptions}
@@ -728,7 +742,7 @@ const Dashboard = ({
     )
   } else {
     return (
-      <div style={{ minHeight: screen.height, height: "100%", margin: "auto" }}>
+      <div style={{ minHeight: "100vh", height: "100%", margin: "auto" }}>
         <Loading />
       </div>
     )

@@ -8,6 +8,8 @@ export const ELECTION_VIEW_TYPE_DEFAULT = "general"
  */
 export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
 
+export const ELECTION_DEFAULT_SELECT = {type: "assembly", year: "2021"}
+
 /**
  * Option when no particular State/UT is selected
  */
@@ -26,7 +28,7 @@ export const SELECT_ELECTION = "Select an Election"
 /**
  * Value of selectedConstituencies when no constituencies is Available
  */
-export const NO_CONSTITUENCIES = "No Constituencies Available"
+export const NO_CONSTITUENCIES = "No Constituencies"
 
 /**
  * Live Election
@@ -135,9 +137,19 @@ export const ELECTION_YEAR_STATEUT = {
     ]
   },
   assembly: {
-    2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
     2015: ["Bihar"],
-    Upcoming: UPCOMING_ELECTIONS,
+    2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
+    2017: [
+      "Uttar Pradesh",
+      "Manipur",
+      "Himachal Pradesh",
+      "Goa",
+      "Uttarakhand",
+      "Gujarat",
+      "Punjab"
+    ],
+    2021: ["West Bengal"]
+    // Upcoming: UPCOMING_ELECTIONS,
     // Live: LIVE_ELECTION_STATEUT
   }
 }
@@ -433,481 +445,302 @@ export const DEFAULT_PARTY_ALLIANCE_COLOR = "#606060"
 export const STATE_COORDINATES = [
   {
     state: "Andaman & Nicobar Islands",
-    latitude: 11.667,
-    longitude: 92.7359
+    latitude: 10.5,
+    longitude: 93,
+    zoom: 5.8
   },
   {
     state: "Andhra Pradesh",
-    latitude: 14.7504291,
-    longitude: 78.57002559
+    latitude: 16.25,
+    longitude: 80.75,
+    zoom: 5.9
   },
   {
     state: "Arunachal Pradesh",
-    latitude: 27.10039878,
-    longitude: 93.61660071
+    latitude: 28.25,
+    longitude: 94.5,
+    zoom: 6.4
   },
   {
     state: "Assam",
-    latitude: 26.7499809,
-    longitude: 94.21666744
+    latitude: 26.75,
+    longitude: 92.75,
+    zoom: 6.2
   },
   {
     state: "Bihar",
-    latitude: 25.78541445,
-    longitude: 87.4799727
+    latitude: 26,
+    longitude: 86,
+    zoom: 6.5
   },
   {
     state: "Chandigarh",
-    latitude: 30.71999697,
-    longitude: 76.78000565
+    latitude: 30.75,
+    longitude: 76.78,
+    zoom: 10
   },
   {
     state: "Chhattisgarh",
-    latitude: 22.09042035,
-    longitude: 82.15998734
+    latitude: 21.0,
+    longitude: 82.35,
+    zoom: 6.2
   },
   {
     state: "Dadra & Nagar Haveli",
-    latitude: 20.26657819,
-    longitude: 73.0166178
+    latitude: 20.2,
+    longitude: 73.1,
+    zoom: 10
   },
   {
     state: "Daman & Diu",
-    latitude: 20.714273,
-    longitude: 70.921616
+    latitude: 20.4,
+    longitude: 72.75,
+    zoom: 10
   },
   {
     state: "NCT of Delhi",
-    latitude: 28.6699929,
-    longitude: 77.23000403
+    latitude: 28.67,
+    longitude: 77.1,
+    zoom: 9.5
   },
   {
     state: "Gujarat",
-    latitude: 22.309425,
-    longitude: 72.13623
+    latitude: 22.5,
+    longitude: 71.25,
+    zoom: 6.3
   },
   {
     state: "Goa",
-    latitude: 15.491997,
-    longitude: 73.81800065
+    latitude: 15.35,
+    longitude: 74,
+    zoom: 8.6
   },
   {
     state: "Haryana",
-    latitude: 28.45000633,
-    longitude: 77.01999101
+    latitude: 29.5,
+    longitude: 76.25,
+    zoom: 7.0
   },
   {
     state: "Himachal Pradesh",
-    latitude: 31.10002545,
-    longitude: 77.16659704
+    latitude: 31.9,
+    longitude: 77.25,
+    zoom: 7
   },
   {
     state: "Jammu & Kashmir",
-    latitude: 34.083656,
-    longitude: 74.797371
+    latitude: 34.75,
+    longitude: 76.5,
+    zoom: 6.0
   },
   {
     state: "Jharkhand",
-    latitude: 23.80039349,
-    longitude: 86.41998572
+    latitude: 23.5,
+    longitude: 85.75,
+    zoom: 6.75
   },
   {
     state: "Karnataka",
-    latitude: 12.57038129,
-    longitude: 76.91999711
+    latitude: 15,
+    longitude: 76.25,
+    zoom: 6.2
   },
   {
     state: "Kerala",
-    latitude: 10.850516,
-    longitude: 76.27108
+    latitude: 10.5,
+    longitude: 76.5,
+    zoom: 6.7
   },
   {
     state: "Ladakh",
-    latitude: 34.209515,
-    longitude: 77.615112
+    latitude: 34.2,
+    longitude: 76.5,
+    zoom: 6.0
   },
   {
     state: "Lakshadweep",
-    latitude: 10.56257331,
-    longitude: 72.63686717
+    latitude: 10.5,
+    longitude: 72.6,
+    zoom: 6.5
   },
   {
     state: "Madhya Pradesh",
-    latitude: 21.30039105,
-    longitude: 76.13001949
+    latitude: 23.75,
+    longitude: 78.5,
+    zoom: 5.8
   },
   {
     state: "Maharashtra",
-    latitude: 19.25023195,
-    longitude: 73.16017493
+    latitude: 19.25,
+    longitude: 76.65,
+    zoom: 5.8
   },
   {
     state: "Manipur",
-    latitude: 24.79997072,
-    longitude: 93.95001705
+    latitude: 24.75,
+    longitude: 94,
+    zoom: 7.6
   },
   {
     state: "Meghalaya",
-    latitude: 25.57049217,
-    longitude: 91.8800142
+    latitude: 25.75,
+    longitude: 91.25,
+    zoom: 7.2
   },
   {
     state: "Mizoram",
-    latitude: 23.71039899,
-    longitude: 92.72001461
+    latitude: 23.5,
+    longitude: 93,
+    zoom: 7.2
   },
   {
     state: "Nagaland",
-    latitude: 25.6669979,
-    longitude: 94.11657019
+    latitude: 26.0,
+    longitude: 94.5,
+    zoom: 7.2
   },
   {
     state: "Odisha",
-    latitude: 19.82042971,
-    longitude: 85.90001746
+    latitude: 20,
+    longitude: 84.65,
+    zoom: 6.2
   },
   {
     state: "Puducherry",
-    latitude: 11.93499371,
-    longitude: 79.83000037
+    latitude: 11.25,
+    longitude: 79.75,
+    zoom: 8.0
   },
   {
     state: "Punjab",
-    latitude: 31.51997398,
-    longitude: 75.98000281
+    latitude: 31.0,
+    longitude: 75.5,
+    zoom: 7.2
   },
   {
     state: "Rajasthan",
-    latitude: 26.44999921,
-    longitude: 74.63998124
+    latitude: 27,
+    longitude: 73.75,
+    zoom: 5.8
   },
   {
     state: "Sikkim",
-    latitude: 27.3333303,
-    longitude: 88.6166475
+    latitude: 27.5,
+    longitude: 88.5,
+    zoom: 7.8
   },
   {
     state: "Tamil Nadu",
-    latitude: 11.127123,
-    longitude: 78.656891
+    latitude: 10.75,
+    longitude: 78.5,
+    zoom: 6.5
   },
   {
     state: "Telangana",
-    latitude: 17.123184,
-    longitude: 79.208824
+    latitude: 18.0,
+    longitude: 79.5,
+    zoom: 6.8
   },
   {
     state: "Tripura",
-    latitude: 23.83540428,
-    longitude: 91.27999914
+    latitude: 23.75,
+    longitude: 91.75,
+    zoom: 8.0
   },
   {
     state: "Uttar Pradesh",
-    latitude: 28.207609,
-    longitude: 79.82666
+    latitude: 27.25,
+    longitude: 80.75,
+    zoom: 6.0
   },
   {
     state: "Uttarakhand",
-    latitude: 30.32040895,
-    longitude: 78.05000565
+    latitude: 30.25,
+    longitude: 79.25,
+    zoom: 7
   },
   {
     state: "West Bengal",
-    latitude: 22.58039044,
-    longitude: 88.32994665
+    latitude: 24.5,
+    longitude: 88.3,
+    zoom: 6.4
   }
 ]
 
 /**
- * Parties color
+ * Parties & Alliances Color
  */
-export const PARTY_COLOR = [
-  {
-    party: "BJP",
-    color: "#ED8918"
-  },
-  {
-    party: "SP",
-    color: "#E64A1D"
-  },
-  {
-    party: "BSP",
-    color: "#4171FE"
-  },
-  {
-    party: "RLD",
-    color: "#396502"
-  },
-  {
-    party: "IUML",
-    color: "#518D23"
-  },
-  {
-    party: "KC(J)",
-    color: "#CC990B"
-  },
-  {
-    party: "TRS",
-    color: "#E55672"
-  },
-  {
-    party: "KC(M)",
-    color: "#CC990B"
-  },
-  {
-    party: "AGP",
-    color: "#99CCFF"
-  },
-  {
-    party: "KC(B)",
-    color: "#CC990B"
-  },
-  {
-    party: "AINRC",
-    color: "#F7BF0E"
-  },
-  {
-    party: "CMPKSC",
-    color: "#FF0000"
-  },
-  {
-    party: "BPF",
-    color: "#BD0026"
-  },
-  {
-    party: "ADMK",
-    color: "#447603"
-  },
-  {
-    party: "AITC",
-    color: "#75C848"
-  },
-  {
-    party: "Congress(Secular)",
-    color: "#E97A7E"
-  },
-  {
-    party: "JDS",
-    color: "#00923F"
-  },
-  {
-    party: "INC",
-    color: "#5EA449"
-  },
-  {
-    party: "CPI(M)",
-    color: "#E64A1D"
-  },
-  {
-    party: "CPM",
-    color: "#E64A1D"
-  },
-  {
-    party: "CPIM",
-    color: "#E64A1D"
-  },
-  {
-    party: "AIFB",
-    color: "#DA461B"
-  },
-  {
-    party: "GJM",
-    color: "#7CD11B"
-  },
-  {
-    party: "RSP",
-    color: "#E54E47"
-  },
-  {
-    party: "IND",
-    color: "#A6A6A6"
-  },
-  {
-    party: "DMK",
-    color: "#DF481C"
-  },
-  {
-    party: "NCP",
-    color: "#5CB4B2"
-  },
-  {
-    party: "CPI",
-    color: "#E64A1D"
-  },
-  {
-    party: "AIUDF",
-    color: "#4A8118"
-  },
-  {
-    party: "NSC",
-    color: "#BD0026"
-  },
-  {
-    party: "AD",
-    color: "#FFA500"
-  },
-  {
-    party: "AAP",
-    color: "#1B66A4"
-  },
-  {
-    party: "AAAP",
-    color: "#1B66A4"
-  },
-  {
-    party: "SBSP",
-    color: "#F5D50A"
-  },
-  {
-    party: "AD(S)",
-    color: "#E36FCB"
-  },
-  {
-    party: "TDP",
-    color: "#FBEC23"
-  },
-  {
-    party: "YSRCP",
-    color: "#084202"
-  },
-  {
-    party: "SHS",
-    color: "#E96D1F"
-  },
-  {
-    party: "RJD",
-    color: "#4B8204"
-  },
-  {
-    party: "BJD",
-    color: "#396502"
-  },
-  {
-    party: "SAD",
-    color: "#EF9716"
-  },
-  {
-    party: "LJP",
-    color: "#3294DD"
-  },
-  {
-    party: "JD(U)",
-    color: "#255a8e"
-  },
-  {
-    party: "RLSP",
-    color: "#999966"
-  },
-  {
-    party: "BLSP",
-    color: "#999966"
-  },
-  {
-    party: "JKPDP",
-    color: "#4D8733"
-  },
-  {
-    party: "JMM",
-    color: "#447E5A"
-  },
-  {
-    party: "JKNC",
-    color: "#E64C3A"
-  },
-  {
-    party: "INLD",
-    color: "#3A6600"
-  },
-  {
-    party: "JD(S)",
-    color: "#006400"
-  },
-  {
-    party: "BJP+",
-    color: "#ED8918"
-  },
-  {
-    party: "INC+",
-    color: "#5EA449"
-  },
-  {
-    party: "BSP-SP-RLD",
-    color: "#0000FF"
-  },
-  {
-    party: "LEFT",
-    color: "#DE0000"
-  },
-  {
-    party: "AIMIM",
-    color: "#3A6C49"
-  },
-  {
-    party: "AJSUP",
-    color: "#DA251C"
-  },
-  {
-    party: "SKM",
-    color: "#E64A23"
-  },
-  {
-    party: "SDF",
-    color: "#FAEC0D"
-  },
-  {
-    party: "NDPP",
-    color: "#E64A21"
-  },
-  {
-    party: "ADAL",
-    color: "#E36FCB"
-  },
-  {
-    party: "RLTP",
-    color: "#DBE934"
-  },
-  {
-    party: "JKN",
-    color: "#FF0000"
-  },
-  {
-    party: "BOPF",
-    color: "#E8611C"
-  },
-  {
-    party: "KEC(M)",
-    color: "#CC990B"
-  },
-  {
-    party : "NPF",
-    color: "#bd678b"
-  },
-  {
-    party: "NPEP",
-    color: "#505d98"
-  },
-  {
-    party: "MNF",
-    color: "#2E5694"
-  },
-  {
-    party: "VCK",
-    color: "#427bb3"
-  },
-  {
-    party: "KEC(J)",
-    color: "#f76940"
-  },
-  {
-    party: "KEC(B)",
-    color: "f76940"
-  },
-  {
-    party: "GOJAM",
-    color: "#7CD11B"
-  },
-  {
-    party: "HAMS",
-    color: "#4B8204"
-  }
-]
+export const PARTY_ALLIANCE_COLORS = {
+  "BJP": "#ED8918",
+  "SP": "#E64A1D",
+  "BSP": "#4171FE",
+  "RLD": "#396502",
+  "IUML": "#518D23",
+  "KC(J)": "#CC990B",
+  "TRS": "#E55672",
+  "KC(M)": "#CC990B",
+  "AGP": "#99CCFF",
+  "KC(B)": "#CC990B",
+  "AINRC": "#F7BF0E",
+  "CMPKSC": "#FF0000",
+  "BPF": "#BD0026",
+  "ADMK": "#447603",
+  "AITC": "#75C848",
+  "Congress(Secular)": "#E97A7E",
+  "JDS": "#00923F",
+  "INC": "#5EA449",
+  "CPI(M)": "#E64A1D",
+  "CPM": "#E64A1D",
+  "CPIM": "#E64A1D",
+  "AIFB": "#DA461B",
+  "GJM": "#7CD11B",
+  "RSP": "#E54E47",
+  "IND": "#A6A6A6",
+  "DMK": "#DF481C",
+  "NCP": "#5CB4B2",
+  "CPI": "#E64A1D",
+  "AIUDF": "#4A8118",
+  "NSC": "#BD0026",
+  "AD": "#FFA500",
+  "AAP": "#1B66A4",
+  "AAAP": "#1B66A4",
+  "SBSP": "#F5D50A",
+  "AD(S)": "#E36FCB",
+  "TDP": "#FBEC23",
+  "YSRCP": "#084202",
+  "SHS": "#E96D1F",
+  "RJD": "#4B8204",
+  "BJD": "#396502",
+  "SAD": "#EF9716",
+  "LJP": "#3294DD",
+  "JD(U)": "#255a8e",
+  "RLSP": "#999966",
+  "BLSP": "#999966",
+  "JKPDP": "#4D8733",
+  "JMM": "#447E5A",
+  "JKNC": "#E64C3A",
+  "INLD": "#3A6600",
+  "JD(S)": "#006400",
+  "BJP+": "#ED8918",
+  "INC+": "#5EA449",
+  "BSP-SP-RLD": "#0000FF",
+  "LEFT": "#DE0000",
+  "AIMIM": "#3A6C49",
+  "AJSUP": "#DA251C",
+  "SKM": "#E64A23",
+  "SDF": "#FAEC0D",
+  "NDPP": "#E64A21",
+  "ADAL": "#E36FCB",
+  "RLTP": "#DBE934",
+  "JKN": "#FF0000",
+  "BOPF": "#E8611C",
+  "KEC(M)": "#CC990B",
+  "NPF": "#bd678b",
+  "NPEP": "#505d98",
+  "MNF": "#2E5694",
+  "VCK": "#427bb3",
+  "KEC(J)": "#f76940",
+  "KEC(B)": "f76940",
+  "GOJAM": "#7CD11B",
+  "HAMS": "#4B8204"
+}

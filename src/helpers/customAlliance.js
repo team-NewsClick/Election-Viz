@@ -1,4 +1,4 @@
-import { STATE_UT_DEFAULT_SELECT } from "../constants"
+import { PARTY_ALLIANCE_COLORS, DEFAULT_PARTY_ALLIANCE_COLOR, STATE_UT_DEFAULT_SELECT } from "../constants"
 
 /**
  * To get the list of winnning parties in a state/UT of a election
@@ -93,7 +93,7 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
   let alliances = new Set(),
     alliancePartyData = []
   defaultPartyAlliance.map((d) => alliances.add(d.ALLIANCE))
-  alliances = [...alliances, "OTHERS"]
+  alliances = [...alliances]
   alliances.map((d) => {
     alliancePartyData.push({
       alliance: d,
@@ -102,11 +102,38 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
   })
   parties.map((d) => {
     let tempAlliance = defaultPartyAlliance.find((p) => p.PARTY === d)
-    tempAlliance = tempAlliance ? tempAlliance.ALLIANCE : "OTHERS"
-    const tempIndex = alliancePartyData.findIndex(
-      (r) => r.alliance === tempAlliance
-    )
-    alliancePartyData[tempIndex].parties.push(d)
+    if(tempAlliance !== undefined) {
+      tempAlliance = tempAlliance.ALLIANCE
+      const tempIndex = alliancePartyData.findIndex(
+        (r) => r.alliance === tempAlliance
+      )
+      alliancePartyData[tempIndex].parties.push(d)
+    } else {
+      alliancePartyData.push({
+        alliance: d,
+        parties: [d]
+      })
+    }
   })
   return alliancePartyData
+}
+
+export const getColorPartyAlliance = (rows) => {
+  let colorPartyAlliance = {}
+  rows.map((d) => {
+    const color = PARTY_ALLIANCE_COLORS[d.alliance]
+    if(color) {
+      colorPartyAlliance[d.alliance] = color
+    } else {
+      colorPartyAlliance[d.alliance] = PARTY_ALLIANCE_COLORS[d.parties[0]]
+        ? PARTY_ALLIANCE_COLORS[d.parties[0]]
+        : DEFAULT_PARTY_ALLIANCE_COLOR
+    }
+    d.parties.map((party) => {
+      colorPartyAlliance[party] = PARTY_ALLIANCE_COLORS[party]
+        ? PARTY_ALLIANCE_COLORS[party]
+        : DEFAULT_PARTY_ALLIANCE_COLOR
+    })
+  })
+  return colorPartyAlliance
 }

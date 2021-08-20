@@ -1,4 +1,5 @@
-import { REGION_DEFAULT_SELECT, SEAT_DEFAULT_SELECT } from "../constants"
+import { filter } from "virtual-dom-stringify/lib/self-closing-tags"
+import { REGION_DEFAULT_SELECT, SEAT_DEFAULT_SELECT, SELECT_STATE_UT, STATE_UT_DEFAULT_SELECT } from "../constants"
 import { getDistricts } from "../helpers/regions"
 
 /**
@@ -8,17 +9,20 @@ import { getDistricts } from "../helpers/regions"
  * @param {String} electionViewType assembly/general
  * @returns {Object} - Filtered GeoJson with respect to seatType
  */
-export const getReservedGeoJson = (
+export const getFilteredGeoJson = (
   geoJson,
   seatType,
   selectedStateUT,
   selectedRegion
 ) => {
-  let filteredBySeatGeoJson = []
-  let filteredByRegionGeoJSON = []
-  let districts = []
+  let filteredBySeatGeoJson = [], filteredByRegionGeoJSON = [], filteredByStateGeoJSON = [], districts = []
+  if(selectedStateUT === STATE_UT_DEFAULT_SELECT || selectedStateUT === SELECT_STATE_UT) {
+    filteredByStateGeoJSON = geoJson.features
+  } else {
+    filteredByStateGeoJSON = geoJson.features.filter((d) => d.properties.ST_NAME === selectedStateUT)
+  }
   if (seatType !== SEAT_DEFAULT_SELECT) {
-    filteredBySeatGeoJson = geoJson.features.filter((d) => {
+    filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => {
       if (seatType === "Unreserved") {
         return d.properties.Res === "GEN"
       } else {
@@ -26,7 +30,7 @@ export const getReservedGeoJson = (
       }
     })
   } else {
-    filteredBySeatGeoJson = geoJson.features
+    filteredBySeatGeoJson = filteredByStateGeoJSON
   }
   if (selectedRegion === REGION_DEFAULT_SELECT) {
     filteredByRegionGeoJSON = filteredBySeatGeoJson

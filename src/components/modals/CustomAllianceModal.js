@@ -3,10 +3,11 @@ import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
   getWinningParties,
-  getPartyAlliance
+  getPartyAlliance,
+  getColorPartyAlliance
 } from "../../helpers/customAlliance"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import { FIRST_SELECT_STATEUT, LIVE_ELECTION, PARTY_COLOR } from "../../constants"
+import { FIRST_SELECT_STATEUT, LIVE_ELECTION, PARTY_ALLIANCE_COLORS } from "../../constants"
 /**
  * A modal box with customizable alliances
  * @param {Array<Object>} param0 Election result of a constituency
@@ -21,6 +22,7 @@ const CustomAllianceModal = ({
   selectedStateUT,
   electionViewType,
   customAlliance,
+  handleColorPartyAlliance,
   advanceReset
 }) => {
   const [yearData, setYearData] = useState([])
@@ -51,6 +53,7 @@ const CustomAllianceModal = ({
       const parsedData = csvParse(response.data)
       setDefaultPartyAlliance(parsedData)
       customAlliance(parsedData)
+      handleColorPartyAlliance(PARTY_ALLIANCE_COLORS)
     })
   }, [selectedStateUT, selectedElection, electionViewType, advanceReset])
 
@@ -61,7 +64,8 @@ const CustomAllianceModal = ({
         selectedStateUT,
         electionViewType
       )
-      const tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
+      let tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
+      tempPartyAlliance = tempPartyAlliance.filter((d) => d.parties.length !== 0)
       setRows(tempPartyAlliance)
       let tempCustomedPartyAlliance = []
       rows.map((a) => {
@@ -70,27 +74,10 @@ const CustomAllianceModal = ({
         })
       })
       customAlliance(tempCustomedPartyAlliance)
+      const colorPartyAlliance = getColorPartyAlliance(rows)
+      handleColorPartyAlliance(colorPartyAlliance)
     }
   }, [selectedElection, selectedStateUT, yearData, defaultPartyAlliance])
-
-  useEffect(() => {
-    const tempCustomedPartyAlliance = []
-    rows.map((a) => {
-      a.parties.map((p) => {
-        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-      })
-    })
-    customAlliance(tempCustomedPartyAlliance)
-    const partyColors = tempCustomedPartyAlliance.map((row) => {
-      const party = PARTY_COLOR.find((e) => e.party === row.PARTY)
-      if (party) {
-        return {
-          ...row,
-          COLOR: party.color
-        }
-      }
-    })
-  }, [defaultPartyAlliance])
 
   useEffect(() => {
     _resetPartyAlliance()
@@ -120,6 +107,8 @@ const CustomAllianceModal = ({
       })
     })
     customAlliance(tempCustomedPartyAlliance)
+    const colorPartyAlliance = getColorPartyAlliance(rows)
+    handleColorPartyAlliance(colorPartyAlliance)
   }
 
   const _ondragEnd = (result) => {

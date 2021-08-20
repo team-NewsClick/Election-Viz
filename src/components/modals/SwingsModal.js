@@ -24,25 +24,14 @@ const SwingsModal = ({
   const [swingUpdate, setSwingUpdate] = useState()
 
   useEffect(() => {
-    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
-      const parsedData = csvParse(response.data)
-      setPartyAllianceInit(parsedData)
-      const tempParmas = getParams(parsedData)
-      setPartyAllianceParams([...tempParmas])
-      setSwingUpdate([...tempParmas])
-      _reset()
-    })
-  }, [advanceReset])
-
-  useEffect(() => {
     setSwingUpdate([])
     _reset()
   }, [selectedStateUT, selectedElection, advanceReset])
 
   useEffect(() => {
-    if(partyAllianceInit.length !== 0) {
+    if(partyAlliance.length !== 0) {
       setSwingUpdate([])
-      const initParmas = getParams(partyAllianceInit)
+      const initParmas = getParams(partyAlliance)
       const tempParams = []
       initParmas.map((d) => {
         const thumbLeft = document.getElementById(d.thumbId)
@@ -58,9 +47,8 @@ const SwingsModal = ({
         tempParams.push(d)
       })
       setPartyAllianceParams([...tempParams])
-      console.log({partyAllianceParams, initParmas, partyAllianceInit})
     }
-  }, [advanceReset])
+  }, [selectedStateUT, selectedElection, advanceReset])
   
 
   useEffect(() => {
@@ -78,7 +66,10 @@ const SwingsModal = ({
   }, [swingUpdate])
 
   useEffect(() => {
-    const tempParams = []
+    const tempNewParams = []
+    const tempPartyAllianceParams = partyAllianceParams.filter((d) => 
+      partyAlliance.findIndex((e) => e.ALLIANCE === d.alliance) !== -1
+    )
     partyAlliance &&
       partyAlliance.map((d) => {
         if (
@@ -86,14 +77,15 @@ const SwingsModal = ({
         ) {
           let temp = []
           temp = addParams([d.ALLIANCE])
+
           temp[0].newAlliance = true
           if (
-            tempParams.findIndex((p) => p.alliance === temp[0].alliance) === -1
+            tempNewParams.findIndex((p) => p.alliance === temp[0].alliance) === -1
           ) {
-            tempParams.push(...temp)
+            tempNewParams.push(...temp)
           }
         }
-        setPartyAllianceParams(partyAllianceParams.concat(tempParams))
+        setPartyAllianceParams(tempPartyAllianceParams.concat(tempNewParams))
       })
   }, [partyAlliance])
 
@@ -125,8 +117,8 @@ const SwingsModal = ({
   }
   
   const _reset = () => {
-    if (partyAllianceParams.length !== 0 && partyAllianceInit.length !== 0) {
-      const tempPartyAlliance = partyAllianceInit.concat(partyAlliance)
+    if (partyAllianceParams.length !== 0 && partyAlliance.length !== 0) {
+      const tempPartyAlliance = partyAlliance
       const initParmas = getParams(tempPartyAlliance)
       const tempParams = []
       initParmas.map((d) => {
