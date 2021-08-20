@@ -59,7 +59,7 @@ const Dashboard = ({
   const [electionViewType, SetElectionViewType] = useState(
     ELECTION_VIEW_TYPE_ASSEMBLY
   )
-  const [selectedElection, setSelectedElection] = useState({type: "assembly", year: "Upcoming"})
+  const [selectedElection, setSelectedElection] = useState({type: "assembly", year: "2021"})
   const [electionOptions, setElectionOptions] = useState([FIRST_SELECT_STATEUT])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
@@ -141,7 +141,7 @@ const Dashboard = ({
       )
       setStateUTOptions(tempStateUTOptions)
       setElectionOptions(tempElectionOptions)
-      setSelectedElection({type: "assembly", year: "Upcoming"})
+      setSelectedElection({type: "assembly", year: "2021"})
     }
   }, [electionViewType])
 
@@ -400,7 +400,8 @@ const Dashboard = ({
         selectedStateUT,
         selectedConstituency,
         mapData.constituencies,
-        filteredGeoJSON
+        filteredGeoJSON,
+        colorPartyAlliance
       )
       tempTableData && setRegionStatsTableData(tempTableData)
     }
