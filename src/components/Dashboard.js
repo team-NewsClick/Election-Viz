@@ -60,13 +60,8 @@ const Dashboard = ({
   const [electionViewType, SetElectionViewType] = useState(
     ELECTION_VIEW_TYPE_ASSEMBLY
   )
-<<<<<<< HEAD
   const [selectedElection, setSelectedElection] = useState(ELECTION_DEFAULT_SELECT)
-  const [electionOptions, setElectionOptions] = useState([ELECTION_DEFAULT_SELECT])
-=======
-  const [selectedElection, setSelectedElection] = useState({type: "assembly", year: "2021"})
   const [electionOptions, setElectionOptions] = useState([FIRST_SELECT_STATEUT])
->>>>>>> 31a4a2f61beba1e4e4b6bd39bd7808ee40917889
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
@@ -147,11 +142,7 @@ const Dashboard = ({
       )
       setStateUTOptions(tempStateUTOptions)
       setElectionOptions(tempElectionOptions)
-<<<<<<< HEAD
       setSelectedElection(ELECTION_DEFAULT_SELECT)
-=======
-      setSelectedElection({type: "assembly", year: "2021"})
->>>>>>> 31a4a2f61beba1e4e4b6bd39bd7808ee40917889
     }
   }, [electionViewType])
 
