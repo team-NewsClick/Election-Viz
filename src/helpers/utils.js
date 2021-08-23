@@ -302,10 +302,7 @@ export const getCompareOptions = (selectedElection, selectedStateUT) => {
   ) {
     return compareOptions
   }
-  if (
-    electionType === "general" &&
-    selectedStateUT === STATE_UT_DEFAULT_SELECT
-  ) {
+  if (electionType === "general") {
     for (const ELECTION in ELECTION_YEAR_STATEUT) {
       for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
         if (ELECTION === electionType && YEAR !== selectedYear) {
