@@ -1,5 +1,5 @@
 import {
-  STATE_UT_DEFAULT_SELECT,
+  ALL_STATE_UT,
   CONSTITUENCIES_DEFAULT_SELECT,
   DEFAULT_PARTY_ALLIANCE_COLOR,
   ELECTION_YEAR_STATEUT,
@@ -64,7 +64,7 @@ export const getStateUTs = (
     }
     if (electionViewType === "general") {
       stateUTFromGeoJson = [...stateUTFromGeoJson]
-      stateUTs.push(STATE_UT_DEFAULT_SELECT)
+      stateUTs.push(ALL_STATE_UT)
       stateUTFromData.map((d) => {
         if (stateUTFromGeoJson.findIndex((e) => e === d) > -1) stateUTs.push(d)
       })
@@ -126,7 +126,7 @@ export const getElectionOptions = (
     if (
       selectedElection !== SELECT_ELECTION &&
       (selectedStateUT !== SELECT_STATE_UT ||
-        selectedStateUT === STATE_UT_DEFAULT_SELECT)
+        selectedStateUT === ALL_STATE_UT)
     ) {
       for (const ELECTION in ELECTION_YEAR_STATEUT) {
         for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
@@ -200,7 +200,7 @@ export const getConstituencies = (
   if (data === null) {
     return null
   } else {
-    if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+    if (selectedStateUT === ALL_STATE_UT) {
       return [FIRST_SELECT_STATEUT]
     } else {
       if (electionViewType === "general") {
@@ -544,7 +544,7 @@ export const getMapData = (data, stateUT, electionViewType, colorPartyAlliance) 
     let stateData = []
     let constituenciesList = new Set()
     stateData =
-    stateUT === STATE_UT_DEFAULT_SELECT
+    stateUT === ALL_STATE_UT
     ? data
     : data.filter((row) => row.ST_NAME === stateUT)
     if (electionViewType === "general") {

@@ -1,4 +1,4 @@
-import { PARTY_ALLIANCE_COLORS, DEFAULT_PARTY_ALLIANCE_COLOR, STATE_UT_DEFAULT_SELECT } from "../constants"
+import { PARTY_ALLIANCE_COLORS, DEFAULT_PARTY_ALLIANCE_COLOR, ALL_STATE_UT } from "../constants"
 
 /**
  * To get the list of winnning parties in a state/UT of a election
@@ -15,7 +15,7 @@ export const getWinningParties = (
   let constituenciesList = new Set(),
     parties = new Set()
   const stateUTData =
-    selectedStateUT === STATE_UT_DEFAULT_SELECT
+    selectedStateUT === ALL_STATE_UT
       ? yearData
       : yearData.filter((row) => row.ST_NAME === selectedStateUT)
   if (electionViewType === "general") {

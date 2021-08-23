@@ -1,5 +1,5 @@
 import {
-  STATE_UT_DEFAULT_SELECT,
+  ALL_STATE_UT,
   DEFAULT_PARTY_ALLIANCE_COLOR
 } from "../constants"
 
@@ -31,7 +31,7 @@ export const getRegionStatsSVGData = (
     const count = seatsCount(filteredData, groupType)
     return count
   } else {
-    if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+    if (selectedStateUT === ALL_STATE_UT) {
       return []
     } else {
       const filteredData = data.filter((d) => {

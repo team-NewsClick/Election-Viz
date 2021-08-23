@@ -8,7 +8,7 @@ import {
 } from "react-map-gl"
 import {
   STATE_COORDINATES,
-  STATE_UT_DEFAULT_SELECT,
+  ALL_STATE_UT,
   DEFAULT_DISTRICT_FILL_COLOR,
   DEFAULT_STATE_LINE_COLOR,
   DEFAULT_DISTRICT_LINE_COLOR,
@@ -112,7 +112,7 @@ const MapWidget = ({
 
   useEffect(() => {
     const state = selectedStateUT
-    if (state !== STATE_UT_DEFAULT_SELECT && state !== SELECT_STATE_UT) {
+    if (state !== ALL_STATE_UT && state !== SELECT_STATE_UT) {
       const stateObject = STATE_COORDINATES.filter((row) => {
         if (state == row.state) {
           return row
@@ -184,7 +184,7 @@ const MapWidget = ({
           (sortByKey == row.pc_name &&
             selectedStateUT === d.properties.ST_NAME) ||
           (sortByKey == row.pc_name &&
-            selectedStateUT === STATE_UT_DEFAULT_SELECT)
+            selectedStateUT === ALL_STATE_UT)
         ) {
           return row
         }
@@ -192,7 +192,7 @@ const MapWidget = ({
     } else {
       sortByKey = d.properties.AC_NAME
       results = constituenciesResults.find((row) => {
-        if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+        if (selectedStateUT === ALL_STATE_UT) {
           if (
             sortByKey == row.ac_name &&
             stateUTOptions.indexOf(d.properties.ST_NAME) > -1
@@ -238,7 +238,7 @@ const MapWidget = ({
         if (
           selectedConstituency === object.properties.PC_NAME ||
           selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
-          selectedStateUT === STATE_UT_DEFAULT_SELECT
+          selectedStateUT === ALL_STATE_UT
         ) {
           const sortByKey = object.properties.PC_NAME
           const results = mapData.constituencies.find((row) => {
@@ -279,7 +279,7 @@ const MapWidget = ({
         if (
           selectedConstituency === object.properties.AC_NAME ||
           selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
-          selectedStateUT === STATE_UT_DEFAULT_SELECT
+          selectedStateUT === ALL_STATE_UT
         ) {
           const sortByKey = object.properties.AC_NAME
           const results = mapData.constituencies.find((row) => {

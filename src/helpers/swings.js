@@ -1,4 +1,4 @@
-import { STATE_UT_DEFAULT_SELECT } from "../constants"
+import { ALL_STATE_UT } from "../constants"
 /**
  * To get the params required for sliders for the alliances' swings
  * @param {Array<Strings>} arr name of alliances
@@ -54,7 +54,7 @@ export const calculateSwings = (
   if (
     constituencyOptions.length !== 0 &&
     partiesSwing.length !== 0 &&
-    selectedStateUT !== STATE_UT_DEFAULT_SELECT &&
+    selectedStateUT !== ALL_STATE_UT &&
     selectedYearData.length !== 0
   ) {
     let constituencies

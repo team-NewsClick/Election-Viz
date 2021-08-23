@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
-  STATE_UT_DEFAULT_SELECT,
+  ALL_STATE_UT,
   CONSTITUENCIES_DEFAULT_SELECT,
   LOCALITY_OPTIONS,
   COMMUNITY_OPTIONS,
@@ -64,7 +64,7 @@ const Dashboard = ({
   const [electionOptions, setElectionOptions] = useState([SELECT_ELECTION])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(STATE_UT_DEFAULT_SELECT)
+  const [selectedStateUT, setSelectedStateUT] = useState(ALL_STATE_UT)
   const [selectedConstituency, setSelectedConstituency] = useState(
     CONSTITUENCIES_DEFAULT_SELECT
   )
@@ -82,7 +82,7 @@ const Dashboard = ({
   const [compareYearData, setCompareYearData] = useState([])
   const [compareOptions, setCompareOptions] = useState([])
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
-  const [stateUTOptions, setStateUTOptions] = useState([STATE_UT_DEFAULT_SELECT])
+  const [stateUTOptions, setStateUTOptions] = useState([ALL_STATE_UT])
   const [constituencyOptions, setConstituencyOptions] = useState([])
   const [regionOptions, setRegionOptions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
@@ -125,7 +125,7 @@ const Dashboard = ({
         parliamentaryConstituenciesGeojson
       )
       setStateUTOptions(tempStateUTOptions)
-      setSelectedStateUT(STATE_UT_DEFAULT_SELECT)
+      setSelectedStateUT(ALL_STATE_UT)
     }
     if (electionViewType === "assembly") {
       setSelectedElection(SELECT_ELECTION)
@@ -387,7 +387,7 @@ const Dashboard = ({
   useEffect(() => {
     if (compareElection && constituencyOptions.indexOf(selectedConstituency) != -1) {
       const tempTableData = getRegionStatsTable(
-        selectedStateUT === STATE_UT_DEFAULT_SELECT
+        selectedStateUT === ALL_STATE_UT
           ? selectedYearData
           : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
@@ -456,7 +456,7 @@ const Dashboard = ({
           .get(`/data/csv/${electionType}_${year}.csv`)
           .then((response) => {
             const parsedData = csvParse(response.data)
-            if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+            if (selectedStateUT === ALL_STATE_UT) {
               setSelectedYearData(parsedData)
             } else {
               const temp = calculateSwings(
@@ -632,7 +632,7 @@ const Dashboard = ({
           >
             {electionViewType === "assembly" &&
               (selectedStateUT === SELECT_STATE_UT ||
-                selectedStateUT === STATE_UT_DEFAULT_SELECT) &&
+                selectedStateUT === ALL_STATE_UT) &&
               (selectedElection === SELECT_ELECTION ||
                 selectedElection === FIRST_SELECT_STATEUT) && (
                 <div className="flex h-full">
@@ -644,7 +644,7 @@ const Dashboard = ({
               )}
             {electionViewType === "assembly" &&
               (selectedStateUT !==
-                (SELECT_STATE_UT || STATE_UT_DEFAULT_SELECT) ||
+                (SELECT_STATE_UT || ALL_STATE_UT) ||
                 selectedElection !==
                   (SELECT_ELECTION || FIRST_SELECT_STATEUT)) &&
               selectedStateUTData.length === 0 && (

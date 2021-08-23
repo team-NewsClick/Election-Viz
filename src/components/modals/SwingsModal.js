@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { csvParse } from "d3-dsv"
-import { STATE_UT_DEFAULT_SELECT } from "../../constants"
+import { ALL_STATE_UT } from "../../constants"
 import { getParams, addParams } from "../../helpers/swings"
 
 /**
@@ -53,7 +53,7 @@ const SwingsModal = ({
 
   useEffect(() => {
     let temp = 0
-    if (selectedStateUT !== STATE_UT_DEFAULT_SELECT) {
+    if (selectedStateUT !== ALL_STATE_UT) {
       partyAllianceParams.map((d) => {
         temp = temp + parseInt(d.swing)
       })

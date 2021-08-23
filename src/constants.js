@@ -273,7 +273,7 @@ export const REGION_DEFAULT_SELECT = "All Regions"
 /**
  * Default Selection for States/UTs
  */
-export const STATE_UT_DEFAULT_SELECT = "All States & UTs"
+export const ALL_STATE_UT = "All States & UTs"
 
 /**
  * Default Selection for Constituencies

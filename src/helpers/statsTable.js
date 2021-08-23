@@ -1,5 +1,5 @@
 import {
-  STATE_UT_DEFAULT_SELECT,
+  ALL_STATE_UT,
   CONSTITUENCIES_DEFAULT_SELECT,
   FIRST_SELECT_STATEUT
 } from "../constants"
@@ -53,7 +53,7 @@ export const getRegionStatsTable = (
       }
     })
     if (
-      selectedStateUT === STATE_UT_DEFAULT_SELECT &&
+      selectedStateUT === ALL_STATE_UT &&
       compareElectionType !== electionViewType
     ) {
       filteredCompareData = []
@@ -198,7 +198,7 @@ const getCurrYearDataTable = (
   let tableData = []
   if (
     selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
-    selectedStateUT === STATE_UT_DEFAULT_SELECT
+    selectedStateUT === ALL_STATE_UT
   ) {
     if (groupType === "party") {
       for (const property in SVGData) {
@@ -393,7 +393,7 @@ const getCompareYearDataTable = (
       )
     if (electionViewType === "general") {
       if (
-        selectedStateUT === STATE_UT_DEFAULT_SELECT ||
+        selectedStateUT === ALL_STATE_UT ||
         selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
       ) {
         compareStats =
@@ -427,7 +427,7 @@ const getCompareYearDataTable = (
           )
       }
     } else {
-      if (selectedStateUT === STATE_UT_DEFAULT_SELECT) {
+      if (selectedStateUT === ALL_STATE_UT) {
         compareStats = []
       } else {
         compareStats =
@@ -483,7 +483,7 @@ const compareSeatsVotesCount = (
     return []
   }
   if (
-    selectedStateUT === STATE_UT_DEFAULT_SELECT ||
+    selectedStateUT === ALL_STATE_UT ||
     selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
     selectedConstituency === FIRST_SELECT_STATEUT
   ) {

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { csvParse } from "d3-dsv"
 
-import { REGION_DEFAULT_SELECT, STATE_UT_DEFAULT_SELECT } from "../constants"
+import { REGION_DEFAULT_SELECT, ALL_STATE_UT } from "../constants"
 
 let allRegions = []
 axios
@@ -16,7 +16,7 @@ export const getRegions = (stateUT) => {
   let regionOptions = new Set()
   regionOptions.add(REGION_DEFAULT_SELECT)
 
-  if (stateUT === STATE_UT_DEFAULT_SELECT) return [...regionOptions]
+  if (stateUT === ALL_STATE_UT) return [...regionOptions]
   allRegions.map((d) => {
     if (d.ST_NAME === stateUT) regionOptions.add(d.REGION)
   })
