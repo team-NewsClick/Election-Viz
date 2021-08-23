@@ -57,7 +57,12 @@ export const calculateSwings = (
     selectedStateUT !== STATE_UT_DEFAULT_SELECT &&
     selectedYearData.length !== 0
   ) {
-    const constituencies = constituencyOptions.slice(1)
+    let constituencies
+    if(constituencyOptions.length > 1) {
+      constituencies = constituencyOptions.slice(1)
+    } else {
+      constituencies = constituencyOptions
+    }
     const totalVotesPolledData = calculateConstituencyVotesPolled(
       selectedYearData,
       selectedStateUT,

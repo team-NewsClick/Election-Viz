@@ -469,9 +469,7 @@ const Dashboard = ({
               setSelectedYearData([...temp])
             }
           })
-          .catch((e) => {
-            setSelectedYearData([])
-          })
+          .catch((e) => setSelectedYearData([]))
       } else {
         axios.get(`${process.env.LIVE_ELECTION}`).then((response) => {
           const parsedData = csvParse(response.data)
