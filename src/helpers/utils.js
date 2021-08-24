@@ -51,12 +51,12 @@ export const getStateUTs = (
     }
     if (seatType === "Reserved") {
       geoJSON.features.map((d) => {
-        if (d.properties.Res !== "GEN")
+        if (d.properties.RES !== "GEN")
           stateUTFromGeoJson.add(d.properties.ST_NAME)
       })
     } else if (seatType === "Unreserved") {
       geoJSON.features.map((d) => {
-        if (d.properties.Res === "GEN")
+        if (d.properties.RES === "GEN")
           stateUTFromGeoJson.add(d.properties.ST_NAME)
       })
     } else {

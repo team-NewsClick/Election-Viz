@@ -24,9 +24,9 @@ export const getFilteredGeoJson = (
   if (seatType !== SEAT_DEFAULT_SELECT) {
     filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => {
       if (seatType === "Unreserved") {
-        return d.properties.Res === "GEN"
+        return d.properties.RES === "GEN"
       } else {
-        return d.properties.Res !== "GEN"
+        return d.properties.RES !== "GEN"
       }
     })
   } else {
