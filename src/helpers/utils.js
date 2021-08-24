@@ -419,6 +419,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
  */
 export const getConstituenciesResults = (
   data,
+  selectedStateUT,
   selectedConstituency,
   electionViewType,
   groupType,
@@ -426,109 +427,113 @@ export const getConstituenciesResults = (
   colorPartyAlliance
 ) => {
   if(colorPartyAlliance) {
-    let result = []
-    if (data.constituencies) {
+    let result = {}
+    if (data != {} &&
+      selectedConstituency !== undefined) {
       if (
         selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
-        selectedConstituency === FIRST_SELECT_STATEUT
+        selectedConstituency === FIRST_SELECT_STATEUT ||
+        selectedConstituency === NO_CONSTITUENCIES
       ) {
-        data.constituencies.map((d) => {
-          if (groupType === "party") {
-            if (electionViewType === "general") {
-              result.push({
-                votes: d.stats[0].votesReceived,
-                candidate: d.stats[0].candidate,
-                party: d.stats[0].party,
-                color: d.stats[0].color,
-                pc_name: d.PC_NAME
-              })
-            } else {
-              result.push({
-                votes: d.stats[0].votesReceived,
-                candidate: d.stats[0].candidate,
-                party: d.stats[0].party,
-                color: d.stats[0].color,
-                ac_name: d.AC_NAME
-              })
+        if(electionViewType === "general") {
+          if(groupType === "party") {
+            for(const stateUT in data) {
+              const stateUTData = {}
+              for(const constituency in data[stateUT]) {
+                stateUTData[constituency] = {
+                  candidate: data[stateUT][constituency][0].candidate,
+                  party: data[stateUT][constituency][0].party,
+                  color: data[stateUT][constituency][0].color
+                }
+              }
+              result[stateUT] = stateUTData
             }
           } else {
-            const alliance = partyAlliance.find(
-              (e) => e.PARTY == d.stats[0].party
-            )
-              ? partyAlliance.find((e) => e.PARTY === d.stats[0].party).ALLIANCE
-              : "OTHERS"
-            if (electionViewType === "general") {
-              result.push({
-                votes: d.stats[0].votesReceived,
-                candidate: d.stats[0].candidate,
-                alliance: alliance,
-                party: d.stats[0].party,
-                color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR,
-                pc_name: d.PC_NAME
-              })
-            } else {
-              result.push({
-                votes: d.stats[0].votesReceived,
-                candidate: d.stats[0].candidate,
-                alliance: alliance,
-                party: d.stats[0].party,
-                color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR,
-                ac_name: d.AC_NAME
-              })
+            for(const stateUT in data) {
+              const stateUTData = {}
+              for(const constituency in data[stateUT]) {
+                const party = data[stateUT][constituency][0].party
+                const allianceIndex = partyAlliance.findIndex((d) => d.PARTY === party)
+                const alliance = allianceIndex > -1 ? partyAlliance[allianceIndex].ALLIANCE : ""
+                const color = colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR
+                stateUTData[constituency] = {
+                  candidate: data[stateUT][constituency][0].candidate,
+                  alliance: alliance,
+                  color: color
+                }
+              }
+              result[stateUT] = stateUTData
             }
           }
-        })
+        } else {
+          if(groupType === "party") {
+            for(const stateUT in data) {
+              const stateUTData = {}
+              for(const constituency in data[stateUT]) {
+                stateUTData[constituency] = {
+                  candidate: data[stateUT][constituency][0].candidate,
+                  party: data[stateUT][constituency][0].party,
+                  color: data[stateUT][constituency][0].color
+                }
+              }
+              result[stateUT] = stateUTData
+            }
+          } else {
+            for(const stateUT in data) {
+              const stateUTData = {}
+              for(const constituency in data[stateUT]) {
+                const party = data[stateUT][constituency][0].party
+                const allianceIndex = partyAlliance.findIndex((d) => d.PARTY === party)
+                const alliance = allianceIndex > -1 ? partyAlliance[allianceIndex].ALLIANCE : ""
+                const color = colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR
+                stateUTData[constituency] = {
+                  candidate: data[stateUT][constituency][0].candidate,
+                  alliance: alliance,
+                  color: color
+                }
+              }
+              result[stateUT] = stateUTData
+            }
+          }
+        }
       } else {
-        data.constituencies.map((d) => {
-          if (groupType === "party") {
-            if (electionViewType === "general") {
-              d.PC_NAME == selectedConstituency &&
-                result.push({
-                  votes: d.stats[0].votesReceived,
-                  candidate: d.stats[0].candidate,
-                  party: d.stats[0].party,
-                  color: d.stats[0].color,
-                  pc_name: d.PC_NAME
-                })
-            } else {
-              d.AC_NAME == selectedConstituency &&
-                result.push({
-                  votes: d.stats[0].votesReceived,
-                  candidate: d.stats[0].candidate,
-                  party: d.stats[0].party,
-                  color: d.stats[0].color,
-                  ac_name: d.AC_NAME
-                })
-            }
+        if(electionViewType === "general") {
+          if(groupType === "party") {
+            result[selectedStateUT][selectedConstituency] = {
+                candidate: data[selectedStateUT][selectedConstituency][0].candidate,
+                party: data[selectedStateUT][selectedConstituency][0].party,
+                color: data[selectedStateUT][selectedConstituency][0].color,
+              }
           } else {
-            const alliance = partyAlliance.find(
-              (e) => e.PARTY === d.stats[0].party
-            )
-              ? partyAlliance.find((e) => e.PARTY === d.stats[0].party).ALLIANCE
-              : "OTHERS"
-            if (electionViewType === "general") {
-              d.PC_NAME == selectedConstituency &&
-                result.push({
-                  votes: d.stats[0].votesReceived,
-                  candidate: d.stats[0].candidate,
-                  alliance: alliance,
-                  party: d.stats[0].party,
-                  color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR,
-                  pc_name: d.PC_NAME
-                })
-            } else {
-              d.AC_NAME == selectedConstituency &&
-                result.push({
-                  votes: d.stats[0].votesReceived,
-                  candidate: d.stats[0].candidate,
-                  alliance: alliance,
-                  party: d.stats[0].party,
-                  color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR,
-                  ac_name: d.AC_NAME
-                })
-            }
+            const party = data[selectedStateUT][selectedConstituency][0].party
+            const allianceIndex = partyAlliance.findIndex((d) => d.PARTY === party)
+            const alliance = allianceIndex > -1 ? partyAlliance[allianceIndex].ALLIANCE : ""
+            const color = colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR
+            result[selectedStateUT][selectedConstituency] = {
+                candidate: data[selectedStateUT][selectedConstituency][0].candidate,
+                alliance: alliance,
+                color: color,
+              }
           }
-        })
+        } else {
+          if(groupType === "party") {
+            result[selectedStateUT][selectedConstituency] = {
+                candidate: data[selectedStateUT][selectedConstituency][0].candidate,
+                party: data[selectedStateUT][selectedConstituency][0].party,
+                color: data[selectedStateUT][selectedConstituency][0].color,
+              }
+          } else {
+            const party = data[selectedStateUT][selectedConstituency][0].party
+            const allianceIndex = partyAlliance.findIndex((d) => d.PARTY === party)
+            const alliance = allianceIndex > -1 ? partyAlliance[allianceIndex].ALLIANCE : ""
+            const color = colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR
+            result[selectedStateUT][selectedConstituency] = {
+                candidate: data[selectedStateUT][selectedConstituency][0].candidate,
+                alliance: alliance,
+                color: color,
+              }
+          }
+        }
       }
       return result
     } else {

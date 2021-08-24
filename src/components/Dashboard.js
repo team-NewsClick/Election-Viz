@@ -319,7 +319,6 @@ const Dashboard = ({
       setMapData(
         getMapData(selectedYearData, stateUTOptions, electionViewType, colorPartyAlliance)
       )
-      console.log("mapData", mapData)
     }
     setMapWidgetLoading(false)
   }, [
@@ -349,10 +348,11 @@ const Dashboard = ({
   }, [seatType, electionViewType, selectedRegion, selectedStateUT])
 
   useEffect(() => {
-    if (mapData.length !== 0) {
+    if (mapData != {}) {
       setConstituenciesResults(
         getConstituenciesResults(
           mapData,
+          selectedStateUT,
           selectedConstituency,
           electionViewType,
           groupType,
