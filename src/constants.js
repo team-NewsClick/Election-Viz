@@ -56,7 +56,7 @@ export const LIVE_ELECTION_STATEUT = ["Kerala"]
 /**
  * Upcoming Elections
  */
-const UPCOMING_ELECTIONS = ["Manipur", "Himachal Pradesh", "Goa", "Gujarat", "Punjab"]
+const UPCOMING_ELECTIONS = ["Uttar Pradesh", "Manipur", "Himachal Pradesh", "Goa", "Gujarat", "Punjab"]
 
 /**
  * Election details: their type, year and state/UTs that had the election
@@ -152,7 +152,6 @@ export const ELECTION_YEAR_STATEUT = {
       "Punjab"
     ],
     2021: ["West Bengal"],
-    // 2022: ["Manipur", "Himachal Pradesh", "Goa", "Gujarat", "Punjab"]
     Upcoming: UPCOMING_ELECTIONS,
     // Live: LIVE_ELECTION_STATEUT
   }
