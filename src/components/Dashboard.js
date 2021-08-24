@@ -22,7 +22,8 @@ import {
   SELECT_ELECTION,
   SEAT_TYPE_OPTIONS,
   LIVE_ELECTION_TYPE,
-  ELECTION_DEFAULT_SELECT
+  ELECTION_DEFAULT_SELECT,
+  NO_CONSTITUENCIES
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -65,9 +66,7 @@ const Dashboard = ({
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(ALL_STATE_UT)
-  const [selectedConstituency, setSelectedConstituency] = useState(
-    CONSTITUENCIES_DEFAULT_SELECT
-  )
+  const [selectedConstituency, setSelectedConstituency] = useState(NO_CONSTITUENCIES)
   const [selectedStateUTData, setSelectedStateUTData] = useState([])
   const [mapData, setMapData] = useState({})
   const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
@@ -83,7 +82,7 @@ const Dashboard = ({
   const [compareOptions, setCompareOptions] = useState([])
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
   const [stateUTOptions, setStateUTOptions] = useState([ALL_STATE_UT])
-  const [constituencyOptions, setConstituencyOptions] = useState([])
+  const [constituencyOptions, setConstituencyOptions] = useState([[{name: NO_CONSTITUENCIES, code: NO_CONSTITUENCIES}]])
   const [regionOptions, setRegionOptions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
   const [swingParams, setSwingParams] = useState([])
@@ -286,9 +285,9 @@ const Dashboard = ({
 
   useEffect(() => {
     setSelectedConstituency(
-      constituencyOptions.indexOf(selectedConstituency) > -1
+      constituencyOptions.findIndex((d) => d.code === selectedConstituency) > -1
         ? selectedConstituency
-        : constituencyOptions[0]
+        : constituencyOptions[0].code
     )
   }, [constituencyOptions])
 

@@ -103,7 +103,7 @@ const calculateConstituencyVotesPolled = (
   if (electionViewType === "general") {
     totalVotes = constituencies.map((constituency) => {
       const assemblyFilter = selectedState.filter((row) => {
-        return row.PC_NAME === constituency
+        return row.PC_NO == constituency.code
       })
       const total = assemblyFilter
         .map((row) => row.VOTES)
@@ -119,7 +119,7 @@ const calculateConstituencyVotesPolled = (
   } else {
     totalVotes = constituencies.map((constituency) => {
       const assemblyFilter = selectedState.filter((row) => {
-        return row.AC_NAME === constituency
+        return row.AC_NO == constituency.code
       })
       const total = assemblyFilter
         .map((row) => row.VOTES)
@@ -156,7 +156,7 @@ const calculateVoteShare = (
   if (electionViewType === "general") {
     updateVotes = constituencies.map((constituency) => {
       const assemblyFilter = totalVotesPolledData.filter((row) => {
-        return row.PC_NAME === constituency
+        return row.PC_NO == constituency.code
       })
       const newVoteShare = assemblyFilter.map((row) => {
         const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)
@@ -179,7 +179,7 @@ const calculateVoteShare = (
   } else {
     updateVotes = constituencies.map((constituency) => {
       const assemblyFilter = totalVotesPolledData.filter((row) => {
-        return row.AC_NAME === constituency
+        return row.AC_NO == constituency.code
       })
       const newVoteShare = assemblyFilter.map((row) => {
         const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)

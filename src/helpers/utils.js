@@ -196,23 +196,23 @@ export const getConstituencies = (
   electionViewType,
   filteredGeoJSON
 ) => {
-  let constituencies = new Set()
+  let constituencies = {}
   if (data === null) {
     return null
   } else {
     if (selectedStateUT === ALL_STATE_UT) {
-      return [FIRST_SELECT_STATEUT]
+      return [{name: FIRST_SELECT_STATEUT, code: FIRST_SELECT_STATEUT}]
     } else {
       if (electionViewType === "general") {
         data.map((row) => {
           if (
-            ("filteredGeoJSON: ",
+            (
             filteredGeoJSON.features &&
               filteredGeoJSON.features.findIndex(
-                (e) => e.properties.PC_NAME === row.PC_NAME
+                (e) => e.properties.PC_NO == row.PC_NO
               ) > -1)
           ) {
-            constituencies.add(row.PC_NAME)
+            constituencies[row.PC_NAME] = row.PC_NO
           }
         })
       } else {
@@ -220,20 +220,24 @@ export const getConstituencies = (
           if (
             filteredGeoJSON.features &&
             filteredGeoJSON.features.findIndex(
-              (e) => e.properties.AC_NAME === row.AC_NAME
+              (e) => e.properties.AC_N0 == row.AC_N0
             ) > -1
           ) {
-            constituencies.add(row.AC_NAME)
+            constituencies[row.AC_NAME] = row.AC_NO
           }
         })
       }
     }
-    constituencies = [...constituencies]
+    const tempConstituencies = []
+    for(const constituency in constituencies) {
+      tempConstituencies.push({ name: constituency, code: constituencies[constituency] })
+    }
+    constituencies = tempConstituencies
     if (constituencies.length > 1) {
-      constituencies.unshift(CONSTITUENCIES_DEFAULT_SELECT)
+      constituencies.unshift({ name: CONSTITUENCIES_DEFAULT_SELECT, code: CONSTITUENCIES_DEFAULT_SELECT})
     }
     if (constituencies.length === 0) {
-      constituencies.push(NO_CONSTITUENCIES)
+      constituencies.unshift({ name: NO_CONSTITUENCIES, code: NO_CONSTITUENCIES})
     }
     return constituencies
   }
