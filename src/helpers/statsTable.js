@@ -6,9 +6,9 @@ import {
 import {
   getConstituenciesResults,
   getDataConstituency,
-  getMapData,
   getDataStateUT
 } from "./utils"
+import { getMapData } from "./mapData"
 
 /**
  * Calculate Data for selected region stats table

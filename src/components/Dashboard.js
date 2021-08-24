@@ -37,12 +37,11 @@ import {
   getDataStateUT,
   getStateUTs,
   getConstituencies,
-  getMapData,
   getConstituenciesResults,
   getElectionOptions,
-  getCompareOptions,
-  getInitalStateUTcolors
+  getCompareOptions
 } from "../helpers/utils"
+import { getMapData } from "../helpers/mapData"
 import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
 import { getFilteredGeoJson } from "../helpers/reservedSeats"
@@ -92,7 +91,6 @@ const Dashboard = ({
     useState(false)
 
   useEffect(() => {
-    setMapWidgetLoading(true)
     setRegionStatsLoading(true)
   }, [
     electionViewType,
@@ -107,6 +105,15 @@ const Dashboard = ({
     electionOptions,
     stateUTOptions,
     constituencyOptions
+  ])
+
+  useEffect(() => {
+    setMapWidgetLoading(true)
+  }, [
+    electionViewType,
+    selectedElection,
+    groupType,
+    selectedYearData,
   ])
 
   useEffect(() => {
@@ -310,17 +317,13 @@ const Dashboard = ({
   useEffect(() => {
     if (selectedYearData != []) {
       setMapData(
-        getMapData(selectedYearData, selectedStateUT, electionViewType, colorPartyAlliance)
+        getMapData(selectedYearData, stateUTOptions, electionViewType, colorPartyAlliance)
       )
+      console.log("mapData", mapData)
     }
+    setMapWidgetLoading(false)
   }, [
     selectedYearData,
-    selectedStateUT,
-    seatType,
-    filteredGeoJSON,
-    stateUTOptions,
-    constituencyOptions,
-    selectedRegion
   ])
 
   useEffect(() => {
