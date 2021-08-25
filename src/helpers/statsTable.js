@@ -37,11 +37,8 @@ export const getRegionStatsTable = (
   colorPartyAlliance
 ) => {
   const compareElectionType = compareElection.type
-  let tableData = []
-  let presentYearDataTable = []
-  let compareYearDataTable = []
-  let filteredPresData = []
-  let filteredCompareData = []
+  let tableData = [], presentYearDataTable = [], compareYearDataTable = [],
+    filteredPresData = [], filteredCompareData = []
 
   if (electionViewType === "general") {
     filteredPresData = presentYearData.filter((d) => {
@@ -153,7 +150,6 @@ export const getRegionStatsTable = (
         }
       })
   }
-  console.log({tableData, presentYearDataTable, compareYearDataTable})
   return tableData
 }
 
@@ -178,8 +174,7 @@ const getCurrYearDataTable = (
   selectedStateUT,
   selectedConstituency
 ) => {
-  let totalVotes = 0
-  let tableData = []
+  let totalVotes = 0, tableData = []
   if (
     selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
     selectedStateUT === ALL_STATE_UT
@@ -435,8 +430,7 @@ const compareSeatsVotesCount = (
   groupType,
   partyAlliance
 ) => {
-  let stats = []
-  let totalVotes = 0
+  let stats = [], totalVotes = 0
   if (data === undefined || data.length === 0) {
     return []
   }
@@ -510,8 +504,7 @@ const compareSeatsVotesCount = (
     return stats
   } else {
     if (selectedConstituency) {
-      let groups = []
-      let compareStats = []
+      let groups = [], compareStats = []
       if (mapDataConstituencies.length != 0) {
         if (electionViewType === "general") {
           groups =

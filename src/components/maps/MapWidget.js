@@ -175,39 +175,15 @@ const MapWidget = ({
   }
 
   const _fillGeoJsonColor = (d) => {
-    let results = null
-    let sortByKey = null
+    let results = null, sortByStateKey = null, sortByConstituencyKey = null
     if (electionViewType === "general") {
-      sortByKey = d.properties.PC_NAME
-      results = constituenciesResults.find((row) => {
-        if (
-          (sortByKey == row.pc_name &&
-            selectedStateUT === d.properties.ST_NAME) ||
-          (sortByKey == row.pc_name &&
-            selectedStateUT === ALL_STATE_UT)
-        ) {
-          return row
-        }
-      })
+      sortByStateKey = d.properties.ST_NAME
+      sortByConstituencyKey = d.properties.PC_NO
+      results = constituenciesResults[sortByStateKey][sortByConstituencyKey]
     } else {
-      sortByKey = d.properties.AC_NAME
-      results = constituenciesResults.find((row) => {
-        if (selectedStateUT === ALL_STATE_UT) {
-          if (
-            sortByKey == row.ac_name &&
-            stateUTOptions.indexOf(d.properties.ST_NAME) > -1
-          ) {
-            return row
-          }
-        } else {
-          if (
-            sortByKey == row.ac_name &&
-            selectedStateUT == d.properties.ST_NAME
-          ) {
-            return row
-          }
-        }
-      })
+      sortByStateKey = d.properties.ST_NAME
+      sortByConstituencyKey = d.properties.AC_NO
+      results = constituenciesResults[sortByStateKey][sortByConstituencyKey]
     }
     if (results) {
       const hexColor = hexRgb(results.color)
@@ -234,21 +210,19 @@ const MapWidget = ({
 
   const _getTooltip = ({ object }) => {
     if (object) {
+      let results = null, sortByStateKey = null, sortByConstituencyKey = null
       if (electionViewType === "general") {
         if (
-          selectedConstituency === object.properties.PC_NAME ||
+          selectedConstituency === object.properties.PC_NO ||
           selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
           selectedStateUT === ALL_STATE_UT
         ) {
-          const sortByKey = object.properties.PC_NAME
-          const results = mapData.constituencies.find((row) => {
-            if (sortByKey == row.PC_NAME) {
-              return row
-            }
-          })
+          sortByStateKey = object.properties.ST_NAME
+          sortByConstituencyKey = object.properties.PC_NO
+          results = mapData[sortByStateKey][sortByConstituencyKey]
           let voteShare = ""
           results &&
-            results.stats.map((d) => {
+            results.map((d) => {
               voteShare =
                 voteShare +
                 `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
@@ -261,8 +235,8 @@ const MapWidget = ({
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
                 <div class="pb-1">
-                  <div>Constituency: <b>${results.PC_NAME}</b></div>
-                  <div>Winner: <b>${results.stats[0].candidate}</b></div>
+                  <div>Constituency: <b>${object.properties.PC_NAME}</b></div>
+                  <div>Winner: <b>${results[0].candidate}</b></div>
                 </div>
                 <div>
                   <div>Vote Share:</div>
@@ -277,19 +251,16 @@ const MapWidget = ({
         }
       } else {
         if (
-          selectedConstituency === object.properties.AC_NAME ||
+          selectedConstituency === object.properties.AC_NO ||
           selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
           selectedStateUT === ALL_STATE_UT
         ) {
-          const sortByKey = object.properties.AC_NAME
-          const results = mapData.constituencies.find((row) => {
-            if (sortByKey == row.AC_NAME) {
-              return row
-            }
-          })
+          sortByStateKey = object.properties.ST_NAME
+          sortByConstituencyKey = object.properties.AC_NO
+          results = mapData[sortByStateKey][sortByConstituencyKey]
           let voteShare = ""
           results &&
-            results.stats.map((d) => {
+            results.map((d) => {
               voteShare =
                 voteShare +
                 `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
@@ -300,8 +271,8 @@ const MapWidget = ({
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
                 <div class="pb-1">
-                  <div>Constituency: <b>${results.AC_NAME}</b></div>
-                  <div>Winner: <b>${results.stats[0].candidate}</b></div>
+                  <div>Constituency: <b>${object.properties.AC_NAME}</b></div>
+                  <div>Winner: <b>${results[0].candidate}</b></div>
                 </div>
                 <div>Vote Share:</div>
                     <div>

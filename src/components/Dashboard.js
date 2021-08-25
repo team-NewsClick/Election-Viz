@@ -91,6 +91,7 @@ const Dashboard = ({
     useState(false)
 
   useEffect(() => {
+    setMapWidgetLoading(true)
     setRegionStatsLoading(true)
   }, [
     electionViewType,
@@ -105,15 +106,6 @@ const Dashboard = ({
     electionOptions,
     stateUTOptions,
     constituencyOptions
-  ])
-
-  useEffect(() => {
-    setMapWidgetLoading(true)
-  }, [
-    electionViewType,
-    selectedElection,
-    groupType,
-    selectedYearData,
   ])
 
   useEffect(() => {
