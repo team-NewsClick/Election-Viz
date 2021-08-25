@@ -537,7 +537,7 @@ export const getConstituenciesResults = (
       }
       return result
     } else {
-      return []
+      return {}
     }
   }
 }

@@ -74,7 +74,7 @@ const Dashboard = ({
   const [groupType, setGroupType] = useState(DEFAULT_GROUP_TYPE)
   const [partyAlliance, setPartyAlliance] = useState([])
   const [colorPartyAlliance, setColorPartyAlliance] = useState({})
-  const [constituenciesResults, setConstituenciesResults] = useState([])
+  const [constituenciesResults, setConstituenciesResults] = useState({})
   const [mapWidgetLoading, setMapWidgetLoading] = useState(true)
   const [regionStatsLoading, setRegionStatsLoading] = useState(true)
   const [compareYearData, setCompareYearData] = useState([])
@@ -366,15 +366,12 @@ const Dashboard = ({
     mapData,
     selectedConstituency,
     selectedStateUT,
-    electionViewType,
     groupType,
-    selectedElection,
-    partyAlliance,
-    selectedRegion
+    partyAlliance
   ])
 
   useEffect(() => {
-    if (constituenciesResults.length !== 0) {
+    if (Object.keys(constituenciesResults).length !== 0) {
       const temp = getRegionStatsSVGData(
         constituenciesResults,
         electionViewType,
