@@ -15,10 +15,9 @@ export const getMapData = (
   electionViewType,
   colorPartyAlliance
 ) => {
-  let result = {}
-  let stateData = []
-  let stateUTList = stateUTOptions.slice(1)
-  if (colorPartyAlliance) {
+  let result = {}, stateData = [], stateUTList
+    stateUTList = stateUTOptions.slice(1)
+  if (Object.keys(colorPartyAlliance).length !== 0) {
     if (electionViewType === "general") {
       stateUTList.map((stateUT) => {
         stateData = data.filter((stateUTRow) => stateUTRow.ST_NAME === stateUT)

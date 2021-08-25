@@ -384,13 +384,21 @@ const Dashboard = ({
   }, [constituenciesResults, filteredGeoJSON])
 
   useEffect(() => {
-    if (compareElection && constituencyOptions.indexOf(selectedConstituency) != -1) {
+    if (
+      compareElection
+      && Object.keys(regionStatsSVGData).length !== 0
+      && constituencyOptions.find((d) => d.code === selectedConstituency)
+      ) {
+      let constituencyMapData = []
+      if(selectedConstituency !== FIRST_SELECT_STATEUT && selectedConstituency !== NO_CONSTITUENCIES) {
+        constituencyMapData = mapData[selectedStateUT][selectedConstituency]
+      }
       const tempTableData = getRegionStatsTable(
         selectedStateUT === ALL_STATE_UT
           ? selectedYearData
           : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
           ? selectedStateUTData
-          : mapData.constituencies,
+          : constituencyMapData,
         compareYearData,
         regionStatsSVGData,
         electionViewType,
@@ -398,8 +406,9 @@ const Dashboard = ({
         groupType,
         partyAlliance,
         selectedStateUT,
+        stateUTOptions,
         selectedConstituency,
-        mapData.constituencies,
+        constituencyMapData,
         filteredGeoJSON,
         colorPartyAlliance
       )
