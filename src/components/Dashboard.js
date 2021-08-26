@@ -3,7 +3,7 @@ import axios from "axios"
 import { csvParse } from "d3-dsv"
 import {
   ALL_STATE_UT,
-  CONSTITUENCIES_DEFAULT_SELECT,
+  ALL_CONSTITUENCIES,
   LOCALITY_OPTIONS,
   COMMUNITY_OPTIONS,
   GENDER_OPTIONS,
@@ -37,11 +37,10 @@ import {
   getDataStateUT,
   getStateUTs,
   getConstituencies,
-  getConstituenciesResults,
   getElectionOptions,
   getCompareOptions
 } from "../helpers/utils"
-import { getMapData } from "../helpers/mapData"
+import { getMapData, getConstituenciesResults } from "../helpers/mapData"
 import { getRegionStatsSVGData } from "../helpers/statsSVG"
 import { getRegionStatsTable } from "../helpers/statsTable"
 import { getFilteredGeoJson } from "../helpers/reservedSeats"
@@ -382,7 +381,7 @@ const Dashboard = ({
       const tempTableData = getRegionStatsTable(
         selectedStateUT === ALL_STATE_UT
           ? selectedYearData
-          : selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+          : selectedConstituency === ALL_CONSTITUENCIES
           ? selectedStateUTData
           : constituencyMapData,
         compareYearData,

@@ -1,14 +1,13 @@
 import {
   ALL_STATE_UT,
-  CONSTITUENCIES_DEFAULT_SELECT,
+  ALL_CONSTITUENCIES,
   FIRST_SELECT_STATEUT
 } from "../constants"
 import {
-  getConstituenciesResults,
   getDataConstituency,
   getDataStateUT
 } from "./utils"
-import { getMapData } from "./mapData"
+import { getMapData, getConstituenciesResults } from "./mapData"
 
 /**
  * Calculate Data for selected region stats table
@@ -176,7 +175,7 @@ const getCurrYearDataTable = (
 ) => {
   let totalVotes = 0, tableData = []
   if (
-    selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
+    selectedConstituency === ALL_CONSTITUENCIES ||
     selectedStateUT === ALL_STATE_UT
   ) {
     if (groupType === "party") {
@@ -348,7 +347,7 @@ const getCompareYearDataTable = (
     if (electionViewType === "general") {
       if (
         selectedStateUT === ALL_STATE_UT ||
-        selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+        selectedConstituency === ALL_CONSTITUENCIES
       ) {
         compareStats =
           compareConstituenciesResults &&
@@ -388,7 +387,7 @@ const getCompareYearDataTable = (
           compareConstituenciesResults &&
           SVGData &&
           compareSeatsVotesCount(
-            selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT
+            selectedConstituency === ALL_CONSTITUENCIES
               ? compareSelectedStateUTData
               : compareSelectedConstituencyData,
             compareConstituenciesResults,
@@ -436,7 +435,7 @@ const compareSeatsVotesCount = (
   }
   if (
     selectedStateUT === ALL_STATE_UT ||
-    selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
+    selectedConstituency === ALL_CONSTITUENCIES ||
     selectedConstituency === FIRST_SELECT_STATEUT
   ) {
     const groups = Object.keys(SVGData)

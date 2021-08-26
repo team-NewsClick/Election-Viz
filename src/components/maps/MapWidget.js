@@ -13,7 +13,7 @@ import {
   DEFAULT_STATE_LINE_COLOR,
   DEFAULT_DISTRICT_LINE_COLOR,
   TRANSPARENT_COLOR,
-  CONSTITUENCIES_DEFAULT_SELECT,
+  ALL_CONSTITUENCIES,
   SELECT_STATE_UT
 } from "../../constants"
 import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
@@ -214,7 +214,7 @@ const MapWidget = ({
       if (electionViewType === "general") {
         if (
           selectedConstituency === object.properties.PC_NO ||
-          selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
+          selectedConstituency === ALL_CONSTITUENCIES ||
           selectedStateUT === ALL_STATE_UT
         ) {
           sortByStateKey = object.properties.ST_NAME
@@ -252,7 +252,7 @@ const MapWidget = ({
       } else {
         if (
           selectedConstituency === object.properties.AC_NO ||
-          selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
+          selectedConstituency === ALL_CONSTITUENCIES ||
           selectedStateUT === ALL_STATE_UT
         ) {
           sortByStateKey = object.properties.ST_NAME
