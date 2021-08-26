@@ -82,9 +82,7 @@ const MapWidget = ({
       selectedElection
     )
     if (tempInitialStateColors) {
-      const stateColors = tempInitialStateColors.filter((d) => {
-        return d !== undefined
-      })
+      const stateColors = tempInitialStateColors.filter((d) => d !== undefined)
       setInitialStateColors(stateColors)
     }
   }, [stateUTOptions])
@@ -200,7 +198,7 @@ const MapWidget = ({
         return row
       }
     })
-    if (results) {
+    if(results) {
       const hexColor = hexRgb(results.color)
       return [hexColor.red, hexColor.green, hexColor.blue]
     } else {
@@ -213,7 +211,7 @@ const MapWidget = ({
       let results = null, sortByStateKey = null, sortByConstituencyKey = null
       if (electionViewType === "general") {
         if (
-          selectedConstituency === object.properties.PC_NO ||
+          selectedConstituency == object.properties.PC_NO ||
           selectedConstituency === ALL_CONSTITUENCIES ||
           selectedStateUT === ALL_STATE_UT
         ) {
@@ -251,7 +249,7 @@ const MapWidget = ({
         }
       } else {
         if (
-          selectedConstituency === object.properties.AC_NO ||
+          selectedConstituency == object.properties.AC_NO ||
           selectedConstituency === ALL_CONSTITUENCIES ||
           selectedStateUT === ALL_STATE_UT
         ) {

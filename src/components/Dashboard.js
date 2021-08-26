@@ -90,8 +90,8 @@ const Dashboard = ({
     useState(false)
 
   useEffect(() => {
-    setMapWidgetLoading(true)
     setRegionStatsLoading(true)
+    setMapWidgetLoading(true)
   }, [
     selectedYearData,
     selectedStateUTData
@@ -112,6 +112,7 @@ const Dashboard = ({
         parliamentaryConstituenciesGeojson
       )
       setStateUTOptions(tempStateUTOptions)
+      setSelectedStateUT(tempStateUTOptions[0])
       setSelectedStateUT(ALL_STATE_UT)
     }
     if (electionViewType === "assembly") {
@@ -128,6 +129,7 @@ const Dashboard = ({
         selectedStateUT
       )
       setStateUTOptions(tempStateUTOptions)
+      setSelectedStateUT(tempStateUTOptions[0])
       setElectionOptions(tempElectionOptions)
       setSelectedElection(ELECTION_DEFAULT_SELECT)
     }
@@ -273,11 +275,7 @@ const Dashboard = ({
   }, [selectedStateUTData, filteredGeoJSON])
 
   useEffect(() => {
-    setSelectedConstituency(
-      constituencyOptions.findIndex((d) => d.code === selectedConstituency) > -1
-        ? selectedConstituency
-        : constituencyOptions[0].code
-    )
+    setSelectedConstituency(constituencyOptions[0].code)
   }, [constituencyOptions])
 
   useEffect(() => {
@@ -302,7 +300,6 @@ const Dashboard = ({
         getMapData(selectedYearData, stateUTOptions, electionViewType, colorPartyAlliance)
       )
     }
-    setMapWidgetLoading(false)
   }, [selectedYearData])
 
   useEffect(() => {
