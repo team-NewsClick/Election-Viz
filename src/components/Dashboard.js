@@ -303,9 +303,7 @@ const Dashboard = ({
       )
     }
     setMapWidgetLoading(false)
-  }, [
-    selectedYearData,
-  ])
+  }, [selectedYearData])
 
   useEffect(() => {
     if (electionViewType === "general") {
