@@ -94,18 +94,8 @@ const Dashboard = ({
     setMapWidgetLoading(true)
     setRegionStatsLoading(true)
   }, [
-    electionViewType,
-    selectedElection,
-    groupType,
-    selectedStateUT,
-    selectedConstituency,
-    selectedRegion,
-    seatType,
     selectedYearData,
-    selectedStateUTData,
-    electionOptions,
-    stateUTOptions,
-    constituencyOptions
+    selectedStateUTData
   ])
 
   useEffect(() => {
@@ -193,12 +183,13 @@ const Dashboard = ({
 
   useEffect(() => {
     if (electionViewType === "general") {
-      stateUTOptions.length > 0 &&
+      if(stateUTOptions && stateUTOptions.length !== 0) {
         setSelectedStateUT(
           stateUTOptions.indexOf(selectedStateUT) > -1
             ? selectedStateUT
             : stateUTOptions[0]
         )
+      }
     }
   }, [selectedYearData, seatType, filteredGeoJSON, stateUTOptions])
 
@@ -271,17 +262,6 @@ const Dashboard = ({
     }
   }, [compareElection])
 
-
-  useEffect(() => {
-    const tempStateUTs= getStateUTs(
-      selectedElection,
-      seatType,
-      electionViewType,
-      filteredGeoJSON
-    )
-    setStateUTOptions(tempStateUTs)
-  }, [filteredGeoJSON])
-
   useEffect(() => {
     setConstituencyOptions(
       getConstituencies(
@@ -292,16 +272,6 @@ const Dashboard = ({
       )
     )
   }, [selectedStateUTData, filteredGeoJSON])
-
-  useEffect(() => {
-    if(stateUTOptions && stateUTOptions.length !== 0) {
-      setSelectedStateUT(
-        stateUTOptions.findIndex((d) => d === selectedStateUT) > -1
-          ? selectedStateUT
-          : stateUTOptions[0]
-      )
-    }
-  }, [stateUTOptions])
 
   useEffect(() => {
     setSelectedConstituency(
@@ -361,7 +331,7 @@ const Dashboard = ({
   }, [seatType, electionViewType, selectedRegion, selectedStateUT])
 
   useEffect(() => {
-    if (mapData != {}) {
+    if (Object.keys(mapData).length !== 0) {
       setConstituenciesResults(
         getConstituenciesResults(
           mapData,
@@ -393,6 +363,8 @@ const Dashboard = ({
         filteredGeoJSON
       )
       setRegionStatsSVGData(temp)
+    } else {
+      setRegionStatsSVGData({})
     }
   }, [constituenciesResults, filteredGeoJSON])
 
@@ -427,6 +399,8 @@ const Dashboard = ({
         colorPartyAlliance
       )
       tempTableData && setRegionStatsTableData(tempTableData)
+    } else {
+      setRegionStatsTableData([])
     }
     setRegionStatsLoading(false)
   }, [regionStatsSVGData, compareYearData, partiesSwing])
@@ -652,33 +626,42 @@ const Dashboard = ({
             style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
             className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
           >
-            {electionViewType === "assembly" &&
-              (selectedStateUT === SELECT_STATE_UT ||
-                selectedStateUT === ALL_STATE_UT) &&
-              (selectedElection === SELECT_ELECTION ||
-                selectedElection === FIRST_SELECT_STATEUT) && (
+            {
+              electionViewType === "assembly"
+              && (selectedStateUT === SELECT_STATE_UT
+                || selectedStateUT === ALL_STATE_UT)
+              && (selectedElection === SELECT_ELECTION
+                || selectedElection === FIRST_SELECT_STATEUT)
+              && (
                 <div className="flex h-full">
                   <div className="text-center m-auto text-xl px-4 py-10">
                     Please select a region from the drop-down or by clicking on
                     the map.
                   </div>
                 </div>
-              )}
-            {electionViewType === "assembly" &&
-              (selectedStateUT !==
-                (SELECT_STATE_UT || ALL_STATE_UT) ||
-                selectedElection !==
-                  (SELECT_ELECTION || FIRST_SELECT_STATEUT)) &&
-              selectedStateUTData.length === 0 && (
+              )
+            }
+            {
+              electionViewType === "assembly"
+              &&
+              (selectedStateUT !== (SELECT_STATE_UT || ALL_STATE_UT)
+                || selectedElection !== (SELECT_ELECTION || FIRST_SELECT_STATEUT))
+              && selectedStateUTData.length === 0
+              && Object.keys(regionStatsSVGData).length === 0
+              && (
                 <div className="flex h-full">
                   <div className="text-center m-auto text-xl px-4 py-10">
                     Data for selected options does not exist.
                   </div>
                 </div>
-              )}
-            {selectedStateUT !== SELECT_STATE_UT &&
-              selectedElection !== SELECT_ELECTION &&
-              selectedStateUTData.length !== 0 && (
+              )
+            }
+            {
+              selectedStateUT !== SELECT_STATE_UT
+              && selectedElection !== SELECT_ELECTION
+              && selectedStateUTData.length !== 0
+              && Object.keys(regionStatsSVGData).length !== 0
+              && (
                 <div>
                   <RegionStatsSVG
                     regionStatsSVGData={regionStatsSVGData}
@@ -690,7 +673,8 @@ const Dashboard = ({
                     regionStatsLoading={regionStatsLoading}
                   />
                 </div>
-              )}
+              )
+            }
           </div>
           <div
             onClick={_home}
