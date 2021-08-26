@@ -574,170 +574,162 @@ const Dashboard = ({
     console.log(v)
   }
 
-  if (stateUTOptions && stateUTOptions.length !== 0) {
-    return (
-      <div>
-        <DashboardOptions
-          updateElectionViewType={_handleElectionViewType}
-          updateCompareElection={_handleCompareElection}
-          updateSelectedElection={_handleSelectedElection}
-          updateSelectedRegion={_handleSelectedRegion}
-          updateGroupType={_handleGroupType}
-          updateSelectedStateUT={_handleSelectedStateUT}
-          updateSelectedConstituency={_handleSelectedConstituency}
-          updateSelectedSeatType={_handleSelectedSeatType}
-          homeReset={_home}
-          doAdvanceReset={doAdvanceReset}
-          customAlliance={customAlliance}
-          handleColorPartyAlliance={handleColorPartyAlliance}
-          handleSwingParams={handleSwingParams}
-          electionOptions={electionOptions}
-          stateUTOptions={stateUTOptions}
-          constituencyOptions={constituencyOptions}
-          regionOptions={regionOptions}
-          compareOptions={compareOptions}
-          electionViewType={electionViewType}
-          groupType={groupType}
-          selectedElection={selectedElection}
-          selectedStateUT={selectedStateUT}
-          selectedConstituency={selectedConstituency}
-          selectedRegion={selectedRegion}
-          seatType={seatType}
-          compareElection={compareElection}
-          partyAlliance={partyAlliance}
-          advanceReset={advanceReset}
-        />
-        <div className="lg:flex lg:flex-row-reverse relative py-8">
-          <div
-            className={windowWidth > 800 ? "" : "widthImp100 heightImp100"}
-            style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
-            className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
-          >
-            {
-              electionViewType === "assembly"
-              && (selectedStateUT === SELECT_STATE_UT
-                || selectedStateUT === ALL_STATE_UT)
-              && (selectedElection === SELECT_ELECTION
-                || selectedElection === FIRST_SELECT_STATEUT)
-              && (
-                <div className="flex h-full">
-                  <div className="text-center m-auto text-xl px-4 py-10">
-                    Please select a region from the drop-down or by clicking on
-                    the map.
-                  </div>
+  return (
+    <div>
+      <DashboardOptions
+        updateElectionViewType={_handleElectionViewType}
+        updateCompareElection={_handleCompareElection}
+        updateSelectedElection={_handleSelectedElection}
+        updateSelectedRegion={_handleSelectedRegion}
+        updateGroupType={_handleGroupType}
+        updateSelectedStateUT={_handleSelectedStateUT}
+        updateSelectedConstituency={_handleSelectedConstituency}
+        updateSelectedSeatType={_handleSelectedSeatType}
+        homeReset={_home}
+        doAdvanceReset={doAdvanceReset}
+        customAlliance={customAlliance}
+        handleColorPartyAlliance={handleColorPartyAlliance}
+        handleSwingParams={handleSwingParams}
+        electionOptions={electionOptions}
+        stateUTOptions={stateUTOptions}
+        constituencyOptions={constituencyOptions}
+        regionOptions={regionOptions}
+        compareOptions={compareOptions}
+        electionViewType={electionViewType}
+        groupType={groupType}
+        selectedElection={selectedElection}
+        selectedStateUT={selectedStateUT}
+        selectedConstituency={selectedConstituency}
+        selectedRegion={selectedRegion}
+        seatType={seatType}
+        compareElection={compareElection}
+        partyAlliance={partyAlliance}
+        advanceReset={advanceReset}
+      />
+      <div className="lg:flex lg:flex-row-reverse relative py-8">
+        <div
+          className={windowWidth > 800 ? "" : "widthImp100 heightImp100"}
+          style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
+          className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
+        >
+          {
+            electionViewType === "assembly"
+            && (selectedStateUT === SELECT_STATE_UT
+              || selectedStateUT === ALL_STATE_UT)
+            && (selectedElection === SELECT_ELECTION
+              || selectedElection === FIRST_SELECT_STATEUT)
+            && (
+              <div className="flex h-full">
+                <div className="text-center m-auto text-xl px-4 py-10">
+                  Please select a region from the drop-down or by clicking on
+                  the map.
                 </div>
-              )
-            }
-            {
-              electionViewType === "assembly"
-              &&
-              (selectedStateUT !== (SELECT_STATE_UT || ALL_STATE_UT)
-                || selectedElection !== (SELECT_ELECTION || FIRST_SELECT_STATEUT))
-              && selectedStateUTData.length === 0
-              && Object.keys(regionStatsSVGData).length === 0
-              && (
-                <div className="flex h-full">
-                  <div className="text-center m-auto text-xl px-4 py-10">
-                    Data for selected options does not exist.
-                  </div>
+              </div>
+            )
+          }
+          {
+            electionViewType === "assembly"
+            &&
+            (selectedStateUT !== (SELECT_STATE_UT || ALL_STATE_UT)
+              || selectedElection !== (SELECT_ELECTION || FIRST_SELECT_STATEUT))
+            && selectedStateUTData.length === 0
+            && Object.keys(regionStatsSVGData).length === 0
+            && (
+              <div className="flex h-full">
+                <div className="text-center m-auto text-xl px-4 py-10">
+                  Data for selected options does not exist.
                 </div>
-              )
-            }
-            {
-              selectedStateUT !== SELECT_STATE_UT
-              && selectedElection !== SELECT_ELECTION
-              && selectedStateUTData.length !== 0
-              && Object.keys(regionStatsSVGData).length !== 0
-              && (
-                <div>
-                  <RegionStatsSVG
-                    regionStatsSVGData={regionStatsSVGData}
-                    selectedConstituency={selectedConstituency}
-                    regionStatsLoading={regionStatsLoading}
-                  />
-                  <RegionStatsTable
-                    regionStatsTableData={regionStatsTableData}
-                    regionStatsLoading={regionStatsLoading}
-                  />
-                </div>
-              )
-            }
-          </div>
-          <div
-            onClick={_home}
-            id="maphome"
-            title="Home"
-            className="flex relative items-center justify-center bg-white hover:bg-gray-200 rounded cursor-pointer"
-            style={
-              windowWidth < 800
-                ? windowWidth > 700
-                  ? {
-                      top: "90px",
-                      left: "95%",
-                      width: "29px",
-                      height: "29px",
-                      zIndex: "1",
-                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
-                    }
-                  : {
-                      top: "90px",
-                      left: "90.5%",
-                      width: "29px",
-                      height: "29px",
-                      zIndex: "1",
-                      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
-                    }
-                : {
-                    top: "60px",
-                    left: "-30px",
-                    width: "37px",
+              </div>
+            )
+          }
+          {
+            selectedStateUT !== SELECT_STATE_UT
+            && selectedElection !== SELECT_ELECTION
+            && selectedStateUTData.length !== 0
+            && Object.keys(regionStatsSVGData).length !== 0
+            && (
+              <div>
+                <RegionStatsSVG
+                  regionStatsSVGData={regionStatsSVGData}
+                  selectedConstituency={selectedConstituency}
+                  regionStatsLoading={regionStatsLoading}
+                />
+                <RegionStatsTable
+                  regionStatsTableData={regionStatsTableData}
+                  regionStatsLoading={regionStatsLoading}
+                />
+              </div>
+            )
+          }
+        </div>
+        <div
+          onClick={_home}
+          id="maphome"
+          title="Home"
+          className="flex relative items-center justify-center bg-white hover:bg-gray-200 rounded cursor-pointer"
+          style={
+            windowWidth < 800
+              ? windowWidth > 700
+                ? {
+                    top: "90px",
+                    left: "95%",
+                    width: "29px",
                     height: "29px",
                     zIndex: "1",
                     boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
                   }
-            }
-          >
-            <img src="img/map-home-icon.svg" className="w-3/5" />
-          </div>
-          <div>
-            {regionStatsSVGData && (
-              <div>
-                <MapWidget
-                  stateGeojson={stateGeojson}
-                  parliamentaryConstituenciesGeojson={
-                    parliamentaryConstituenciesGeojson
+                : {
+                    top: "90px",
+                    left: "90.5%",
+                    width: "29px",
+                    height: "29px",
+                    zIndex: "1",
+                    boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
                   }
-                  assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-                  onMapUpdate={_updatedRegion}
-                  electionViewType={electionViewType}
-                  stateUTOptions={stateUTOptions}
-                  selectedStateUT={selectedStateUT}
-                  selectedConstituency={selectedConstituency}
-                  mapData={mapData}
-                  constituenciesResults={constituenciesResults}
-                  mapWidgetLoading={mapWidgetLoading}
-                  seatType={seatType}
-                  selectedRegion={selectedRegion}
-                  selectedElection={selectedElection}
-                />
-              </div>
-            )}
-          </div>
+              : {
+                  top: "60px",
+                  left: "-30px",
+                  width: "37px",
+                  height: "29px",
+                  zIndex: "1",
+                  boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+                }
+          }
+        >
+          <img src="img/map-home-icon.svg" className="w-3/5" />
         </div>
-        {/* {constituencyContestantsStatsData !== null && (
-          <ConstituencyConstestantsStats
-            constituencyContestantsStatsData={constituencyContestantsStatsData}
-          />
-        )} */}
+        <div>
+          {regionStatsSVGData && (
+            <div>
+              <MapWidget
+                stateGeojson={stateGeojson}
+                parliamentaryConstituenciesGeojson={
+                  parliamentaryConstituenciesGeojson
+                }
+                assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
+                onMapUpdate={_updatedRegion}
+                electionViewType={electionViewType}
+                stateUTOptions={stateUTOptions}
+                selectedStateUT={selectedStateUT}
+                selectedConstituency={selectedConstituency}
+                mapData={mapData}
+                constituenciesResults={constituenciesResults}
+                mapWidgetLoading={mapWidgetLoading}
+                seatType={seatType}
+                selectedRegion={selectedRegion}
+                selectedElection={selectedElection}
+              />
+            </div>
+          )}
+        </div>
       </div>
-    )
-  } else {
-    return (
-      <div style={{ minHeight: "100vh", height: "100%", margin: "auto" }}>
-        <Loading />
-      </div>
-    )
-  }
+      {/* {constituencyContestantsStatsData !== null && (
+        <ConstituencyConstestantsStats
+          constituencyContestantsStatsData={constituencyContestantsStatsData}
+        />
+      )} */}
+    </div>
+  )
 }
 
 export default Dashboard
