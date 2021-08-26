@@ -271,6 +271,17 @@ const Dashboard = ({
     }
   }, [compareElection])
 
+
+  useEffect(() => {
+    const tempStateUTs= getStateUTs(
+      selectedElection,
+      seatType,
+      electionViewType,
+      filteredGeoJSON
+    )
+    setStateUTOptions(tempStateUTs)
+  }, [filteredGeoJSON])
+
   useEffect(() => {
     setConstituencyOptions(
       getConstituencies(
@@ -281,6 +292,16 @@ const Dashboard = ({
       )
     )
   }, [selectedStateUTData, filteredGeoJSON])
+
+  useEffect(() => {
+    if(stateUTOptions && stateUTOptions.length !== 0) {
+      setSelectedStateUT(
+        stateUTOptions.findIndex((d) => d === selectedStateUT) > -1
+          ? selectedStateUT
+          : stateUTOptions[0]
+      )
+    }
+  }, [stateUTOptions])
 
   useEffect(() => {
     setSelectedConstituency(
@@ -380,6 +401,7 @@ const Dashboard = ({
       compareElection
       && Object.keys(regionStatsSVGData).length !== 0
       && constituencyOptions.find((d) => d.code === selectedConstituency)
+      && Object.keys(mapData).length !== 0
       ) {
       let constituencyMapData = []
       if(selectedConstituency !== FIRST_SELECT_STATEUT && selectedConstituency !== NO_CONSTITUENCIES) {

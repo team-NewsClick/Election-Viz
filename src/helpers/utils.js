@@ -206,11 +206,8 @@ export const getConstituencies = (
       if (electionViewType === "general") {
         data.map((row) => {
           if (
-            (
             filteredGeoJSON.features &&
-              filteredGeoJSON.features.findIndex(
-                (e) => e.properties.PC_NO == row.PC_NO
-              ) > -1)
+              filteredGeoJSON.features.findIndex((e) => e.properties.PC_NO == row.PC_NO) > -1
           ) {
             constituencies[row.PC_NAME] = row.PC_NO
           }
@@ -219,9 +216,7 @@ export const getConstituencies = (
         data.map((row) => {
           if (
             filteredGeoJSON.features &&
-            filteredGeoJSON.features.findIndex(
-              (e) => e.properties.AC_N0 == row.AC_N0
-            ) > -1
+            filteredGeoJSON.features.findIndex((e) => e.properties.AC_NO == row.AC_NO) > -1
           ) {
             constituencies[row.AC_NAME] = row.AC_NO
           }
