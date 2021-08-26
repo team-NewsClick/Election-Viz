@@ -411,7 +411,7 @@ const Dashboard = ({
 
   useEffect(() => {
     let result = []
-    if (partyAlliance) {
+    if (partyAlliance && swingParams && swingParams.length !== 0) {
       if(swingParams && swingParams.length === 0) {
         partyAlliance.map((d) => {
           result.push({
@@ -544,28 +544,18 @@ const Dashboard = ({
     setSelectedElection(JSON.parse(v))
   }
   const _handleSelectedRegion = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedRegion(v)
   }
   const _handleGroupType = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setGroupType(v)
   }
   const _handleSelectedStateUT = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedStateUT(v)
   }
   const _handleSelectedConstituency = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedConstituency(v)
   }
   const _handleSelectedSeatType = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSeatType(v)
   }
   const _handleSelectedLocality = (v) => {
