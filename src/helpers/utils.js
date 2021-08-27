@@ -247,9 +247,7 @@ export const getDataStateUT = (data, stateUT) => {
   if (stateUT === "All States & UTs") {
     return data
   } else {
-    return data.filter((row) => {
-      return row.ST_NAME === stateUT
-    })
+    return data.filter((row) => row.ST_NAME === stateUT)
   }
 }
 
@@ -264,15 +262,11 @@ export const getDataConstituency = (data, constituency, electionViewType) => {
     return data
   } else {
     if (electionViewType === "general") {
-      return data.filter((row) => {
-        return row.PC_NO === constituency
-      })
+      return data.filter((row) => row.PC_NO === constituency)
     } else {
       return (
         data &&
-        data.filter((row) => {
-          return row.AC_NO === constituency
-        })
+        data.filter((row) => row.AC_NO === constituency)
       )
     }
   }
@@ -359,9 +353,7 @@ export const indPlaceVal = (x) => {
 export const getConstituencyContestantsStatsData = (data, constituency) => {
   if (constituency !== "All Constituencies") {
     let candidates = new Set()
-    data.map((row) => {
-      candidates.add(row.CANDIDATE)
-    })
+    data.map((row) => candidates.add(row.CANDIDATE))
     candidates = [...candidates]
     let stats = []
     let totalVotes = 0

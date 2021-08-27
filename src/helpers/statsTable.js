@@ -527,7 +527,11 @@ const compareSeatsVotesCount = (
         const sortedData  = data.sort((a, b) => a.votes - b.votes)
         const winningParty = sortedData[0].party
         const tempIndex = stats.findIndex((e) => e.party === winningParty)
-        stats[tempIndex].seats = 1
+        if(tempIndex !== -1) {
+          stats[tempIndex].seats = 1
+        } else {
+          stats[stats.length - 1].seats = 1
+        }
         } else {
           let tempGroups = new Set()
           mapDataConstituencies.map((d) => {
@@ -558,7 +562,11 @@ const compareSeatsVotesCount = (
           const tempPartyAlliance = partyAlliance.find((p) => p.PARTY === winningParty)
           const tempAlliance = tempPartyAlliance ? tempPartyAlliance.ALLIANCE : "OTHERS"
           const tempIndex = stats.findIndex((e) => e.alliance === tempAlliance)
-          stats[tempIndex].seats = 1
+          if(tempIndex !== -1) {
+            stats[tempIndex].seats = 1
+          } else {
+            stats[stats.length - 1].seats = 1
+          }
         }
       }
       stats && stats.map((d) => (totalVotes += d.votes))

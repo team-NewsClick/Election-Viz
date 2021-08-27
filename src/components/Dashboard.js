@@ -295,12 +295,14 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
-    if (selectedYearData != []) {
+    if (selectedYearData != [] && Object.keys(colorPartyAlliance).length !== 0) {
       setMapData(
         getMapData(selectedYearData, stateUTOptions, electionViewType, colorPartyAlliance)
       )
+    } else {
+      setMapData({})
     }
-  }, [selectedYearData])
+  }, [selectedYearData, colorPartyAlliance])
 
   useEffect(() => {
     if (electionViewType === "general") {
@@ -337,6 +339,8 @@ const Dashboard = ({
           colorPartyAlliance
         )
       )
+    } else {
+      setConstituenciesResults({})
     }
     setMapWidgetLoading(false)
   }, [
@@ -397,6 +401,7 @@ const Dashboard = ({
       setRegionStatsTableData([])
     }
     setRegionStatsLoading(false)
+    setMapWidgetLoading(false)
   }, [regionStatsSVGData, compareYearData, partiesSwing])
 
   useEffect(() => {
