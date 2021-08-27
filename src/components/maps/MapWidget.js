@@ -93,6 +93,7 @@ const MapWidget = ({
       const filterdGeoJson = getFilteredGeoJson(
         parliamentaryConstituenciesGeojson,
         seatType,
+        stateUTOptions,
         selectedStateUT,
         selectedRegion
       )
@@ -101,6 +102,7 @@ const MapWidget = ({
       const filterdGeoJson = getFilteredGeoJson(
         assemblyConstituenciesGeojson,
         seatType,
+        stateUTOptions,
         selectedStateUT,
         selectedRegion
       )

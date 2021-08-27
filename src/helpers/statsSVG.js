@@ -24,13 +24,23 @@ export const getRegionStatsSVGData = (
   if (electionViewType === "general") {
     filteredGeoJSON.features.map((d) => {
       if(data[d.properties.ST_NAME] && data[d.properties.ST_NAME][d.properties.PC_NO]) {
-        filteredData[`${d.properties.ST_NAME}-${d.properties.PC_NO}`] = data[d.properties.ST_NAME][d.properties.PC_NO]
+        if(filteredData[`${d.properties.ST_NAME}`]) {
+          filteredData[`${d.properties.ST_NAME}`][`${d.properties.PC_NO}`] = data[d.properties.ST_NAME][d.properties.PC_NO]
+        } else {
+          filteredData[`${d.properties.ST_NAME}`] = {}
+          filteredData[`${d.properties.ST_NAME}`][`${d.properties.PC_NO}`] = data[d.properties.ST_NAME][d.properties.PC_NO]
+        }
       }
     })
   } else {
       filteredGeoJSON.features.map((d) => {
-        if(data[selectedStateUT][d.properties.AC_NO]) {
-          filteredData[d.properties.AC_NO] = data[selectedStateUT][d.properties.AC_NO]
+        if(data[d.properties.ST_NAME] && data[d.properties.ST_NAME][d.properties.AC_NO]) {
+          if(filteredData[`${d.properties.ST_NAME}`]) {
+            filteredData[`${d.properties.ST_NAME}`][`${d.properties.AC_NO}`] = data[d.properties.ST_NAME][d.properties.AC_NO]
+          } else {
+            filteredData[`${d.properties.ST_NAME}`] = {}
+            filteredData[`${d.properties.ST_NAME}`][`${d.properties.AC_NO}`] = data[d.properties.ST_NAME][d.properties.AC_NO]
+          }
         }
       })
   }
@@ -47,19 +57,23 @@ export const getRegionStatsSVGData = (
 export const seatsCount = (data, groupType) => {
   let groups = {}, finalData = {}
   if (groupType === "party") {
-    for(const row in data) {
-      if(groups[data[row].party]) {
-        groups[data[row].party].seats += 1
-      } else {
-        groups[data[row].party] = { seats: 1, colour: data[row].color }
+    for(const state in data) {
+      for(const row in data[state]) {
+        if(groups[data[state][row].party]) {
+          groups[data[state][row].party].seats += 1
+        } else {
+          groups[data[state][row].party] = { seats: 1, colour: data[state][row].color }
+        }
       }
     }
   } else {
-    for(const row in data) {
-      if(groups[data[row].alliance]) {
-        groups[data[row].alliance].seats += 1
-      } else {
-        groups[data[row].alliance] = { seats: 1, colour: data[row].color }
+    for(const state in data) {
+      for(const row in data[state]) {
+        if(groups[data[state][row].alliance]) {
+          groups[data[state][row].alliance].seats += 1
+        } else {
+          groups[data[state][row].alliance] = { seats: 1, colour: data[state][row].color }
+        }
       }
     }
   }

@@ -183,6 +183,18 @@ const Dashboard = ({
   }, [selectedStateUT, selectedElection])
 
   useEffect(() => {
+    if(electionViewType === "general") {
+      const tempStateUTOptions = getStateUTs(
+        selectedElection,
+        seatType,
+        electionViewType,
+        parliamentaryConstituenciesGeojson
+      )
+      setStateUTOptions(tempStateUTOptions)
+    }
+  }, [selectedElection])
+
+  useEffect(() => {
     if (electionViewType === "general") {
       if(stateUTOptions && stateUTOptions.length !== 0) {
         setSelectedStateUT(
@@ -310,6 +322,7 @@ const Dashboard = ({
         getFilteredGeoJson(
           parliamentaryConstituenciesGeojson,
           seatType,
+          stateUTOptions,
           selectedStateUT,
           selectedRegion
         )
@@ -319,12 +332,13 @@ const Dashboard = ({
         getFilteredGeoJson(
           assemblyConstituenciesGeojson,
           seatType,
+          stateUTOptions,
           selectedStateUT,
           selectedRegion
         )
       )
     }
-  }, [seatType, electionViewType, selectedRegion, selectedStateUT])
+  }, [seatType, selectedElection, selectedRegion, selectedStateUT, stateUTOptions])
 
   useEffect(() => {
     if (Object.keys(mapData).length !== 0) {
