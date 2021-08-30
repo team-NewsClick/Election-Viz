@@ -11,7 +11,7 @@ export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
 /**
  * Default selected election
  */
-export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "2021" }
+export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "upcoming" }
 
 /**
  * Option when no particular State/UT is selected
@@ -56,7 +56,7 @@ export const LIVE_ELECTION_STATEUT = ["Kerala"]
 /**
  * Upcoming Elections
  */
-const UPCOMING_ELECTIONS = ["Uttar Pradesh", "Uttarakhand", "Manipur", "Goa", "Punjab"]
+const UPCOMING_ELECTIONS = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punjab"]
 
 /**
  * Election details: their type, year and state/UTs that had the election
