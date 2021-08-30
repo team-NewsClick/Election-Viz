@@ -151,6 +151,7 @@ export const ELECTION_YEAR_STATEUT = {
       "Gujarat",
       "Punjab"
     ],
+    2019: ["Jharkhand"],
     2020: ["Bihar", "Delhi"],
     2021: ["West Bengal", "Assam", "Puducherry"],
     Upcoming: UPCOMING_ELECTIONS,
