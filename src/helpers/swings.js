@@ -1,4 +1,4 @@
-import { STATE_UT_DEFAULT_SELECT } from "../constants"
+import { ALL_STATE_UT } from "../constants"
 /**
  * To get the params required for sliders for the alliances' swings
  * @param {Array<Strings>} arr name of alliances
@@ -54,10 +54,15 @@ export const calculateSwings = (
   if (
     constituencyOptions.length !== 0 &&
     partiesSwing.length !== 0 &&
-    selectedStateUT !== STATE_UT_DEFAULT_SELECT &&
+    selectedStateUT !== ALL_STATE_UT &&
     selectedYearData.length !== 0
   ) {
-    const constituencies = constituencyOptions.slice(1)
+    let constituencies
+    if(constituencyOptions.length > 1) {
+      constituencies = constituencyOptions.slice(1)
+    } else {
+      constituencies = constituencyOptions
+    }
     const totalVotesPolledData = calculateConstituencyVotesPolled(
       selectedYearData,
       selectedStateUT,
@@ -98,7 +103,7 @@ const calculateConstituencyVotesPolled = (
   if (electionViewType === "general") {
     totalVotes = constituencies.map((constituency) => {
       const assemblyFilter = selectedState.filter((row) => {
-        return row.PC_NAME === constituency
+        return row.PC_NO == constituency.code
       })
       const total = assemblyFilter
         .map((row) => row.VOTES)
@@ -114,7 +119,7 @@ const calculateConstituencyVotesPolled = (
   } else {
     totalVotes = constituencies.map((constituency) => {
       const assemblyFilter = selectedState.filter((row) => {
-        return row.AC_NAME === constituency
+        return row.AC_NO == constituency.code
       })
       const total = assemblyFilter
         .map((row) => row.VOTES)
@@ -151,7 +156,7 @@ const calculateVoteShare = (
   if (electionViewType === "general") {
     updateVotes = constituencies.map((constituency) => {
       const assemblyFilter = totalVotesPolledData.filter((row) => {
-        return row.PC_NAME === constituency
+        return row.PC_NO == constituency.code
       })
       const newVoteShare = assemblyFilter.map((row) => {
         const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)
@@ -174,7 +179,7 @@ const calculateVoteShare = (
   } else {
     updateVotes = constituencies.map((constituency) => {
       const assemblyFilter = totalVotesPolledData.filter((row) => {
-        return row.AC_NAME === constituency
+        return row.AC_NO == constituency.code
       })
       const newVoteShare = assemblyFilter.map((row) => {
         const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)

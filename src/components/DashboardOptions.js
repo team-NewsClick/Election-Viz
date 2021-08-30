@@ -1,4 +1,4 @@
-import { STATE_UT_DEFAULT_SELECT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
+import { ALL_STATE_UT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
 import CustomAllianceModal from "./modals/CustomAllianceModal"
 import SwingsModal from "./modals/SwingsModal"
 
@@ -143,8 +143,8 @@ const DashboardOptions = ({
             value={selectedConstituency}
           >
             {constituencyOptions.map((d, index) => (
-              <option key={index} value={d}>
-                {d}
+              <option key={index} value={d.code}>
+                {d.name}
               </option>
             ))}
           </select>
@@ -222,7 +222,7 @@ const DashboardOptions = ({
                 </select>
               </div>
             </div>
-            {(selectedStateUT !== STATE_UT_DEFAULT_SELECT && selectedStateUT !== SELECT_STATE_UT) &&
+            {(selectedStateUT !== ALL_STATE_UT && selectedStateUT !== SELECT_STATE_UT) &&
               <div className="flex flex-wrap mx-auto justify-around md:justify-center">
               <div
                 onClick={openCustomAllianceModal}

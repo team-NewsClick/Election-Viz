@@ -1,7 +1,7 @@
 import parliamentSVG from "parliament-svg"
 import stringify from "virtual-dom-stringify"
 import parse from "html-react-parser"
-import { CONSTITUENCIES_DEFAULT_SELECT } from "../../constants"
+import { ALL_CONSTITUENCIES } from "../../constants"
 import Loading from "../helpers/Loading"
 
 const RegionStatsSVG = ({
@@ -55,7 +55,7 @@ const RegionStatsSVG = ({
             ))}
           </div>
           {totalConstituencies > 0 ? (
-            selectedConstituency == CONSTITUENCIES_DEFAULT_SELECT && (
+            selectedConstituency == ALL_CONSTITUENCIES && (
               <div className="text-4xl text-center pt-12">
                 {totalConstituencies}
               </div>

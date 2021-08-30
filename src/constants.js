@@ -8,7 +8,10 @@ export const ELECTION_VIEW_TYPE_DEFAULT = "general"
  */
 export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
 
-export const ELECTION_DEFAULT_SELECT = {type: "assembly", year: "2021"}
+/**
+ * Default selected election
+ */
+export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "2021" }
 
 /**
  * Option when no particular State/UT is selected
@@ -53,7 +56,7 @@ export const LIVE_ELECTION_STATEUT = ["Kerala"]
 /**
  * Upcoming Elections
  */
-const UPCOMING_ELECTIONS = ["Rajasthan", "Maharashtra"]
+const UPCOMING_ELECTIONS = ["Uttar Pradesh", "Uttarakhand", "Manipur", "Goa", "Punjab"]
 
 /**
  * Election details: their type, year and state/UTs that had the election
@@ -148,8 +151,10 @@ export const ELECTION_YEAR_STATEUT = {
       "Gujarat",
       "Punjab"
     ],
-    2021: ["West Bengal"]
-    // Upcoming: UPCOMING_ELECTIONS,
+    2019: ["Jharkhand"],
+    2020: ["Bihar", "Delhi"],
+    2021: ["West Bengal", "Assam", "Puducherry"],
+    Upcoming: UPCOMING_ELECTIONS,
     // Live: LIVE_ELECTION_STATEUT
   }
 }
@@ -158,12 +163,19 @@ export const ELECTION_YEAR_STATEUT = {
  * Distinct colors for states
  */
 export const STATE_COLORS = [
-  "#015069",
-  "#349935",
-  "#F29B34",
-  "#774936",
-  "#8E44AD",
-  "C71E1D"
+  "#A0A0A0",
+  "#195F75",
+  "#4E874E",
+  "#E5993E",
+  "#8A553F",
+  "#9556AF",
+  "#C53F3E",
+  "#1582A5",
+  "#60C361",
+  "#B0A433",
+  "#986B27",
+  "#A54B6C",
+  "#B65857",
 ]
 
 /**
@@ -262,12 +274,12 @@ export const REGION_DEFAULT_SELECT = "All Regions"
 /**
  * Default Selection for States/UTs
  */
-export const STATE_UT_DEFAULT_SELECT = "All States & UTs"
+export const ALL_STATE_UT = "All States & UTs"
 
 /**
  * Default Selection for Constituencies
  */
-export const CONSTITUENCIES_DEFAULT_SELECT = "All Constituencies"
+export const ALL_CONSTITUENCIES = "All Constituencies"
 
 /**
  * Default Selection for Seats Types
