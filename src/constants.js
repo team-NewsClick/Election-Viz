@@ -11,7 +11,7 @@ export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
 /**
  * Default selected election
  */
-export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "upcoming" }
+export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "Upcoming" }
 
 /**
  * Option when no particular State/UT is selected
