@@ -279,7 +279,7 @@ export const ALL_STATE_UT = "All States & UTs"
 /**
  * Default Selection for Constituencies
  */
-export const CONSTITUENCIES_DEFAULT_SELECT = "All Constituencies"
+export const ALL_CONSTITUENCIES = "All Constituencies"
 
 /**
  * Default Selection for Seats Types

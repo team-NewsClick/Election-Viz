@@ -143,8 +143,8 @@ const DashboardOptions = ({
             value={selectedConstituency}
           >
             {constituencyOptions.map((d, index) => (
-              <option key={index} value={d}>
-                {d}
+              <option key={index} value={d.code}>
+                {d.name}
               </option>
             ))}
           </select>

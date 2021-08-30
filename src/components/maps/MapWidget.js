@@ -13,7 +13,7 @@ import {
   DEFAULT_STATE_LINE_COLOR,
   DEFAULT_DISTRICT_LINE_COLOR,
   TRANSPARENT_COLOR,
-  CONSTITUENCIES_DEFAULT_SELECT,
+  ALL_CONSTITUENCIES,
   SELECT_STATE_UT
 } from "../../constants"
 import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
@@ -46,6 +46,7 @@ const MapWidget = ({
   const windowWidth = window.innerWidth
   const [stateName, setStateName] = useState("")
   const [initialstateColors, setInitialStateColors] = useState([])
+  const [layers, setLayers] = useState([])
   const [filterdGeoJsonData, setFilterdGeoJsonData] = useState(
     parliamentaryConstituenciesGeojson
   )
@@ -82,9 +83,7 @@ const MapWidget = ({
       selectedElection
     )
     if (tempInitialStateColors) {
-      const stateColors = tempInitialStateColors.filter((d) => {
-        return d !== undefined
-      })
+      const stateColors = tempInitialStateColors.filter((d) => d !== undefined)
       setInitialStateColors(stateColors)
     }
   }, [stateUTOptions])
@@ -94,6 +93,7 @@ const MapWidget = ({
       const filterdGeoJson = getFilteredGeoJson(
         parliamentaryConstituenciesGeojson,
         seatType,
+        stateUTOptions,
         selectedStateUT,
         selectedRegion
       )
@@ -102,6 +102,7 @@ const MapWidget = ({
       const filterdGeoJson = getFilteredGeoJson(
         assemblyConstituenciesGeojson,
         seatType,
+        stateUTOptions,
         selectedStateUT,
         selectedRegion
       )
@@ -157,6 +158,55 @@ const MapWidget = ({
     }
   }, [selectedStateUT, electionViewType, constituenciesResults])
 
+  useEffect(() => {
+  let tempLayers = []
+  if (
+    selectedElection.type === "assembly" &&
+    selectedStateUT === SELECT_STATE_UT
+  ) {
+    tempLayers = [
+      new GeoJsonLayer({
+        id: "state-geojson-layer-1",
+        data: stateData,
+        stroked: true,
+        filled: true,
+        pickable: true,
+        lineWidthScale: 600,
+        getLineWidth: 4,
+        getLineColor: DEFAULT_STATE_LINE_COLOR,
+        getFillColor: (d) => _fillInitGeoJsonColor(d),
+        onClick: ({ object }) => _handleMap(object)
+      })
+    ]
+  } else {
+    tempLayers = [
+      new GeoJsonLayer({
+        id: "constituency-geojson-layer-1",
+        data: filterdGeoJsonData,
+        stroked: true,
+        filled: true,
+        pickable: true,
+        lineWidthScale: 200,
+        getFillColor: (d) => _fillGeoJsonColor(d),
+        getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
+        getLineWidth: electionViewType === "general" ? 10 : 2,
+        onClick: ({ object }) => _handleMap(object)
+      }),
+      new GeoJsonLayer({
+        id: "state-geojson-layer-2",
+        data: stateData,
+        stroked: true,
+        filled: false,
+        lineWidthScale: 600,
+        getLineColor: DEFAULT_STATE_LINE_COLOR,
+        getFillColor: TRANSPARENT_COLOR,
+        getLineWidth: 4
+      })
+    ]
+  }
+  setLayers(tempLayers)
+  }, [constituenciesResults, filterdGeoJsonData])
+
   const _handleMap = (object) => {
     const state = object.properties.ST_NAME
     const stateObject = STATE_COORDINATES.filter((row) => {
@@ -175,40 +225,12 @@ const MapWidget = ({
   }
 
   const _fillGeoJsonColor = (d) => {
-    let results = null
-    let sortByKey = null
-    if (electionViewType === "general") {
-      sortByKey = d.properties.PC_NAME
-      results = constituenciesResults.find((row) => {
-        if (
-          (sortByKey == row.pc_name &&
-            selectedStateUT === d.properties.ST_NAME) ||
-          (sortByKey == row.pc_name &&
-            selectedStateUT === ALL_STATE_UT)
-        ) {
-          return row
-        }
-      })
-    } else {
-      sortByKey = d.properties.AC_NAME
-      results = constituenciesResults.find((row) => {
-        if (selectedStateUT === ALL_STATE_UT) {
-          if (
-            sortByKey == row.ac_name &&
-            stateUTOptions.indexOf(d.properties.ST_NAME) > -1
-          ) {
-            return row
-          }
-        } else {
-          if (
-            sortByKey == row.ac_name &&
-            selectedStateUT == d.properties.ST_NAME
-          ) {
-            return row
-          }
-        }
-      })
-    }
+    let results = null, sortByStateKey = null, sortByConstituencyKey = null
+    sortByStateKey = d.properties.ST_NAME
+    sortByConstituencyKey = electionViewType === "general"
+      ? d.properties.PC_NO
+      : d.properties.AC_NO
+    results = constituenciesResults[sortByStateKey][sortByConstituencyKey]
     if (results) {
       const hexColor = hexRgb(results.color)
       return [hexColor.red, hexColor.green, hexColor.blue]
@@ -218,13 +240,13 @@ const MapWidget = ({
   }
 
   const _fillInitGeoJsonColor = (d) => {
-    const sortByKey = d.properties.ST_NM
+    const sortByKey = d.properties.ST_NAME
     const results = initialstateColors.find((row) => {
       if (row.state === sortByKey) {
         return row
       }
     })
-    if (results) {
+    if(results) {
       const hexColor = hexRgb(results.color)
       return [hexColor.red, hexColor.green, hexColor.blue]
     } else {
@@ -233,22 +255,20 @@ const MapWidget = ({
   }
 
   const _getTooltip = ({ object }) => {
-    if (object) {
+    if (object && Object.keys(mapData).length !== 0) {
+      let results = null, sortByStateKey = null, sortByConstituencyKey = null
       if (electionViewType === "general") {
         if (
-          selectedConstituency === object.properties.PC_NAME ||
-          selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
+          selectedConstituency == object.properties.PC_NO ||
+          selectedConstituency === ALL_CONSTITUENCIES ||
           selectedStateUT === ALL_STATE_UT
         ) {
-          const sortByKey = object.properties.PC_NAME
-          const results = mapData.constituencies.find((row) => {
-            if (sortByKey == row.PC_NAME) {
-              return row
-            }
-          })
+          sortByStateKey = object.properties.ST_NAME
+          sortByConstituencyKey = object.properties.PC_NO
+          results = mapData[sortByStateKey][sortByConstituencyKey]
           let voteShare = ""
           results &&
-            results.stats.map((d) => {
+            results.map((d) => {
               voteShare =
                 voteShare +
                 `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
@@ -261,8 +281,8 @@ const MapWidget = ({
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
                 <div class="pb-1">
-                  <div>Constituency: <b>${results.PC_NAME}</b></div>
-                  <div>Winner: <b>${results.stats[0].candidate}</b></div>
+                  <div>Constituency: <b>${object.properties.PC_NAME}</b></div>
+                  <div>Winner: <b>${results[0].candidate}</b></div>
                 </div>
                 <div>
                   <div>Vote Share:</div>
@@ -277,19 +297,16 @@ const MapWidget = ({
         }
       } else {
         if (
-          selectedConstituency === object.properties.AC_NAME ||
-          selectedConstituency === CONSTITUENCIES_DEFAULT_SELECT ||
+          selectedConstituency == object.properties.AC_NO ||
+          selectedConstituency === ALL_CONSTITUENCIES ||
           selectedStateUT === ALL_STATE_UT
         ) {
-          const sortByKey = object.properties.AC_NAME
-          const results = mapData.constituencies.find((row) => {
-            if (sortByKey == row.AC_NAME) {
-              return row
-            }
-          })
+          sortByStateKey = object.properties.ST_NAME
+          sortByConstituencyKey = object.properties.AC_NO
+          results = mapData[sortByStateKey][sortByConstituencyKey]
           let voteShare = ""
           results &&
-            results.stats.map((d) => {
+            results.map((d) => {
               voteShare =
                 voteShare +
                 `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
@@ -300,8 +317,8 @@ const MapWidget = ({
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
                 <div class="pb-1">
-                  <div>Constituency: <b>${results.AC_NAME}</b></div>
-                  <div>Winner: <b>${results.stats[0].candidate}</b></div>
+                  <div>Constituency: <b>${object.properties.AC_NAME}</b></div>
+                  <div>Winner: <b>${results[0].candidate}</b></div>
                 </div>
                 <div>Vote Share:</div>
                     <div>
@@ -315,53 +332,6 @@ const MapWidget = ({
         }
       }
     }
-  }
-
-  let layers = []
-  layers = [
-    new GeoJsonLayer({
-      id: "constituency-geojson-layer-1",
-      data: filterdGeoJsonData,
-      stroked: true,
-      filled: true,
-      pickable: true,
-      lineWidthScale: 200,
-      getFillColor: (d) => _fillGeoJsonColor(d),
-      getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
-      getLineWidth: electionViewType === "general" ? 10 : 2,
-      onClick: ({ object }) => _handleMap(object)
-    })
-  ]
-
-  if (
-    selectedElection.type === "assembly" &&
-    selectedStateUT === SELECT_STATE_UT
-  ) {
-    layers.push(
-      new GeoJsonLayer({
-        id: "state-geojson-layer-2",
-        data: stateData,
-        stroked: true,
-        filled: true,
-        lineWidthScale: 600,
-        getLineColor: DEFAULT_STATE_LINE_COLOR,
-        getFillColor: (d) => _fillInitGeoJsonColor(d),
-        getLineWidth: 4
-      })
-    )
-  } else {
-    layers.push(
-      new GeoJsonLayer({
-        id: "state-geojson-layer-2",
-        data: stateData,
-        stroked: true,
-        filled: false,
-        lineWidthScale: 600,
-        getLineColor: DEFAULT_STATE_LINE_COLOR,
-        getFillColor: TRANSPARENT_COLOR,
-        getLineWidth: 4
-      })
-    )
   }
 
   const _getCursor = (e) => {

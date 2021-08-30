@@ -45,8 +45,8 @@ const Elections = () => {
     parliamentaryConstituenciesGeojson.length === 0 ||
     assemblyConstituenciesGeojson.length === 0
   ) {
-    return <div style={{ minHeight: "100vh", height: "100%", margin: "auto" }}>
-            <Loading />
+    return <div style={{ margin: "auto", paddingTop: "50vh" }}>
+            <Loading/>
           </div>
   } else {
     return (

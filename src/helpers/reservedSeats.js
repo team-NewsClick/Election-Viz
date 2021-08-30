@@ -12,12 +12,16 @@ import { getDistricts } from "../helpers/regions"
 export const getFilteredGeoJson = (
   geoJson,
   seatType,
+  stateUTOptions,
   selectedStateUT,
   selectedRegion
 ) => {
   let filteredBySeatGeoJson = [], filteredByRegionGeoJSON = [], filteredByStateGeoJSON = [], districts = []
   if(selectedStateUT === ALL_STATE_UT || selectedStateUT === SELECT_STATE_UT) {
-    filteredByStateGeoJSON = geoJson.features
+    geoJson.features.findIndex((d) => {
+      const tempBoolean = d.properties.ST_NAME === stateUTOptions.find((st) => st === d.properties.ST_NAME)
+      if(tempBoolean) filteredByStateGeoJSON.push(d)
+    })
   } else {
     filteredByStateGeoJSON = geoJson.features.filter((d) => d.properties.ST_NAME === selectedStateUT)
   }
