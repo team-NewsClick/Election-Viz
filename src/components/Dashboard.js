@@ -23,7 +23,10 @@ import {
   SEAT_TYPE_OPTIONS,
   LIVE_ELECTION_TYPE,
   ELECTION_DEFAULT_SELECT,
-  NO_CONSTITUENCIES
+  NO_CONSTITUENCIES,
+  UPCOMING_ELECTION_YEAR,
+  UPCOMING_ELECTION,
+  UPCOMING_ELECTION_TYPE
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -92,10 +95,7 @@ const Dashboard = ({
   useEffect(() => {
     setRegionStatsLoading(true)
     setMapWidgetLoading(true)
-  }, [
-    selectedYearData,
-    selectedStateUTData
-  ])
+  }, [selectedYearData, selectedStateUTData])
 
   useEffect(() => {
     if (electionViewType === "general") {
@@ -222,15 +222,21 @@ const Dashboard = ({
       const electionType = selectedElection.type
       const year = selectedElection.year
       let URL, COMPARE_URL, COMPARE_ELECTION
-      if (selectedElection === LIVE_ELECTION) {
+      if (year === LIVE_ELECTION_YEAR) {
         URL = `${process.env.LIVE_ELECTION}`
-        COMPARE_URL = `/data/csv/${LIVE_ELECTION_TYPE}_${
-          parseInt(LIVE_ELECTION_YEAR) - 5
-        }.csv`
+        COMPARE_URL = `/data/csv/${LIVE_ELECTION_TYPE}_${parseInt(LIVE_ELECTION_YEAR) - 5}.csv`
         COMPARE_ELECTION = {
           type: LIVE_ELECTION_TYPE,
           year: parseInt(LIVE_ELECTION_YEAR) - 5
         }
+      } if(year === UPCOMING_ELECTION) {
+        URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+        COMPARE_URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR) - 5}.csv`
+        COMPARE_ELECTION = {
+          type: UPCOMING_ELECTION_TYPE,
+          year: parseInt(UPCOMING_ELECTION_YEAR) - 5
+        }
+        // setSelectedElection({type: UPCOMING_ELECTION_TYPE, year: UPCOMING_ELECTION_YEAR})
       } else {
         URL = `/data/csv/${electionType}_${year}.csv`
         COMPARE_URL = `/data/csv/${electionType}_${parseInt(year) - 5}.csv`
@@ -239,6 +245,7 @@ const Dashboard = ({
           year: (parseInt(year) - 5).toString()
         }
       }
+      console.log({URL, COMPARE_URL, COMPARE_ELECTION})
       axios
         .get(URL)
         .then((response) => {
