@@ -66,7 +66,7 @@ const Dashboard = ({
   const [electionOptions, setElectionOptions] = useState([SELECT_ELECTION])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
-  const [selectedStateUT, setSelectedStateUT] = useState(ALL_STATE_UT)
+  const [selectedStateUT, setSelectedStateUT] = useState(SELECT_STATE_UT)
   const [selectedConstituency, setSelectedConstituency] = useState(NO_CONSTITUENCIES)
   const [selectedStateUTData, setSelectedStateUTData] = useState([])
   const [mapData, setMapData] = useState({})
@@ -134,6 +134,13 @@ const Dashboard = ({
       setSelectedElection(ELECTION_DEFAULT_SELECT)
     }
   }, [electionViewType])
+
+  useEffect(() => {
+    if(selectedElection.year === UPCOMING_ELECTION && selectedStateUT !== SELECT_STATE_UT) {
+      setSelectedElection({type: UPCOMING_ELECTION_TYPE, year: UPCOMING_ELECTION_YEAR})
+      setGetAssemblyStateElectionOptions(false)
+    }
+  }, [selectedStateUT])
 
   useEffect(() => {
     if (
@@ -236,7 +243,6 @@ const Dashboard = ({
           type: UPCOMING_ELECTION_TYPE,
           year: parseInt(UPCOMING_ELECTION_YEAR) - 5
         }
-        // setSelectedElection({type: UPCOMING_ELECTION_TYPE, year: UPCOMING_ELECTION_YEAR})
       } else {
         URL = `/data/csv/${electionType}_${year}.csv`
         COMPARE_URL = `/data/csv/${electionType}_${parseInt(year) - 5}.csv`
@@ -245,7 +251,6 @@ const Dashboard = ({
           year: (parseInt(year) - 5).toString()
         }
       }
-      console.log({URL, COMPARE_URL, COMPARE_ELECTION})
       axios
         .get(URL)
         .then((response) => {

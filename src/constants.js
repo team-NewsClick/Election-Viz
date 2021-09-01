@@ -61,7 +61,7 @@ export const LIVE_ELECTION_STATEUT = ["Kerala"]
 /**
  * Upcoming Election Year
  */
- export const UPCOMING_ELECTION_YEAR = "2022"
+ export const UPCOMING_ELECTION_YEAR = "2017"
 
 /**
  * Upcoming Election
