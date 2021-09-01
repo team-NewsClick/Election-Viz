@@ -9,7 +9,8 @@ import {
   NO_CONSTITUENCIES,
   LIVE_ELECTION,
   LIVE_ELECTION_TYPE,
-  STATE_COLORS
+  STATE_COLORS,
+  UPCOMING_ELECTION
 } from "../constants"
 
 /**
@@ -155,7 +156,6 @@ export const getElectionOptions = (
     } else {
       for (const ELECTION in ELECTION_YEAR_STATEUT) {
         for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
-          const tempStates = ELECTION_YEAR_STATEUT[ELECTION][YEAR]
           if(YEAR === LIVE_ELECTION) {
             let tempValue = LIVE_ELECTION
             let tempLabel = LIVE_ELECTION
@@ -179,6 +179,10 @@ export const getElectionOptions = (
       value: SELECT_ELECTION,
       label: SELECT_ELECTION
     })
+    if(selectedStateUT !== SELECT_STATE_UT) {
+      const upcomingIndex = electionOptions.indexOf((d) => d.value.year === UPCOMING_ELECTION)
+      electionOptions.splice(upcomingIndex, 1)
+    }
   }
   electionOptions = electionOptions.reverse()
   return electionOptions
