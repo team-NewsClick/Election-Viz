@@ -54,6 +54,21 @@ export const LIVE_ELECTION_TYPE = "assembly"
 export const LIVE_ELECTION_STATEUT = ["Kerala"]
 
 /**
+ * Upcoming Election Type
+ */
+ export const UPCOMING_ELECTION_TYPE = "assembly"
+
+/**
+ * Upcoming Election Year
+ */
+ export const UPCOMING_ELECTION_YEAR = "2017"
+
+/**
+ * Upcoming Election
+ */
+ export const UPCOMING_ELECTION = "Upcoming"
+
+/**
  * Upcoming Elections
  */
 const UPCOMING_ELECTIONS = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punjab"]
