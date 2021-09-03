@@ -1,4 +1,3 @@
-import { filter } from "virtual-dom-stringify/lib/self-closing-tags"
 import { REGION_DEFAULT_SELECT, SEAT_DEFAULT_SELECT, SELECT_STATE_UT, ALL_STATE_UT } from "../constants"
 import { getDistricts } from "../helpers/regions"
 
