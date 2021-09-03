@@ -71,7 +71,7 @@ export const LIVE_ELECTION_STATEUT = ["Kerala"]
 /**
  * Upcoming Elections
  */
-const UPCOMING_ELECTIONS = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punjab"]
+const UPCOMING_ELECTIONS = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punjab", "Manipur"]
 
 /**
  * Election details: their type, year and state/UTs that had the election
