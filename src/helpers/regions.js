@@ -17,6 +17,11 @@ export const getRegions = (stateUT) => {
 }
 
 export const getDistricts = (stateUT, region) => {
-  const districts = allRegions[stateUT][region]
+  let districts
+  if(allRegions[stateUT]) {
+    districts = allRegions[stateUT][region]
+  } else {
+    districts = []
+  }
   return districts
 }
