@@ -40,7 +40,7 @@ export const getFilteredGeoJson = (
   } else {
     districts = getDistricts(selectedStateUT, selectedRegion)
     filteredByRegionGeoJSON = filteredBySeatGeoJson.filter((d) => {
-      if (districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0) {
+      if (districts && districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0) {
         return d
       }
     })
