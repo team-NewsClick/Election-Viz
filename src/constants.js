@@ -74,6 +74,16 @@ export const LIVE_ELECTION_STATEUT = ["Kerala"]
 const UPCOMING_ELECTIONS_STATEUT = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punjab", "Manipur"]
 
 /**
+ * Public GEOJSON URL
+ */
+export const GEOJSON_PATH = "/data/geojson"
+
+/**
+ * Public CSV URL
+ */
+ export const CSV_PATH = "/data/csv"
+
+/**
  * Election details: their type, year and state/UTs that had the election
  */
 export const ELECTION_YEAR_STATEUT = {
