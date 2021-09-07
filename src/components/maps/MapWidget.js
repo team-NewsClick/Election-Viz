@@ -219,7 +219,7 @@ const MapWidget = ({
       ? d.properties.PC_NO
       : d.properties.AC_NO
     results = constituenciesResults[sortByStateKey] && constituenciesResults[sortByStateKey][sortByConstituencyKey]
-    if (results) {
+    if (results && results.color) {
       const hexColor = hexRgb(results.color)
       return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha*255]
     } else {
@@ -234,7 +234,7 @@ const MapWidget = ({
         return row
       }
     })
-    if(results) {
+    if(results && results.color) {
       const hexColor = hexRgb(results.color)
       return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha*255]
     } else {
