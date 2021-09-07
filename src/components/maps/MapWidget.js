@@ -29,8 +29,7 @@ import { getFilteredGeoJson } from "../../helpers/reservedSeats"
  */
 const MapWidget = ({
   stateGeojson,
-  parliamentaryConstituenciesGeojson,
-  assemblyConstituenciesGeojson,
+  constituenciesGeojson,
   onMapUpdate,
   electionViewType,
   stateUTOptions,
@@ -48,7 +47,7 @@ const MapWidget = ({
   const [initialstateColors, setInitialStateColors] = useState([])
   const [layers, setLayers] = useState([])
   const [filterdGeoJsonData, setFilterdGeoJsonData] = useState(
-    parliamentaryConstituenciesGeojson
+    constituenciesGeojson
   )
   const [stateData, setStateData] = useState(stateGeojson)
   const [initialViewState, setInitialViewState] = useState(
@@ -89,25 +88,14 @@ const MapWidget = ({
   }, [stateUTOptions])
 
   useEffect(() => {
-    if (electionViewType === "general") {
-      const filterdGeoJson = getFilteredGeoJson(
-        parliamentaryConstituenciesGeojson,
-        seatType,
-        stateUTOptions,
-        selectedStateUT,
-        selectedRegion
-      )
-      setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
-    } else {
-      const filterdGeoJson = getFilteredGeoJson(
-        assemblyConstituenciesGeojson,
-        seatType,
-        stateUTOptions,
-        selectedStateUT,
-        selectedRegion
-      )
-      setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
-    }
+    const filterdGeoJson = getFilteredGeoJson(
+      constituenciesGeojson,
+      seatType,
+      stateUTOptions,
+      selectedStateUT,
+      selectedRegion
+    )
+    setFilterdGeoJsonData(() => ({ ...filterdGeoJson }))
     setStateData(() => ({ ...stateGeojson }))
   }, [stateName, constituenciesResults, seatType, selectedRegion])
 

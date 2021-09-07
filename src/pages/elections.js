@@ -9,10 +9,6 @@ import Loading from "../components/helpers/Loading"
  */
 const Elections = () => {
   const [stateGeojson, setStateGeojson] = useState([])
-  const [
-    parliamentaryConstituenciesGeojson,
-    setParliamentaryConstituenciesGeojson
-  ] = useState([])
   const [assemblyConstituenciesGeojson, setAssemblyConstituenciesGeojson] =
     useState([])
 
@@ -25,13 +21,6 @@ const Elections = () => {
       })
       .catch((e) => setStateGeojson([]))
     axios
-      .get(`/data/geojson/parliament.geojson`)
-      .then((response) => {
-        const parsedData = response.data
-        setParliamentaryConstituenciesGeojson(parsedData)
-      })
-      .catch((e) => setParliamentaryConstituenciesGeojson([]))
-    axios
       .get(`/data/geojson/assembly.geojson`)
       .then((response) => {
         const parsedData = response.data
@@ -42,7 +31,6 @@ const Elections = () => {
 
   if (
     stateGeojson.length === 0 ||
-    parliamentaryConstituenciesGeojson.length === 0 ||
     assemblyConstituenciesGeojson.length === 0
   ) {
     return <div style={{ margin: "auto", paddingTop: "50vh" }}>
@@ -55,9 +43,6 @@ const Elections = () => {
         <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0">
           <Dashboard
             stateGeojson={stateGeojson}
-            parliamentaryConstituenciesGeojson={
-              parliamentaryConstituenciesGeojson
-            }
             assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
           />
         </div>

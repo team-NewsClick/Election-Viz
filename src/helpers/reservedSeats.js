@@ -1,4 +1,9 @@
-import { REGION_DEFAULT_SELECT, SEAT_DEFAULT_SELECT, SELECT_STATE_UT, ALL_STATE_UT } from "../constants"
+import {
+  REGION_DEFAULT_SELECT,
+  SEAT_DEFAULT_SELECT,
+  SELECT_STATE_UT,
+  ALL_STATE_UT
+} from "../constants"
 import { getDistricts } from "../helpers/regions"
 
 /**
@@ -15,14 +20,26 @@ export const getFilteredGeoJson = (
   selectedStateUT,
   selectedRegion
 ) => {
-  let filteredBySeatGeoJson = [], filteredByRegionGeoJSON = [], filteredByStateGeoJSON = [], districts = []
-  if(selectedStateUT === ALL_STATE_UT || selectedStateUT === SELECT_STATE_UT) {
-    geoJson.features.findIndex((d) => {
-      const tempBoolean = d.properties.ST_NAME === stateUTOptions.find((st) => st === d.properties.ST_NAME)
-      if(tempBoolean) filteredByStateGeoJSON.push(d)
-    })
-  } else {
-    filteredByStateGeoJSON = geoJson.features.filter((d) => d.properties.ST_NAME === selectedStateUT)
+  let filteredBySeatGeoJson = [],
+    filteredByRegionGeoJSON = [],
+    filteredByStateGeoJSON = [],
+    districts = []
+  if (geoJson.length !== 0) {
+    if (
+      selectedStateUT === ALL_STATE_UT ||
+      selectedStateUT === SELECT_STATE_UT
+    ) {
+      geoJson.features.findIndex((d) => {
+        const tempBoolean =
+          d.properties.ST_NAME ===
+          stateUTOptions.find((st) => st === d.properties.ST_NAME)
+        if (tempBoolean) filteredByStateGeoJSON.push(d)
+      })
+    } else {
+      filteredByStateGeoJSON = geoJson.features.filter(
+        (d) => d.properties.ST_NAME === selectedStateUT
+      )
+    }
   }
   if (seatType !== SEAT_DEFAULT_SELECT) {
     filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => {
@@ -40,7 +57,10 @@ export const getFilteredGeoJson = (
   } else {
     districts = getDistricts(selectedStateUT, selectedRegion)
     filteredByRegionGeoJSON = filteredBySeatGeoJson.filter((d) => {
-      if (districts && districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0) {
+      if (
+        districts &&
+        districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0
+      ) {
         return d
       }
     })
