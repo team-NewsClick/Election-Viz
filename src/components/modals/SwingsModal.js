@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react"
-import axios from "axios"
-import { csvParse } from "d3-dsv"
 import { ALL_STATE_UT } from "../../constants"
 import { getParams, addParams } from "../../helpers/swings"
 
@@ -19,7 +17,6 @@ const SwingsModal = ({
   advanceReset
 }) => {
   const [partyAllianceParams, setPartyAllianceParams] = useState([])
-  const [partyAllianceInit, setPartyAllianceInit] = useState([])
   const [swingTotal, setSwingTotal] = useState(0)
   const [swingUpdate, setSwingUpdate] = useState()
 

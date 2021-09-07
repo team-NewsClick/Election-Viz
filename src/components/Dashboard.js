@@ -26,7 +26,8 @@ import {
   NO_CONSTITUENCIES,
   UPCOMING_ELECTION_YEAR,
   UPCOMING_ELECTION,
-  UPCOMING_ELECTION_TYPE
+  UPCOMING_ELECTION_TYPE,
+  ELECTION_YEAR_STATEUT
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -229,14 +230,14 @@ const Dashboard = ({
       const electionType = selectedElection.type
       const year = selectedElection.year
       let URL, COMPARE_URL, COMPARE_ELECTION
-      if (year === LIVE_ELECTION_YEAR) {
+      if (year === LIVE_ELECTION) {
         URL = `${process.env.LIVE_ELECTION}`
         COMPARE_URL = `/data/csv/${LIVE_ELECTION_TYPE}_${parseInt(LIVE_ELECTION_YEAR) - 5}.csv`
         COMPARE_ELECTION = {
           type: LIVE_ELECTION_TYPE,
           year: parseInt(LIVE_ELECTION_YEAR) - 5
         }
-      } if(year === UPCOMING_ELECTION) {
+      } else if(year === UPCOMING_ELECTION) {
         URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
         COMPARE_URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR) - 5}.csv`
         COMPARE_ELECTION = {
@@ -258,31 +259,29 @@ const Dashboard = ({
           setSelectedYearData(parsedData)
         })
         .catch((e) => setSelectedYearData([]))
-      axios
-        .get(COMPARE_URL)
-        .then((response) => {
-          setCompareElection(COMPARE_ELECTION)
-        })
-        .catch((e) => setCompareElection(compareOptions[0].value))
-    }
+      if(COMPARE_ELECTION.year in ELECTION_YEAR_STATEUT[electionType]) {
+        setCompareElection(COMPARE_ELECTION)
+      } else {
+        setCompareElection(compareOptions[0].value)
+      }
+      }
   }, [compareOptions, selectedElection])
 
   useEffect(() => {
     if (compareElection) {
-      const electionType = selectedElection.type
-      const year = selectedElection.year
-      const compareElectionType = compareElection.type
-      const compareYear = compareElection.year
-      if (compareElectionType === electionType && compareYear === year) {
-        setCompareYearData([])
+      let compareElectionType = compareElection.type
+      let compareYear = compareElection.year
+      if(ELECTION_YEAR_STATEUT[compareElectionType]
+        && compareYear in ELECTION_YEAR_STATEUT[compareElectionType]) {
+          axios
+            .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
+            .then((response) => {
+              const parsedData = csvParse(response.data)
+              setCompareYearData(parsedData)
+            })
+            .catch((e) => setCompareYearData([]))
       } else {
-        axios
-          .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
-          .then((response) => {
-            const parsedData = csvParse(response.data)
-            setCompareYearData(parsedData)
-          })
-          .catch((e) => setCompareYearData([]))
+        setCompareYearData([])
       }
     }
   }, [compareElection])

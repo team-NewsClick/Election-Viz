@@ -7,7 +7,14 @@ import {
   getColorPartyAlliance
 } from "../../helpers/customAlliance"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import { FIRST_SELECT_STATEUT, LIVE_ELECTION, PARTY_ALLIANCE_COLORS } from "../../constants"
+import {
+  FIRST_SELECT_STATEUT,
+  LIVE_ELECTION,
+  UPCOMING_ELECTION,
+  UPCOMING_ELECTION_YEAR,
+  UPCOMING_ELECTION_TYPE,
+  PARTY_ALLIANCE_COLORS
+} from "../../constants"
 /**
  * A modal box with customizable alliances
  * @param {Array<Object>} param0 Election result of a constituency
@@ -35,6 +42,8 @@ const CustomAllianceModal = ({
     let URL
     if(selectedElection === LIVE_ELECTION) {
       URL = `${process.env.LIVE_ELECTION}`
+    } else if(selectedElection.year === UPCOMING_ELECTION) {
+      URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
     } else {
       const electionType = selectedElection.type
       const year = selectedElection.year
@@ -46,9 +55,7 @@ const CustomAllianceModal = ({
         const parsedData = csvParse(response.data)
         setYearData(parsedData)
       })
-      .catch((e) => {
-        setYearData([])
-      })
+      .catch((e) => setYearData([]))
     axios.get(`/data/csv/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setDefaultPartyAlliance(parsedData)
@@ -141,6 +148,8 @@ const CustomAllianceModal = ({
     let URL
     if(selectedElection === LIVE_ELECTION) {
       URL = `${process.env.LIVE_ELECTION}`
+    } else if(selectedElection.year === UPCOMING_ELECTION) {
+      URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
     } else {
       const electionType = selectedElection.type
       const year = selectedElection.year
@@ -152,11 +161,8 @@ const CustomAllianceModal = ({
         const parsedData = csvParse(response.data)
         setYearData(parsedData)
       })
-      .catch((e) => {
-        setYearData([])
-      })
-    setResetAlliances(false)
-  }
+      .catch((e) => setYearData([]))
+      setResetAlliances(false)  }
 
   return (
     <div
