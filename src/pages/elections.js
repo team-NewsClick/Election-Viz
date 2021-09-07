@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Head from 'next/head'
 import axios from "axios"
 import Dashboard from "../components/Dashboard"
 import Loading from "../components/helpers/Loading"
@@ -39,6 +40,11 @@ const Elections = () => {
   } else {
     return (
       <div className="grid grid-cols-12">
+        <Head>
+          <title>Indian Election Maps</title>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
         <div className="col-span-2 sm:inline-block hidden"></div>
         <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0">
           <Dashboard
