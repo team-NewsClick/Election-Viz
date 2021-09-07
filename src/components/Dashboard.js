@@ -26,7 +26,8 @@ import {
   NO_CONSTITUENCIES,
   UPCOMING_ELECTION_YEAR,
   UPCOMING_ELECTION,
-  UPCOMING_ELECTION_TYPE
+  UPCOMING_ELECTION_TYPE,
+  CSV_PATH
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -53,7 +54,11 @@ import { calculateSwings } from "../helpers/swings"
 /**
  * Controls/Settings for the visualization of infographics
  */
-const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
+const Dashboard = ({
+  stateGeojson,
+  assemblyConstituenciesGeojson,
+  parliamentaryConstituenciesGeojson
+}) => {
   const windowWidth = window.innerWidth
   const [electionViewType, SetElectionViewType] = useState(
     ELECTION_VIEW_TYPE_ASSEMBLY
@@ -62,10 +67,6 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
     ELECTION_DEFAULT_SELECT
   )
   const [electionOptions, setElectionOptions] = useState([SELECT_ELECTION])
-  const [
-    parliamentaryConstituenciesGeojson,
-    setParliamentaryConstituenciesGeojson
-  ] = useState([])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(SELECT_STATE_UT)
@@ -104,30 +105,21 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
 
   useEffect(() => {
     if (electionViewType === "general") {
-      axios
-        .get(`/data/geojson/parliament.geojson`)
-        .then((response) => {
-          const parsedData = response.data
-          setParliamentaryConstituenciesGeojson(parsedData)
-        })
-        .catch((e) => setParliamentaryConstituenciesGeojson([]))
       const tempElectionOptions = getElectionOptions(
         electionViewType,
         selectedStateUT
       )
       setElectionOptions(tempElectionOptions)
       setSelectedElection(tempElectionOptions[0].value)
-      if (parliamentaryConstituenciesGeojson.length !== 0) {
-        const tempStateUTOptions = getStateUTs(
-          tempElectionOptions[0].value,
-          seatType,
-          electionViewType,
-          parliamentaryConstituenciesGeojson
-        )
-        setStateUTOptions(tempStateUTOptions)
-        setSelectedStateUT(tempStateUTOptions[0])
-        setSelectedStateUT(ALL_STATE_UT)
-      }
+      const tempStateUTOptions = getStateUTs(
+        tempElectionOptions[0].value,
+        seatType,
+        electionViewType,
+        parliamentaryConstituenciesGeojson
+      )
+      setStateUTOptions(tempStateUTOptions)
+      setSelectedStateUT(tempStateUTOptions[0])
+      setSelectedStateUT(ALL_STATE_UT)
     }
     if (electionViewType === "assembly") {
       setSelectedElection(SELECT_ELECTION)
@@ -210,10 +202,7 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
   }, [selectedStateUT, selectedElection])
 
   useEffect(() => {
-    if (
-      electionViewType === "general" &&
-      parliamentaryConstituenciesGeojson.length !== 0
-    ) {
+    if (electionViewType === "general") {
       const tempStateUTOptions = getStateUTs(
         selectedElection,
         seatType,
@@ -254,7 +243,7 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
       let URL, COMPARE_URL, COMPARE_ELECTION
       if (year === LIVE_ELECTION_YEAR) {
         URL = `${process.env.LIVE_ELECTION}`
-        COMPARE_URL = `/data/csv/${LIVE_ELECTION_TYPE}_${
+        COMPARE_URL = `${CSV_PATH}/${LIVE_ELECTION_TYPE}_${
           parseInt(LIVE_ELECTION_YEAR) - 5
         }.csv`
         COMPARE_ELECTION = {
@@ -263,10 +252,10 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
         }
       }
       if (year === UPCOMING_ELECTION) {
-        URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${parseInt(
+        URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(
           UPCOMING_ELECTION_YEAR
         )}.csv`
-        COMPARE_URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${
+        COMPARE_URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${
           parseInt(UPCOMING_ELECTION_YEAR) - 5
         }.csv`
         COMPARE_ELECTION = {
@@ -274,8 +263,8 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
           year: parseInt(UPCOMING_ELECTION_YEAR) - 5
         }
       } else {
-        URL = `/data/csv/${electionType}_${year}.csv`
-        COMPARE_URL = `/data/csv/${electionType}_${parseInt(year) - 5}.csv`
+        URL = `${CSV_PATH}/${electionType}_${year}.csv`
+        COMPARE_URL = `${CSV_PATH}/${electionType}_${parseInt(year) - 5}.csv`
         COMPARE_ELECTION = {
           type: electionType,
           year: (parseInt(year) - 5).toString()
@@ -307,7 +296,9 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
         setCompareYearData([])
       } else {
         axios
-          .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
+          .get(
+            `${CSV_PATH}/${compareElectionType}_${parseInt(compareYear)}.csv`
+          )
           .then((response) => {
             const parsedData = csvParse(response.data)
             setCompareYearData(parsedData)
@@ -367,10 +358,7 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
   }, [selectedYearData, colorPartyAlliance])
 
   useEffect(() => {
-    if (
-      electionViewType === "general" &&
-      parliamentaryConstituenciesGeojson.length !== 0
-    ) {
+    if (electionViewType === "general") {
       setFilteredGeoJSON(
         getFilteredGeoJson(
           parliamentaryConstituenciesGeojson,
@@ -518,7 +506,7 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
     if (partiesSwing.length !== 0) {
       if (selectedElection !== LIVE_ELECTION) {
         axios
-          .get(`/data/csv/${electionType}_${year}.csv`)
+          .get(`${CSV_PATH}/${electionType}_${year}.csv`)
           .then((response) => {
             const parsedData = csvParse(response.data)
             if (selectedStateUT === ALL_STATE_UT) {
@@ -766,10 +754,6 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
             <div>
               <MapWidget
                 stateGeojson={stateGeojson}
-                // parliamentaryConstituenciesGeojson={
-                //   parliamentaryConstituenciesGeojson
-                // }
-                // assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
                 constituenciesGeojson={
                   electionViewType === "general"
                     ? parliamentaryConstituenciesGeojson
@@ -791,11 +775,6 @@ const Dashboard = ({ stateGeojson, assemblyConstituenciesGeojson }) => {
           )}
         </div>
       </div>
-      {/* {constituencyContestantsStatsData !== null && (
-        <ConstituencyConstestantsStats
-          constituencyContestantsStatsData={constituencyContestantsStatsData}
-        />
-      )} */}
     </div>
   )
 }

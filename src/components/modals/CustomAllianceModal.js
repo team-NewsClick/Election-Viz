@@ -7,7 +7,12 @@ import {
   getColorPartyAlliance
 } from "../../helpers/customAlliance"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import { FIRST_SELECT_STATEUT, LIVE_ELECTION, PARTY_ALLIANCE_COLORS } from "../../constants"
+import {
+  FIRST_SELECT_STATEUT,
+  LIVE_ELECTION,
+  PARTY_ALLIANCE_COLORS,
+  CSV_PATH
+} from "../../constants"
 /**
  * A modal box with customizable alliances
  * @param {Array<Object>} param0 Election result of a constituency
@@ -33,12 +38,12 @@ const CustomAllianceModal = ({
 
   useEffect(() => {
     let URL
-    if(selectedElection === LIVE_ELECTION) {
+    if (selectedElection === LIVE_ELECTION) {
       URL = `${process.env.LIVE_ELECTION}`
     } else {
       const electionType = selectedElection.type
       const year = selectedElection.year
-      URL = `/data/csv/${electionType}_${year}.csv`
+      URL = `${CSV_PATH}/${electionType}_${year}.csv`
     }
     axios
       .get(URL)
@@ -49,7 +54,7 @@ const CustomAllianceModal = ({
       .catch((e) => {
         setYearData([])
       })
-    axios.get(`/data/csv/party_alliance.csv`).then((response) => {
+    axios.get(`${CSV_PATH}/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setDefaultPartyAlliance(parsedData)
       customAlliance(parsedData)
@@ -65,7 +70,9 @@ const CustomAllianceModal = ({
         electionViewType
       )
       let tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
-      tempPartyAlliance = tempPartyAlliance.filter((d) => d.parties.length !== 0)
+      tempPartyAlliance = tempPartyAlliance.filter(
+        (d) => d.parties.length !== 0
+      )
       setRows(tempPartyAlliance)
       let tempCustomedPartyAlliance = []
       rows.map((a) => {
@@ -139,12 +146,12 @@ const CustomAllianceModal = ({
 
   if (resetAlliances === true && selectedElection !== FIRST_SELECT_STATEUT) {
     let URL
-    if(selectedElection === LIVE_ELECTION) {
+    if (selectedElection === LIVE_ELECTION) {
       URL = `${process.env.LIVE_ELECTION}`
     } else {
       const electionType = selectedElection.type
       const year = selectedElection.year
-      URL = `/data/csv/${electionType}_${year}.csv`
+      URL = `${CSV_PATH}/${electionType}_${year}.csv`
     }
     axios
       .get(URL)
