@@ -71,7 +71,7 @@ export const LIVE_ELECTION_STATEUT = ["Kerala"]
 /**
  * Upcoming Elections
  */
-const UPCOMING_ELECTIONS = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punjab", "Manipur"]
+const UPCOMING_ELECTIONS_STATEUT = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punjab", "Manipur"]
 
 /**
  * Public GEOJSON URL
@@ -179,7 +179,7 @@ export const ELECTION_YEAR_STATEUT = {
     2019: ["Jharkhand"],
     2020: ["Bihar", "Delhi"],
     2021: ["West Bengal", "Assam", "Puducherry"],
-    Upcoming: UPCOMING_ELECTIONS,
+    Upcoming: UPCOMING_ELECTIONS_STATEUT,
     // Live: LIVE_ELECTION_STATEUT
   }
 }

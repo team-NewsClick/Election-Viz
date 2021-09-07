@@ -10,6 +10,9 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import {
   FIRST_SELECT_STATEUT,
   LIVE_ELECTION,
+  UPCOMING_ELECTION,
+  UPCOMING_ELECTION_YEAR,
+  UPCOMING_ELECTION_TYPE,
   PARTY_ALLIANCE_COLORS,
   CSV_PATH
 } from "../../constants"
@@ -40,6 +43,8 @@ const CustomAllianceModal = ({
     let URL
     if (selectedElection === LIVE_ELECTION) {
       URL = `${process.env.LIVE_ELECTION}`
+    } else if(selectedElection.year === UPCOMING_ELECTION) {
+      URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
     } else {
       const electionType = selectedElection.type
       const year = selectedElection.year
@@ -51,9 +56,7 @@ const CustomAllianceModal = ({
         const parsedData = csvParse(response.data)
         setYearData(parsedData)
       })
-      .catch((e) => {
-        setYearData([])
-      })
+      .catch((e) => setYearData([]))
     axios.get(`${CSV_PATH}/party_alliance.csv`).then((response) => {
       const parsedData = csvParse(response.data)
       setDefaultPartyAlliance(parsedData)
@@ -148,6 +151,8 @@ const CustomAllianceModal = ({
     let URL
     if (selectedElection === LIVE_ELECTION) {
       URL = `${process.env.LIVE_ELECTION}`
+    } else if(selectedElection.year === UPCOMING_ELECTION) {
+      URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
     } else {
       const electionType = selectedElection.type
       const year = selectedElection.year
@@ -159,11 +164,8 @@ const CustomAllianceModal = ({
         const parsedData = csvParse(response.data)
         setYearData(parsedData)
       })
-      .catch((e) => {
-        setYearData([])
-      })
-    setResetAlliances(false)
-  }
+      .catch((e) => setYearData([]))
+      setResetAlliances(false)  }
 
   return (
     <div
