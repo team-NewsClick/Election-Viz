@@ -218,10 +218,10 @@ const MapWidget = ({
     sortByConstituencyKey = electionViewType === "general"
       ? d.properties.PC_NO
       : d.properties.AC_NO
-    results = constituenciesResults[sortByStateKey][sortByConstituencyKey]
+    results = constituenciesResults[sortByStateKey] && constituenciesResults[sortByStateKey][sortByConstituencyKey]
     if (results) {
       const hexColor = hexRgb(results.color)
-      return [hexColor.red, hexColor.green, hexColor.blue]
+      return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha*255]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR
     }
@@ -236,7 +236,7 @@ const MapWidget = ({
     })
     if(results) {
       const hexColor = hexRgb(results.color)
-      return [hexColor.red, hexColor.green, hexColor.blue]
+      return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha*255]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR
     }
