@@ -26,7 +26,9 @@ import {
   NO_CONSTITUENCIES,
   UPCOMING_ELECTION_YEAR,
   UPCOMING_ELECTION,
-  UPCOMING_ELECTION_TYPE
+  UPCOMING_ELECTION_TYPE,
+  ELECTION_YEAR_STATEUT,
+  CSV_PATH
 } from "../constants"
 import {
   ConstituencyConstestantsStats,
@@ -55,19 +57,22 @@ import { calculateSwings } from "../helpers/swings"
  */
 const Dashboard = ({
   stateGeojson,
-  parliamentaryConstituenciesGeojson,
-  assemblyConstituenciesGeojson
+  assemblyConstituenciesGeojson,
+  parliamentaryConstituenciesGeojson
 }) => {
   const windowWidth = window.innerWidth
   const [electionViewType, SetElectionViewType] = useState(
     ELECTION_VIEW_TYPE_ASSEMBLY
   )
-  const [selectedElection, setSelectedElection] = useState(ELECTION_DEFAULT_SELECT)
+  const [selectedElection, setSelectedElection] = useState(
+    ELECTION_DEFAULT_SELECT
+  )
   const [electionOptions, setElectionOptions] = useState([SELECT_ELECTION])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(SELECT_STATE_UT)
-  const [selectedConstituency, setSelectedConstituency] = useState(NO_CONSTITUENCIES)
+  const [selectedConstituency, setSelectedConstituency] =
+    useState(NO_CONSTITUENCIES)
   const [selectedStateUTData, setSelectedStateUTData] = useState([])
   const [mapData, setMapData] = useState({})
   const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
@@ -83,7 +88,9 @@ const Dashboard = ({
   const [compareOptions, setCompareOptions] = useState([])
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
   const [stateUTOptions, setStateUTOptions] = useState([ALL_STATE_UT])
-  const [constituencyOptions, setConstituencyOptions] = useState([[{name: NO_CONSTITUENCIES, code: NO_CONSTITUENCIES}]])
+  const [constituencyOptions, setConstituencyOptions] = useState([
+    [{ name: NO_CONSTITUENCIES, code: NO_CONSTITUENCIES }]
+  ])
   const [regionOptions, setRegionOptions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
   const [swingParams, setSwingParams] = useState([])
@@ -136,8 +143,14 @@ const Dashboard = ({
   }, [electionViewType])
 
   useEffect(() => {
-    if(selectedElection.year === UPCOMING_ELECTION && selectedStateUT !== SELECT_STATE_UT) {
-      setSelectedElection({type: UPCOMING_ELECTION_TYPE, year: UPCOMING_ELECTION_YEAR})
+    if (
+      selectedElection.year === UPCOMING_ELECTION &&
+      selectedStateUT !== SELECT_STATE_UT
+    ) {
+      setSelectedElection({
+        type: UPCOMING_ELECTION_TYPE,
+        year: UPCOMING_ELECTION_YEAR
+      })
       setGetAssemblyStateElectionOptions(false)
     }
   }, [selectedStateUT])
@@ -190,7 +203,7 @@ const Dashboard = ({
   }, [selectedStateUT, selectedElection])
 
   useEffect(() => {
-    if(electionViewType === "general") {
+    if (electionViewType === "general") {
       const tempStateUTOptions = getStateUTs(
         selectedElection,
         seatType,
@@ -203,7 +216,7 @@ const Dashboard = ({
 
   useEffect(() => {
     if (electionViewType === "general") {
-      if(stateUTOptions && stateUTOptions.length !== 0) {
+      if (stateUTOptions && stateUTOptions.length !== 0) {
         setSelectedStateUT(
           stateUTOptions.indexOf(selectedStateUT) > -1
             ? selectedStateUT
@@ -229,23 +242,25 @@ const Dashboard = ({
       const electionType = selectedElection.type
       const year = selectedElection.year
       let URL, COMPARE_URL, COMPARE_ELECTION
-      if (year === LIVE_ELECTION_YEAR) {
+      if (year === LIVE_ELECTION) {
         URL = `${process.env.LIVE_ELECTION}`
-        COMPARE_URL = `/data/csv/${LIVE_ELECTION_TYPE}_${parseInt(LIVE_ELECTION_YEAR) - 5}.csv`
+        COMPARE_URL = `${CSV_PATH}/${LIVE_ELECTION_TYPE}_${
+          parseInt(LIVE_ELECTION_YEAR) - 5
+        }.csv`
         COMPARE_ELECTION = {
           type: LIVE_ELECTION_TYPE,
           year: parseInt(LIVE_ELECTION_YEAR) - 5
         }
-      } if(year === UPCOMING_ELECTION) {
-        URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
-        COMPARE_URL = `/data/csv/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR) - 5}.csv`
+      } else if(year === UPCOMING_ELECTION) {
+        URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+        COMPARE_URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR) - 5}.csv`
         COMPARE_ELECTION = {
           type: UPCOMING_ELECTION_TYPE,
           year: parseInt(UPCOMING_ELECTION_YEAR) - 5
         }
       } else {
-        URL = `/data/csv/${electionType}_${year}.csv`
-        COMPARE_URL = `/data/csv/${electionType}_${parseInt(year) - 5}.csv`
+        URL = `${CSV_PATH}/${electionType}_${year}.csv`
+        COMPARE_URL = `${CSV_PATH}/${electionType}_${parseInt(year) - 5}.csv`
         COMPARE_ELECTION = {
           type: electionType,
           year: (parseInt(year) - 5).toString()
@@ -258,31 +273,29 @@ const Dashboard = ({
           setSelectedYearData(parsedData)
         })
         .catch((e) => setSelectedYearData([]))
-      axios
-        .get(COMPARE_URL)
-        .then((response) => {
-          setCompareElection(COMPARE_ELECTION)
-        })
-        .catch((e) => setCompareElection(compareOptions[0].value))
-    }
+      if(COMPARE_ELECTION.year in ELECTION_YEAR_STATEUT[electionType]) {
+        setCompareElection(COMPARE_ELECTION)
+      } else {
+        setCompareElection(compareOptions[0].value)
+      }
+      }
   }, [compareOptions, selectedElection])
 
   useEffect(() => {
     if (compareElection) {
-      const electionType = selectedElection.type
-      const year = selectedElection.year
-      const compareElectionType = compareElection.type
-      const compareYear = compareElection.year
-      if (compareElectionType === electionType && compareYear === year) {
-        setCompareYearData([])
+      let compareElectionType = compareElection.type
+      let compareYear = compareElection.year
+      if(ELECTION_YEAR_STATEUT[compareElectionType]
+        && compareYear in ELECTION_YEAR_STATEUT[compareElectionType]) {
+          axios
+            .get(`${CSV_PATH}/${compareElectionType}_${parseInt(compareYear)}.csv`)
+            .then((response) => {
+              const parsedData = csvParse(response.data)
+              setCompareYearData(parsedData)
+            })
+            .catch((e) => setCompareYearData([]))
       } else {
-        axios
-          .get(`/data/csv/${compareElectionType}_${parseInt(compareYear)}.csv`)
-          .then((response) => {
-            const parsedData = csvParse(response.data)
-            setCompareYearData(parsedData)
-          })
-          .catch((e) => setCompareYearData([]))
+        setCompareYearData([])
       }
     }
   }, [compareElection])
@@ -319,9 +332,17 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
-    if (selectedYearData != [] && Object.keys(colorPartyAlliance).length !== 0) {
+    if (
+      selectedYearData != [] &&
+      Object.keys(colorPartyAlliance).length !== 0
+    ) {
       setMapData(
-        getMapData(selectedYearData, stateUTOptions, electionViewType, colorPartyAlliance)
+        getMapData(
+          selectedYearData,
+          stateUTOptions,
+          electionViewType,
+          colorPartyAlliance
+        )
       )
     } else {
       setMapData({})
@@ -350,7 +371,13 @@ const Dashboard = ({
         )
       )
     }
-  }, [seatType, selectedElection, selectedRegion, selectedStateUT, stateUTOptions])
+  }, [
+    seatType,
+    selectedElection,
+    selectedRegion,
+    selectedStateUT,
+    stateUTOptions
+  ])
 
   useEffect(() => {
     if (Object.keys(mapData).length !== 0) {
@@ -369,13 +396,7 @@ const Dashboard = ({
       setConstituenciesResults({})
     }
     setMapWidgetLoading(false)
-  }, [
-    mapData,
-    selectedConstituency,
-    selectedStateUT,
-    groupType,
-    partyAlliance
-  ])
+  }, [mapData, selectedConstituency, selectedStateUT, groupType, partyAlliance])
 
   useEffect(() => {
     if (Object.keys(constituenciesResults).length !== 0) {
@@ -394,13 +415,16 @@ const Dashboard = ({
 
   useEffect(() => {
     if (
-      compareElection
-      && Object.keys(regionStatsSVGData).length !== 0
-      && constituencyOptions.find((d) => d.code === selectedConstituency)
-      && Object.keys(mapData).length !== 0
-      ) {
+      compareElection &&
+      Object.keys(regionStatsSVGData).length !== 0 &&
+      constituencyOptions.find((d) => d.code === selectedConstituency) &&
+      Object.keys(mapData).length !== 0
+    ) {
       let constituencyMapData = []
-      if(selectedConstituency !== FIRST_SELECT_STATEUT && selectedConstituency !== NO_CONSTITUENCIES) {
+      if (
+        selectedConstituency !== FIRST_SELECT_STATEUT &&
+        selectedConstituency !== NO_CONSTITUENCIES
+      ) {
         constituencyMapData = mapData[selectedStateUT][selectedConstituency]
       }
       const tempTableData = getRegionStatsTable(
@@ -437,7 +461,7 @@ const Dashboard = ({
   useEffect(() => {
     let result = []
     if (partyAlliance && swingParams && swingParams.length !== 0) {
-      if(swingParams && swingParams.length === 0) {
+      if (swingParams && swingParams.length === 0) {
         partyAlliance.map((d) => {
           result.push({
             PARTY: d.PARTY,
@@ -474,7 +498,7 @@ const Dashboard = ({
     if (partiesSwing.length !== 0) {
       if (selectedElection !== LIVE_ELECTION) {
         axios
-          .get(`/data/csv/${electionType}_${year}.csv`)
+          .get(`${CSV_PATH}/${electionType}_${year}.csv`)
           .then((response) => {
             const parsedData = csvParse(response.data)
             if (selectedStateUT === ALL_STATE_UT) {
@@ -511,7 +535,8 @@ const Dashboard = ({
   }, [advanceReset])
 
   useEffect(() => {
-    if (electionViewType === "assembly") setGetAssemblyStateElectionOptions(true)
+    if (electionViewType === "assembly")
+      setGetAssemblyStateElectionOptions(true)
   }, [electionViewType, selectedElection, selectedStateUT])
 
   const _home = () => {
@@ -521,7 +546,7 @@ const Dashboard = ({
     const option = document.getElementById("advanceOptionsWeb")
     const btnText = document.getElementById("showHideAdvance-btn")
     const btnIcon = document.getElementById("showHideAdvance-btn-icon")
-    if(option && btnText && btnIcon) {
+    if (option && btnText && btnIcon) {
       option.style.display = "none"
       btnText.innerHTML = "Show Advance Options"
       btnIcon.style.transform = "rotate(0deg)"
@@ -640,42 +665,33 @@ const Dashboard = ({
           style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
           className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
         >
-          {
-            electionViewType === "assembly"
-            && (selectedStateUT === SELECT_STATE_UT
-              || selectedStateUT === ALL_STATE_UT)
-            && (selectedElection === SELECT_ELECTION
-              || selectedElection === FIRST_SELECT_STATEUT)
-            && (
+          {electionViewType === "assembly" &&
+            (selectedStateUT === SELECT_STATE_UT ||
+              selectedStateUT === ALL_STATE_UT) &&
+            (selectedElection === SELECT_ELECTION ||
+              selectedElection === FIRST_SELECT_STATEUT) && (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
                   Please select a region from the drop-down or by clicking on
                   the map.
                 </div>
               </div>
-            )
-          }
-          {
-            electionViewType === "assembly"
-            &&
-            (selectedStateUT !== (SELECT_STATE_UT || ALL_STATE_UT)
-              || selectedElection !== (SELECT_ELECTION || FIRST_SELECT_STATEUT))
-            && selectedStateUTData.length === 0
-            && Object.keys(regionStatsSVGData).length === 0
-            && (
+            )}
+          {electionViewType === "assembly" &&
+            (selectedStateUT !== (SELECT_STATE_UT || ALL_STATE_UT) ||
+              selectedElection !== (SELECT_ELECTION || FIRST_SELECT_STATEUT)) &&
+            selectedStateUTData.length === 0 &&
+            Object.keys(regionStatsSVGData).length === 0 && (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
                   Data for selected options does not exist.
                 </div>
               </div>
-            )
-          }
-          {
-            selectedStateUT !== SELECT_STATE_UT
-            && selectedElection !== SELECT_ELECTION
-            && selectedStateUTData.length !== 0
-            && Object.keys(regionStatsSVGData).length !== 0
-            && (
+            )}
+          {selectedStateUT !== SELECT_STATE_UT &&
+            selectedElection !== SELECT_ELECTION &&
+            selectedStateUTData.length !== 0 &&
+            Object.keys(regionStatsSVGData).length !== 0 && (
               <div>
                 <RegionStatsSVG
                   regionStatsSVGData={regionStatsSVGData}
@@ -687,8 +703,7 @@ const Dashboard = ({
                   regionStatsLoading={regionStatsLoading}
                 />
               </div>
-            )
-          }
+            )}
         </div>
         <div
           onClick={_home}
@@ -731,10 +746,11 @@ const Dashboard = ({
             <div>
               <MapWidget
                 stateGeojson={stateGeojson}
-                parliamentaryConstituenciesGeojson={
-                  parliamentaryConstituenciesGeojson
+                constituenciesGeojson={
+                  electionViewType === "general"
+                    ? parliamentaryConstituenciesGeojson
+                    : assemblyConstituenciesGeojson
                 }
-                assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
                 onMapUpdate={_updatedRegion}
                 electionViewType={electionViewType}
                 stateUTOptions={stateUTOptions}
@@ -751,11 +767,6 @@ const Dashboard = ({
           )}
         </div>
       </div>
-      {/* {constituencyContestantsStatsData !== null && (
-        <ConstituencyConstestantsStats
-          constituencyContestantsStatsData={constituencyContestantsStatsData}
-        />
-      )} */}
     </div>
   )
 }

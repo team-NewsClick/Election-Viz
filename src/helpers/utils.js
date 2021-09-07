@@ -301,7 +301,7 @@ export const getCompareOptions = (selectedElection, selectedStateUT) => {
   if (electionType === "general") {
     for (const ELECTION in ELECTION_YEAR_STATEUT) {
       for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
-        if (ELECTION === electionType && YEAR !== selectedYear) {
+        if (ELECTION === electionType &&  YEAR !== (selectedYear && UPCOMING_ELECTION || LIVE_ELECTION)) {
           let tempValue = { type: ELECTION, year: YEAR }
           let tempLabel = ELECTION + " Election " + YEAR
           tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
@@ -317,7 +317,7 @@ export const getCompareOptions = (selectedElection, selectedStateUT) => {
       for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
         if (electionType !== ELECTION || selectedYear !== YEAR) {
           ELECTION_YEAR_STATEUT[ELECTION][YEAR].map((STATE_UT) => {
-            if (selectedStateUT === STATE_UT) {
+            if (selectedStateUT === STATE_UT && YEAR !== (UPCOMING_ELECTION || LIVE_ELECTION)) {
               let tempValue = { type: ELECTION, year: YEAR }
               let tempLabel = ELECTION + " Election " + YEAR
               tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
