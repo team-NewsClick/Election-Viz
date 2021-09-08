@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "npm run next:build",
     "export": "next export",
-    "lint": "next lint",
-    "postbuild": "next-on-netlify"
+    "postbuild": "next-on-netlify",
+    "build:static": "npm run next:build && npm run next:export",
+    "next:dev": "next dev",
+    "next:build": "next build",
+    "next:export": "next export",
+    "next:start": "next start"
   },
   "dependencies": {
     "autoprefixer": "^10.2.4",
