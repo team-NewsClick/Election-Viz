@@ -525,7 +525,7 @@ const Dashboard = ({
   }, [partiesSwing])
 
   useEffect(() => {
-    const temp = getCompareOptions(selectedElection, selectedStateUT)
+    const temp = getCompareOptions(electionViewType, selectedElection, selectedStateUT)
     setCompareOptions(temp)
   }, [selectedStateUT, electionViewType, selectedElection])
 

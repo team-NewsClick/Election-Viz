@@ -61,6 +61,9 @@ const Elections = () => {
         </Head>
         <div className="col-span-2 sm:inline-block hidden"></div>
         <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0">
+          <div className="my-4 text-center text-2xl font-bold">
+            Election Maps
+          </div>
           <Dashboard
             stateGeojson={stateGeojson}
             assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
