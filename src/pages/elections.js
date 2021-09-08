@@ -8,12 +8,9 @@ import dynamic from "next/dynamic"
  * Dynamic loading, component won't even be rendered on the server-side
  * @return {JSX.Element} Dashboard
  */
-const Dashboard = dynamic(
-  () => {
-    return import("../components/Dashboard")
-  },
-  { ssr: false }
-)
+const Dashboard = dynamic(() => import("../components/Dashboard"), {
+  ssr: false
+})
 
 /**
  * Map Page
@@ -24,40 +21,60 @@ const Elections = ({
   parliamentaryConstituenciesGeojson,
   stateGeojson
 }) => {
-  if (
-    (stateGeojson.length === 0 || assemblyConstituenciesGeojson.length === 0,
-    parliamentaryConstituenciesGeojson.length === 0)
-  ) {
-    return (
-      <div style={{ margin: "auto", paddingTop: "50vh" }}>
-        <Loading />
+  // if (
+  //   (stateGeojson.length === 0 || assemblyConstituenciesGeojson.length === 0,
+  //   parliamentaryConstituenciesGeojson.length === 0)
+  // ) {
+  //   return (
+  //     <div style={{ margin: "auto", paddingTop: "50vh" }}>
+  //       <Loading />
+  //     </div>
+  //   )
+  // } else {
+  //   return (
+  //     <div className="grid grid-cols-12">
+  //       <Head>
+  //         <title>Indian Election Maps</title>
+  //         <meta charSet="utf-8" />
+  //         <meta
+  //           name="viewport"
+  //           content="initial-scale=1.0, width=device-width"
+  //         />
+  //       </Head>
+  //       <div className="col-span-2 sm:inline-block hidden"></div>
+  //       <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0">
+  //         <Dashboard
+  //           stateGeojson={stateGeojson}
+  //           assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
+  //           parliamentaryConstituenciesGeojson={
+  //             parliamentaryConstituenciesGeojson
+  //           }
+  //         />
+  //       </div>
+  //       <div className="col-span-2 sm:inline-block hidden"></div>
+  //     </div>
+  //   )
+  // }
+  return (
+    <div className="grid grid-cols-12">
+      <Head>
+        <title>Indian Election Maps</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <div className="col-span-2 sm:inline-block hidden"></div>
+      <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0">
+        <Dashboard
+          stateGeojson={stateGeojson}
+          assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
+          parliamentaryConstituenciesGeojson={
+            parliamentaryConstituenciesGeojson
+          }
+        />
       </div>
-    )
-  } else {
-    return (
-      <div className="grid grid-cols-12">
-        <Head>
-          <title>Indian Election Maps</title>
-          <meta charSet="utf-8" />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
-        </Head>
-        <div className="col-span-2 sm:inline-block hidden"></div>
-        <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0">
-          <Dashboard
-            stateGeojson={stateGeojson}
-            assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-            parliamentaryConstituenciesGeojson={
-              parliamentaryConstituenciesGeojson
-            }
-          />
-        </div>
-        <div className="col-span-2 sm:inline-block hidden"></div>
-      </div>
-    )
-  }
+      <div className="col-span-2 sm:inline-block hidden"></div>
+    </div>
+  )
 }
 
 export async function getStaticProps() {
