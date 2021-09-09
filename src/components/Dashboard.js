@@ -229,10 +229,13 @@ const Dashboard = ({
   useEffect(() => {
     if (selectedElection === LIVE_ELECTION) {
       const interval = setInterval(() => {
-        axios.get(`${process.env.LIVE_ELECTION}`).then((response) => {
+        axios
+        .get(`${process.env.LIVE_ELECTION}`)
+        .then((response) => {
           const parsedData = csvParse(response.data)
           setSelectedYearData(parsedData)
         })
+        .catch((e) => setSelectedYearData([]))
       }, 1000 * 60 * DELAY_INTERVAL_MINUTES)
       return () => clearInterval(interval)
     }
@@ -523,10 +526,13 @@ const Dashboard = ({
           })
           .catch((e) => setSelectedYearData([]))
       } else {
-        axios.get(`${process.env.LIVE_ELECTION}`).then((response) => {
+        axios
+        .get(`${process.env.LIVE_ELECTION}`)
+        .then((response) => {
           const parsedData = csvParse(response.data)
           setSelectedYearData(parsedData)
         })
+        .catch((e) => setSelectedYearData([]))
       }
     }
   }, [partiesSwing])
