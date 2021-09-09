@@ -62,7 +62,6 @@ const DashboardOptions = ({
 
   return (
     <div>
-      <div className="h-10" />
       <div className="flex flex-wrap justify-center mx-auto">
         <div className="radio-toolbar md:mx-2 my-2">
           <input

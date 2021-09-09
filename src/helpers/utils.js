@@ -131,39 +131,24 @@ export const getElectionOptions = (
       for (const ELECTION in ELECTION_YEAR_STATEUT) {
         for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
           const tempStates = ELECTION_YEAR_STATEUT[ELECTION][YEAR]
-          if(YEAR === LIVE_ELECTION) {
-            if (tempStates.findIndex((d) => d === selectedStateUT) > -1) {
-              let tempValue = LIVE_ELECTION
-              let tempLabel = LIVE_ELECTION
-              electionOptions.push({
-                value: tempValue,
-                label: tempLabel
-              })
-            }
-          } else {
-            if (tempStates.findIndex((d) => d === selectedStateUT) > -1) {
-              let tempValue = { type: ELECTION, year: YEAR }
-              let tempLabel = ELECTION + " Election " + YEAR
-              tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
-              electionOptions.push({
-                value: tempValue,
-                label: tempLabel
-              })
-            }
+          if (
+            tempStates.findIndex((d) => d === selectedStateUT) > -1
+            && YEAR !== UPCOMING_ELECTION
+          ) {
+            let tempValue = { type: ELECTION, year: YEAR }
+            let tempLabel = ELECTION + " Election " + YEAR
+            tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
+            electionOptions.push({
+              value: tempValue,
+              label: tempLabel
+            })
           }
         }
       }
     } else {
       for (const ELECTION in ELECTION_YEAR_STATEUT) {
         for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
-          if(YEAR === LIVE_ELECTION) {
-            let tempValue = LIVE_ELECTION
-            let tempLabel = LIVE_ELECTION
-            electionOptions.push({
-              value: tempValue,
-              label: tempLabel
-            })
-          } else {
+          if(YEAR !== LIVE_ELECTION) {
             let tempValue = { type: ELECTION, year: YEAR }
             let tempLabel = ELECTION + " Election " + YEAR
             tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
@@ -179,10 +164,6 @@ export const getElectionOptions = (
       value: SELECT_ELECTION,
       label: SELECT_ELECTION
     })
-    if(selectedStateUT !== SELECT_STATE_UT) {
-      const upcomingIndex = electionOptions.indexOf((d) => d.value.year === UPCOMING_ELECTION)
-      electionOptions.splice(upcomingIndex, 1)
-    }
   }
   electionOptions = electionOptions.reverse()
   return electionOptions
@@ -283,7 +264,7 @@ export const getDataConstituency = (data, constituency, electionViewType) => {
  * @param {String} selectedStateUT Name of State or UT
  * @returns {Array<Object>} List of elections for the selected
  */
-export const getCompareOptions = (selectedElection, selectedStateUT) => {
+export const getCompareOptions = (electionViewType ,selectedElection, selectedStateUT) => {
   const electionType = selectedElection.type
   const selectedYear = selectedElection.year
   const compareOptions = [
@@ -298,10 +279,10 @@ export const getCompareOptions = (selectedElection, selectedStateUT) => {
   ) {
     return compareOptions
   }
-  if (electionType === "general") {
+  if (electionViewType === "general") {
     for (const ELECTION in ELECTION_YEAR_STATEUT) {
       for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
-        if (ELECTION === electionType &&  YEAR !== (selectedYear && UPCOMING_ELECTION || LIVE_ELECTION)) {
+        if (ELECTION === electionType &&  YEAR !== (selectedYear || UPCOMING_ELECTION || LIVE_ELECTION)) {
           let tempValue = { type: ELECTION, year: YEAR }
           let tempLabel = ELECTION + " Election " + YEAR
           tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
