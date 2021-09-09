@@ -13,11 +13,11 @@ import { GEOJSON_PATH } from "../constants"
  */
 export async function getStaticProps() {
   const dataDir = path.join(process.cwd(), "public/data/geojson/")
-  const filePath = path.join(dataDir, "parliament.geojson")
+  const filePath = path.join(dataDir, "states.geojson")
   const fileContents = fs.readFileSync(filePath, "utf-8")
   return {
     props: {
-      parliamentaryConstituenciesGeojson: JSON.parse(fileContents)
+      stateGeojson: JSON.parse(fileContents)
     }
   }
 }
@@ -26,19 +26,15 @@ export async function getStaticProps() {
  * Map Page
  * @return {JSX.Element} Map Page
  */
-const Elections = ({ parliamentaryConstituenciesGeojson }) => {
-  const [stateGeojson, setStateGeojson] = useState([])
+const Elections = ({ stateGeojson }) => {
   const [assemblyConstituenciesGeojson, setAssemblyConstituenciesGeojson] =
     useState([])
+  const [
+    parliamentaryConstituenciesGeojson,
+    setParliamentaryConstituenciesGeojson
+  ] = useState([])
 
   useEffect(() => {
-    axios
-      .get(`${GEOJSON_PATH}/states.geojson`)
-      .then((response) => {
-        const parsedData = response.data
-        setStateGeojson(parsedData)
-      })
-      .catch((e) => setStateGeojson([]))
     axios
       .get(`${GEOJSON_PATH}/assembly.geojson`)
       .then((response) => {
@@ -46,6 +42,13 @@ const Elections = ({ parliamentaryConstituenciesGeojson }) => {
         setAssemblyConstituenciesGeojson(parsedData)
       })
       .catch((e) => seAassemblyConstituenciesGeojson([]))
+    axios
+      .get(`${GEOJSON_PATH}/parliament.geojson`)
+      .then((response) => {
+        const parsedData = response.data
+        setParliamentaryConstituenciesGeojson(parsedData)
+      })
+      .catch((e) => setParliamentaryConstituenciesGeojson([]))
   }, [])
 
   if (process.browser) {
