@@ -1,26 +1,9 @@
-// import fs from "fs"
-// import path from "path"
 import Head from "next/head"
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Loading from "../components/helpers/Loading"
 import Dashboard from "../components/Dashboard"
 import { GEOJSON_PATH } from "../constants"
-
-/**
- * Load Parliamentary geojson during build time (Static Generation)
- * @returns {Array.<Object>} Parliamentary Geojson
- */
-// export async function getStaticProps() {
-//   const dataDir = path.join(process.cwd(), "public/data/geojson/")
-//   const filePath = path.join(dataDir, "states.geojson")
-//   const fileContents = fs.readFileSync(filePath, "utf-8")
-//   return {
-//     props: {
-//       stateGeojson: JSON.parse(fileContents)
-//     }
-//   }
-// }
 
 /**
  * Map Page
