@@ -4,10 +4,13 @@ import Head from "next/head"
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Loading from "../components/helpers/Loading"
-import dynamic from "next/dynamic"
 import Dashboard from "../components/Dashboard"
 import { GEOJSON_PATH } from "../constants"
 
+/**
+ * Load Parliamentary geojson during build time (Static Generation)
+ * @returns {Array.<Object>} Parliamentary Geojson
+ */
 export async function getStaticProps() {
   const dataDir = path.join(process.cwd(), "public/data/geojson/")
   const filePath = path.join(dataDir, "parliament.geojson")
@@ -17,39 +20,13 @@ export async function getStaticProps() {
       parliamentaryConstituenciesGeojson: JSON.parse(fileContents)
     }
   }
-  
-  // const geoJsons = fileNames.map((fileName) => {
-  //   const filePath = path.join(dataDir, fileName)
-  //   const fileContents = fs.readFileSync(filePath, "utf-8")
-  //   const fileNameKeys = fileName.split(".")
-  //   let jsonObj = {}
-  //   jsonObj[fileNameKeys[0]] = JSON.parse(fileContents)
-  //   return jsonObj
-  // })
-  // return {
-  //   props: {
-  //     assemblyConstituenciesGeojson: geoJsons[0].assembly,
-  //     parliamentaryConstituenciesGeojson: geoJsons[1].parliament,
-  //     stateGeojson: geoJsons[2].states
-  //   }
-  // }
 }
-
-/**
- * Dynamic loading, component won't even be rendered on the server-side
- * @return {JSX.Element} Dashboard
- */
-// const Dashboard = dynamic(() => import("../components/Dashboard"), {
-//   ssr: false
-// })
 
 /**
  * Map Page
  * @return {JSX.Element} Map Page
  */
-const Elections = ({
-  parliamentaryConstituenciesGeojson,
-}) => {
+const Elections = ({ parliamentaryConstituenciesGeojson }) => {
   const [stateGeojson, setStateGeojson] = useState([])
   const [assemblyConstituenciesGeojson, setAssemblyConstituenciesGeojson] =
     useState([])
