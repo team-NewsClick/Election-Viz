@@ -1,5 +1,5 @@
-import fs from "fs"
-import path from "path"
+// import fs from "fs"
+// import path from "path"
 import Head from "next/head"
 import { useState, useEffect } from "react"
 import axios from "axios"
