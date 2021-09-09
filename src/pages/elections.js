@@ -1,22 +1,35 @@
-import { useEffect, useState } from "react"
+import fs from "fs"
+import path from "path"
 import Head from "next/head"
+import { useState, useEffect } from "react"
 import axios from "axios"
-import Dashboard from "../components/Dashboard"
 import Loading from "../components/helpers/Loading"
+import Dashboard from "../components/Dashboard"
 import { GEOJSON_PATH } from "../constants"
+
+/**
+ * Load Parliamentary geojson during build time (Static Generation)
+ * @returns {Array.<Object>} Parliamentary Geojson
+ */
+export async function getStaticProps() {
+  const dataDir = path.join(process.cwd(), "public/data/geojson/")
+  const filePath = path.join(dataDir, "parliament.geojson")
+  const fileContents = fs.readFileSync(filePath, "utf-8")
+  return {
+    props: {
+      parliamentaryConstituenciesGeojson: JSON.parse(fileContents)
+    }
+  }
+}
 
 /**
  * Map Page
  * @return {JSX.Element} Map Page
  */
-const Elections = () => {
+const Elections = ({ parliamentaryConstituenciesGeojson }) => {
   const [stateGeojson, setStateGeojson] = useState([])
   const [assemblyConstituenciesGeojson, setAssemblyConstituenciesGeojson] =
     useState([])
-  const [
-    parliamentaryConstituenciesGeojson,
-    setParliamentaryConstituenciesGeojson
-  ] = useState([])
 
   useEffect(() => {
     axios
@@ -33,46 +46,47 @@ const Elections = () => {
         setAssemblyConstituenciesGeojson(parsedData)
       })
       .catch((e) => seAassemblyConstituenciesGeojson([]))
-    axios
-      .get(`${GEOJSON_PATH}/parliament.geojson`)
-      .then((response) => {
-        const parsedData = response.data
-        setParliamentaryConstituenciesGeojson(parsedData)
-      })
-      .catch((e) => setParliamentaryConstituenciesGeojson([]))
   }, [])
 
-  if (stateGeojson.length === 0 || assemblyConstituenciesGeojson.length === 0) {
+  if (process.browser) {
+    if (
+      stateGeojson.length === 0 ||
+      assemblyConstituenciesGeojson.length === 0
+    ) {
+      return (
+        <div style={{ margin: "auto", paddingTop: "50vh" }}>
+          <Loading />
+        </div>
+      )
+    } else {
+      return (
+        <div className="grid grid-cols-12">
+          <Head>
+            <title>Indian Election Maps</title>
+            <meta charSet="utf-8" />
+            <meta
+              name="viewport"
+              content="initial-scale=1.0, width=device-width"
+            />
+          </Head>
+          <div className="col-span-2 sm:inline-block hidden"></div>
+          <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0">
+            <Dashboard
+              stateGeojson={stateGeojson}
+              assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
+              parliamentaryConstituenciesGeojson={
+                parliamentaryConstituenciesGeojson
+              }
+            />
+          </div>
+          <div className="col-span-2 sm:inline-block hidden"></div>
+        </div>
+      )
+    }
+  } else {
     return (
       <div style={{ margin: "auto", paddingTop: "50vh" }}>
         <Loading />
-      </div>
-    )
-  } else {
-    return (
-      <div className="grid grid-cols-12">
-        <Head>
-          <title>Indian Election Maps</title>
-          <meta charSet="utf-8" />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
-        </Head>
-        <div className="col-span-2 sm:inline-block hidden"></div>
-        <div className="col-span-12 mx-5 md:col-span-8 sm:mx-0">
-          <div className="my-4 text-center text-2xl font-bold">
-            Election Maps
-          </div>
-          <Dashboard
-            stateGeojson={stateGeojson}
-            assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-            parliamentaryConstituenciesGeojson={
-              parliamentaryConstituenciesGeojson
-            }
-          />
-        </div>
-        <div className="col-span-2 sm:inline-block hidden"></div>
       </div>
     )
   }
