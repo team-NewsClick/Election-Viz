@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run next:dev",
     "build": "npm run next:build",
-    "export": "next export",
     "postbuild": "next-on-netlify",
     "build:static": "npm run next:build && npm run next:export",
     "next:dev": "next dev",
