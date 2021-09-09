@@ -242,60 +242,67 @@ const Dashboard = ({
       const electionType = selectedElection.type
       const year = selectedElection.year
       let URL, COMPARE_URL, COMPARE_ELECTION
-      if (year === LIVE_ELECTION) {
-        URL = `${process.env.LIVE_ELECTION}`
-        COMPARE_URL = `${CSV_PATH}/${LIVE_ELECTION_TYPE}_${
-          parseInt(LIVE_ELECTION_YEAR) - 5
-        }.csv`
-        COMPARE_ELECTION = {
-          type: LIVE_ELECTION_TYPE,
-          year: parseInt(LIVE_ELECTION_YEAR) - 5
-        }
-      } else if(year === UPCOMING_ELECTION) {
-        URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
-        COMPARE_URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR) - 5}.csv`
-        COMPARE_ELECTION = {
-          type: UPCOMING_ELECTION_TYPE,
-          year: parseInt(UPCOMING_ELECTION_YEAR) - 5
-        }
+      if(selectedElection === SELECT_ELECTION) {
+        setSelectedYearData([])
+        setCompareElection("None")
       } else {
-        URL = `${CSV_PATH}/${electionType}_${year}.csv`
-        COMPARE_URL = `${CSV_PATH}/${electionType}_${parseInt(year) - 5}.csv`
-        COMPARE_ELECTION = {
-          type: electionType,
-          year: (parseInt(year) - 5).toString()
+        if (year === LIVE_ELECTION) {
+          URL = `${process.env.LIVE_ELECTION}`
+          COMPARE_URL = `${CSV_PATH}/${LIVE_ELECTION_TYPE}_${parseInt(LIVE_ELECTION_YEAR) - 5}.csv`
+          COMPARE_ELECTION = {
+            type: LIVE_ELECTION_TYPE,
+            year: parseInt(LIVE_ELECTION_YEAR) - 5
+          }
+        } else if(year === UPCOMING_ELECTION) {
+          URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+          COMPARE_URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR) - 5}.csv`
+          COMPARE_ELECTION = {
+            type: UPCOMING_ELECTION_TYPE,
+            year: parseInt(UPCOMING_ELECTION_YEAR) - 5
+          }
+        } else {
+          URL = `${CSV_PATH}/${electionType}_${year}.csv`
+          COMPARE_URL = `${CSV_PATH}/${electionType}_${parseInt(year) - 5}.csv`
+          COMPARE_ELECTION = {
+            type: electionType,
+            year: (parseInt(year) - 5).toString()
+          }
+        }
+        axios
+          .get(URL)
+          .then((response) => {
+            const parsedData = csvParse(response.data)
+            setSelectedYearData(parsedData)
+          })
+          .catch((e) => setSelectedYearData([]))
+        if(COMPARE_ELECTION.year in ELECTION_YEAR_STATEUT[electionType]) {
+          setCompareElection(COMPARE_ELECTION)
+        } else {
+          setCompareElection(compareOptions[0].value)
         }
       }
-      axios
-        .get(URL)
-        .then((response) => {
-          const parsedData = csvParse(response.data)
-          setSelectedYearData(parsedData)
-        })
-        .catch((e) => setSelectedYearData([]))
-      if(COMPARE_ELECTION.year in ELECTION_YEAR_STATEUT[electionType]) {
-        setCompareElection(COMPARE_ELECTION)
-      } else {
-        setCompareElection(compareOptions[0].value)
-      }
-      }
+    }
   }, [compareOptions, selectedElection])
 
   useEffect(() => {
     if (compareElection) {
-      let compareElectionType = compareElection.type
-      let compareYear = compareElection.year
-      if(ELECTION_YEAR_STATEUT[compareElectionType]
-        && compareYear in ELECTION_YEAR_STATEUT[compareElectionType]) {
-          axios
-            .get(`${CSV_PATH}/${compareElectionType}_${parseInt(compareYear)}.csv`)
-            .then((response) => {
-              const parsedData = csvParse(response.data)
-              setCompareYearData(parsedData)
-            })
-            .catch((e) => setCompareYearData([]))
-      } else {
+      if(compareElection === "None") {
         setCompareYearData([])
+      } else {
+        let compareElectionType = compareElection.type
+        let compareYear = compareElection.year
+        if(ELECTION_YEAR_STATEUT[compareElectionType]
+          && compareYear in ELECTION_YEAR_STATEUT[compareElectionType]) {
+            axios
+              .get(`${CSV_PATH}/${compareElectionType}_${parseInt(compareYear)}.csv`)
+              .then((response) => {
+                const parsedData = csvParse(response.data)
+                setCompareYearData(parsedData)
+              })
+              .catch((e) => setCompareYearData([]))
+        } else {
+          setCompareYearData([])
+        }
       }
     }
   }, [compareElection])
@@ -495,8 +502,8 @@ const Dashboard = ({
   useEffect(() => {
     const electionType = selectedElection.type
     const year = selectedElection.year
-    if (partiesSwing.length !== 0) {
-      if (selectedElection !== LIVE_ELECTION) {
+    if (partiesSwing.length !== 0&& selectedElection === SELECT_ELECTION) {
+      if (year !== LIVE_ELECTION ) {
         axios
           .get(`${CSV_PATH}/${electionType}_${year}.csv`)
           .then((response) => {

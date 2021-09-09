@@ -14,7 +14,8 @@ import {
   UPCOMING_ELECTION_YEAR,
   UPCOMING_ELECTION_TYPE,
   PARTY_ALLIANCE_COLORS,
-  CSV_PATH
+  CSV_PATH,
+  SELECT_ELECTION
 } from "../../constants"
 /**
  * A modal box with customizable alliances
@@ -41,28 +42,33 @@ const CustomAllianceModal = ({
 
   useEffect(() => {
     let URL
-    if (selectedElection === LIVE_ELECTION) {
-      URL = `${process.env.LIVE_ELECTION}`
-    } else if(selectedElection.year === UPCOMING_ELECTION) {
-      URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
-    } else {
-      const electionType = selectedElection.type
-      const year = selectedElection.year
-      URL = `${CSV_PATH}/${electionType}_${year}.csv`
+    if(selectedElection === SELECT_ELECTION) {
+      setYearData([])
     }
-    axios
-      .get(URL)
-      .then((response) => {
+    else {
+      if (selectedElection === LIVE_ELECTION) {
+        URL = `${process.env.LIVE_ELECTION}`
+      } else if(selectedElection.year === UPCOMING_ELECTION) {
+        URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+      } else {
+        const electionType = selectedElection.type
+        const year = selectedElection.year
+        URL = `${CSV_PATH}/${electionType}_${year}.csv`
+      }
+      axios
+        .get(URL)
+        .then((response) => {
+          const parsedData = csvParse(response.data)
+          setYearData(parsedData)
+        })
+        .catch((e) => setYearData([]))
+      axios.get(`${CSV_PATH}/party_alliance.csv`).then((response) => {
         const parsedData = csvParse(response.data)
-        setYearData(parsedData)
+        setDefaultPartyAlliance(parsedData)
+        customAlliance(parsedData)
+        handleColorPartyAlliance(PARTY_ALLIANCE_COLORS)
       })
-      .catch((e) => setYearData([]))
-    axios.get(`${CSV_PATH}/party_alliance.csv`).then((response) => {
-      const parsedData = csvParse(response.data)
-      setDefaultPartyAlliance(parsedData)
-      customAlliance(parsedData)
-      handleColorPartyAlliance(PARTY_ALLIANCE_COLORS)
-    })
+    }
   }, [selectedStateUT, selectedElection, electionViewType, advanceReset])
 
   useEffect(() => {
@@ -149,23 +155,29 @@ const CustomAllianceModal = ({
 
   if (resetAlliances === true && selectedElection !== FIRST_SELECT_STATEUT) {
     let URL
-    if (selectedElection === LIVE_ELECTION) {
-      URL = `${process.env.LIVE_ELECTION}`
-    } else if(selectedElection.year === UPCOMING_ELECTION) {
-      URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+    if(selectedElection === SELECT_ELECTION) {
+      setYearData([])
+      setResetAlliances(false) 
     } else {
-      const electionType = selectedElection.type
-      const year = selectedElection.year
-      URL = `${CSV_PATH}/${electionType}_${year}.csv`
-    }
-    axios
+      if (selectedElection === LIVE_ELECTION) {
+        URL = `${process.env.LIVE_ELECTION}`
+      } else if(selectedElection.year === UPCOMING_ELECTION) {
+        URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+      } else {
+        const electionType = selectedElection.type
+        const year = selectedElection.year
+        URL = `${CSV_PATH}/${electionType}_${year}.csv`
+      }
+      axios
       .get(URL)
       .then((response) => {
         const parsedData = csvParse(response.data)
         setYearData(parsedData)
       })
       .catch((e) => setYearData([]))
-      setResetAlliances(false)  }
+      setResetAlliances(false) 
+      }
+    }
 
   return (
     <div

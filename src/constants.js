@@ -180,7 +180,7 @@ export const ELECTION_YEAR_STATEUT = {
     2020: ["Bihar", "Delhi"],
     2021: ["West Bengal", "Assam", "Puducherry"],
     Upcoming: UPCOMING_ELECTIONS_STATEUT,
-    // Live: LIVE_ELECTION_STATEUT
+    Live: LIVE_ELECTION_STATEUT
   }
 }
 
