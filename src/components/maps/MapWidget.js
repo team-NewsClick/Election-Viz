@@ -14,7 +14,9 @@ import {
   DEFAULT_DISTRICT_LINE_COLOR,
   TRANSPARENT_COLOR,
   ALL_CONSTITUENCIES,
-  SELECT_STATE_UT
+  SELECT_STATE_UT,
+  DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
+  SELECT_ELECTION
 } from "../../constants"
 import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
@@ -149,8 +151,8 @@ const MapWidget = ({
   useEffect(() => {
   let tempLayers = []
   if (
-    selectedElection.type === "assembly" &&
-    selectedStateUT === SELECT_STATE_UT
+    selectedElection.type === "assembly"
+    && selectedStateUT === SELECT_STATE_UT
   ) {
     tempLayers = [
       new GeoJsonLayer({
@@ -166,6 +168,24 @@ const MapWidget = ({
         onClick: ({ object }) => _handleMap(object)
       })
     ]
+  } else if(
+    selectedStateUT === SELECT_STATE_UT
+    && (selectedElection === SELECT_ELECTION || selectedElection.type === "general")
+    ) {
+      tempLayers = [
+        new GeoJsonLayer({
+          id: "state-geojson-layer-1",
+          data: stateData,
+          stroked: true,
+          filled: true,
+          pickable: true,
+          lineWidthScale: 600,
+          getLineWidth: 4,
+          getLineColor: DEFAULT_STATE_LINE_COLOR,
+          getFillColor: TRANSPARENT_COLOR,
+          onClick: ({ object }) => _handleMap(object)
+        })
+      ]
   } else {
     tempLayers = [
       new GeoJsonLayer({
@@ -176,7 +196,7 @@ const MapWidget = ({
         pickable: true,
         lineWidthScale: 200,
         getFillColor: (d) => _fillGeoJsonColor(d),
-        getLineColor: DEFAULT_DISTRICT_LINE_COLOR,
+        getLineColor: DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
         getLineWidth: electionViewType === "general" ? 10 : 2,
         onClick: ({ object }) => _handleMap(object)
       }),
@@ -264,7 +284,7 @@ const MapWidget = ({
           if (results) {
           }
           return (
-            results && {
+            results && results[0].votesReceived != 0 && {
               html: `
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
@@ -300,7 +320,7 @@ const MapWidget = ({
                 `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
             })
           return (
-            results && {
+            results && results[0].votesReceived != 0 && {
               html: `
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>

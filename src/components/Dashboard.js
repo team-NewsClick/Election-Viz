@@ -673,10 +673,11 @@ const Dashboard = ({
           className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
         >
           {electionViewType === "assembly" &&
-            (selectedStateUT === SELECT_STATE_UT ||
-              selectedStateUT === ALL_STATE_UT) &&
-            (selectedElection === SELECT_ELECTION ||
-              selectedElection === FIRST_SELECT_STATEUT) && (
+            (selectedStateUT === SELECT_STATE_UT
+              || selectedStateUT === ALL_STATE_UT)
+            && (selectedElection === SELECT_ELECTION
+              || selectedElection === FIRST_SELECT_STATEUT)
+            && (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
                   Please select a region from the drop-down or by clicking on
@@ -684,11 +685,8 @@ const Dashboard = ({
                 </div>
               </div>
             )}
-          {electionViewType === "assembly" &&
-            (selectedStateUT !== (SELECT_STATE_UT || ALL_STATE_UT) ||
-              selectedElection !== (SELECT_ELECTION || FIRST_SELECT_STATEUT)) &&
-            selectedStateUTData.length === 0 &&
-            Object.keys(regionStatsSVGData).length === 0 && (
+          { Object.keys(regionStatsSVGData).length === 0
+            && (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
                   Data for selected options does not exist.
