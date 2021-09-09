@@ -46,7 +46,7 @@ const CustomAllianceModal = ({
       setYearData([])
     }
     else {
-      if (selectedElection === LIVE_ELECTION) {
+      if (selectedElection.year === LIVE_ELECTION) {
         URL = `${process.env.LIVE_ELECTION}`
       } else if(selectedElection.year === UPCOMING_ELECTION) {
         URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
@@ -159,7 +159,7 @@ const CustomAllianceModal = ({
       setYearData([])
       setResetAlliances(false) 
     } else {
-      if (selectedElection === LIVE_ELECTION) {
+      if (selectedElection.year === LIVE_ELECTION) {
         URL = `${process.env.LIVE_ELECTION}`
       } else if(selectedElection.year === UPCOMING_ELECTION) {
         URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
