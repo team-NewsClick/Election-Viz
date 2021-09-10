@@ -268,7 +268,6 @@ const Dashboard = ({
           setCompareElection(compareOptions[0].value)
         }
       }
-      `${CSV_PATH}/${electionType}_${parseInt(year) - 5}.csv`
       if(selectedElection === SELECT_ELECTION) {
         setSelectedYearData([])
         setCompareElection(compareOptions[0].value)
