@@ -229,10 +229,13 @@ const Dashboard = ({
   useEffect(() => {
     if (selectedElection === LIVE_ELECTION) {
       const interval = setInterval(() => {
-        axios.get(`${process.env.LIVE_ELECTION}`).then((response) => {
+        axios
+        .get(`${process.env.LIVE_ELECTION}`)
+        .then((response) => {
           const parsedData = csvParse(response.data)
           setSelectedYearData(parsedData)
         })
+        .catch((e) => setSelectedYearData([]))
       }, 1000 * 60 * DELAY_INTERVAL_MINUTES)
       return () => clearInterval(interval)
     }
@@ -523,10 +526,13 @@ const Dashboard = ({
           })
           .catch((e) => setSelectedYearData([]))
       } else {
-        axios.get(`${process.env.LIVE_ELECTION}`).then((response) => {
+        axios
+        .get(`${process.env.LIVE_ELECTION}`)
+        .then((response) => {
           const parsedData = csvParse(response.data)
           setSelectedYearData(parsedData)
         })
+        .catch((e) => setSelectedYearData([]))
       }
     }
   }, [partiesSwing])
@@ -673,10 +679,11 @@ const Dashboard = ({
           className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
         >
           {electionViewType === "assembly" &&
-            (selectedStateUT === SELECT_STATE_UT ||
-              selectedStateUT === ALL_STATE_UT) &&
-            (selectedElection === SELECT_ELECTION ||
-              selectedElection === FIRST_SELECT_STATEUT) && (
+            (selectedStateUT === SELECT_STATE_UT
+              || selectedStateUT === ALL_STATE_UT)
+            && (selectedElection === SELECT_ELECTION
+              || selectedElection === FIRST_SELECT_STATEUT)
+            && (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
                   Please select a region from the drop-down or by clicking on
@@ -684,11 +691,8 @@ const Dashboard = ({
                 </div>
               </div>
             )}
-          {electionViewType === "assembly" &&
-            (selectedStateUT !== (SELECT_STATE_UT || ALL_STATE_UT) ||
-              selectedElection !== (SELECT_ELECTION || FIRST_SELECT_STATEUT)) &&
-            selectedStateUTData.length === 0 &&
-            Object.keys(regionStatsSVGData).length === 0 && (
+          { Object.keys(regionStatsSVGData).length === 0
+            && (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
                   Data for selected options does not exist.

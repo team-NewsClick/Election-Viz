@@ -51,7 +51,7 @@ export const LIVE_ELECTION_TYPE = "assembly"
 /**
  * Live Election States/UTs
  */
-export const LIVE_ELECTION_STATEUT = ["Kerala"]
+export const LIVE_ELECTION_STATEUT = ["Bihar"]
 
 /**
  * Upcoming Election Type
@@ -468,7 +468,8 @@ export const VOTERS_TRUNOUT_OPTIONS = [
 export const DEFAULT_STATE_FILL_COLOR = [255, 255, 255, 0]
 export const DEFAULT_STATE_LINE_COLOR = [60, 60, 60, 255]
 export const DEFAULT_DISTRICT_FILL_COLOR = [255, 255, 255, 125]
-export const DEFAULT_DISTRICT_LINE_COLOR = [255, 255, 255, 255]
+export const DEFAULT_DISTRICT_LINE_COLOR_GENERAL = [255, 255, 255, 255]
+export const DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY = [0, 0, 0, 255]
 export const TRANSPARENT_COLOR = [255, 255, 255, 0]
 
 /**
