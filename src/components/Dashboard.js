@@ -253,7 +253,6 @@ const Dashboard = ({
           } else {
             setCompareElection(filteredCompareOptions[1].value)
           }
-          setCompareElection(filteredCompareOptions[1].value)
         } else {
           setCompareElection(compareOptions[0].value)
         }
@@ -265,7 +264,6 @@ const Dashboard = ({
           } else {
             setCompareElection(filteredCompareOptions[1].value)
           }
-          setCompareElection(filteredCompareOptions[1].value)
         } else {
           setCompareElection(compareOptions[0].value)
         }
@@ -273,7 +271,7 @@ const Dashboard = ({
       `${CSV_PATH}/${electionType}_${parseInt(year) - 5}.csv`
       if(selectedElection === SELECT_ELECTION) {
         setSelectedYearData([])
-        setCompareElection("None")
+        setCompareElection(compareOptions[0].value)
       } else {
         if (year === LIVE_ELECTION) {
           URL = `${process.env.LIVE_ELECTION}`
@@ -295,7 +293,7 @@ const Dashboard = ({
 
   useEffect(() => {
     if (compareElection) {
-      if(compareElection === "None") {
+      if(compareElection.year === compareOptions[0].value.year) {
         setCompareYearData([])
       } else {
         let compareElectionType = compareElection.type
