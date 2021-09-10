@@ -1,7 +1,8 @@
 import {
   ALL_STATE_UT,
   ALL_CONSTITUENCIES,
-  FIRST_SELECT_STATEUT
+  FIRST_SELECT_STATEUT,
+  NO_CONSTITUENCIES
 } from "../constants"
 import {
   getDataConstituency,
@@ -55,7 +56,7 @@ export const getRegionStatsTable = (
       })
     }
   } else {
-    filteredPresData = presentYearData.filter((d) => {
+    filteredPresData = presentYearData && presentYearData.length !== 0 && presentYearData.filter((d) => {
       if (filteredGeoJSON.features.findIndex((e) => e.properties.AC_NAME === d.AC_NAME) > -1) {
         return d
       }
@@ -175,8 +176,9 @@ const getCurrYearDataTable = (
 ) => {
   let totalVotes = 0, tableData = []
   if (
-    selectedConstituency === ALL_CONSTITUENCIES ||
-    selectedStateUT === ALL_STATE_UT
+    selectedConstituency === ALL_CONSTITUENCIES
+    || selectedConstituency === NO_CONSTITUENCIES
+    || selectedStateUT === ALL_STATE_UT
   ) {
     if (groupType === "party") {
       for (const property in SVGData) {
@@ -214,7 +216,8 @@ const getCurrYearDataTable = (
       }
     }
     if (groupType === "party") {
-      data.map((d) => {
+      data
+      ? data.map((d) => {
         let temp = tableData.indexOf(tableData.find(({ party }) => party == d.PARTY))
         if (temp > -1 && !Number.isNaN(parseInt(d.VOTES))) {
           tableData[temp].votes += parseInt(d.VOTES)
@@ -224,8 +227,10 @@ const getCurrYearDataTable = (
             (tableData[tableData.length - 1].votes += parseInt(d.VOTES))
         }
       })
+      : tableData[0].votes = 0
     } else {
-      data.map((d) => {
+      data
+      ? data.map((d) => {
         let temp =
           partyAlliance.find((e) => e.PARTY == d.PARTY) &&
           tableData.indexOf(
@@ -243,11 +248,11 @@ const getCurrYearDataTable = (
             && (tableData[tableData.length - 1].votes += parseInt(d.VOTES))
         }
       })
+      : tableData[0].votes = 0
     }
   } else {
-    let constituencyStats = []
     if (groupType === "party") {
-      mapDataConstituencies.map((d, index) =>
+      mapDataConstituencies && mapDataConstituencies.map((d, index) =>
         tableData.push({
           party: d.party,
           seats: index == 0 ? 1 : 0,
@@ -257,7 +262,7 @@ const getCurrYearDataTable = (
       )
     } else {
       let alliances = new Set()
-      mapDataConstituencies.map((d) => {
+      mapDataConstituencies && mapDataConstituencies.map((d) => {
         partyAlliance.find((e) => e.PARTY == d.party)
           ? alliances.add(partyAlliance.find((e) => e.PARTY === d.party).ALLIANCE)
           : alliances.add("OTHERS")
@@ -271,7 +276,7 @@ const getCurrYearDataTable = (
           votesPercent: 0
         })
       })
-      mapDataConstituencies.map((d) => {
+      mapDataConstituencies && mapDataConstituencies.map((d) => {
         let tempAlliance = partyAlliance.find((e) => e.PARTY == d.party)
           ? partyAlliance.find((e) => e.PARTY == d.party).ALLIANCE
           : "OTHERS"

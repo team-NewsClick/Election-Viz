@@ -11,13 +11,14 @@ import {
   ALL_STATE_UT,
   DEFAULT_DISTRICT_FILL_COLOR,
   DEFAULT_STATE_LINE_COLOR,
-  DEFAULT_DISTRICT_LINE_COLOR,
+  MAP_TRANSPARENT_NA_COLOR,
   TRANSPARENT_COLOR,
   ALL_CONSTITUENCIES,
   SELECT_STATE_UT,
   DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
   SELECT_ELECTION,
-  DEFAULT_DISTRICT_LINE_COLOR_GENERAL
+  DEFAULT_DISTRICT_LINE_COLOR_GENERAL,
+  NA_ALLIANCE_DATA
 } from "../../constants"
 import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
@@ -265,8 +266,13 @@ const MapWidget = ({
       ? d.properties.PC_NO
       : d.properties.AC_NO
     results = constituenciesResults[sortByStateKey] && constituenciesResults[sortByStateKey][sortByConstituencyKey]
+    let hexColor
     if (results && results.color) {
-      const hexColor = hexRgb(results.color)
+      if(results.candidate === "N/A") {
+        hexColor = MAP_TRANSPARENT_NA_COLOR
+      } else {
+        hexColor = hexRgb(results.color)
+      }
       return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha*255]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR

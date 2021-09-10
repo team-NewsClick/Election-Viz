@@ -78,6 +78,21 @@ const UPCOMING_ELECTIONS_STATEUT = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punj
  */
 export const GEOJSON_PATH = "/data/geojson"
 
+export const NA_PARTY_DATA = {
+  candidate: "N/A",
+  party: "N/A",
+  color: "#dddddd",
+  votesReceived: 0
+}
+
+export const NA_ALLIANCE_DATA = {
+  candidate: "N/A",
+  alliance: "N/A",
+  color: "#dddddd",
+  votesReceived: 0
+}
+
+
 /**
  * Public CSV URL
  */
@@ -471,6 +486,7 @@ export const DEFAULT_DISTRICT_FILL_COLOR = [255, 255, 255, 125]
 export const DEFAULT_DISTRICT_LINE_COLOR_GENERAL = [255, 255, 255, 255]
 export const DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY = [0, 0, 0, 255]
 export const TRANSPARENT_COLOR = [255, 255, 255, 0]
+export const MAP_TRANSPARENT_NA_COLOR = {red: 255, green: 255, blue: 255, alpha: 0}
 
 /**
  * Default Party or Alliance Color

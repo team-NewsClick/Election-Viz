@@ -291,7 +291,7 @@ const Dashboard = ({
   }, [compareOptions, selectedElection])
 
   useEffect(() => {
-    if (compareElection) {
+    if (compareElection && selectedYearData.length !== 0) {
       if(compareElection.year === compareOptions[0].value.year) {
         setCompareYearData([])
       } else {
@@ -345,22 +345,18 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
-    if (
-      selectedYearData != [] &&
-      Object.keys(colorPartyAlliance).length !== 0
-    ) {
-      setMapData(
-        getMapData(
-          selectedYearData,
-          stateUTOptions,
-          electionViewType,
-          colorPartyAlliance
-        )
+    setMapData(
+      getMapData(
+        selectedYearData,
+        stateUTOptions,
+        electionViewType,
+        colorPartyAlliance,
+        selectedElection,
+        selectedStateUT,
+        filteredGeoJSON
       )
-    } else {
-      setMapData({})
-    }
-  }, [selectedYearData, colorPartyAlliance])
+    )
+  }, [selectedYearData, colorPartyAlliance, filteredGeoJSON])
 
   useEffect(() => {
     if (electionViewType === "general") {
@@ -435,8 +431,7 @@ const Dashboard = ({
     ) {
       let constituencyMapData = []
       if (
-        selectedConstituency !== FIRST_SELECT_STATEUT &&
-        selectedConstituency !== NO_CONSTITUENCIES
+        selectedConstituency !== FIRST_SELECT_STATEUT
       ) {
         constituencyMapData = mapData[selectedStateUT][selectedConstituency]
       }
@@ -704,7 +699,6 @@ const Dashboard = ({
             )}
           {selectedStateUT !== SELECT_STATE_UT &&
             selectedElection !== SELECT_ELECTION &&
-            selectedStateUTData.length !== 0 &&
             Object.keys(regionStatsSVGData).length !== 0 && (
               <div>
                 <RegionStatsSVG
