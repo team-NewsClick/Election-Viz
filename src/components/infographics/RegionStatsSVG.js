@@ -43,7 +43,7 @@ const RegionStatsSVG = ({
     <div>
       {totalConstituencies > 2 ? (
         <div>
-          <div className="max-w-3xl px-4 pt-5 mx-auto">{parse(semicircle)}</div>
+          <div className="max-w-3xl px-4 pt-4 mx-auto">{parse(semicircle)}</div>
         </div>
       ) : (
         <div className="h-64 mt-4">

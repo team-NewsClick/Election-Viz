@@ -242,34 +242,45 @@ const Dashboard = ({
   })
   useEffect(() => {
     if (compareOptions.length !== 0) {
+      let URL
       const electionType = selectedElection.type
       const year = selectedElection.year
-      let URL, COMPARE_URL, COMPARE_ELECTION
+      if(electionViewType === "assembly") {
+        const filteredCompareOptions = electionOptions.filter((a) => a.value.type === "assembly")
+        if(filteredCompareOptions.length > 1) {
+          if(filteredCompareOptions[1].value.year == selectedElection.year){
+            setCompareElection(compareOptions[0].value)
+          } else {
+            setCompareElection(filteredCompareOptions[1].value)
+          }
+          setCompareElection(filteredCompareOptions[1].value)
+        } else {
+          setCompareElection(compareOptions[0].value)
+        }
+      } else {
+        const filteredCompareOptions = electionOptions.filter((a) => a.value.type === "general")
+        if(filteredCompareOptions.length > 1) {
+          if(filteredCompareOptions[1].value.year == selectedElection.year){
+            setCompareElection(compareOptions[0].value)
+          } else {
+            setCompareElection(filteredCompareOptions[1].value)
+          }
+          setCompareElection(filteredCompareOptions[1].value)
+        } else {
+          setCompareElection(compareOptions[0].value)
+        }
+      }
+      `${CSV_PATH}/${electionType}_${parseInt(year) - 5}.csv`
       if(selectedElection === SELECT_ELECTION) {
         setSelectedYearData([])
         setCompareElection("None")
       } else {
         if (year === LIVE_ELECTION) {
           URL = `${process.env.LIVE_ELECTION}`
-          COMPARE_URL = `${CSV_PATH}/${LIVE_ELECTION_TYPE}_${parseInt(LIVE_ELECTION_YEAR) - 5}.csv`
-          COMPARE_ELECTION = {
-            type: LIVE_ELECTION_TYPE,
-            year: parseInt(LIVE_ELECTION_YEAR) - 5
-          }
         } else if(year === UPCOMING_ELECTION) {
           URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
-          COMPARE_URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR) - 5}.csv`
-          COMPARE_ELECTION = {
-            type: UPCOMING_ELECTION_TYPE,
-            year: parseInt(UPCOMING_ELECTION_YEAR) - 5
-          }
         } else {
           URL = `${CSV_PATH}/${electionType}_${year}.csv`
-          COMPARE_URL = `${CSV_PATH}/${electionType}_${parseInt(year) - 5}.csv`
-          COMPARE_ELECTION = {
-            type: electionType,
-            year: (parseInt(year) - 5).toString()
-          }
         }
         axios
           .get(URL)
@@ -278,11 +289,6 @@ const Dashboard = ({
             setSelectedYearData(parsedData)
           })
           .catch((e) => setSelectedYearData([]))
-        if(COMPARE_ELECTION.year in ELECTION_YEAR_STATEUT[electionType]) {
-          setCompareElection(COMPARE_ELECTION)
-        } else {
-          setCompareElection(compareOptions[0].value)
-        }
       }
     }
   }, [compareOptions, selectedElection])
@@ -712,6 +718,8 @@ const Dashboard = ({
                 <RegionStatsTable
                   regionStatsTableData={regionStatsTableData}
                   regionStatsLoading={regionStatsLoading}
+                  selectedElection={selectedElection}
+                  compareElection={compareElection}
                 />
               </div>
             )}
