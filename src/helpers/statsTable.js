@@ -344,7 +344,6 @@ const getCompareYearDataTable = (
         compareMapData,
         selectedStateUT,
         selectedConstituency,
-        electionViewType,
         groupType,
         partyAlliance,
         colorPartyAlliance

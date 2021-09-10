@@ -130,14 +130,17 @@ export const getMapData = (
   data,
   selectedStateUT,
   selectedConstituency,
-  electionViewType,
   groupType,
   partyAlliance,
   colorPartyAlliance
 ) => {
+  console.log
   if(colorPartyAlliance && data != {} && selectedConstituency !== undefined) {
     let result = {}
-    if (selectedConstituency === ALL_CONSTITUENCIES || selectedConstituency === NO_CONSTITUENCIES) {
+    if (selectedConstituency === ALL_CONSTITUENCIES
+      || selectedConstituency === NO_CONSTITUENCIES
+      || selectedConstituency === FIRST_SELECT_STATEUT
+      ) {
       if(groupType === "party") {
         for(const stateUT in data) {
           const stateUTData = {}

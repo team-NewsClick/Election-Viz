@@ -395,7 +395,6 @@ const Dashboard = ({
           mapData,
           selectedStateUT,
           selectedConstituency,
-          electionViewType,
           groupType,
           partyAlliance,
           colorPartyAlliance
