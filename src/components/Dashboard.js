@@ -345,17 +345,21 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
-    setMapData(
-      getMapData(
-        selectedYearData,
-        stateUTOptions,
-        electionViewType,
-        colorPartyAlliance,
-        selectedElection,
-        selectedStateUT,
-        filteredGeoJSON
+    if(selectedStateUT !== SELECT_STATE_UT) {
+      setMapData(
+        getMapData(
+          selectedYearData,
+          stateUTOptions,
+          electionViewType,
+          colorPartyAlliance,
+          selectedElection,
+          selectedStateUT,
+          filteredGeoJSON
+        )
       )
-    )
+    } else {
+      setMapData({})
+    }
   }, [selectedYearData, colorPartyAlliance, filteredGeoJSON])
 
   useEffect(() => {
