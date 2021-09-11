@@ -11,13 +11,14 @@ import {
   ALL_STATE_UT,
   DEFAULT_DISTRICT_FILL_COLOR,
   DEFAULT_STATE_LINE_COLOR,
-  DEFAULT_DISTRICT_LINE_COLOR,
+  MAP_TRANSPARENT_NA_COLOR,
   TRANSPARENT_COLOR,
   ALL_CONSTITUENCIES,
   SELECT_STATE_UT,
   DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
   SELECT_ELECTION,
-  DEFAULT_DISTRICT_LINE_COLOR_GENERAL
+  DEFAULT_DISTRICT_LINE_COLOR_GENERAL,
+  NA_ALLIANCE_DATA
 } from "../../constants"
 import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
@@ -176,7 +177,9 @@ const MapWidget = ({
           getLineWidth: 4
         })
       ]
-  } else if (selectedStateUT === SELECT_STATE_UT) {
+  } else {
+  if (selectedStateUT === SELECT_STATE_UT
+      && (selectedElection === SELECT_ELECTION || selectedElection.type === "general")) {
     tempLayers = [
       new GeoJsonLayer({
         id: "state-geojson-layer-1",
@@ -187,13 +190,13 @@ const MapWidget = ({
         lineWidthScale: 600,
         getLineWidth: 4,
         getLineColor: DEFAULT_STATE_LINE_COLOR,
-        getFillColor: (d) => _fillInitGeoJsonColor(d),
+        getFillColor: TRANSPARENT_COLOR,
         onClick: ({ object }) => _handleMap(object)
       })
     ]
   } else if(
     selectedStateUT === SELECT_STATE_UT
-    && (selectedElection === SELECT_ELECTION || selectedElection.type === "general")
+    && (selectedElection == SELECT_ELECTION || selectedElection.type === "assembly")
     ) {
       tempLayers = [
         new GeoJsonLayer({
@@ -205,35 +208,36 @@ const MapWidget = ({
           lineWidthScale: 600,
           getLineWidth: 4,
           getLineColor: DEFAULT_STATE_LINE_COLOR,
-          getFillColor: TRANSPARENT_COLOR,
+          getFillColor: (d) => _fillInitGeoJsonColor(d),
           onClick: ({ object }) => _handleMap(object)
         })
       ]
-  } else {
-    tempLayers = [
-      new GeoJsonLayer({
-        id: "constituency-geojson-layer-1",
-        data: filterdGeoJsonData,
-        stroked: true,
-        filled: true,
-        pickable: true,
-        lineWidthScale: 200,
-        getFillColor: (d) => _fillGeoJsonColor(d),
-        getLineColor: DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
-        getLineWidth: electionViewType === "general" ? 10 : 2,
-        onClick: ({ object }) => _handleMap(object)
-      }),
-      new GeoJsonLayer({
-        id: "state-geojson-layer-2",
-        data: stateData,
-        stroked: true,
-        filled: false,
-        lineWidthScale: 600,
-        getLineColor: DEFAULT_STATE_LINE_COLOR,
-        getFillColor: TRANSPARENT_COLOR,
-        getLineWidth: 4
-      })
-    ]
+    } else {
+      tempLayers = [
+        new GeoJsonLayer({
+          id: "constituency-geojson-layer-1",
+          data: filterdGeoJsonData,
+          stroked: true,
+          filled: true,
+          pickable: true,
+          lineWidthScale: 200,
+          getFillColor: (d) => _fillGeoJsonColor(d),
+          getLineColor: DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
+          getLineWidth: electionViewType === "general" ? 10 : 2,
+          onClick: ({ object }) => _handleMap(object)
+        }),
+        new GeoJsonLayer({
+          id: "state-geojson-layer-2",
+          data: stateData,
+          stroked: true,
+          filled: false,
+          lineWidthScale: 600,
+          getLineColor: DEFAULT_STATE_LINE_COLOR,
+          getFillColor: TRANSPARENT_COLOR,
+          getLineWidth: 4
+        })
+      ]
+    }
   }
   setLayers(tempLayers)
   }, [constituenciesResults, filterdGeoJsonData])
@@ -262,8 +266,13 @@ const MapWidget = ({
       ? d.properties.PC_NO
       : d.properties.AC_NO
     results = constituenciesResults[sortByStateKey] && constituenciesResults[sortByStateKey][sortByConstituencyKey]
+    let hexColor
     if (results && results.color) {
-      const hexColor = hexRgb(results.color)
+      if(results.candidate === "N/A") {
+        hexColor = MAP_TRANSPARENT_NA_COLOR
+      } else {
+        hexColor = hexRgb(results.color)
+      }
       return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha*255]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR
