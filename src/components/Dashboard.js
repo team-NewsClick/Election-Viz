@@ -102,7 +102,19 @@ const Dashboard = ({
   useEffect(() => {
     setRegionStatsLoading(true)
     setMapWidgetLoading(true)
-  }, [selectedYearData, selectedStateUTData])
+    setSelectedYearData([])
+    setSelectedStateUTData([])
+    setFilteredGeoJSON({})
+    setMapData({})
+    setConstituenciesResults({})
+    setRegionStatsTableData({})
+    setRegionStatsTableData([])
+    setColorPartyAlliance({})
+  }, [
+    electionViewType,
+    selectedElection,
+    selectedStateUT
+  ])
 
   useEffect(() => {
     if (electionViewType === "general") {
@@ -216,6 +228,36 @@ const Dashboard = ({
 
   useEffect(() => {
     if (electionViewType === "general") {
+      setFilteredGeoJSON(
+        getFilteredGeoJson(
+          parliamentaryConstituenciesGeojson,
+          seatType,
+          stateUTOptions,
+          selectedStateUT,
+          selectedRegion
+        )
+      )
+    } else {
+      setFilteredGeoJSON(
+        getFilteredGeoJson(
+          assemblyConstituenciesGeojson,
+          seatType,
+          stateUTOptions,
+          selectedStateUT,
+          selectedRegion
+        )
+      )
+    }
+  }, [
+    seatType,
+    selectedElection,
+    selectedRegion,
+    selectedStateUT,
+    stateUTOptions
+  ])
+
+  useEffect(() => {
+    if (electionViewType === "general") {
       if (stateUTOptions && stateUTOptions.length !== 0) {
         setSelectedStateUT(
           stateUTOptions.indexOf(selectedStateUT) > -1
@@ -241,6 +283,7 @@ const Dashboard = ({
     }
   })
   useEffect(() => {
+    setRegionStatsLoading(true)
     if (compareOptions.length !== 0) {
       let URL
       const electionType = selectedElection.type
@@ -291,8 +334,9 @@ const Dashboard = ({
   }, [compareOptions, selectedElection])
 
   useEffect(() => {
-    if (compareElection && selectedYearData.length !== 0) {
-      if(compareElection.year === compareOptions[0].value.year) {
+    if (compareElection) {
+      if(compareElection.year === compareOptions[0].value.year
+        && selectedYearData.length == 0) {
         setCompareYearData([])
       } else {
         let compareElectionType = compareElection.type
@@ -345,7 +389,9 @@ const Dashboard = ({
   ])
 
   useEffect(() => {
-    if(selectedStateUT !== SELECT_STATE_UT) {
+    if(selectedStateUT !== SELECT_STATE_UT
+      && Object.keys(colorPartyAlliance).length !== 0
+      && Object.keys(partyAlliance).length !== 0) {
       setMapData(
         getMapData(
           selectedYearData,
@@ -363,37 +409,10 @@ const Dashboard = ({
   }, [selectedYearData, colorPartyAlliance, filteredGeoJSON])
 
   useEffect(() => {
-    if (electionViewType === "general") {
-      setFilteredGeoJSON(
-        getFilteredGeoJson(
-          parliamentaryConstituenciesGeojson,
-          seatType,
-          stateUTOptions,
-          selectedStateUT,
-          selectedRegion
-        )
-      )
-    } else {
-      setFilteredGeoJSON(
-        getFilteredGeoJson(
-          assemblyConstituenciesGeojson,
-          seatType,
-          stateUTOptions,
-          selectedStateUT,
-          selectedRegion
-        )
-      )
-    }
-  }, [
-    seatType,
-    selectedElection,
-    selectedRegion,
-    selectedStateUT,
-    stateUTOptions
-  ])
-
-  useEffect(() => {
-    if (Object.keys(mapData).length !== 0) {
+    if (Object.keys(mapData).length !== 0
+    && selectedStateUT !== SELECT_STATE_UT
+    && Object.keys(colorPartyAlliance).length !== 0
+    && Object.keys(partyAlliance).length !== 0) {
       setConstituenciesResults(
         getConstituenciesResults(
           mapData,
@@ -404,10 +423,13 @@ const Dashboard = ({
           colorPartyAlliance
         )
       )
+      setMapWidgetLoading(false)
     } else {
       setConstituenciesResults({})
     }
-    setMapWidgetLoading(false)
+    if(selectedStateUT === SELECT_STATE_UT || selectedElection === SELECT_ELECTION) {
+      setMapWidgetLoading(false)
+    }
   }, [mapData, selectedConstituency, selectedStateUT, groupType, partyAlliance])
 
   useEffect(() => {
@@ -458,11 +480,10 @@ const Dashboard = ({
         colorPartyAlliance
       )
       tempTableData && setRegionStatsTableData(tempTableData)
+      setRegionStatsLoading(false)
     } else {
       setRegionStatsTableData([])
     }
-    setRegionStatsLoading(false)
-    setMapWidgetLoading(false)
   }, [regionStatsSVGData, compareYearData, partiesSwing])
 
   useEffect(() => {
@@ -567,25 +588,16 @@ const Dashboard = ({
     }
   }
 
-  const doAdvanceReset = () => {
-    setAdvanceReset(!advanceReset)
-  }
   const customAlliance = (customAlliance) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setPartyAlliance(customAlliance)
   }
   const handleColorPartyAlliance = (params) => {
     setColorPartyAlliance(params)
   }
   const handleSwingParams = (params) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSwingParams(params)
   }
   const _handleElectionViewType = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
     SetElectionViewType(v)
@@ -594,17 +606,12 @@ const Dashboard = ({
     }
   }
   const _handleCompareElection = (v) => {
-    setRegionStatsLoading(true)
     setCompareElection(JSON.parse(v))
   }
   const _updatedRegion = (state) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedStateUT(state)
   }
   const _handleSelectedElection = (v) => {
-    setMapWidgetLoading(true)
-    setRegionStatsLoading(true)
     setSelectedElection(JSON.parse(v))
   }
   const _handleSelectedRegion = (v) => {
@@ -621,6 +628,9 @@ const Dashboard = ({
   }
   const _handleSelectedSeatType = (v) => {
     setSeatType(v)
+  }
+  const doAdvanceReset = () => {
+    setAdvanceReset(!advanceReset)
   }
   const _handleSelectedLocality = (v) => {
     console.log(v)
@@ -693,7 +703,7 @@ const Dashboard = ({
               </div>
             )}
           { Object.keys(regionStatsSVGData).length === 0
-            && (
+            && !mapWidgetLoading && (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
                   Data for selected options does not exist.
@@ -701,8 +711,7 @@ const Dashboard = ({
               </div>
             )}
           {selectedStateUT !== SELECT_STATE_UT &&
-            selectedElection !== SELECT_ELECTION &&
-            Object.keys(regionStatsSVGData).length !== 0 && (
+            selectedElection !== SELECT_ELECTION && (
               <div>
                 <RegionStatsSVG
                   regionStatsSVGData={regionStatsSVGData}

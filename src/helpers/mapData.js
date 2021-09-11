@@ -28,7 +28,7 @@ export const getMapData = (
 ) => {
   let result = {}, stateUTList
   const stateConstituenciesData = {}
-  if (data.length !== 0 || selectedElection.year === LIVE_ELECTION) {
+  if (data.length !== 0 || (selectedElection && selectedElection.year === LIVE_ELECTION)) {
     stateUTList = stateUTOptions.slice(1)
     stateUTList.map((d) => stateConstituenciesData[d] = {})
     if (electionViewType === "general") {
