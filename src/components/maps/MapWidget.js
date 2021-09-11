@@ -18,7 +18,7 @@ import {
   DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
   SELECT_ELECTION,
   DEFAULT_DISTRICT_LINE_COLOR_GENERAL,
-  NA_ALLIANCE_DATA
+  LIVE_ELECTION
 } from "../../constants"
 import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
@@ -179,7 +179,7 @@ const MapWidget = ({
       ]
   } else {
   if (selectedStateUT === SELECT_STATE_UT
-      && (selectedElection === SELECT_ELECTION || selectedElection.type === "general")) {
+      && (selectedElection === SELECT_ELECTION || selectedElection.type === "general" || selectedElection.year === LIVE_ELECTION)) {
     tempLayers = [
       new GeoJsonLayer({
         id: "state-geojson-layer-1",
