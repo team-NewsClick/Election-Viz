@@ -527,7 +527,7 @@ const Dashboard = ({
   useEffect(() => {
     const electionType = selectedElection.type
     const year = selectedElection.year
-    if (partiesSwing.length !== 0&& selectedElection === SELECT_ELECTION) {
+    if (partiesSwing.length !== 0 && selectedElection === SELECT_ELECTION) {
       if (year !== LIVE_ELECTION ) {
         axios
           .get(`${CSV_PATH}/${electionType}_${year}.csv`)
