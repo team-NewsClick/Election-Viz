@@ -557,7 +557,7 @@ const Dashboard = ({
         .catch((e) => setSelectedYearData([]))
       }
     }
-  }, [partiesSwing, filteredGeoJSON, selectedStateUT])
+  }, [partiesSwing, filteredGeoJSON])
 
   useEffect(() => {
     const temp = getCompareOptions(electionViewType, selectedElection, selectedStateUT)
