@@ -1,4 +1,5 @@
 import { ALL_STATE_UT } from "../constants"
+import { getConstituencies, getDataStateUT } from "./utils"
 /**
  * To get the params required for sliders for the alliances' swings
  * @param {Array<Strings>} arr name of alliances
@@ -47,25 +48,31 @@ export const getParams = (partyAlliance) => {
 export const calculateSwings = (
   selectedYearData,
   selectedStateUT,
-  constituencyOptions,
+  filteredGeoJSON,
   partiesSwing,
   electionViewType
 ) => {
   if (
-    constituencyOptions.length !== 0 &&
+    filteredGeoJSON.length !== 0 &&
     partiesSwing.length !== 0 &&
     selectedStateUT !== ALL_STATE_UT &&
     selectedYearData.length !== 0
   ) {
-    let constituencies
+    let constituencies, selectedStateUTData, constituencyOptions
+    selectedStateUTData = getDataStateUT(selectedYearData, selectedStateUT)
+    constituencyOptions = getConstituencies(
+      selectedStateUTData,
+      selectedStateUT,
+      electionViewType,
+      filteredGeoJSON
+    )
     if(constituencyOptions.length > 1) {
       constituencies = constituencyOptions.slice(1)
     } else {
       constituencies = constituencyOptions
     }
     const totalVotesPolledData = calculateConstituencyVotesPolled(
-      selectedYearData,
-      selectedStateUT,
+      selectedStateUTData,
       constituencies,
       electionViewType
     )
@@ -91,18 +98,14 @@ export const calculateSwings = (
  * @returns {Array<Object>} Array of objects with calculated Votes Polled
  */
 const calculateConstituencyVotesPolled = (
-  selectedYearData,
-  selectedStateUT,
+  selectedStateUTData,
   constituencies,
   electionViewType
 ) => {
-  const selectedState = selectedYearData.filter((state) => {
-    return state.ST_NAME === selectedStateUT
-  })
   let totalVotes = []
   if (electionViewType === "general") {
     totalVotes = constituencies.map((constituency) => {
-      const assemblyFilter = selectedState.filter((row) => {
+      const assemblyFilter = selectedStateUTData.filter((row) => {
         return row.PC_NO == constituency.code
       })
       const total = assemblyFilter
@@ -118,7 +121,7 @@ const calculateConstituencyVotesPolled = (
     })
   } else {
     totalVotes = constituencies.map((constituency) => {
-      const assemblyFilter = selectedState.filter((row) => {
+      const assemblyFilter = selectedStateUTData.filter((row) => {
         return row.AC_NO == constituency.code
       })
       const total = assemblyFilter

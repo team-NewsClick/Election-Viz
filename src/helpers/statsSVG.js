@@ -1,5 +1,4 @@
 import {
-  ALL_STATE_UT,
   DEFAULT_PARTY_ALLIANCE_COLOR,
   SELECT_STATE_UT
 } from "../constants"
