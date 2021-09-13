@@ -492,17 +492,8 @@ const Dashboard = ({
 
   useEffect(() => {
     let result = []
-    if (partyAlliance && swingParams && swingParams.length !== 0) {
-      if (swingParams && swingParams.length === 0) {
-        partyAlliance.map((d) => {
-          result.push({
-            PARTY: d.PARTY,
-            ALLIANCE: d.ALLIANCE,
-            swing: 0,
-            newParty: false
-          })
-        })
-      } else {
+    if (partyAlliance && swingParams) {
+      if (swingParams.length !== 0) {
         partyAlliance.map((d) => {
           const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
           if (tempSwing) {
@@ -513,6 +504,15 @@ const Dashboard = ({
               newParty: tempSwing.newParty
             })
           }
+        })
+      } else {
+        partyAlliance.map((d) => {
+          result.push({
+            PARTY: d.PARTY,
+            ALLIANCE: d.ALLIANCE,
+            swing: 0,
+            newParty: false
+          })
         })
       }
       setPartiesSwing([...result])
@@ -527,7 +527,7 @@ const Dashboard = ({
   useEffect(() => {
     const electionType = selectedElection.type
     const year = selectedElection.year
-    if (partiesSwing.length !== 0 && selectedElection === SELECT_ELECTION) {
+    if (partiesSwing.length !== 0) {
       if (year !== LIVE_ELECTION ) {
         axios
           .get(`${CSV_PATH}/${electionType}_${year}.csv`)
@@ -539,7 +539,7 @@ const Dashboard = ({
               const temp = calculateSwings(
                 parsedData,
                 selectedStateUT,
-                constituencyOptions,
+                filteredGeoJSON,
                 partiesSwing,
                 electionViewType
               )
@@ -557,7 +557,7 @@ const Dashboard = ({
         .catch((e) => setSelectedYearData([]))
       }
     }
-  }, [partiesSwing])
+  }, [partiesSwing, filteredGeoJSON, selectedStateUT])
 
   useEffect(() => {
     const temp = getCompareOptions(electionViewType, selectedElection, selectedStateUT)
