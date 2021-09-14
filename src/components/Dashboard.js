@@ -107,15 +107,16 @@ const Dashboard = ({
     setFilteredGeoJSON({})
     setMapData({})
     setConstituenciesResults({})
-    setRegionStatsTableData({})
+    setRegionStatsSVGData({})
     setRegionStatsTableData([])
     setColorPartyAlliance({})
+    setPartiesSwing([])
   }, [
     electionViewType,
     selectedElection,
     selectedStateUT
   ])
-
+  
   useEffect(() => {
     if (electionViewType === "general") {
       const tempElectionOptions = getElectionOptions(
@@ -290,26 +291,24 @@ const Dashboard = ({
       const year = selectedElection.year
       if(electionViewType === "assembly") {
         const filteredCompareOptions = electionOptions.filter((a) => a.value.type === "assembly")
-        if(filteredCompareOptions.length > 1) {
-          if(filteredCompareOptions[1].value.year == selectedElection.year){
-            setCompareElection(compareOptions[0].value)
-          } else {
-            setCompareElection(filteredCompareOptions[1].value)
-          }
+        if(selectedElection.type === "assembly") {
+          filteredCompareOptions.length > 1
+            ? filteredCompareOptions[1].value.year == selectedElection.year
+              ? setCompareElection(compareOptions[0].value)
+              : setCompareElection(filteredCompareOptions[1].value)
+            : setCompareElection(compareOptions[0].value)
         } else {
-          setCompareElection(compareOptions[0].value)
+          filteredCompareOptions.length > 0
+            ? setCompareElection(filteredCompareOptions[0].value)
+            : setCompareElection(compareOptions[0].value)
         }
       } else {
         const filteredCompareOptions = electionOptions.filter((a) => a.value.type === "general")
-        if(filteredCompareOptions.length > 1) {
-          if(filteredCompareOptions[1].value.year == selectedElection.year){
-            setCompareElection(compareOptions[0].value)
-          } else {
-            setCompareElection(filteredCompareOptions[1].value)
-          }
-        } else {
-          setCompareElection(compareOptions[0].value)
-        }
+        filteredCompareOptions.length > 1
+          ? filteredCompareOptions[1].value.year == selectedElection.year
+            ? setCompareElection(compareOptions[0].value)
+            : setCompareElection(filteredCompareOptions[1].value)
+          : setCompareElection(compareOptions[0].value)
       }
       if(selectedElection === SELECT_ELECTION) {
         setSelectedYearData([])
@@ -575,6 +574,8 @@ const Dashboard = ({
   }, [electionViewType, selectedElection, selectedStateUT])
 
   const _home = () => {
+    setMapWidgetLoading(true)
+    setRegionStatsLoading(true)
     setSelectedStateUT(stateUTOptions[0])
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
@@ -689,11 +690,8 @@ const Dashboard = ({
           style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
           className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
         >
-          {electionViewType === "assembly" &&
-            (selectedStateUT === SELECT_STATE_UT
-              || selectedStateUT === ALL_STATE_UT)
-            && (selectedElection === SELECT_ELECTION
-              || selectedElection === FIRST_SELECT_STATEUT)
+          {electionViewType === "assembly"
+            && (selectedStateUT === SELECT_STATE_UT || selectedElection === SELECT_ELECTION)
             && (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
@@ -703,15 +701,14 @@ const Dashboard = ({
               </div>
             )}
           { Object.keys(regionStatsSVGData).length === 0
-            && !mapWidgetLoading && (
+            && !regionStatsLoading ? (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
                   Data for selected options does not exist.
                 </div>
               </div>
-            )}
-          {selectedStateUT !== SELECT_STATE_UT &&
-            selectedElection !== SELECT_ELECTION && (
+            )
+            : (
               <div>
                 <RegionStatsSVG
                   regionStatsSVGData={regionStatsSVGData}

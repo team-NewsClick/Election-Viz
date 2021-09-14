@@ -27,11 +27,11 @@ const RegionStatsTable = ({
         <div className="w-2/12 border-r border-gray-400 px-1 py-2"></div>
         <div className="w-3/12 px-1 py-2 text-center">Seats</div>
         <div className="w-2/12 px-3 border-r border-gray-400 py-2">
-          <img src="img/plus-minus.svg" className="float-right" />
+          <img src="img/plus-minus.svg" className="float-right" alt="" />
         </div>
         <div className="w-3/12 px-1 py-2 text-center">Vote%</div>
         <div className="w-2/12 px-3 py-2">
-          <img src="img/plus-minus.svg" className="float-right" />
+          <img src="img/plus-minus.svg" className="float-right" alt="" />
         </div>
       </div>
       {regionStatsTableData.map((row, index) => (
@@ -48,6 +48,7 @@ const RegionStatsTable = ({
             </div>
             <img
               src={row.seatsDiff <= 0 ? "img/down-red.svg" : "img/up-green.svg"}
+              alt={row.seatsDiff <= 0 ? "decreased by" : "increased by"}
               className="w-4 mr-2"
             />
           </div>
@@ -59,11 +60,8 @@ const RegionStatsTable = ({
                 : Math.abs(row.votesPercentDiff)}
             </div>
             <img
-              src={
-                row.votesPercentDiff <= 0
-                  ? "img/down-red.svg"
-                  : "img/up-green.svg"
-              }
+              src={row.votesPercentDiff <= 0 ? "img/down-red.svg" : "img/up-green.svg"}
+              alt={row.votesPercentDiff <= 0 ? "decreased by" : "increased by"}
               className="w-4 mr-2"
             />
           </div>
