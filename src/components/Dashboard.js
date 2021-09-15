@@ -700,29 +700,30 @@ const Dashboard = ({
                 </div>
               </div>
             )}
-          { Object.keys(regionStatsSVGData).length === 0
-            && !regionStatsLoading ? (
-              <div className="flex h-full">
-                <div className="text-center m-auto text-xl px-4 py-10">
-                  Data for selected options does not exist.
+          {selectedStateUT !== SELECT_STATE_UT && selectedElection !== SELECT_ELECTION  &&
+            ( Object.keys(regionStatsSVGData).length === 0
+              && !regionStatsLoading ? (
+                <div className="flex h-full">
+                  <div className="text-center m-auto text-xl px-4 py-10">
+                    Data for selected options does not exist.
+                  </div>
                 </div>
-              </div>
-            )
-            : (
-              <div>
-                <RegionStatsSVG
-                  regionStatsSVGData={regionStatsSVGData}
-                  selectedConstituency={selectedConstituency}
-                  regionStatsLoading={regionStatsLoading}
-                />
-                <RegionStatsTable
-                  regionStatsTableData={regionStatsTableData}
-                  regionStatsLoading={regionStatsLoading}
-                  selectedElection={selectedElection}
-                  compareElection={compareElection}
-                />
-              </div>
-            )}
+              )
+              : (
+                <div>
+                  <RegionStatsSVG
+                    regionStatsSVGData={regionStatsSVGData}
+                    selectedConstituency={selectedConstituency}
+                    regionStatsLoading={regionStatsLoading}
+                  />
+                  <RegionStatsTable
+                    regionStatsTableData={regionStatsTableData}
+                    regionStatsLoading={regionStatsLoading}
+                    selectedElection={selectedElection}
+                    compareElection={compareElection}
+                  />
+                </div>
+            ))}
         </div>
         <div
           onClick={_home}
