@@ -26,6 +26,7 @@ export const getRegionStatsTable = (
   compareYearData,
   SVGData,
   electionViewType,
+  selectedElection,
   compareElection,
   groupType,
   partyAlliance,
@@ -83,13 +84,15 @@ export const getRegionStatsTable = (
       filteredCompareData,
       SVGData,
       electionViewType,
+      selectedElection,
       groupType,
       partyAlliance,
       selectedStateUT,
       stateUTOptions,
       selectedConstituency,
       mapDataConstituencies,
-      colorPartyAlliance
+      colorPartyAlliance,
+      filteredGeoJSON
     )
   }
   if (
@@ -311,13 +314,15 @@ const getCompareYearDataTable = (
   compareYearData,
   SVGData,
   electionViewType,
+  selectedElection,
   groupType,
   partyAlliance,
   selectedStateUT,
   stateUTOptions,
   selectedConstituency,
   mapDataConstituencies,
-  colorPartyAlliance
+  colorPartyAlliance,
+  filteredGeoJSON
 ) => {
   let compareMapData = {}, compareSelectedStateUTData = [], compareStats = []
   if (compareYearData) {
@@ -336,17 +341,25 @@ const getCompareYearDataTable = (
       compareYearData,
       stateUTOptions,
       electionViewType,
-      colorPartyAlliance
+      partyAlliance,
+      colorPartyAlliance,
+      selectedElection,
+      selectedStateUT,
+      filteredGeoJSON
     )
     const compareConstituenciesResults =
       compareMapData &&
       getConstituenciesResults(
-        compareMapData,
+        compareYearData,
+        electionViewType,
+        selectedElection,
+        stateUTOptions,
         selectedStateUT,
         selectedConstituency,
         groupType,
         partyAlliance,
-        colorPartyAlliance
+        colorPartyAlliance,
+        filteredGeoJSON
       )
     if (electionViewType === "general") {
       if (

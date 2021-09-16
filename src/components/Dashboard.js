@@ -387,7 +387,7 @@ const Dashboard = ({
     filteredGeoJSON
   ])
 
-  useEffect(() => {
+  useEffect(() => {    
     if(selectedStateUT !== SELECT_STATE_UT
       && Object.keys(colorPartyAlliance).length !== 0
       && Object.keys(partyAlliance).length !== 0) {
@@ -396,6 +396,7 @@ const Dashboard = ({
           selectedYearData,
           stateUTOptions,
           electionViewType,
+          partyAlliance,
           colorPartyAlliance,
           selectedElection,
           selectedStateUT,
@@ -408,18 +409,21 @@ const Dashboard = ({
   }, [selectedYearData, colorPartyAlliance, filteredGeoJSON])
 
   useEffect(() => {
-    if (Object.keys(mapData).length !== 0
-    && selectedStateUT !== SELECT_STATE_UT
+    if (selectedStateUT !== SELECT_STATE_UT
     && Object.keys(colorPartyAlliance).length !== 0
     && Object.keys(partyAlliance).length !== 0) {
       setConstituenciesResults(
         getConstituenciesResults(
-          mapData,
+          selectedYearData,
+          electionViewType,
+          selectedElection,
+          stateUTOptions,
           selectedStateUT,
           selectedConstituency,
           groupType,
           partyAlliance,
-          colorPartyAlliance
+          colorPartyAlliance,
+          filteredGeoJSON
         )
       )
       setMapWidgetLoading(false)
@@ -468,6 +472,7 @@ const Dashboard = ({
         compareYearData,
         regionStatsSVGData,
         electionViewType,
+        selectedElection,
         compareElection,
         groupType,
         partyAlliance,
