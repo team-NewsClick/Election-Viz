@@ -85,9 +85,13 @@ const CustomAllianceModal = ({
       setRows(tempPartyAlliance)
       let tempCustomedPartyAlliance = []
       rows.map((a) => {
-        a.parties.map((p) => {
-          tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-        })
+        a.alliance !== "Unaligned"
+          ? a.parties.map((p) => {
+              tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+            })
+          : a.parties.map((p) => {
+            tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p })
+          })
       })
       customAlliance(tempCustomedPartyAlliance)
       const colorPartyAlliance = getColorPartyAlliance(rows)
@@ -101,11 +105,14 @@ const CustomAllianceModal = ({
 
   const _addNewAlliance = (v) => {
     const tempAlliance = document.getElementById("new-alliance").value.trim()
-    const allianceExist =
-      rows.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
+    const allianceExist = rows.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
+    const unalignedIndex = rows.findIndex((d) => d.alliance === "Unaligned")
     if (newAllianceCount < 3 && tempAlliance.length !== 0 && !allianceExist) {
+      const tempRows = rows
       setNewAllianceCount((prevNewAllianceCount) => prevNewAllianceCount + 1)
-      const tempRows = [...rows, { alliance: tempAlliance, parties: [] }]
+      unalignedIndex > -1
+        ? tempRows.splice(unalignedIndex, 0, { alliance: tempAlliance, parties: [] })
+        : tempRows.push({ alliance: tempAlliance, parties: [] })
       setRows(tempRows)
       document.getElementById("new-alliance").value = ""
     }
@@ -118,9 +125,13 @@ const CustomAllianceModal = ({
       : (customAllianceModal.style.display = "none")
     let tempCustomedPartyAlliance = []
     rows.map((a) => {
-      a.parties.map((p) => {
-        tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-      })
+      a.alliance !== "Unaligned"
+        ? a.parties.map((p) => {
+            tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+          })
+        : a.parties.map((p) => {
+          tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p })
+        })
     })
     customAlliance(tempCustomedPartyAlliance)
     const colorPartyAlliance = getColorPartyAlliance(rows)
@@ -181,10 +192,10 @@ const CustomAllianceModal = ({
 
   return (
     <div
-      className="flex md:min-h-screen justify-center bg-white bg-opacity-70 overscroll-contain overflow-auto"
+      className="flex h-full min-h-screen justify-center bg-white bg-opacity-70 overscroll-contain overflow-scroll"
       style={{ minWidth: "100vw", height: "fit-content" }}
     >
-      <div className="w-11/12 md:w-5/6 md:max-h-screen bg-gray-100 border-2 rounded-lg border-gray-200 my-8 p-3">
+      <div className="w-11/12 md:w-5/6 bg-gray-100 border-2 rounded-lg border-gray-200 my-8 p-3">
         <div>
           <div
             className="flex justify-end cursor-pointer"

@@ -17,12 +17,14 @@ import {
  * @param {Object} colorPartyAlliance - List Parties and Aliiances and their respective color
  * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
  */
-export const getMapData = (
+export const getContestantStats = (
   data,
   stateUTOptions,
   electionViewType,
+  partyAlliance,
   colorPartyAlliance,
   selectedElection,
+  groupType,
   selectedStateUT,
   filteredGeoJSON
 ) => {
@@ -61,9 +63,9 @@ export const getMapData = (
     for(const stateUT in stateConstituenciesData) {
       let constituencies = {}
       for(const constituency in stateConstituenciesData[stateUT]) {
-        let candidates = new Set()
+        let candidates = new Set(), constituencyStatsTemp
         stateConstituenciesData[stateUT][constituency].map((row) => candidates.add(row.CANDIDATE))
-        let constituencyStatsTemp = [...candidates].map((c) => {
+        constituencyStatsTemp = [...candidates].map((c) => {
           let votesReceived = 0
           let candidate = null
           let party = null
@@ -82,100 +84,162 @@ export const getMapData = (
               : DEFAULT_PARTY_ALLIANCE_COLOR,
           }
         })
+        if(groupType === "alliance") {
+          let tempAllianceStats = []
+          constituencyStatsTemp.map((d) => {
+            const allianceIndex = partyAlliance.findIndex((i) => i.PARTY === d.party)
+            const alliance = allianceIndex > -1 ? partyAlliance[allianceIndex].ALLIANCE : d.party
+            const tempAllianceStatsIndex = tempAllianceStats.findIndex((i) => i.alliance === alliance)
+            tempAllianceStatsIndex > -1
+              ? tempAllianceStats[tempAllianceStatsIndex].votesReceived += d.votesReceived
+              : tempAllianceStats.push({
+                candidate: alliance,
+                alliance,
+                votesReceived: d.votesReceived,
+                color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR
+              })
+          })
+          constituencyStatsTemp = tempAllianceStats
+        }
         let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
           return (a.votesReceived > b.votesReceived && -1) || 1
         })
         let constituencyStats = []
-        constituencyStatsSorted.length < 5 &&
-        (constituencyStats = constituencyStatsSorted)
-      constituencyStatsSorted.length >= 5 &&
-        constituencyStatsSorted.map((row, index) => {
-          ;(index < 4 && (constituencyStats[index] = row)) ||
-            ((constituencyStats[3].candidate = "OTHERS"),
-            (constituencyStats[3].party = "OTHERS"),
-            (constituencyStats[3].votesReceived +=
-              constituencyStatsSorted[index].votesReceived))
-        })
-      constituencies[constituency] = constituencyStats
-        
+        constituencyStatsSorted.length < 5 && (constituencyStats = constituencyStatsSorted)
+        constituencyStatsSorted.length >= 5 && constituencyStatsSorted.map((row, index) => {
+            ;(index < 4 && (constituencyStats[index] = row)) ||
+              ((constituencyStats[3].candidate = "OTHERS"),
+              (constituencyStats[3].party = "OTHERS"),
+              (constituencyStats[3].votesReceived +=
+                constituencyStatsSorted[index].votesReceived))
+          })
+        constituencies[constituency] = constituencyStats
       }
       result[stateUT] = constituencies
     }
-    if(selectedStateUT !== undefined && selectedElection && selectedElection.year === LIVE_ELECTION) {
-      if(electionViewType === "general") {
-        filteredGeoJSON.features.map((d) => {
-          result[selectedStateUT][d.properties.PC_NO] = result[selectedStateUT][d.properties.PC_NO]
-            ? result[selectedStateUT][d.properties.PC_NO]
-            : result[selectedStateUT][d.properties.PC_NO] = [NA_PARTY_DATA]
-        })
-      } else {
-        filteredGeoJSON.features.map((d) => {
-          result[selectedStateUT][d.properties.AC_NO] = result[selectedStateUT][d.properties.AC_NO]
-            ? result[selectedStateUT][d.properties.AC_NO]
-            : result[selectedStateUT][d.properties.AC_NO] = [NA_PARTY_DATA]
-        })
+    if(groupType === "party") {
+      if(selectedStateUT !== undefined && selectedElection && selectedElection.year === LIVE_ELECTION) {
+        if(electionViewType === "general") {
+          filteredGeoJSON.features.map((d) => {
+            result[selectedStateUT][d.properties.PC_NO] = result[selectedStateUT][d.properties.PC_NO]
+              ? result[selectedStateUT][d.properties.PC_NO]
+              : result[selectedStateUT][d.properties.PC_NO] = [NA_PARTY_DATA]
+          })
+        } else {
+          filteredGeoJSON.features.map((d) => {
+            result[selectedStateUT][d.properties.AC_NO] = result[selectedStateUT][d.properties.AC_NO]
+              ? result[selectedStateUT][d.properties.AC_NO]
+              : result[selectedStateUT][d.properties.AC_NO] = [NA_PARTY_DATA]
+          })
+        }
+      }
+    } else {
+      if(selectedStateUT !== undefined && selectedElection && selectedElection.year === LIVE_ELECTION) {
+        if(electionViewType === "general") {
+          filteredGeoJSON.features.map((d) => {
+            result[selectedStateUT][d.properties.PC_NO] = result[selectedStateUT][d.properties.PC_NO]
+              ? result[selectedStateUT][d.properties.PC_NO]
+              : result[selectedStateUT][d.properties.PC_NO] = [NA_ALLIANCE_DATA]
+          })
+        } else {
+          filteredGeoJSON.features.map((d) => {
+            result[selectedStateUT][d.properties.AC_NO] = result[selectedStateUT][d.properties.AC_NO]
+              ? result[selectedStateUT][d.properties.AC_NO]
+              : result[selectedStateUT][d.properties.AC_NO] = [NA_ALLIANCE_DATA]
+          })
+        }
       }
     }
   }
   return result
 }
 
+export const getMapData = (
+  data,
+  stateUTOptions,
+  electionViewType,
+  partyAlliance,
+  colorPartyAlliance,
+  selectedElection,
+  selectedStateUT,
+  filteredGeoJSON
+) => {
+  const mapData = getContestantStats(
+    data,
+    stateUTOptions,
+    electionViewType,
+    partyAlliance,
+    colorPartyAlliance,
+    selectedElection,
+    "party",
+    selectedStateUT,
+    filteredGeoJSON,
+  )
+  return mapData
+}
+
 /**
  * List of Constituencies and their winning candidates data
- * @param {Object} data {StateUT, PC_NAME, Top 4 contestants}
+ * @param {Object} mapData {StateUT, PC_NAME, Top 4 contestants}
  * @param {String} selectedConstituency Name of Selected Constituency
  * @returns {Array<Object>} - List of selected constituencies with respective winner data
  */
  export const getConstituenciesResults = (
   data,
+  electionViewType,
+  selectedElection,
+  stateUTOptions,
   selectedStateUT,
   selectedConstituency,
   groupType,
   partyAlliance,
-  colorPartyAlliance
+  colorPartyAlliance,
+  filteredGeoJSON
 ) => {
-  console.log
-  if(colorPartyAlliance && data != {} && selectedConstituency !== undefined) {
-    let result = {}
+  let result = {}, mapData
+  mapData = getContestantStats(
+    data,
+    stateUTOptions,
+    electionViewType,
+    partyAlliance,
+    colorPartyAlliance,
+    selectedElection,
+    groupType,
+    selectedStateUT,
+    filteredGeoJSON
+  )
+  if(colorPartyAlliance && mapData != {} && selectedConstituency !== undefined) {
     if (selectedConstituency === ALL_CONSTITUENCIES
       || selectedConstituency === NO_CONSTITUENCIES
       || selectedConstituency === FIRST_SELECT_STATEUT
       ) {
       if(groupType === "party") {
-        for(const stateUT in data) {
+        for(const stateUT in mapData) {
           const stateUTData = {}
-          for(const constituency in data[stateUT]) {
-            if(data[stateUT][constituency][0].votesReceived > 0) {
-              stateUTData[constituency] = {
-                candidate: data[stateUT][constituency][0].candidate,
-                party: data[stateUT][constituency][0].party,
-                color: data[stateUT][constituency][0].color
+          for(const constituency in mapData[stateUT]) {
+            mapData[stateUT][constituency][0].votesReceived > 0
+              ? stateUTData[constituency] = {
+                candidate: mapData[stateUT][constituency][0].candidate,
+                party: mapData[stateUT][constituency][0].party,
+                color: mapData[stateUT][constituency][0].color
               }
-            } else {
-              stateUTData[constituency] = NA_PARTY_DATA
-            }
+              : stateUTData[constituency] = NA_PARTY_DATA            
           }
           result[stateUT] = stateUTData
         }
       } else {
-        for(const stateUT in data) {
+        for(const stateUT in mapData) {
           const stateUTData = {}
-          for(const constituency in data[stateUT]) {
-            if(data[stateUT][constituency][0].votesReceived > 0) {
-              const party = data[stateUT][constituency][0].party
-              const allianceIndex = partyAlliance.findIndex((d) => d.PARTY === party)
-              const alliance = allianceIndex > -1 ? partyAlliance[allianceIndex].ALLIANCE : ""
-              const color = colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR
-              stateUTData[constituency] = {
-                candidate: data[stateUT][constituency][0].candidate,
-                alliance: alliance,
-                color: color
+          for(const constituency in mapData[stateUT]) {
+            mapData[stateUT][constituency][0].votesReceived > 0
+              ? stateUTData[constituency] = {
+                candidate: mapData[stateUT][constituency][0].candidate,
+                alliance: mapData[stateUT][constituency][0].alliance,
+                color: mapData[stateUT][constituency][0].color
               }
-            } else {
-              stateUTData[constituency] = NA_ALLIANCE_DATA
+              : stateUTData[constituency] = NA_ALLIANCE_DATA
             }
-          result[stateUT] = stateUTData
-        }
+            result[stateUT] = stateUTData
         }
       }
     }
@@ -183,34 +247,26 @@ export const getMapData = (
       const stateUTData = {}
       result[selectedStateUT] = {}
       result[selectedStateUT][selectedConstituency] = {}
-      if(data[selectedStateUT]
-        && data[selectedStateUT][selectedConstituency]
-        && data[selectedStateUT][selectedConstituency][0]
-        && data[selectedStateUT][selectedConstituency][0].votesReceived > 0
+      if(mapData[selectedStateUT]
+        && mapData[selectedStateUT][selectedConstituency]
+        && mapData[selectedStateUT][selectedConstituency][0]
+        && mapData[selectedStateUT][selectedConstituency][0].votesReceived > 0
         ) {
-        if(groupType === "party") {
-          result[selectedStateUT][selectedConstituency] = {
-              candidate: data[selectedStateUT][selectedConstituency][0].candidate,
-              party: data[selectedStateUT][selectedConstituency][0].party,
-              color: data[selectedStateUT][selectedConstituency][0].color,
+        groupType === "party"
+          ? result[selectedStateUT][selectedConstituency] = {
+              candidate: mapData[selectedStateUT][selectedConstituency][0].candidate,
+              party: mapData[selectedStateUT][selectedConstituency][0].party,
+              color: mapData[selectedStateUT][selectedConstituency][0].color,
             }
-        } else {
-          const party = data[selectedStateUT][selectedConstituency][0].party
-          const allianceIndex = partyAlliance.findIndex((d) => d.PARTY === party)
-          const alliance = allianceIndex > -1 ? partyAlliance[allianceIndex].ALLIANCE : ""
-          const color = colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR
-          result[selectedStateUT][selectedConstituency] = {
-              candidate: data[selectedStateUT][selectedConstituency][0].candidate,
-              alliance: alliance,
-              color: color,
+          : result[selectedStateUT][selectedConstituency] = {
+              candidate: mapData[selectedStateUT][selectedConstituency][0].candidate,
+              alliance: mapData[selectedStateUT][selectedConstituency][0].alliance,
+              color: mapData[selectedStateUT][selectedConstituency][0].color,
             }
-        }
       } else {
-        if(groupType === "party") {
-          result[selectedStateUT][selectedConstituency] = NA_PARTY_DATA
-        } else {
-          result[selectedStateUT][selectedConstituency] = NA_ALLIANCE_DATA
-        }
+        groupType === "party"
+          ? result[selectedStateUT][selectedConstituency] = NA_PARTY_DATA
+          : result[selectedStateUT][selectedConstituency] = NA_ALLIANCE_DATA
       }
     }                              
     return result

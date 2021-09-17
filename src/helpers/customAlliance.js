@@ -115,6 +115,12 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
       })
     }
   })
+  alliancePartyData.push({alliance: "Unaligned", parties: []})
+  alliancePartyData.map((d) => {
+    if(d.parties.length === 1) {
+      alliancePartyData[alliancePartyData.length - 1].parties.push(d.parties.pop())
+    }
+  })
   return alliancePartyData
 }
 
