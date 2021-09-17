@@ -105,11 +105,14 @@ const CustomAllianceModal = ({
 
   const _addNewAlliance = (v) => {
     const tempAlliance = document.getElementById("new-alliance").value.trim()
-    const allianceExist =
-      rows.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
+    const allianceExist = rows.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
+    const unalignedIndex = rows.findIndex((d) => d.alliance === "Unaligned")
     if (newAllianceCount < 3 && tempAlliance.length !== 0 && !allianceExist) {
+      const tempRows = rows
       setNewAllianceCount((prevNewAllianceCount) => prevNewAllianceCount + 1)
-      const tempRows = [...rows, { alliance: tempAlliance, parties: [] }]
+      unalignedIndex > -1
+        ? tempRows.splice(unalignedIndex, 0, { alliance: tempAlliance, parties: [] })
+        : tempRows.push({ alliance: tempAlliance, parties: [] })
       setRows(tempRows)
       document.getElementById("new-alliance").value = ""
     }
