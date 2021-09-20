@@ -6057,9 +6057,9 @@ S19,Punjab,75,Zira,Gurpreet Singh,M,40,GEN,IND,502
 S19,Punjab,75,Zira,Dharminder Singh,M,27,GEN,IND,345
 S19,Punjab,75,Zira,Gurpreet Singh,M,27,GEN,IND,331
 S19,Punjab,75,Zira,Gurpreet Singh,M,25,GEN,IND,198
-S19,Punjab,75,Zira,Kulbir Singh,M,34,GEN,IND,195
-S19,Punjab,75,Zira,Kulbir Singh,M,27,GEN,IND,147
-S19,Punjab,75,Zira,Kulbir Singh,M,38,GEN,IND,121
+S19,Punjab,75,Zira,Kulbir Singh IND-1,M,34,GEN,IND,195
+S19,Punjab,75,Zira,Kulbir Singh IND-2,M,27,GEN,IND,147
+S19,Punjab,75,Zira,Kulbir Singh IND-3,M,38,GEN,IND,121
 S19,Punjab,76,Firozpur City,Parminder Singh Pinki,M,57,GEN,INC,67559
 S19,Punjab,76,Firozpur City,Sukhpal Singh,M,52,GEN,BJP,37972
 S19,Punjab,76,Firozpur City,Narinder Singh,M,54,GEN,AAAP,16202
@@ -6090,7 +6090,7 @@ S19,Punjab,78,Guru Har Sahai,NOTA,NOTA,NOTA,NOTA,NOTA,724
 S19,Punjab,78,Guru Har Sahai,Gurmukh Singh,M,41,SC,BSP,530
 S19,Punjab,78,Guru Har Sahai,Iqbal Singh,M,58,GEN,SAD(M),462
 S19,Punjab,78,Guru Har Sahai,Gurmit Singh,M,49,GEN,IND,413
-S19,Punjab,78,Guru Har Sahai,Gurmeet Singh Sodhi,M,52,GEN,IND,245
+S19,Punjab,78,Guru Har Sahai,Gurmeet Singh,M,52,GEN,IND,245
 S19,Punjab,78,Guru Har Sahai,Manoj Kumar,M,42,GEN,IND,192
 S19,Punjab,78,Guru Har Sahai,Gurmit Singh,M,36,GEN,IND,166
 S19,Punjab,78,Guru Har Sahai,Harbhajan Singh,M,44,SC,IKL,123
@@ -6497,11 +6497,11 @@ S19,Punjab,115,Patiala,Akshninder Singh,M,35,GEN,APPA,227
 S19,Punjab,116,Samana,Rajinder Singh,M,56,GEN,INC,62551
 S19,Punjab,116,Samana,Surjit Singh Rakhra,M,65,GEN,SAD,52702
 S19,Punjab,116,Samana,Jagtar Singh Rajla,M,51,GEN,AAAP,28884
-S19,Punjab,116,Samana,Rajinder Singh,M,50,GEN,SAD(M),1854
+S19,Punjab,116,Samana,Rajinder Singh - SAD(M),M,50,GEN,SAD(M),1854
 S19,Punjab,116,Samana,Davinder Singh Dhiman,M,44,GEN,BSP,1084
 S19,Punjab,116,Samana,NOTA,NOTA,NOTA,NOTA,NOTA,1052
 S19,Punjab,116,Samana,Ajaib Singh Bathoi,M,33,SC,IND,501
-S19,Punjab,116,Samana,Rajinder Singh,M,39,GEN,IND,348
+S19,Punjab,116,Samana,Rajinder Singh - IND,M,39,GEN,IND,348
 S19,Punjab,116,Samana,Jaspal Singh,M,44,SC,IND,250
 S19,Punjab,117,Shutrana,Nirmal Singh,M,64,SC,INC,58008
 S19,Punjab,117,Shutrana,Vaninder Kaur Loomba,F,48,SC,SAD,39488
@@ -6512,7 +6512,7 @@ S19,Punjab,117,Shutrana,Sardeep Singh,M,34,SC,BSP,1229
 S19,Punjab,117,Shutrana,Naranjan Singh,M,58,SC,CPI,896
 S19,Punjab,117,Shutrana,NOTA,NOTA,NOTA,NOTA,NOTA,877
 S19,Punjab,117,Shutrana,Parminder Singh,M,47,SC,IND,693
-S19,Punjab,117,Shutrana,Nirmal Singh,M,57,SC,IND,563
+S19,Punjab,117,Shutrana,Nirmal Singh - IND,M,57,SC,IND,563
 S19,Punjab,117,Shutrana,Baldev Ram,M,46,SC,AITC,549
 S19,Punjab,117,Shutrana,Kulwinder Singh,M,33,SC,DEMSWP,504
 S19,Punjab,117,Shutrana,Gurjant Singh,M,29,SC,IND,268
