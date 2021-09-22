@@ -49,11 +49,11 @@ const CustomAllianceModal = ({
       if (selectedElection.year === LIVE_ELECTION) {
         URL = `${process.env.LIVE_ELECTION}`
       } else if(selectedElection.year === UPCOMING_ELECTION) {
-        URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+        URL = `${CSV_PATH}/${electionViewType}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
       } else {
         const electionType = selectedElection.type
         const year = selectedElection.year
-        URL = `${CSV_PATH}/${electionType}_${year}.csv`
+        URL = `${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`
       }
       axios
         .get(URL)
@@ -173,11 +173,11 @@ const CustomAllianceModal = ({
       if (selectedElection.year === LIVE_ELECTION) {
         URL = `${process.env.LIVE_ELECTION}`
       } else if(selectedElection.year === UPCOMING_ELECTION) {
-        URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+        URL = `${CSV_PATH}/${electionViewType}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
       } else {
         const electionType = selectedElection.type
         const year = selectedElection.year
-        URL = `${CSV_PATH}/${electionType}_${year}.csv`
+        URL = `${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`
       }
       axios
       .get(URL)
