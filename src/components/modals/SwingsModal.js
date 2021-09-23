@@ -23,7 +23,7 @@ const SwingsModal = ({
   useEffect(() => {
     setSwingUpdate([])
     _reset()
-  }, [selectedStateUT, selectedElection, advanceReset])
+  }, [selectedStateUT, advanceReset])
 
   useEffect(() => {
     if(partyAlliance.length !== 0) {
@@ -45,7 +45,7 @@ const SwingsModal = ({
       })
       setPartyAllianceParams([...tempParams])
     }
-  }, [selectedStateUT, selectedElection, advanceReset])
+  }, [selectedStateUT, advanceReset])
   
 
   useEffect(() => {
