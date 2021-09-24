@@ -12,72 +12,43 @@ export const getWinningParties = (
   selectedStateUT,
   electionViewType
 ) => {
-  let constituenciesList = new Set(),
-    parties = new Set()
+  let statsData = {}, parties = new Set()
   const stateUTData =
     selectedStateUT === ALL_STATE_UT
       ? yearData
       : yearData.filter((row) => row.ST_NAME === selectedStateUT)
-  if (electionViewType === "general") {
-    stateUTData.map((row) => {
-      constituenciesList.add(row.PC_NAME)
-    })
-    let constituencies = [...constituenciesList]
-    constituencies.map((pc) => {
-      let constituencyData = stateUTData.filter((row) => row.PC_NAME === pc)
-      let candidates = new Set()
-      constituencyData.map((row) => candidates.add(row.CANDIDATE))
-      let constituencyStatsTemp = [...candidates].map((c) => {
-        let votesReceived = 0
-        let candidate = null
-        let party = null
-        constituencyData.map((row) => {
-          row.CANDIDATE === c &&
-            ((candidate = c),
-            (party = row.PARTY),
-            (votesReceived = votesReceived + parseInt(row.VOTES)))
-        })
-        return {
-          candidate: candidate,
-          party: party,
-          votesReceived: votesReceived
-        }
-      })
-      let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
-        return (a.votesReceived > b.votesReceived && -1) || 1
-      })
-      parties.add(constituencyStatsSorted[0].party)
+  if(electionViewType === "general") {
+    stateUTData.map((d) => {
+      if(statsData[d.ST_NAME] && statsData[d.ST_NAME][d.PC_NO]) {
+        statsData[d.ST_NAME][d.PC_NO].push(d)
+      } else if(statsData[d.ST_NAME]){
+        statsData[d.ST_NAME][d.PC_NO] = []
+        statsData[d.ST_NAME][d.PC_NO].push(d)
+      } else {
+        statsData[d.ST_NAME] ={}
+        statsData[d.ST_NAME][d.PC_NO] = []
+        statsData[d.ST_NAME][d.PC_NO].push(d)
+      }
     })
   } else {
-    stateUTData.map((row) => {
-      constituenciesList.add(row.AC_NAME)
+    stateUTData.map((d) => {
+      if(statsData[d.ST_NAME] && statsData[d.ST_NAME][d.AC_NO]) {
+        statsData[d.ST_NAME][d.AC_NO].push(d)
+      } else if(statsData[d.ST_NAME]){
+        statsData[d.ST_NAME][d.AC_NO] = []
+        statsData[d.ST_NAME][d.AC_NO].push(d)
+      } else {
+        statsData[d.ST_NAME] ={}
+        statsData[d.ST_NAME][d.AC_NO] = []
+        statsData[d.ST_NAME][d.AC_NO].push(d)
+      }
     })
-    let constituencies = [...constituenciesList]
-    constituencies.map((ac) => {
-      let constituencyData = stateUTData.filter((row) => row.AC_NAME === ac)
-      let candidates = new Set()
-      constituencyData.map((row) => candidates.add(row.CANDIDATE))
-      let constituencyStatsTemp = [...candidates].map((c) => {
-        let votesReceived = 0
-        let candidate = null
-        let party = null
-        constituencyData.map((row) => {
-          row.CANDIDATE === c &&
-            ((candidate = c),
-            (party = row.PARTY),
-            (votesReceived = votesReceived + parseInt(row.VOTES)))
-        })
-        return {
-          candidate: candidate,
-          party: party,
-          votesReceived: votesReceived
-        }
-      })
-      let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
-        return (a.votesReceived > b.votesReceived && -1) || 1
-      })
-      parties.add(constituencyStatsSorted[0].party)
-    })
+  }
+  for(const state in statsData) {
+    for(const constituencies in statsData[state]) {
+      const tempCandidateStats = statsData[state][constituencies].sort((a,b) => (parseInt(b.VOTES) - parseInt(a.VOTES)))
+      parties.add(tempCandidateStats[0].PARTY)
+    }
   }
   parties = [...parties]
   return parties
@@ -90,8 +61,7 @@ export const getWinningParties = (
  * @returns List of alliances and an array of their respective parties
  */
 export const getPartyAlliance = (parties, defaultPartyAlliance) => {
-  let alliances = new Set(),
-    alliancePartyData = []
+  let alliances = new Set(), alliancePartyData = []
   defaultPartyAlliance.map((d) => alliances.add(d.ALLIANCE))
   alliances = [...alliances]
   alliances.map((d) => {

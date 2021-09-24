@@ -15,7 +15,8 @@ import {
   UPCOMING_ELECTION_TYPE,
   PARTY_ALLIANCE_COLORS,
   CSV_PATH,
-  SELECT_ELECTION
+  SELECT_ELECTION,
+  SELECT_STATE_UT
 } from "../../constants"
 /**
  * A modal box with customizable alliances
@@ -44,16 +45,15 @@ const CustomAllianceModal = ({
     let URL
     if(selectedElection === SELECT_ELECTION) {
       setYearData([])
-    }
-    else {
+    } else {
       if (selectedElection.year === LIVE_ELECTION) {
         URL = `${process.env.LIVE_ELECTION}`
       } else if(selectedElection.year === UPCOMING_ELECTION) {
-        URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+        URL = `${CSV_PATH}/${electionViewType}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
       } else {
         const electionType = selectedElection.type
         const year = selectedElection.year
-        URL = `${CSV_PATH}/${electionType}_${year}.csv`
+        URL = `${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`
       }
       axios
         .get(URL)
@@ -69,39 +69,91 @@ const CustomAllianceModal = ({
         handleColorPartyAlliance(PARTY_ALLIANCE_COLORS)
       })
     }
-  }, [selectedStateUT, selectedElection, electionViewType, advanceReset])
+  }, [selectedStateUT, electionViewType, advanceReset])
 
   useEffect(() => {
     if (defaultPartyAlliance.length !== 0) {
-      const parties = getWinningParties(
-        yearData,
-        selectedStateUT,
-        electionViewType
-      )
+      const parties = getWinningParties(yearData, selectedStateUT, electionViewType)
       let tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
-      tempPartyAlliance = tempPartyAlliance.filter(
-        (d) => d.parties.length !== 0
-      )
+      tempPartyAlliance = tempPartyAlliance.filter((d) => d.parties.length !== 0)
       setRows(tempPartyAlliance)
       let tempCustomedPartyAlliance = []
       rows.map((a) => {
         a.alliance !== "Unaligned"
-          ? a.parties.map((p) => {
-              tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
-            })
-          : a.parties.map((p) => {
-            tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p })
-          })
+          ? a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance }))
+          : a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p }))
       })
       customAlliance(tempCustomedPartyAlliance)
       const colorPartyAlliance = getColorPartyAlliance(rows)
       handleColorPartyAlliance(colorPartyAlliance)
     }
-  }, [selectedElection, selectedStateUT, yearData, defaultPartyAlliance])
+  }, [selectedStateUT, defaultPartyAlliance])
+
+  useEffect(() => {
+    let URL, tempParties, oldUnalignedParties = [], newUnalignedParties = new Set()
+    if(selectedStateUT !== SELECT_STATE_UT) {
+      if (selectedElection.year === LIVE_ELECTION) {
+        URL = `${process.env.LIVE_ELECTION}`
+      } else if(selectedElection.year === UPCOMING_ELECTION) {
+        URL = `${CSV_PATH}/${electionViewType}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+      } else {
+        const electionType = selectedElection.type
+        const year = selectedElection.year
+        URL = `${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`
+      }
+      axios
+        .get(URL)
+        .then((response) => {
+          const parsedData = csvParse(response.data)
+          setYearData(parsedData)
+          tempParties = getWinningParties(parsedData, selectedStateUT, electionViewType)
+          rows.map((d) => d.alliance === "Unaligned" && d.parties.map((p) => oldUnalignedParties.push(p)))
+          tempParties.map((p) => {
+            let presentInOldRow = false
+            rows.map((row) => {
+              if(row.alliance !== "Unaligned") {
+                const tempIndex = row.parties.findIndex((d) => d === p)
+                if(tempIndex >= 0) presentInOldRow = true
+              }
+            })
+            if(!presentInOldRow) newUnalignedParties.add(p)
+          })
+          oldUnalignedParties.map((d) => newUnalignedParties.add(d))
+          newUnalignedParties = [...newUnalignedParties]
+          let tempNewPartyAlliance = getPartyAlliance(newUnalignedParties, defaultPartyAlliance)
+          tempNewPartyAlliance = tempNewPartyAlliance.filter((d) => d.parties.length !== 0)
+          let oldRows = rows.filter((d) => d.alliance !== "Unaligned")
+          let newRows = [...oldRows]
+          tempNewPartyAlliance.map((row) => {
+            const tempIndex = oldRows.findIndex(((o) => o.alliance === row.alliance))
+            if(tempIndex >= 0) {
+              const newRowParties = new Set()
+              row.parties.map((p) => newRowParties.add(p))
+              o.parties.map((p) => newRowParties.add(p))
+              newRowParties = [...newRowParties]
+              newRows.push({alliance: row.alliancelliance, parties: newRowParties})
+            } else {
+              newRows.push(row)
+            }
+          })
+          setRows(newRows)
+          let tempCustomedPartyAlliance = []
+          rows.map((a) => {
+            a.alliance !== "Unaligned"
+              ? a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance }))
+              : a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p }))
+          })
+          customAlliance(tempCustomedPartyAlliance)
+          const colorPartyAlliance = getColorPartyAlliance(rows)
+          handleColorPartyAlliance(colorPartyAlliance)
+        })
+        .catch((e) => setYearData([]))
+    }
+  }, [selectedElection])
 
   useEffect(() => {
     _resetPartyAlliance()
-  }, [selectedElection, selectedStateUT, advanceReset])
+  }, [selectedStateUT, advanceReset])
 
   const _addNewAlliance = (v) => {
     const tempAlliance = document.getElementById("new-alliance").value.trim()
@@ -139,23 +191,13 @@ const CustomAllianceModal = ({
   }
 
   const _ondragEnd = (result) => {
-    if (result.destination == undefined) {
-      return
-    }
+    if (result.destination == undefined) return
     let tempRows = rows
     const tempCustomedPartyAlliance = []
-    const srcColIndex = tempRows.findIndex(
-      (e) => e.alliance === result.source.droppableId
-    )
-    const desColIndex = tempRows.findIndex(
-      (e) => e.alliance === result.destination.droppableId
-    )
+    const srcColIndex = tempRows.findIndex((e) => e.alliance === result.source.droppableId)
+    const desColIndex = tempRows.findIndex((e) => e.alliance === result.destination.droppableId)
     tempRows[srcColIndex].parties.splice(result.source.index, 1)
-    tempRows[desColIndex].parties.splice(
-      result.destination.index,
-      0,
-      result.draggableId
-    )
+    tempRows[desColIndex].parties.splice(result.destination.index, 0, result.draggableId)
     setRows(tempRows)
   }
 
@@ -164,31 +206,28 @@ const CustomAllianceModal = ({
     setNewAllianceCount(0)
   }
 
-  if (resetAlliances === true && selectedElection !== FIRST_SELECT_STATEUT) {
-    let URL
-    if(selectedElection === SELECT_ELECTION) {
-      setYearData([])
-      setResetAlliances(false) 
-    } else {
-      if (selectedElection.year === LIVE_ELECTION) {
-        URL = `${process.env.LIVE_ELECTION}`
-      } else if(selectedElection.year === UPCOMING_ELECTION) {
-        URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
-      } else {
-        const electionType = selectedElection.type
-        const year = selectedElection.year
-        URL = `${CSV_PATH}/${electionType}_${year}.csv`
-      }
-      axios
-      .get(URL)
-      .then((response) => {
-        const parsedData = csvParse(response.data)
-        setYearData(parsedData)
-      })
-      .catch((e) => setYearData([]))
-      setResetAlliances(false) 
-      }
-    }
+  if (
+    resetAlliances === true
+    && selectedElection !== FIRST_SELECT_STATEUT
+    && selectedStateUT !== SELECT_STATE_UT
+    && yearData.length !== 0
+    ) {
+    let tempParties = []
+    rows.map((d) => d.parties.map((p) => tempParties.push(p)))
+    let tempPartyAlliance = getPartyAlliance(tempParties, defaultPartyAlliance) 
+    tempPartyAlliance = tempPartyAlliance.filter((d) => d.parties.length !== 0)
+    setRows(tempPartyAlliance)
+    let tempCustomedPartyAlliance = []
+    rows.map((a) => {
+      a.alliance !== "Unaligned"
+        ? a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance }))
+        : a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p }))
+    })
+    customAlliance(tempCustomedPartyAlliance)
+    const colorPartyAlliance = getColorPartyAlliance(rows)
+    handleColorPartyAlliance(colorPartyAlliance)
+    setResetAlliances(false) 
+  }
 
   return (
     <div

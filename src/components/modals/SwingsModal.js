@@ -23,7 +23,7 @@ const SwingsModal = ({
   useEffect(() => {
     setSwingUpdate([])
     _reset()
-  }, [selectedStateUT, selectedElection, advanceReset])
+  }, [selectedStateUT, advanceReset])
 
   useEffect(() => {
     if(partyAlliance.length !== 0) {
@@ -45,7 +45,7 @@ const SwingsModal = ({
       })
       setPartyAllianceParams([...tempParams])
     }
-  }, [selectedStateUT, selectedElection, advanceReset])
+  }, [selectedStateUT, advanceReset])
   
 
   useEffect(() => {
@@ -69,16 +69,11 @@ const SwingsModal = ({
     )
     partyAlliance &&
       partyAlliance.map((d) => {
-        if (
-          partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1
-        ) {
+        if (partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1) {
           let temp = []
           temp = addParams([d.ALLIANCE])
-
           temp[0].newAlliance = true
-          if (
-            tempNewParams.findIndex((p) => p.alliance === temp[0].alliance) === -1
-          ) {
+          if (tempNewParams.findIndex((p) => p.alliance === temp[0].alliance) === -1) {
             tempNewParams.push(...temp)
           }
         }
@@ -164,10 +159,10 @@ const SwingsModal = ({
 
   return (
     <div
-      className="flex md:min-h-screen justify-center bg-white bg-opacity-70 overscroll-contain overflow-auto"
+      className="flex h-full min-h-screen justify-center bg-white bg-opacity-70 overscroll-contain overflow-scroll"
       style={{ minWidth: "100vw", height: "fit-content" }}
     >
-      <div className="md:w-11/12 md:max-h-screen bg-gray-100 border-2 rounded-lg border-gray-200 my-8 p-3">
+      <div className="w-11/12 md:w-5/6 bg-gray-100 border-2 rounded-lg border-gray-200 my-8 p-3">
         <div>
           <div className="flex justify-end cursor-pointer" onClick={_update}>
             <img

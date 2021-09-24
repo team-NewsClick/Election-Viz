@@ -317,9 +317,9 @@ const Dashboard = ({
         if (year === LIVE_ELECTION) {
           URL = `${process.env.LIVE_ELECTION}`
         } else if(year === UPCOMING_ELECTION) {
-          URL = `${CSV_PATH}/${UPCOMING_ELECTION_TYPE}_${parseInt(UPCOMING_ELECTION_YEAR)}.csv`
+          URL = `${CSV_PATH}/${electionViewType}/${UPCOMING_ELECTION_TYPE}_${UPCOMING_ELECTION_YEAR}.csv`
         } else {
-          URL = `${CSV_PATH}/${electionType}_${year}.csv`
+          URL = `${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`
         }
         axios
           .get(URL)
@@ -343,7 +343,7 @@ const Dashboard = ({
         if(ELECTION_YEAR_STATEUT[compareElectionType]
           && compareYear in ELECTION_YEAR_STATEUT[compareElectionType]) {
             axios
-              .get(`${CSV_PATH}/${compareElectionType}_${parseInt(compareYear)}.csv`)
+              .get(`${CSV_PATH}/${electionViewType}/${compareElectionType}_${compareYear}.csv`)
               .then((response) => {
                 const parsedData = csvParse(response.data)
                 setCompareYearData(parsedData)
@@ -534,7 +534,7 @@ const Dashboard = ({
     if (partiesSwing.length !== 0) {
       if (year !== LIVE_ELECTION ) {
         axios
-          .get(`${CSV_PATH}/${electionType}_${year}.csv`)
+          .get(`${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`)
           .then((response) => {
             const parsedData = csvParse(response.data)
             if (selectedStateUT === ALL_STATE_UT) {

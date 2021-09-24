@@ -60,27 +60,17 @@ export const getContestantStats = (
         }
       })
     }
+    
     for(const stateUT in stateConstituenciesData) {
       let constituencies = {}
       for(const constituency in stateConstituenciesData[stateUT]) {
-        let candidates = new Set(), constituencyStatsTemp
-        stateConstituenciesData[stateUT][constituency].map((row) => candidates.add(row.CANDIDATE))
-        constituencyStatsTemp = [...candidates].map((c) => {
-          let votesReceived = 0
-          let candidate = null
-          let party = null
-          stateConstituenciesData[stateUT][constituency].map((row) => {
-            row.CANDIDATE === c &&
-              ((candidate = c),
-              (party = row.PARTY),
-              (votesReceived = votesReceived + parseInt(row.VOTES)))
-          })
+        let constituencyStatsTemp = stateConstituenciesData[stateUT][constituency].map((row) => {
           return {
-            candidate: candidate,
-            party: party,
-            votesReceived: votesReceived,
-            color: colorPartyAlliance[party]
-              ? colorPartyAlliance[party]
+            candidate : row.CANDIDATE,
+            party: row.PARTY,
+            votesReceived: parseInt(row.VOTES),
+            color: colorPartyAlliance[row.PARTY]
+              ? colorPartyAlliance[row.PARTY]
               : DEFAULT_PARTY_ALLIANCE_COLOR,
           }
         })
@@ -95,15 +85,13 @@ export const getContestantStats = (
               : tempAllianceStats.push({
                 candidate: alliance,
                 alliance,
-                votesReceived: d.votesReceived,
+                votesReceived:d.votesReceived,
                 color: colorPartyAlliance[alliance] ? colorPartyAlliance[alliance] : DEFAULT_PARTY_ALLIANCE_COLOR
               })
           })
           constituencyStatsTemp = tempAllianceStats
         }
-        let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
-          return (a.votesReceived > b.votesReceived && -1) || 1
-        })
+        let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => (parseInt(b.votesReceived) - parseInt(a.votesReceived)))
         let constituencyStats = []
         constituencyStatsSorted.length < 5 && (constituencyStats = constituencyStatsSorted)
         constituencyStatsSorted.length >= 5 && constituencyStatsSorted.map((row, index) => {
