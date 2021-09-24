@@ -4,7 +4,8 @@ import { GeoJsonLayer } from "@deck.gl/layers"
 import {
   _MapContext as MapContext,
   StaticMap,
-  NavigationControl
+  NavigationControl,
+  AttributionControl
 } from "react-map-gl"
 import {
   STATE_COORDINATES,
@@ -117,7 +118,8 @@ const MapWidget = ({
           ...initialViewState,
           latitude: stateObject[0].latitude,
           longitude: stateObject[0].longitude,
-          zoom: windowWidth < 800 ? stateObject[0].zoom * 0.82 : stateObject[0].zoom
+          zoom:
+            windowWidth < 800 ? stateObject[0].zoom * 0.82 : stateObject[0].zoom
         })
       }
     } else {
@@ -151,8 +153,8 @@ const MapWidget = ({
   }, [selectedStateUT, electionViewType, constituenciesResults])
 
   useEffect(() => {
-  let tempLayers = []
-  if(electionViewType === "general") {
+    let tempLayers = []
+    if (electionViewType === "general") {
       tempLayers = [
         new GeoJsonLayer({
           id: "constituency-geojson-layer-1",
@@ -177,69 +179,74 @@ const MapWidget = ({
           getLineWidth: 4
         })
       ]
-  } else {
-  if (selectedStateUT === SELECT_STATE_UT
-      && (selectedElection === SELECT_ELECTION || selectedElection.type === "general" || selectedElection.year === LIVE_ELECTION)) {
-    tempLayers = [
-      new GeoJsonLayer({
-        id: "state-geojson-layer-1",
-        data: stateData,
-        stroked: true,
-        filled: true,
-        pickable: true,
-        lineWidthScale: 600,
-        getLineWidth: 4,
-        getLineColor: DEFAULT_STATE_LINE_COLOR,
-        getFillColor: TRANSPARENT_COLOR,
-        onClick: ({ object }) => _handleMap(object)
-      })
-    ]
-  } else if(
-    selectedStateUT === SELECT_STATE_UT
-    && (selectedElection == SELECT_ELECTION || selectedElection.type === "assembly")
-    ) {
-      tempLayers = [
-        new GeoJsonLayer({
-          id: "state-geojson-layer-1",
-          data: stateData,
-          stroked: true,
-          filled: true,
-          pickable: true,
-          lineWidthScale: 600,
-          getLineWidth: 4,
-          getLineColor: DEFAULT_STATE_LINE_COLOR,
-          getFillColor: (d) => _fillInitGeoJsonColor(d),
-          onClick: ({ object }) => _handleMap(object)
-        })
-      ]
     } else {
-      tempLayers = [
-        new GeoJsonLayer({
-          id: "constituency-geojson-layer-1",
-          data: filterdGeoJsonData,
-          stroked: true,
-          filled: true,
-          pickable: true,
-          lineWidthScale: 200,
-          getFillColor: (d) => _fillGeoJsonColor(d),
-          getLineColor: DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
-          getLineWidth: electionViewType === "general" ? 10 : 2,
-          onClick: ({ object }) => _handleMap(object)
-        }),
-        new GeoJsonLayer({
-          id: "state-geojson-layer-2",
-          data: stateData,
-          stroked: true,
-          filled: false,
-          lineWidthScale: 600,
-          getLineColor: DEFAULT_STATE_LINE_COLOR,
-          getFillColor: TRANSPARENT_COLOR,
-          getLineWidth: 4
-        })
-      ]
+      if (
+        selectedStateUT === SELECT_STATE_UT &&
+        (selectedElection === SELECT_ELECTION ||
+          selectedElection.type === "general" ||
+          selectedElection.year === LIVE_ELECTION)
+      ) {
+        tempLayers = [
+          new GeoJsonLayer({
+            id: "state-geojson-layer-1",
+            data: stateData,
+            stroked: true,
+            filled: true,
+            pickable: true,
+            lineWidthScale: 600,
+            getLineWidth: 4,
+            getLineColor: DEFAULT_STATE_LINE_COLOR,
+            getFillColor: TRANSPARENT_COLOR,
+            onClick: ({ object }) => _handleMap(object)
+          })
+        ]
+      } else if (
+        selectedStateUT === SELECT_STATE_UT &&
+        (selectedElection == SELECT_ELECTION ||
+          selectedElection.type === "assembly")
+      ) {
+        tempLayers = [
+          new GeoJsonLayer({
+            id: "state-geojson-layer-1",
+            data: stateData,
+            stroked: true,
+            filled: true,
+            pickable: true,
+            lineWidthScale: 600,
+            getLineWidth: 4,
+            getLineColor: DEFAULT_STATE_LINE_COLOR,
+            getFillColor: (d) => _fillInitGeoJsonColor(d),
+            onClick: ({ object }) => _handleMap(object)
+          })
+        ]
+      } else {
+        tempLayers = [
+          new GeoJsonLayer({
+            id: "constituency-geojson-layer-1",
+            data: filterdGeoJsonData,
+            stroked: true,
+            filled: true,
+            pickable: true,
+            lineWidthScale: 200,
+            getFillColor: (d) => _fillGeoJsonColor(d),
+            getLineColor: DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
+            getLineWidth: electionViewType === "general" ? 10 : 2,
+            onClick: ({ object }) => _handleMap(object)
+          }),
+          new GeoJsonLayer({
+            id: "state-geojson-layer-2",
+            data: stateData,
+            stroked: true,
+            filled: false,
+            lineWidthScale: 600,
+            getLineColor: DEFAULT_STATE_LINE_COLOR,
+            getFillColor: TRANSPARENT_COLOR,
+            getLineWidth: 4
+          })
+        ]
+      }
     }
-  }
-  setLayers(tempLayers)
+    setLayers(tempLayers)
   }, [constituenciesResults, filterdGeoJsonData])
 
   const _handleMap = (object) => {
@@ -260,20 +267,23 @@ const MapWidget = ({
   }
 
   const _fillGeoJsonColor = (d) => {
-    let results = null, sortByStateKey = null, sortByConstituencyKey = null
+    let results = null,
+      sortByStateKey = null,
+      sortByConstituencyKey = null
     sortByStateKey = d.properties.ST_NAME
-    sortByConstituencyKey = electionViewType === "general"
-      ? d.properties.PC_NO
-      : d.properties.AC_NO
-    results = constituenciesResults[sortByStateKey] && constituenciesResults[sortByStateKey][sortByConstituencyKey]
+    sortByConstituencyKey =
+      electionViewType === "general" ? d.properties.PC_NO : d.properties.AC_NO
+    results =
+      constituenciesResults[sortByStateKey] &&
+      constituenciesResults[sortByStateKey][sortByConstituencyKey]
     let hexColor
     if (results && results.color) {
-      if(results.candidate === "N/A") {
+      if (results.candidate === "N/A") {
         hexColor = MAP_TRANSPARENT_NA_COLOR
       } else {
         hexColor = hexRgb(results.color)
       }
-      return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha*255]
+      return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha * 255]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR
     }
@@ -286,9 +296,9 @@ const MapWidget = ({
         return row
       }
     })
-    if(results && results.color) {
+    if (results && results.color) {
       const hexColor = hexRgb(results.color)
-      return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha*255]
+      return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha * 255]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR
     }
@@ -296,7 +306,9 @@ const MapWidget = ({
 
   const _getTooltip = ({ object }) => {
     if (object && Object.keys(mapData).length !== 0) {
-      let results = null, sortByStateKey = null, sortByConstituencyKey = null
+      let results = null,
+        sortByStateKey = null,
+        sortByConstituencyKey = null
       if (electionViewType === "general") {
         if (
           selectedConstituency == object.properties.PC_NO ||
@@ -316,7 +328,8 @@ const MapWidget = ({
           if (results) {
           }
           return (
-            results && results[0].votesReceived != 0 && {
+            results &&
+            results[0].votesReceived != 0 && {
               html: `
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
@@ -352,7 +365,8 @@ const MapWidget = ({
                 `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
             })
           return (
-            results && results[0].votesReceived != 0 && {
+            results &&
+            results[0].votesReceived != 0 && {
               html: `
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
@@ -418,6 +432,7 @@ const MapWidget = ({
             reuseMaps
             mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
             preventStyleDiffing={true}
+            attributionControl={false}
           />
         )}
       </DeckGL>

@@ -91,6 +91,7 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
       alliancePartyData[alliancePartyData.length - 1].parties.push(d.parties.pop())
     }
   })
+  alliancePartyData = alliancePartyData.filter((d) => d.parties.length !== 0)
   return alliancePartyData
 }
 
