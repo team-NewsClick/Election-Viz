@@ -23,7 +23,7 @@ const SwingsModal = ({
   useEffect(() => {
     setSwingUpdate([])
     _reset()
-  }, [selectedStateUT, selectedElection, advanceReset])
+  }, [selectedStateUT, advanceReset])
 
   useEffect(() => {
     if(partyAlliance.length !== 0) {
@@ -45,7 +45,7 @@ const SwingsModal = ({
       })
       setPartyAllianceParams([...tempParams])
     }
-  }, [selectedStateUT, selectedElection, advanceReset])
+  }, [selectedStateUT, advanceReset])
   
 
   useEffect(() => {
@@ -69,16 +69,11 @@ const SwingsModal = ({
     )
     partyAlliance &&
       partyAlliance.map((d) => {
-        if (
-          partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1
-        ) {
+        if (partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1) {
           let temp = []
           temp = addParams([d.ALLIANCE])
-
           temp[0].newAlliance = true
-          if (
-            tempNewParams.findIndex((p) => p.alliance === temp[0].alliance) === -1
-          ) {
+          if (tempNewParams.findIndex((p) => p.alliance === temp[0].alliance) === -1) {
             tempNewParams.push(...temp)
           }
         }

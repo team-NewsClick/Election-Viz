@@ -91,9 +91,7 @@ export const getContestantStats = (
           })
           constituencyStatsTemp = tempAllianceStats
         }
-        let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => {
-          return (parseInt(b.votesReceived) - parseInt(a.votesReceived))
-        })
+        let constituencyStatsSorted = constituencyStatsTemp.sort((a, b) => (parseInt(b.votesReceived) - parseInt(a.votesReceived)))
         let constituencyStats = []
         constituencyStatsSorted.length < 5 && (constituencyStats = constituencyStatsSorted)
         constituencyStatsSorted.length >= 5 && constituencyStatsSorted.map((row, index) => {
