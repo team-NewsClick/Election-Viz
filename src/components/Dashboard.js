@@ -286,7 +286,7 @@ const Dashboard = ({
   useEffect(() => {
     setRegionStatsLoading(true)
     if (compareOptions.length !== 0) {
-      let URL
+      let electionURL
       const electionType = selectedElection.type
       const year = selectedElection.year
       if(electionViewType === "assembly") {
@@ -315,14 +315,14 @@ const Dashboard = ({
         setCompareElection(compareOptions[0].value)
       } else {
         if (year === LIVE_ELECTION) {
-          URL = `${process.env.LIVE_ELECTION}`
+          electionURL = `${process.env.LIVE_ELECTION}`
         } else if(year === UPCOMING_ELECTION) {
-          URL = `${CSV_PATH}/${electionViewType}/${UPCOMING_ELECTION_TYPE}_${UPCOMING_ELECTION_YEAR}.csv`
+          electionURL = `${CSV_PATH}/${electionViewType}/${UPCOMING_ELECTION_TYPE}_${UPCOMING_ELECTION_YEAR}.csv`
         } else {
-          URL = `${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`
+          electionURL = `${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`
         }
         axios
-          .get(URL)
+          .get(electionURL)
           .then((response) => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)
