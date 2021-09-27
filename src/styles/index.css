@@ -33,6 +33,9 @@ select {
 .table-dim {
   @apply max-w-7xl mx-auto my-8 px-4;
 }
+.mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right {
+  @apply hidden;  
+}
 details {
   @apply w-full bg-gray-300;
 }
@@ -210,6 +213,19 @@ details[open] summary::after {
 }
 .widthImp100 {
   width: 100% !important;
+}
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.mapbox-attribution-container {
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  display: block;
 }
 /* hamberger-menu start */
 #menu {
