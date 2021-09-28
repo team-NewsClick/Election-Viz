@@ -154,6 +154,10 @@ const CustomAllianceModal = ({
     _resetPartyAlliance()
   }, [selectedStateUT, advanceReset])
 
+  useEffect(() => {
+    electionViewType === "general" && _resetPartyAlliance()
+  }, [selectedElection])
+
   const _addNewAlliance = (v) => {
     const tempAlliance = document.getElementById("new-alliance").value.trim()
     const allianceExist = rows.findIndex((d) => d.alliance === tempAlliance) >= 0 ? true : false
