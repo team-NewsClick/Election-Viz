@@ -33,7 +33,7 @@ const StateConstituenciesStats = () => {
           <div>86</div>
         </div>
       </div>
-      <div class="hidden lg:block">
+      <div className="hidden lg:block">
         <div className="flex mx-auto mt-6 px-3">
           <div className="state-alliance-constituencies-container px-4 py-2">
             {Array(52).fill(
