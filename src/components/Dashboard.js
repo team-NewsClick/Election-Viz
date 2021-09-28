@@ -4,24 +4,15 @@ import { csvParse } from "d3-dsv"
 import {
   ALL_STATE_UT,
   ALL_CONSTITUENCIES,
-  LOCALITY_OPTIONS,
-  COMMUNITY_OPTIONS,
-  GENDER_OPTIONS,
-  EDUCATION_OPTIONS,
-  EXPERIENCE_OPTIONS,
-  CRIMINALITY_OPTIONS,
   SEAT_DEFAULT_SELECT,
   REGION_DEFAULT_SELECT,
   ELECTION_VIEW_TYPE_ASSEMBLY,
   DEFAULT_GROUP_TYPE,
   LIVE_ELECTION,
-  LIVE_ELECTION_YEAR,
   DELAY_INTERVAL_MINUTES,
   FIRST_SELECT_STATEUT,
   SELECT_STATE_UT,
   SELECT_ELECTION,
-  SEAT_TYPE_OPTIONS,
-  LIVE_ELECTION_TYPE,
   ELECTION_DEFAULT_SELECT,
   NO_CONSTITUENCIES,
   UPCOMING_ELECTION_YEAR,
@@ -31,13 +22,11 @@ import {
   CSV_PATH
 } from "../constants"
 import {
-  ConstituencyConstestantsStats,
   RegionStatsSVG,
   RegionStatsTable
 } from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
 import DashboardOptions from "./DashboardOptions"
-import Loading from "./helpers/Loading"
 import {
   getDataStateUT,
   getStateUTs,
@@ -638,24 +627,6 @@ const Dashboard = ({
   const doAdvanceReset = () => {
     setAdvanceReset(!advanceReset)
   }
-  const _handleSelectedLocality = (v) => {
-    console.log(v)
-  }
-  const _handleSelectedCommunity = (v) => {
-    console.log(v)
-  }
-  const _handleSelectedGender = (v) => {
-    console.log(v)
-  }
-  const _handleSelectedEducation = (v) => {
-    console.log(v)
-  }
-  const _handleSelectedExperience = (v) => {
-    console.log(v)
-  }
-  const _handleSelectedCriminality = (v) => {
-    console.log(v)
-  }
 
   return (
     <div>
@@ -668,7 +639,6 @@ const Dashboard = ({
         updateSelectedStateUT={_handleSelectedStateUT}
         updateSelectedConstituency={_handleSelectedConstituency}
         updateSelectedSeatType={_handleSelectedSeatType}
-        homeReset={_home}
         doAdvanceReset={doAdvanceReset}
         customAlliance={customAlliance}
         handleColorPartyAlliance={handleColorPartyAlliance}
@@ -679,7 +649,6 @@ const Dashboard = ({
         regionOptions={regionOptions}
         compareOptions={compareOptions}
         electionViewType={electionViewType}
-        groupType={groupType}
         selectedElection={selectedElection}
         selectedStateUT={selectedStateUT}
         selectedConstituency={selectedConstituency}
