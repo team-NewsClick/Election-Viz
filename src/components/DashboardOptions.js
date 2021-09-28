@@ -10,7 +10,6 @@ const DashboardOptions = ({
   updateGroupType,
   updateSelectedStateUT,
   updateSelectedConstituency,
-  homeReset,
   doAdvanceReset,
   customAlliance,
   handleColorPartyAlliance,
@@ -22,7 +21,6 @@ const DashboardOptions = ({
   regionOptions,
   compareOptions,
   electionViewType,
-  groupType,
   selectedElection,
   selectedStateUT,
   selectedConstituency,
@@ -266,90 +264,6 @@ const DashboardOptions = ({
                 />
               </div>
             </div>
-            {/* <div>
-                <select
-                  name="locality"
-                  onChange={(e) => updateSelectedLocality(e.target.value)}
-                  id="locality"
-                  className="advance-select"
-                >
-                  {LOCALITY_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="community"
-                  onChange={(e) => updateSelectedCommunity(e.target.value)}
-                  id="community"
-                  className="advance-select"
-                >
-                  {COMMUNITY_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="gender"
-                  onChange={(e) => updateSelectedGender(e.target.value)}
-                  id="gender"
-                  className="advance-select"
-                >
-                  {GENDER_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="education"
-                  onChange={(e) => updateSelectedEducation(e.target.value)}
-                  id="education"
-                  className="advance-select"
-                >
-                  {CRIMINALITY_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="experience"
-                  onChange={(e) => updateSelectedExperience(e.target.value)}
-                  id="experience"
-                  className="advance-select"
-                >
-                  {EXPERIENCE_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <select
-                  name="criminality"
-                  onChange={(e) => updateSelectedCriminality(e.target.value)}
-                  id="criminality"
-                  className="advance-select"
-                >
-                  {EDUCATION_OPTIONS.map((d, index) => (
-                    <option key={index} value={d.value}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
-              </div> */}
           </div>
           <div className="flex my-4 max-w-sm md:max-w-full mx-auto justify-between md:hidden">
             <div>

@@ -435,6 +435,13 @@ const MapWidget = ({
             attributionControl={false}
           />
         )}
+        <div id='map' className="absolute">
+          <div className="mapbox-attribution-container relative flex row-reverse">
+              <div className="flex justify-end" style={{placeItems: "baseline"}}>
+                <img src="img/newsclick-copyright.jpg" className="m-1" width="35%" height="auto" />
+              </div>
+          </div>
+        </div>
       </DeckGL>
     </div>
   )

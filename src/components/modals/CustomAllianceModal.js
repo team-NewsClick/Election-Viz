@@ -143,11 +143,15 @@ const CustomAllianceModal = ({
               : a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p }))
           })
           customAlliance(tempCustomedPartyAlliance)
-          const colorPartyAlliance = getColorPartyAlliance(rows)
+          const colorPartyAlliance = getColorPartyAlliance(newRows)
           handleColorPartyAlliance(colorPartyAlliance)
         })
         .catch((e) => setYearData([]))
     }
+  }, [selectedElection])
+
+  useEffect(() => {
+    electionViewType === "general" && _resetPartyAlliance()
   }, [selectedElection])
 
   useEffect(() => {
@@ -206,45 +210,43 @@ const CustomAllianceModal = ({
     && selectedElection !== FIRST_SELECT_STATEUT
     && selectedStateUT !== SELECT_STATE_UT
     ) {
-      if(selectedStateUT === ALL_STATE_UT) {
-        if(selectedStateUT === ALL_STATE_UT) {
-          axios
-            .get(`${CSV_PATH}/${electionViewType}/${selectedElection.type}_${selectedElection.year}.csv`)
-            .then((response) => {
-              const parsedData = csvParse(response.data)
-              if (defaultPartyAlliance.length !== 0) {
-                const parties = getWinningParties(parsedData, selectedStateUT, electionViewType)
-                let tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
-                let tempCustomedPartyAlliance = []
-                tempPartyAlliance.map((a) => {
-                  a.alliance !== "Unaligned"
-                    ? a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance }))
-                    : a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p }))
-                })
-                setRows(tempPartyAlliance)
-                customAlliance(tempCustomedPartyAlliance)
-                const colorPartyAlliance = getColorPartyAlliance(tempPartyAlliance)
-                handleColorPartyAlliance(colorPartyAlliance)
-              }     
-            })
-            .catch((e) => setYearData([]))
-        }
+      if(selectedStateUT === ALL_STATE_UT || rows.length === 0) {
+        axios
+          .get(`${CSV_PATH}/${electionViewType}/${selectedElection.type}_${selectedElection.year}.csv`)
+          .then((response) => {
+            const parsedData = csvParse(response.data)
+            if (defaultPartyAlliance.length !== 0) {
+              const parties = getWinningParties(parsedData, selectedStateUT, electionViewType)
+              let tempPartyAlliance = getPartyAlliance(parties, defaultPartyAlliance)
+              let tempCustomedPartyAlliance = []
+              tempPartyAlliance.map((a) => {
+                a.alliance !== "Unaligned"
+                  ? a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance }))
+                  : a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p }))
+              })
+              setRows(tempPartyAlliance)
+              customAlliance(tempCustomedPartyAlliance)
+              const colorPartyAlliance = getColorPartyAlliance(tempPartyAlliance)
+              handleColorPartyAlliance(colorPartyAlliance)
+            }
+          })
+          .catch((e) => setYearData([]))
       } else {
         let tempParties = []
         rows.map((d) => d.parties.map((p) => tempParties.push(p)))
         let tempPartyAlliance = getPartyAlliance(tempParties, defaultPartyAlliance)
         setRows(tempPartyAlliance)
         let tempCustomedPartyAlliance = []
-        rows.map((a) => {
+        tempPartyAlliance.map((a) => {
           a.alliance !== "Unaligned"
             ? a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: a.alliance }))
             : a.parties.map((p) => tempCustomedPartyAlliance.push({ PARTY: p, ALLIANCE: p }))
         })
+        const colorPartyAlliance = getColorPartyAlliance(tempPartyAlliance)
         customAlliance(tempCustomedPartyAlliance)
-        const colorPartyAlliance = getColorPartyAlliance(rows)
         handleColorPartyAlliance(colorPartyAlliance)
       }
-    setResetAlliances(false) 
+      setResetAlliances(false)
   }
 
   return (
