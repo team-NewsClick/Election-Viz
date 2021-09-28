@@ -188,21 +188,23 @@ const DashboardOptions = ({
         <div className="mx-auto max-w-4xl justify-center">
           <div>
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-              <div>
-                <select
-                  name="region"
-                  onChange={(e) => updateSelectedRegion(e.target.value)}
-                  id="region"
-                  className="advance-select md:w-64"
-                  value={selectedRegion}
-                >
-                  {regionOptions.map((d, index) => (
-                    <option key={index} value={d}>
-                      {d}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {electionViewType === "assembly" &&
+                <div>
+                  <select
+                    name="region"
+                    onChange={(e) => updateSelectedRegion(e.target.value)}
+                    id="region"
+                    className="advance-select md:w-64"
+                    value={selectedRegion}
+                  >
+                    {regionOptions.map((d, index) => (
+                      <option key={index} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              }
               <div>
                 <select
                   name="seatType"
