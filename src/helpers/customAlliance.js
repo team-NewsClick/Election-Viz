@@ -95,6 +95,11 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
   return alliancePartyData
 }
 
+/**
+ * To get color of respective parties and alliance from the list of alliances and their belonging parties
+ * @param {Array<Object>} rows List of alliances and their belonging parties
+ * @returns {Object} Parties & alliances and their respective colors
+ */
 export const getColorPartyAlliance = (rows) => {
   let colorPartyAlliance = {}
   rows.map((d) => {
@@ -115,6 +120,11 @@ export const getColorPartyAlliance = (rows) => {
   return colorPartyAlliance
 }
 
+/**
+ * To get parties and their respective alliance from the list of alliances and their belonging parties
+ * @param {Array<Object>} rows List of alliances and their belonging parties
+ * @returns {Array<Object>} List of parties and their respective alliances
+ */
 export const getPartiesAlliancesFromRows = (rows) => {
   let partyAlliance = []
   rows.map((a) => {

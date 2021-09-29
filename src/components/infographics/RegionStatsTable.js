@@ -1,5 +1,14 @@
 import Loading from "../helpers/Loading"
 
+/**
+ * A table showing selected election and the compare election difference stats
+ * @component
+ * @param {Array<Object>} regionStatsTableData Parties/Alliances and their respective seats, seats difference, vote percent & vote percent difference
+ * @param {Boolean} regionStatsLoading When true loading animation appears
+ * @param {Object} selectedElection Selected election of the form {type: "assembly"/"general", year: "year"}
+ * @param {Object} compareElection Selected election to compare in the form {type: "assembly"/"general", year: "year"}
+ * @returns {JSX.Element} Stats in the form of table
+ */
 const RegionStatsTable = ({
   regionStatsTableData,
   regionStatsLoading,

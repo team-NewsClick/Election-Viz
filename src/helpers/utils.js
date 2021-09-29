@@ -18,7 +18,10 @@ import {
 
 /**
  * Returns a list of States and UTs that had election in a year for the dropdown list
- * @param {Array.<Object>} data - Array of Objects having a year of data
+ * @param {Object} selectedElection Selected election: {type: "assembly"/"general", year: "year"}
+ * @param {String} seatType Selected seat type: All Seats/Reserve/Unreserved
+ * @param {String} electionViewType general or assembly
+ * @param {GeoJSON} geoJSON Constituencies geojson
  * @return {Array} List of States and UTS that had election in a year
  */
 export const getStateUTs = (
@@ -78,6 +81,12 @@ export const getStateUTs = (
   }
 }
 
+/**
+ * Color for selectable States & UTs in assembly election
+ * @param {Array<String>} stateUTs List of States & UTs
+ * @param {Object} selectedElection Selected election: {type: "assembly"/"general", year: "year"}
+ * @returns {Array<Object>} Color for selectable States & UTs in assembly election
+ */
 export const getInitalStateUTcolors = (stateUTs, selectedElection) => {
   if(selectedElection.type === "assembly") {
     const stateColor = stateUTs.map((d, i) => {
@@ -87,7 +96,13 @@ export const getInitalStateUTcolors = (stateUTs, selectedElection) => {
   }
 }
 
-
+/**
+ * List of elections to be selected
+ * @param {String} electionViewType assembly/general
+ * @param {String} selectedStateUT Name of selected state/UT
+ * @param {Object} selectedElection Selected election: {type: "assembly"/"general", year: "year"}
+ * @returns {Array<Object>} List of elections to be selected
+ */
 export const getElectionOptions = (
   electionViewType,
   selectedStateUT,
@@ -161,11 +176,11 @@ export const getElectionOptions = (
 }
 
 /**
- * 
- * @param {*} electionViewType 
- * @param {*} electionType 
- * @param {*} year 
- * @returns 
+ * URL/path to the selected election file
+ * @param {String} electionViewType assembly/general
+ * @param {String} electionType selected election type assembly/general
+ * @param {String} year Selected election year
+ * @returns URL/path to the selected election file
  */
 export const getElectionURL = ((electionViewType, electionType, year) => {
   let electionURL
@@ -186,7 +201,10 @@ export const getElectionURL = ((electionViewType, electionType, year) => {
 /**
  * Returns a list of constituencies of a State/UT for the dropdown list
  * @param {Array.<Object>} data - Data of a State/UT's election of a year
- * @return {Array} List of Constituencies in a State/UT
+ * @param {String} selectedStateUT Name of selected state/UT
+ * @param {String} electionViewType assembly/general
+ * @param {GeoJSON} filteredGeoJSON - Filtered GeoJson
+ * @return {Array} List of Constituencies and their code in a State/UT
  */
 export const getConstituencies = (
   data,
@@ -245,11 +263,11 @@ export const getDataStateUT = (data, stateUT) => {
 }
 
 /**
- * To get ist of elections that was held for the selected State or UT for dropdown menu
+ * To get list of comparable elections
  * @param {String} electionViewType general or assembly
- * @param {String} selectedElection year of election
+ * @param {Object} selectedElection Selected election: {type: "assembly"/"general", year: "year"}
  * @param {String} selectedStateUT Name of State or UT
- * @returns {Array<Object>} List of elections for the selected
+ * @returns {Array<Object>} List of comparable elections
  */
 export const getCompareOptions = (electionViewType ,selectedElection, selectedStateUT) => {
   const electionType = selectedElection.type

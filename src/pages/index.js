@@ -6,8 +6,8 @@ import Dashboard from "../components/Dashboard"
 import { GEOJSON_PATH } from "../constants"
 
 /**
- * Map Page
- * @return {JSX.Element} Map Page
+ * Electon Viz Page
+ * @return {JSX.Element} Electon Viz Page
  */
 const Elections = () => {
   const [stateGeojson, setStateGeojson] = useState([])
@@ -64,9 +64,7 @@ const Elections = () => {
             <Dashboard
               stateGeojson={stateGeojson}
               assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-              parliamentaryConstituenciesGeojson={
-                parliamentaryConstituenciesGeojson
-              }
+              parliamentaryConstituenciesGeojson={parliamentaryConstituenciesGeojson}
             />
           </div>
           <div className="col-span-2 sm:inline-block hidden"></div>

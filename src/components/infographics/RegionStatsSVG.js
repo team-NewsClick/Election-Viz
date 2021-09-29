@@ -4,6 +4,14 @@ import parse from "html-react-parser"
 import { ALL_CONSTITUENCIES } from "../../constants"
 import Loading from "../helpers/Loading"
 
+/**
+ * A semicircle infographic represntating number of seats of their respective parties or alliance
+ * @component
+ * @param {Object} regionStatsSVGData Parties or Alliance and their respecitve color and seats
+ * @param {String} selectedConstituency Name of selected constituency
+ * @param {Boolean} regionStatsLoading When true loading animation appears
+ * @returns {JSX.Element} An infographic in form of semicircle representating seats
+ */
 const RegionStatsSVG = ({
   regionStatsSVGData,
   selectedConstituency,

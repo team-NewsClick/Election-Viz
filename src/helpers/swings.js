@@ -81,9 +81,9 @@ export const calculateSwings = (
 
 /**
  * Calculate votes polled for the selected State/UT
- * @param {Array<Object>} selectedYearData Selected year data
- * @param {String} selectedStateUT Selected State/UT
- * @param {Array} constituencies Array of Constituencies of a State/UT
+ * @param {Array<Object>} selectedStateUTData Selected State/UT Data
+ * @param {Array} constituencies List of Constituencies and their code in a State/UT
+ * @param {String} electionViewType assembly/general
  * @returns {Array<Object>} Array of objects with calculated Votes Polled
  */
 const calculateConstituencyVotesPolled = (
@@ -124,6 +124,7 @@ const calculateConstituencyVotesPolled = (
  * @param {Array<Object>} totalVotesPolledData Array of objects with total vote share calculated
  * @param {Array} constituencies Selected State/UT
  * @param {Array<Object>} partiesSwing Array of Objects, Swing Parties
+ * @param {String} electionViewType assembly/general
  * @returns {Array<Object>} Array of objects with calculated Votes Share
  */
 const calculateVoteShare = (

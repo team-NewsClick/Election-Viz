@@ -4,6 +4,7 @@ import { getParams, addParams } from "../../helpers/swings"
 
 /**
  * Modal Box for adding swings to alliances
+ * @component
  * @param {String} param0 Name of selected State/UT
  * @param {String} param1 Selected Year
  * @param {Function} param2 Function to update the swings

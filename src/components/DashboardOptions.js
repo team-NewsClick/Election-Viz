@@ -1,6 +1,37 @@
 import { ALL_STATE_UT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
 import {CustomAllianceModal, SwingsModal} from "./modals/index"
 
+/**
+ * Control setting options of Dashboard
+ * @component
+ * @param {Function} updateElectionViewType Function to update electionViewType on parent component
+ * @param {Function} updateCompareElection Function to update compareElection on parent component
+ * @param {Function} updateSelectedElection Function to update selectedElection on parent component
+ * @param {Function} updateSelectedRegion Function to update selectedRegion on parent component
+ * @param {Function} updateGroupType Function to update groupType on parent component
+ * @param {Function} updateSelectedStateUT Function to update selectedStateUT on parent component
+ * @param {Function} updateSelectedConstituency Function to update selectedConstituency on parent component
+ * @param {Function} doAdvanceReset Functoin to reset advance options values
+ * @param {Function} customAlliance Function to update partyAlliance on parent component
+ * @param {Function} handleColorPartyAlliance Function to update colorPartyAlliance on parent component
+ * @param {Function} handleSwingParams Function to update swingParams on parent component
+ * @param {Function} updateSelectedSeatType Function to update selectedSeatType on parent component
+ * @param {Array<Object>} electionOptions List of elections to be selected
+ * @param {Array<String>} stateUTOptions List of state/UT options to be selected
+ * @param {Array<Object>} constituencyOptions List of constituencies and their code to be selected
+ * @param {Array<String>} regionOptions List of regio option to be selected
+ * @param {Array<Object>} compareOptions List of comparable elections to be selected 
+ * @param {String} electionViewType assembly/general
+ * @param {Object} selectedElection Selected election: {type: "assembly"/"general", year: "year"}
+ * @param {String} selectedStateUT Name of selected state/UT
+ * @param {String} selectedConstituency Name of selected constituency 
+ * @param {String} selectedRegion Name of selected region in a state/UT
+ * @param {String} seatType Selected seat type: All Seats/Reserve/Unreserved
+ * @param {Object} compareElection Selected election to be compared with :{type: "assembly"/"general", year: "year"}
+ * @param {Array<Object>} partyAlliance List of parties and their respective alliances
+ * @param {Boolean} advanceReset Reset advance options values to default when its value toggle
+ * @returns {JSX.Element} Control setting options of Dashboard
+ */
 const DashboardOptions = ({
   updateElectionViewType,
   updateCompareElection,

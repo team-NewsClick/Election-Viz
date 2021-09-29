@@ -17,13 +17,16 @@ import {
   ALL_STATE_UT
 } from "../../constants"
 import { getElectionURL } from "../../helpers/utils"
+
 /**
  * A modal box with customizable alliances
- * @param {Array<Object>} param0 Election result of a constituency
- * @param {Function} param1 Funciton to update "customed Alliance" on parent component
- * @param {Array<Object>} param2 List of Alliances and their respective swings
- * @param {String} param3 Selected Year
- * @param {String} param3 Name of selected State/UT
+ * @component
+ * @param {Object} selectedElection {type: "assembly"/"general", year: "year"}
+ * @param {String} selectedStateUT Name of selected State/UT
+ * @param {String} electionViewType Selected election view type
+ * @param {Function} customAlliance Funciton to update "customed Alliance" on parent component
+ * @param {Function} handleColorPartyAlliance Function to update color of respective parties & alliances on parent component
+ * @param {Boolean} advanceReset Change in advanceReset inititates reseting of Custom Alliances to default
  * @returns {JSX.Element} - A modal box with customizable alliances
  */
 const CustomAllianceModal = ({

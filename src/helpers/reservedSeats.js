@@ -7,11 +7,13 @@ import {
 import { getDistricts } from "../helpers/regions"
 
 /**
- * To filter GeoJSON with respect   to seatType
- * @param {Object} geoJson Constituencies GeoJSON
+ * To filter GeoJSON
+ * @param {GeoJSON} geoJson Constituencies GeoJSON
+ * @param {Array<String>} stateUTOptions List of state/UT options to be selected
  * @param {String} seatType All Seats/Reserved/Unreserved
- * @param {String} electionViewType assembly/general
- * @returns {Object} - Filtered GeoJson with respect to seatType
+ * @param {String} selectedStateUT Name of selected state/UT
+ * @param {String} selectedRegion Name of selected region in a state/UT
+ * @returns {GeoJSON} - Filtered GeoJson
  */
 export const getFilteredGeoJson = (
   geoJson,
@@ -20,33 +22,29 @@ export const getFilteredGeoJson = (
   selectedStateUT,
   selectedRegion
 ) => {
-  let filteredBySeatGeoJson = [],
-    filteredByRegionGeoJSON = [],
-    filteredByStateGeoJSON = [],
-    districts = []
+  let filteredBySeatGeoJson = [], filteredByRegionGeoJSON = [], filteredByStateGeoJSON = [], districts = []
   if (geoJson.length !== 0) {
     if (
       selectedStateUT === ALL_STATE_UT
       || selectedStateUT === SELECT_STATE_UT
     ) {
       geoJson.features.findIndex((d) => {
-        const tempBoolean =
-          d.properties.ST_NAME ===
-          stateUTOptions.find((st) => st === d.properties.ST_NAME)
+        const tempBoolean = d.properties.ST_NAME === stateUTOptions.find((st) => st === d.properties.ST_NAME)
         if (tempBoolean) filteredByStateGeoJSON.push(d)
       })
     } else {
       filteredByStateGeoJSON = geoJson.features.filter((d) => d.properties.ST_NAME === selectedStateUT)
     }
   }
-  if (seatType !== SEAT_DEFAULT_SELECT) {
-    filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => {
-      return seatType === "Unreserved"
-        ? d.properties.RES === "GEN"
-        : d.properties.RES !== "GEN"
-    })
-  } else {
-    filteredBySeatGeoJson = filteredByStateGeoJSON
+  switch(seatType) {
+    case "Reserved":
+      filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => d.properties.RES !== "GEN")
+      break
+    case "Unreserved":
+      filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => d.properties.RES === "GEN")
+      break
+    default:
+      filteredBySeatGeoJson = filteredByStateGeoJSON
   }
   if (selectedRegion === REGION_DEFAULT_SELECT) {
     filteredByRegionGeoJSON = filteredBySeatGeoJson

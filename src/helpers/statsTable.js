@@ -9,13 +9,20 @@ import { getMapData, getConstituenciesResults } from "./mapData"
 
 /**
  * Calculate Data for selected region stats table
- * @param {Array<Object>} data Selected State or UT data
+ * @param {Array<Object>} presentYearData Selected election data
+ * @param {Array<Object>} compareYearData Selected comparable election data to be compared with
  * @param {object<Object>} SVGData Data for region stats SVG
  * @param {String} electionViewType general or assembly
+ * @param {Object} selectedElection Selected election:{type: "assembly"/"general", year: "year"}
+ * @param {Object} compareElection Selected election to be compared with :{type: "assembly"/"general", year: "year"}
  * @param {String} groupType party or alliance
  * @param {Array<Object>} partyAlliance party and their respective alliance
  * @param {String} selectedStateUT Selected State or UT
+ * @param {Array<String>} stateUTOptions List of state/UT options to be selected
  * @param {String} selectedConstituency Selected Constituency
+ * @param {Object} mapDataConstituencies Top four contestant stats of every constituencies of every state
+ * @param {GeoJSON} filteredGeoJSON Filtered GeoJson
+ * @param {Object} colorPartyAlliance List Parties and Aliiances and their respective color
  * @returns {Array<Objects>} - Data of Party and their seats won, votes received, seats difference with respect to selected election to compare, percentage of votes received, difference of percentage of votes received with respect to last election
  */
 export const getRegionStatsTable = (
@@ -138,8 +145,8 @@ export const getRegionStatsTable = (
 /**
  * Function for getting total seats-won and votes-won-percentage by each group in a current year
  * @param {Array<Object>} data Data of a selected State/UT or Constituency
+ * @param {Object} mapDataConstituencies Top four contestant stats of every constituencies of every state
  * @param {Object<Object>} SVGData List of parties and the number of seats won
- * @param {string} electionViewType general or assembly
  * @param {string} groupType party or alliance
  * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
  * @param {string} selectedStateUT Selected State/UT
@@ -273,11 +280,15 @@ const getCurrYearDataTable = (
  * @param {Array<Object>} compareYearData Selected Elections to compare  Data
  * @param {Object<Object>} SVGData List of parties and the number of seats won
  * @param {string} electionViewType general or assembly
+ * @param {Object} selectedElection Selected election:{type: "assembly"/"general", year: "year"}
  * @param {string} groupType party or alliance
  * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
  * @param {string} selectedStateUT Selected State/UT
+ * @param {Array<String>} stateUTOptions List of state/UT options to be selected
  * @param {string} selectedConstituency Selected Constituency
  * @param {Array<Object>} mapDataConstituencies Current year elections data of a constituency for List of Parties
+ * @param {Object} colorPartyAlliance - List Parties and Aliiances and their respective color
+ * @param {GeoJSON} filteredGeoJSON Filtered GeoJson
  * @returns {Array<Object>} - List of parties and their respective seats-won and votes-won-percentage in election to be compared
  */
 const getCompareYearDataTable = (
@@ -382,7 +393,6 @@ const getCompareYearDataTable = (
  * @param {string} selectedStateUT Selected State/UT
  * @param {string} selectedConstituency Selected Constituency
  * @param {Array<Object>} mapDataConstituencies Current year elections data of a constituency for List of Parties
- * @param {string} electionViewType general or assembly
  * @param {string} groupType party or alliance
  * @param {Array<Object>} partyAlliance List of Parties and their respective alliance
  * @returns {Array<Object>} - List of parties and their respective seats-won and votes-won-percentage in selected election to be comapared

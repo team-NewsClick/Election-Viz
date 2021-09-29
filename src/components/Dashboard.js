@@ -40,7 +40,12 @@ import {
 } from "../helpers/utils"
 
 /**
- * Controls/Settings for the visualization of infographics
+ * Election Dashboard
+ * @component
+ * @param {GeoJSON} stateGeojson 
+ * @param {GeoJSON} assemblyConstituenciesGeojson 
+ * @param {GeoJSON} parliamentaryConstituenciesGeojson 
+ * @returns {JSX.Element} Election Dashboard
  */
 const Dashboard = ({
   stateGeojson,

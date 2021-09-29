@@ -9,12 +9,16 @@ import {
 } from "../constants"
 
 /**
- * Returns Data for Map as a List of Constituencies in a State/UT and top four candidates in an Array respectively
+ * Data for Map as a List of Constituencies in a State/UT and top four candidates in an Array respectively
  * @param {Array<Object>} data - Election Data of a year
  * @param {Array<String>} stateUTOptions - List od States & UTs
- * @param {String} stateUT - Key Name of a State/UT
  * @param {String} electionViewType - general or assembly
+ * @param {Array<Object>} partyAlliance List of parties and their respective alliances
  * @param {Object} colorPartyAlliance - List Parties and Aliiances and their respective color
+ * @param {Object} selectedElection - Selected election: {type: "assembly"/"general", year: "year"}
+ * @param {String} groupType - party/alliance
+ * @param {String} stateUT - Key Name of a State/UT
+ * @param {GeoJSON} filteredGeoJSON - Filtered geojson of constituencies
  * @return {Object} - List of Constituencies in a State/UT and top four candidates in an Array respectively
  */
 export const getContestantStats = (
@@ -141,6 +145,18 @@ export const getContestantStats = (
   return result
 }
 
+/**
+ * Data for Map as a List of Constituencies in a State/UT and top four candidates and their party in an Array respectively
+ * @param {Array<Object>} data Selected election data
+ * @param {Array<String>} stateUTOptions List of state/UT options to be selected
+ * @param {String} electionViewType assembly/general
+ * @param {Array<Object>} partyAlliance List of parties and their respective alliances
+ * @param {Object} colorPartyAlliance List of parties & alliances and their respective colors
+ * @param {Object} selectedElection Selected election: {type: "assembly"/"general", year: "year"}
+ * @param {String} selectedStateUT Name of selected state/UT
+ * @param {GeoJSON} filteredGeoJSON - Filtered geojson of constituencies
+ * @returns {Object} List of Constituencies in a State/UT and top four candidates in an Array respectively
+ */
 export const getMapData = (
   data,
   stateUTOptions,
@@ -166,10 +182,18 @@ export const getMapData = (
 }
 
 /**
- * List of Constituencies and their winning candidates data
- * @param {Object} mapData {StateUT, PC_NAME, Top 4 contestants}
- * @param {String} selectedConstituency Name of Selected Constituency
- * @returns {Array<Object>} - List of selected constituencies with respective winner data
+ * List of Winners in every constituency of every state
+ * @param {Array<Object>} data Selected election data
+ * @param {String} electionViewType - general or assembly
+ * @param {Object} selectedElection Selected election: {type: "assembly"/"general", year: "year"}
+ * @param {Array<String>} stateUTOptions List of state/UT options to be selected
+ * @param {String} selectedStateUT Name of selected state/UT
+ * @param {String} selectedConstituency Name of selected constituency 
+ * @param {String} groupType - party/alliance
+ * @param {Array<Object>} partyAlliance List of parties and their respective alliances
+ * @param {Object} colorPartyAlliance - List Parties and Aliiances and their respective color
+ * @param {GeoJSON} filteredGeoJSON - Filtered geojson of constituencies
+ * @returns List of Winners in every constituency of every state
  */
  export const getConstituenciesResults = (
   data,
@@ -257,7 +281,6 @@ export const getMapData = (
           : result[selectedStateUT][selectedConstituency] = NA_ALLIANCE_DATA
       }
     }
-    console.log({result})
     return result
   } else {
     return {}

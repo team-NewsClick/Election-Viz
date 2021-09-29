@@ -28,7 +28,19 @@ import { getFilteredGeoJson } from "../../helpers/reservedSeats"
 /**
  * Plot Map and Deckgl Layers
  * @component
- * @param {Object} param0 - Dashboard Objects (GeoJSON)
+ * @param {GeoJSON} stateGeojson - Geojson of States & UTs
+ * @param {GeoJSON} constituenciesGeojson - Geojson of constituencies
+ * @param {Function} onMapUpdate - To update selectedState on parent component when selected throufh click on map
+ * @param {String} electionViewType - assembly/general
+ * @param {Array} stateUTOptions - List of States & UTs
+ * @param {String} selectedStateUT - Name of selected state/UT
+ * @param {String} selectedConstituency - Name of selected constituency
+ * @param {Object} mapData - Top four contestants stats for every constituency of every states/UT
+ * @param {Object} constituenciesResults - Winner of every constituency of every states/UT
+ * @param {Boolean} mapWidgetLoading - When true loading animation appears
+ * @param {String} seatType - All Seats/Reserved/Unreserved
+ * @param {String} selectedRegion - Name of selected region in a state
+ * @param {Object} selectedElection - Name of selected election {type: "assembly"/"general", year: "year"}
  * @return {JSX.Element} Map Widget
  */
 const MapWidget = ({

@@ -9,6 +9,7 @@ import {
  * @param {string} electionViewType general or assembly
  * @param {string} groupType party or alliance
  * @param {string} selectedStateUT Selected State/UT
+ * @param {GeoJSON} filteredGeoJSON - Filtered GeoJson
  * @returns {Object<Object>} - List of Parties/Alliances and their seats won in a region
  */
 export const getRegionStatsSVGData = (
