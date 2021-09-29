@@ -26,8 +26,8 @@ export const getFilteredGeoJson = (
     districts = []
   if (geoJson.length !== 0) {
     if (
-      selectedStateUT === ALL_STATE_UT ||
-      selectedStateUT === SELECT_STATE_UT
+      selectedStateUT === ALL_STATE_UT
+      || selectedStateUT === SELECT_STATE_UT
     ) {
       geoJson.features.findIndex((d) => {
         const tempBoolean =
@@ -36,18 +36,14 @@ export const getFilteredGeoJson = (
         if (tempBoolean) filteredByStateGeoJSON.push(d)
       })
     } else {
-      filteredByStateGeoJSON = geoJson.features.filter(
-        (d) => d.properties.ST_NAME === selectedStateUT
-      )
+      filteredByStateGeoJSON = geoJson.features.filter((d) => d.properties.ST_NAME === selectedStateUT)
     }
   }
   if (seatType !== SEAT_DEFAULT_SELECT) {
     filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => {
-      if (seatType === "Unreserved") {
-        return d.properties.RES === "GEN"
-      } else {
-        return d.properties.RES !== "GEN"
-      }
+      return seatType === "Unreserved"
+        ? d.properties.RES === "GEN"
+        : d.properties.RES !== "GEN"
     })
   } else {
     filteredBySeatGeoJson = filteredByStateGeoJSON
@@ -57,10 +53,7 @@ export const getFilteredGeoJson = (
   } else {
     districts = getDistricts(selectedStateUT, selectedRegion)
     filteredByRegionGeoJSON = filteredBySeatGeoJson.filter((d) => {
-      if (
-        districts &&
-        districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0
-      ) {
+      if (districts && districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0) {
         return d
       }
     })

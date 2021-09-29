@@ -60,7 +60,6 @@ export const getContestantStats = (
         }
       })
     }
-    
     for(const stateUT in stateConstituenciesData) {
       let constituencies = {}
       for(const constituency in stateConstituenciesData[stateUT]) {
@@ -197,7 +196,8 @@ export const getMapData = (
     filteredGeoJSON
   )
   if(colorPartyAlliance && mapData != {} && selectedConstituency !== undefined) {
-    if (selectedConstituency === ALL_CONSTITUENCIES
+    if (
+      selectedConstituency === ALL_CONSTITUENCIES
       || selectedConstituency === NO_CONSTITUENCIES
       || selectedConstituency === FIRST_SELECT_STATEUT
       ) {
@@ -232,10 +232,10 @@ export const getMapData = (
       }
     }
     else {
-      const stateUTData = {}
       result[selectedStateUT] = {}
       result[selectedStateUT][selectedConstituency] = {}
-      if(mapData[selectedStateUT]
+      if(
+        mapData[selectedStateUT]
         && mapData[selectedStateUT][selectedConstituency]
         && mapData[selectedStateUT][selectedConstituency][0]
         && mapData[selectedStateUT][selectedConstituency][0].votesReceived > 0
@@ -256,7 +256,8 @@ export const getMapData = (
           ? result[selectedStateUT][selectedConstituency] = NA_PARTY_DATA
           : result[selectedStateUT][selectedConstituency] = NA_ALLIANCE_DATA
       }
-    }                              
+    }
+    console.log({result})
     return result
   } else {
     return {}

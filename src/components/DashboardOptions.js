@@ -1,6 +1,5 @@
 import { ALL_STATE_UT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
-import CustomAllianceModal from "./modals/CustomAllianceModal"
-import SwingsModal from "./modals/SwingsModal"
+import {CustomAllianceModal, SwingsModal} from "./modals/index"
 
 const DashboardOptions = ({
   updateElectionViewType,
@@ -180,7 +179,7 @@ const DashboardOptions = ({
             <img
               id="showHideAdvance-btn-icon"
               src="../img/close-btn.svg"
-              alt="Close Button"
+              alt="Close Advance Options"
               className="w-4 h-4"
             />
           </div>

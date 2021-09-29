@@ -10,7 +10,10 @@ import {
   LIVE_ELECTION,
   LIVE_ELECTION_TYPE,
   STATE_COLORS,
-  UPCOMING_ELECTION
+  UPCOMING_ELECTION,
+  CSV_PATH,
+  UPCOMING_ELECTION_TYPE,
+  UPCOMING_ELECTION_YEAR
 } from "../constants"
 
 /**
@@ -33,9 +36,7 @@ export const getStateUTs = (
     election = selectedElection.type
   }
   if (geoJSON.features && geoJSON.features.length !== 0) {
-    let stateUTFromData = new Set(),
-      stateUTFromGeoJson = new Set(),
-      stateUTs = []
+    let stateUTFromData = new Set(), stateUTFromGeoJson = new Set(), stateUTs = []
     if (electionViewType === "general") {
       stateUTFromData = [...ELECTION_YEAR_STATEUT[electionViewType][year]]
     } else {
@@ -49,18 +50,19 @@ export const getStateUTs = (
       tempStates.map((d) => stateUTFromData.add(d))
       stateUTFromData = [...stateUTFromData]
     }
-    if (seatType === "Reserved") {
-      geoJSON.features.map((d) => {
-        if (d.properties.RES !== "GEN")
-          stateUTFromGeoJson.add(d.properties.ST_NAME)
-      })
-    } else if (seatType === "Unreserved") {
-      geoJSON.features.map((d) => {
-        if (d.properties.RES === "GEN")
-          stateUTFromGeoJson.add(d.properties.ST_NAME)
-      })
-    } else {
-      geoJSON.features.map((d) => stateUTFromGeoJson.add(d.properties.ST_NAME))
+    switch(seatType) {
+      case "Reserved" :
+        geoJSON.features.map((d) => {
+          if (d.properties.RES !== "GEN") stateUTFromGeoJson.add(d.properties.ST_NAME)
+        })
+        break
+      case "Unreserved" :
+        geoJSON.features.map((d) => {
+          if (d.properties.RES === "GEN") stateUTFromGeoJson.add(d.properties.ST_NAME)
+        })
+        break
+      default :
+        geoJSON.features.map((d) => stateUTFromGeoJson.add(d.properties.ST_NAME))
     }
     if (electionViewType === "general") {
       stateUTFromGeoJson = [...stateUTFromGeoJson]
@@ -68,9 +70,7 @@ export const getStateUTs = (
       stateUTFromData.map((d) => {
         if (stateUTFromGeoJson.findIndex((e) => e === d) > -1) stateUTs.push(d)
       })
-      if (stateUTs.length === 2) {
-        stateUTs.shift()
-      }
+      if (stateUTs.length === 2) stateUTs.shift()
     } else {
       stateUTs = stateUTFromData
     }
@@ -81,12 +81,7 @@ export const getStateUTs = (
 export const getInitalStateUTcolors = (stateUTs, selectedElection) => {
   if(selectedElection.type === "assembly") {
     const stateColor = stateUTs.map((d, i) => {
-      if(d !== SELECT_STATE_UT) {
-        return {
-          state: d,
-          color: STATE_COLORS[i]
-        }
-      }
+      if(d !== SELECT_STATE_UT) return { state: d, color: STATE_COLORS[i]}
     })
     return stateColor
   }
@@ -124,17 +119,13 @@ export const getElectionOptions = (
     }
   } else {
     if (
-      selectedElection !== SELECT_ELECTION &&
-      (selectedStateUT !== SELECT_STATE_UT ||
-        selectedStateUT === ALL_STATE_UT)
+      selectedElection !== SELECT_ELECTION
+      && (selectedStateUT !== SELECT_STATE_UT || selectedStateUT === ALL_STATE_UT)
     ) {
       for (const ELECTION in ELECTION_YEAR_STATEUT) {
         for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
           const tempStates = ELECTION_YEAR_STATEUT[ELECTION][YEAR]
-          if (
-            tempStates.findIndex((d) => d === selectedStateUT) > -1
-            && YEAR !== UPCOMING_ELECTION
-          ) {
+          if (tempStates.findIndex((d) => d === selectedStateUT) > -1 && YEAR !== UPCOMING_ELECTION) {
             let tempValue = { type: ELECTION, year: YEAR }
             let tempLabel = ELECTION + " Election " + YEAR
             tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
@@ -170,6 +161,29 @@ export const getElectionOptions = (
 }
 
 /**
+ * 
+ * @param {*} electionViewType 
+ * @param {*} electionType 
+ * @param {*} year 
+ * @returns 
+ */
+export const getElectionURL = ((electionViewType, electionType, year) => {
+  let electionURL
+  switch(year) {
+    case LIVE_ELECTION:
+      electionURL = `${process.env.LIVE_ELECTION}`
+      break
+    case UPCOMING_ELECTION:
+      electionURL = `${CSV_PATH}/${electionViewType}/${UPCOMING_ELECTION_TYPE}_${UPCOMING_ELECTION_YEAR}.csv`
+      break
+    default:
+      electionURL = `${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`
+  }
+  return electionURL
+})
+
+
+/**
  * Returns a list of constituencies of a State/UT for the dropdown list
  * @param {Array.<Object>} data - Data of a State/UT's election of a year
  * @return {Array} List of Constituencies in a State/UT
@@ -190,8 +204,8 @@ export const getConstituencies = (
       if (electionViewType === "general") {
         data.map((row) => {
           if (
-            filteredGeoJSON.features &&
-              filteredGeoJSON.features.findIndex((e) => e.properties.PC_NO == row.PC_NO) > -1
+            filteredGeoJSON.features
+            && filteredGeoJSON.features.findIndex((e) => e.properties.PC_NO == row.PC_NO) > -1
           ) {
             constituencies[row.PC_NAME] = row.PC_NO
           }
@@ -199,8 +213,8 @@ export const getConstituencies = (
       } else {
         data.map((row) => {
           if (
-            filteredGeoJSON.features &&
-            filteredGeoJSON.features.findIndex((e) => e.properties.AC_NO == row.AC_NO) > -1
+            filteredGeoJSON.features
+            && filteredGeoJSON.features.findIndex((e) => e.properties.AC_NO == row.AC_NO) > -1
           ) {
             constituencies[row.AC_NAME] = row.AC_NO
           }
@@ -212,12 +226,8 @@ export const getConstituencies = (
       tempConstituencies.push({ name: constituency, code: constituencies[constituency] })
     }
     constituencies = tempConstituencies
-    if (constituencies.length > 1) {
-      constituencies.unshift({ name: ALL_CONSTITUENCIES, code: ALL_CONSTITUENCIES})
-    }
-    if (constituencies.length === 0) {
-      constituencies.unshift({ name: NO_CONSTITUENCIES, code: NO_CONSTITUENCIES})
-    }
+    constituencies.length > 1 && constituencies.unshift({ name: ALL_CONSTITUENCIES, code: ALL_CONSTITUENCIES})
+    constituencies.length === 0 && constituencies.unshift({ name: NO_CONSTITUENCIES, code: NO_CONSTITUENCIES})
     return constituencies
   }
 }
@@ -229,32 +239,9 @@ export const getConstituencies = (
  * @returns {Array<Object>} Data of a election year for a State/UT
  */
 export const getDataStateUT = (data, stateUT) => {
-  if (stateUT === "All States & UTs") {
-    return data
-  } else {
-    return data.filter((row) => row.ST_NAME === stateUT)
-  }
-}
-
-/**
- * Returns data of a election year for a Constituency
- * @param {Array<Object>} data - State data of a year
- * @param {string} constituency - Name of Constituency
- * @return {Array.<Object>} Data of a election year for a Constituency
- */
-export const getDataConstituency = (data, constituency, electionViewType) => {
-  if (constituency === FIRST_SELECT_STATEUT || constituency === ALL_CONSTITUENCIES) {
-    return data
-  } else {
-    if (electionViewType === "general") {
-      return data.filter((row) => row.PC_NO === constituency)
-    } else {
-      return (
-        data &&
-        data.filter((row) => row.AC_NO === constituency)
-      )
-    }
-  }
+  return stateUT === "All States & UTs"
+    ? data
+    : data.filter((row) => row.ST_NAME === stateUT)
 }
 
 /**
@@ -267,18 +254,8 @@ export const getDataConstituency = (data, constituency, electionViewType) => {
 export const getCompareOptions = (electionViewType ,selectedElection, selectedStateUT) => {
   const electionType = selectedElection.type
   const selectedYear = selectedElection.year
-  const compareOptions = [
-    {
-      value: { type: "none", year: "none" },
-      label: "None"
-    }
-  ]
-  if (
-    selectedStateUT === SELECT_STATE_UT ||
-    selectedElection === SELECT_ELECTION
-  ) {
-    return compareOptions
-  }
+  const compareOptions = [{ value: { type: "none", year: "none" }, label: "None"}]
+  if (selectedStateUT === SELECT_STATE_UT || selectedElection === SELECT_ELECTION ) return compareOptions
   if (electionViewType === "general") {
     for (const ELECTION in ELECTION_YEAR_STATEUT) {
       for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
@@ -286,10 +263,7 @@ export const getCompareOptions = (electionViewType ,selectedElection, selectedSt
           let tempValue = { type: ELECTION, year: YEAR }
           let tempLabel = ELECTION + " Election " + YEAR
           tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
-          compareOptions.push({
-            value: tempValue,
-            label: tempLabel
-          })
+          compareOptions.push({ value: tempValue, label: tempLabel})
         }
       }
     }
@@ -302,10 +276,7 @@ export const getCompareOptions = (electionViewType ,selectedElection, selectedSt
               let tempValue = { type: ELECTION, year: YEAR }
               let tempLabel = ELECTION + " Election " + YEAR
               tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
-              compareOptions.push({
-                value: tempValue,
-                label: tempLabel
-              })
+              compareOptions.push({ value: tempValue, label: tempLabel})
             }
           })
         }
@@ -360,9 +331,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
         votesReceived: votes
       })
     })
-    stats.map((row) => {
-      totalParties = row.party !== "IND" ? totalParties + 1 : totalParties + 0
-    })
+    stats.map((row) => totalParties = row.party !== "IND" ? totalParties + 1 : totalParties + 0)
     let totalStats = {
       candidates: candidates.length,
       parties: totalParties,
@@ -370,9 +339,7 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
       votes: totalVotes
     }
     let highest = 0
-    stats.map((d) => {
-      highest = d.votesReceived > highest ? d.votesReceived : highest
-    })
+    stats.map((d) => highest = d.votesReceived > highest ? d.votesReceived : highest)
     stats.map((d) => {
       return d.votesReceived === highest
         ? (d.status = "won")

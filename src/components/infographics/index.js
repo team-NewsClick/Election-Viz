@@ -1,4 +1,3 @@
-
 import RegionStatsSVG from "./RegionStatsSVG"
 import RegionStatsTable from "./RegionStatsTable"
 

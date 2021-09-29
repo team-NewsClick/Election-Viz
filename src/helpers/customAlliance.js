@@ -114,3 +114,13 @@ export const getColorPartyAlliance = (rows) => {
   })
   return colorPartyAlliance
 }
+
+export const getPartiesAlliancesFromRows = (rows) => {
+  let partyAlliance = []
+  rows.map((a) => {
+    a.alliance !== "Unaligned"
+      ? a.parties.map((p) => partyAlliance.push({ PARTY: p, ALLIANCE: a.alliance }))
+      : a.parties.map((p) => partyAlliance.push({ PARTY: p, ALLIANCE: p }))
+  })
+  return partyAlliance
+}

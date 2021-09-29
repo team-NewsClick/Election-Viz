@@ -11,12 +11,8 @@ import { GEOJSON_PATH } from "../constants"
  */
 const Elections = () => {
   const [stateGeojson, setStateGeojson] = useState([])
-  const [assemblyConstituenciesGeojson, setAssemblyConstituenciesGeojson] =
-    useState([])
-  const [
-    parliamentaryConstituenciesGeojson,
-    setParliamentaryConstituenciesGeojson
-  ] = useState([])
+  const [assemblyConstituenciesGeojson, setAssemblyConstituenciesGeojson] = useState([])
+  const [parliamentaryConstituenciesGeojson, setParliamentaryConstituenciesGeojson] = useState([])
 
   useEffect(() => {
     axios
@@ -43,10 +39,7 @@ const Elections = () => {
   }, [])
 
   if (process.browser) {
-    if (
-      stateGeojson.length === 0 ||
-      assemblyConstituenciesGeojson.length === 0
-    ) {
+    if (stateGeojson.length === 0 || assemblyConstituenciesGeojson.length === 0) {
       return (
         <div style={{ margin: "auto", paddingTop: "50vh" }}>
           <Loading />

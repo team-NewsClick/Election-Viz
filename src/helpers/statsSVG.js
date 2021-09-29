@@ -58,28 +58,22 @@ export const seatsCount = (data, groupType) => {
   if (groupType === "party") {
     for(const state in data) {
       for(const row in data[state]) {
-        if(groups[data[state][row].party]) {
-          groups[data[state][row].party].seats += 1
-        } else {
-          groups[data[state][row].party] = { seats: 1, colour: data[state][row].color }
-        }
+        groups[data[state][row].party]
+          ? groups[data[state][row].party].seats += 1
+          : groups[data[state][row].party] = { seats: 1, colour: data[state][row].color }
       }
     }
   } else {
     for(const state in data) {
       for(const row in data[state]) {
-        if(groups[data[state][row].alliance]) {
-          groups[data[state][row].alliance].seats += 1
-        } else {
-          groups[data[state][row].alliance] = { seats: 1, colour: data[state][row].color }
-        }
+        groups[data[state][row].alliance]
+          ? groups[data[state][row].alliance].seats += 1
+          : groups[data[state][row].alliance] = { seats: 1, colour: data[state][row].color }
       }
     }
   }
   const preSort = Object.entries(groups)
-  const sortedData = preSort.sort((a, b) =>
-    a[1].seats < b[1].seats ? 1 : b[1].seats < a[1].seats ? -1 : 0
-  )
+  const sortedData = preSort.sort((a, b) =>a[1].seats < b[1].seats ? 1 : b[1].seats < a[1].seats ? -1 : 0)
   let topTen = []
   if (sortedData.length <= 10) {
     topTen = sortedData
@@ -93,12 +87,9 @@ export const seatsCount = (data, groupType) => {
       sortedData.map((d, index) => topTen[index] = d)
     } else {
       sortedData.map((d, index) => {
-        if (index < 9) topTen[index] = d
+        if(index < 9) topTen[index] = d
       })
-      topTen.push([
-        "OTHERS",
-        { seats: 0, colour: DEFAULT_PARTY_ALLIANCE_COLOR }
-      ])
+      topTen.push(["OTHERS", { seats: 0, colour: DEFAULT_PARTY_ALLIANCE_COLOR }])
       sortedData.map((d, index) => {
         if (index >= 9) topTen[9][1].seats += parseInt(d[1].seats)
       })

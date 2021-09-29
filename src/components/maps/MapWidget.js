@@ -5,7 +5,6 @@ import {
   _MapContext as MapContext,
   StaticMap,
   NavigationControl,
-  AttributionControl
 } from "react-map-gl"
 import {
   STATE_COORDINATES,
@@ -51,9 +50,7 @@ const MapWidget = ({
   const [stateName, setStateName] = useState("")
   const [initialstateColors, setInitialStateColors] = useState([])
   const [layers, setLayers] = useState([])
-  const [filterdGeoJsonData, setFilterdGeoJsonData] = useState(
-    constituenciesGeojson
-  )
+  const [filterdGeoJsonData, setFilterdGeoJsonData] = useState(constituenciesGeojson)
   const [stateData, setStateData] = useState(stateGeojson)
   const [initialViewState, setInitialViewState] = useState(
     windowWidth < 800
@@ -82,10 +79,7 @@ const MapWidget = ({
   )
 
   useEffect(() => {
-    const tempInitialStateColors = getInitalStateUTcolors(
-      stateUTOptions,
-      selectedElection
-    )
+    const tempInitialStateColors = getInitalStateUTcolors(stateUTOptions, selectedElection)
     if (tempInitialStateColors) {
       const stateColors = tempInitialStateColors.filter((d) => d !== undefined)
       setInitialStateColors(stateColors)
@@ -108,9 +102,7 @@ const MapWidget = ({
     const state = selectedStateUT
     if (state !== ALL_STATE_UT && state !== SELECT_STATE_UT) {
       const stateObject = STATE_COORDINATES.filter((row) => {
-        if (state == row.state) {
-          return row
-        }
+        if (state == row.state) return row
       })
       if (stateObject.length !== 0) {
         setStateName(state)
@@ -118,8 +110,9 @@ const MapWidget = ({
           ...initialViewState,
           latitude: stateObject[0].latitude,
           longitude: stateObject[0].longitude,
-          zoom:
-            windowWidth < 800 ? stateObject[0].zoom * 0.82 : stateObject[0].zoom
+          zoom: windowWidth < 800
+            ? stateObject[0].zoom * 0.82
+            : stateObject[0].zoom
         })
       }
     } else {
@@ -181,10 +174,12 @@ const MapWidget = ({
       ]
     } else {
       if (
-        selectedStateUT === SELECT_STATE_UT &&
-        (selectedElection === SELECT_ELECTION ||
-          selectedElection.type === "general" ||
-          selectedElection.year === LIVE_ELECTION)
+        selectedStateUT === SELECT_STATE_UT
+        && (
+          selectedElection === SELECT_ELECTION
+          || selectedElection.type === "general"
+          || selectedElection.year === LIVE_ELECTION
+          )
       ) {
         tempLayers = [
           new GeoJsonLayer({
@@ -201,9 +196,8 @@ const MapWidget = ({
           })
         ]
       } else if (
-        selectedStateUT === SELECT_STATE_UT &&
-        (selectedElection == SELECT_ELECTION ||
-          selectedElection.type === "assembly")
+        selectedStateUT === SELECT_STATE_UT
+        && (selectedElection == SELECT_ELECTION || selectedElection.type === "assembly")
       ) {
         tempLayers = [
           new GeoJsonLayer({
@@ -252,37 +246,33 @@ const MapWidget = ({
   const _handleMap = (object) => {
     const state = object.properties.ST_NAME
     const stateObject = STATE_COORDINATES.filter((row) => {
-      if (state == row.state) {
-        return row
-      }
+      if (state == row.state) return row
     })
     setStateName(state)
     setInitialViewState({
       ...initialViewState,
       latitude: stateObject[0].latitude,
       longitude: stateObject[0].longitude,
-      zoom: windowWidth < 800 ? stateObject[0].zoom * 0.82 : stateObject[0].zoom
+      zoom: windowWidth < 800
+        ? stateObject[0].zoom * 0.82
+        : stateObject[0].zoom
     })
     onMapUpdate(state)
   }
 
   const _fillGeoJsonColor = (d) => {
-    let results = null,
-      sortByStateKey = null,
-      sortByConstituencyKey = null
+    let results = null, sortByStateKey = null, sortByConstituencyKey = null
     sortByStateKey = d.properties.ST_NAME
-    sortByConstituencyKey =
-      electionViewType === "general" ? d.properties.PC_NO : d.properties.AC_NO
+    sortByConstituencyKey = electionViewType === "general"
+      ? d.properties.PC_NO
+      : d.properties.AC_NO
     results =
-      constituenciesResults[sortByStateKey] &&
-      constituenciesResults[sortByStateKey][sortByConstituencyKey]
-    let hexColor
+      constituenciesResults[sortByStateKey]
+      && constituenciesResults[sortByStateKey][sortByConstituencyKey]
     if (results && results.color) {
-      if (results.candidate === "N/A") {
-        hexColor = MAP_TRANSPARENT_NA_COLOR
-      } else {
-        hexColor = hexRgb(results.color)
-      }
+      const hexColor = results.candidate === "N/A"
+        ? MAP_TRANSPARENT_NA_COLOR
+        : hexRgb(results.color)
       return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha * 255]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR
@@ -292,9 +282,7 @@ const MapWidget = ({
   const _fillInitGeoJsonColor = (d) => {
     const sortByKey = d.properties.ST_NAME
     const results = initialstateColors.find((row) => {
-      if (row.state === sortByKey) {
-        return row
-      }
+      if (row.state === sortByKey) return row
     })
     if (results && results.color) {
       const hexColor = hexRgb(results.color)
@@ -306,30 +294,24 @@ const MapWidget = ({
 
   const _getTooltip = ({ object }) => {
     if (object && Object.keys(mapData).length !== 0) {
-      let results = null,
-        sortByStateKey = null,
-        sortByConstituencyKey = null
+      let results = null, sortByStateKey = null, sortByConstituencyKey = null
       if (electionViewType === "general") {
         if (
-          selectedConstituency == object.properties.PC_NO ||
-          selectedConstituency === ALL_CONSTITUENCIES ||
-          selectedStateUT === ALL_STATE_UT
+          selectedConstituency == object.properties.PC_NO
+          || selectedConstituency === ALL_CONSTITUENCIES
+          || selectedStateUT === ALL_STATE_UT
         ) {
           sortByStateKey = object.properties.ST_NAME
           sortByConstituencyKey = object.properties.PC_NO
           results = mapData[sortByStateKey][sortByConstituencyKey]
           let voteShare = ""
-          results &&
-            results.map((d) => {
-              voteShare =
-                voteShare +
-                `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
-            })
-          if (results) {
-          }
+          results && results.map((d) => {
+            voteShare = voteShare + `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
+          })
           return (
-            results &&
-            results[0].votesReceived != 0 && {
+            results
+            && results[0].votesReceived != 0
+            && {
               html: `
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
@@ -350,23 +332,21 @@ const MapWidget = ({
         }
       } else {
         if (
-          selectedConstituency == object.properties.AC_NO ||
-          selectedConstituency === ALL_CONSTITUENCIES ||
-          selectedStateUT === ALL_STATE_UT
+          selectedConstituency == object.properties.AC_NO
+          || selectedConstituency === ALL_CONSTITUENCIES
+          || selectedStateUT === ALL_STATE_UT
         ) {
           sortByStateKey = object.properties.ST_NAME
           sortByConstituencyKey = object.properties.AC_NO
           results = mapData[sortByStateKey][sortByConstituencyKey]
           let voteShare = ""
-          results &&
-            results.map((d) => {
-              voteShare =
-                voteShare +
-                `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
-            })
+          results && results.map((d) => {
+            voteShare = voteShare + `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
+          })
           return (
-            results &&
-            results[0].votesReceived != 0 && {
+            results
+            && results[0].votesReceived != 0
+            && {
               html: `
               <div>
                 <div class="pb-1">State: <b>${object.properties.ST_NAME}</b></div>
@@ -389,7 +369,9 @@ const MapWidget = ({
   }
 
   const _getCursor = (e) => {
-    return e.isHovering ? (e.isDragging ? "grabbing" : "pointer") : ""
+    return e.isHovering
+      ? (e.isDragging ? "grabbing" : "pointer")
+      : ""
   }
 
   return (
