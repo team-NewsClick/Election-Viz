@@ -21,10 +21,7 @@ import {
   ELECTION_YEAR_STATEUT,
   CSV_PATH
 } from "../constants"
-import {
-  RegionStatsSVG,
-  RegionStatsTable
-} from "./infographics/index"
+import { RegionStatsSVG, RegionStatsTable } from "./infographics/index"
 import MapWidget from "../components/maps/MapWidget"
 import DashboardOptions from "./DashboardOptions"
 import {
