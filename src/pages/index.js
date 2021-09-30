@@ -6,8 +6,8 @@ import Dashboard from "../components/Dashboard"
 import { GEOJSON_PATH } from "../constants"
 
 /**
- * Map Page
- * @return {JSX.Element} Map Page
+ * Electon Viz Page
+ * @return {JSX.Element} Electon Viz Page
  */
 const Elections = () => {
   const [stateGeojson, setStateGeojson] = useState([])

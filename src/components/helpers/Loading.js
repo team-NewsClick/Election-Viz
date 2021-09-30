@@ -1,5 +1,6 @@
 /**
- * Loading Spinner
+ * Loading Animation Status
+ * @component
  * @returns {JSX.Element} Loading-Spinner
  */
 const Loading = () => {

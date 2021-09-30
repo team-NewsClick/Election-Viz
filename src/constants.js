@@ -56,28 +56,37 @@ export const LIVE_ELECTION_STATEUT = ["Bihar"]
 /**
  * Upcoming Election Type
  */
- export const UPCOMING_ELECTION_TYPE = "assembly"
+export const UPCOMING_ELECTION_TYPE = "assembly"
 
 /**
  * Upcoming Election Year
  */
- export const UPCOMING_ELECTION_YEAR = "2017"
+export const UPCOMING_ELECTION_YEAR = "2017"
 
 /**
  * Upcoming Election
  */
- export const UPCOMING_ELECTION = "Upcoming"
+export const UPCOMING_ELECTION = "Upcoming"
 
 /**
  * Upcoming Elections
  */
-const UPCOMING_ELECTIONS_STATEUT = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punjab", "Manipur"]
+const UPCOMING_ELECTIONS_STATEUT = [
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "Goa",
+  "Punjab",
+  "Manipur"
+]
 
 /**
  * Public GEOJSON URL
  */
 export const GEOJSON_PATH = "/data/geojson"
 
+/**
+ * Candidate data of a party when no data is available
+ */
 export const NA_PARTY_DATA = {
   candidate: "N/A",
   party: "N/A",
@@ -85,6 +94,9 @@ export const NA_PARTY_DATA = {
   votesReceived: 0
 }
 
+/**
+ * Candidate data of a alliance when no data is available
+ */
 export const NA_ALLIANCE_DATA = {
   candidate: "N/A",
   alliance: "N/A",
@@ -92,11 +104,10 @@ export const NA_ALLIANCE_DATA = {
   votesReceived: 0
 }
 
-
 /**
  * Public CSV URL
  */
- export const CSV_PATH = "/data/csv"
+export const CSV_PATH = "/data/csv"
 
 /**
  * Election details: their type, year and state/UTs that had the election
@@ -215,7 +226,7 @@ export const STATE_COLORS = [
   "#B0A433",
   "#986B27",
   "#A54B6C",
-  "#B65857",
+  "#B65857"
 ]
 
 /**
@@ -261,7 +272,7 @@ export const STATE_UT_LIST = [
 ]
 
 /**
- * Time Delay for Live Update in Minutes
+ * Time interval for Live Update in Minutes
  */
 
 export const DELAY_INTERVAL_MINUTES = 3
@@ -273,7 +284,6 @@ export const DEFAULT_GROUP_TYPE = "party"
 
 /**
  * Default Selection for Region
- * Default selection for region should be at REGION_OPTIONS[0]
  */
 export const REGION_DEFAULT_SELECT = "All Regions"
 
@@ -295,18 +305,47 @@ export const SEAT_DEFAULT_SELECT = "All Seats"
 /**
  * Options for Seat Type
  */
- export const SEAT_TYPE_OPTIONS = ["All Seats", "Reserved", "Unreserved"]
+export const SEAT_TYPE_OPTIONS = ["All Seats", "Reserved", "Unreserved"]
 
 /**
- * Geojson Default Colors
+ * Geojson Default State Fill Color
  */
 export const DEFAULT_STATE_FILL_COLOR = [255, 255, 255, 0]
+
+/**
+ * Geojson Default State Line Color
+ */
 export const DEFAULT_STATE_LINE_COLOR = [60, 60, 60, 255]
+
+/**
+ * Geojson District Fill Color
+ */
 export const DEFAULT_DISTRICT_FILL_COLOR = [255, 255, 255, 125]
+
+/**
+ * Geojson District line Color for General Elections
+ */
 export const DEFAULT_DISTRICT_LINE_COLOR_GENERAL = [255, 255, 255, 255]
+
+/**
+ * Geojson District line Color for Assembly Elections
+ */
 export const DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY = [0, 0, 0, 255]
+
+/**
+ * Geojson Transparent Color
+ */
 export const TRANSPARENT_COLOR = [255, 255, 255, 0]
-export const MAP_TRANSPARENT_NA_COLOR = {red: 255, green: 255, blue: 255, alpha: 0}
+
+/**
+ * Geojson Transparent color when no data is available
+ */
+export const MAP_TRANSPARENT_NA_COLOR = {
+  red: 255,
+  green: 255,
+  blue: 255,
+  alpha: 0
+}
 
 /**
  * Default Party or Alliance Color
@@ -314,7 +353,7 @@ export const MAP_TRANSPARENT_NA_COLOR = {red: 255, green: 255, blue: 255, alpha:
 export const DEFAULT_PARTY_ALLIANCE_COLOR = "#606060"
 
 /**
- * State Names and Coordinates
+ * State/UT names and their coordinates
  */
 export const STATE_COORDINATES = [
   {
@@ -542,9 +581,9 @@ export const STATE_COORDINATES = [
 ]
 
 /**
- * Parties & Alliances Color
+ * Default Party/Alliance Color
  */
-export const PARTY_ALLIANCE_COLORS = {
+ export const PARTY_ALLIANCE_COLORS = {
   "BJP": "#ED8918",
   "SP": "#E64A1D",
   "BSP": "#4171FE",

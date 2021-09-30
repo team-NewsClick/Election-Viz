@@ -6,6 +6,9 @@
 body {
   @apply bg-gray-100 text-gray-900 overflow-y-scroll;
 }
+select {
+  @apply bg-white rounded border border-gray-400 h-7 pl-2 m-2 text-sm;
+}
 .radio-title {
   @apply text-sm;
 }
@@ -21,23 +24,21 @@ body {
 .radio-toolbar input[type='radio']:checked + label {
   @apply bg-gray-800 text-white;
 }
-select {
-  @apply bg-white rounded border border-gray-400 h-7 pl-2 m-2 text-sm;
-}
 .advance-select {
   @apply w-40 my-3;
 }
 .black-btn {
   @apply bg-gray-800 text-white w-20 m-2 my-3 py-1;
 }
+
 @tailwind utilities;
 
 * {
   font-family: 'Noto Sans', sans-serif;
 }
-.seatNumber {
-  font-family: 'Noto Sans', sans-serif !important;
-  padding-top: 2rem;
+:root {
+  font-size: 14px;
+  line-height: 1.4285em;
 }
 select {
   -webkit-appearance: none;
@@ -48,18 +49,9 @@ select {
   background-position: 97% center;
   background-repeat: no-repeat;
 }
-:root {
-  font-size: 14px;
-  line-height: 1.4285em;
-}
-#deckgl-overlay,
-#deckgl-wrapper {
-  position: relative !important;
-}
-.deck-tooltip {
-  background-color: white !important;
-  color: black !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+.seatNumber {
+  font-family: 'Noto Sans', sans-serif !important;
+  padding-top: 2rem;
 }
 .heightImp100 {
   height: 100% !important;
@@ -67,6 +59,18 @@ select {
 .widthImp100 {
   width: 100% !important;
 }
+
+/* DeckGL Map */
+#deckgl-overlay, #deckgl-wrapper {
+  position: relative !important;
+}
+.deck-tooltip {
+  background-color: white !important;
+  color: black !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* NewsClick Copyright Image on map */
 #map {
   position: absolute;
   top: 0;
@@ -79,7 +83,8 @@ select {
   position: absolute;
   display: block;
 }
-/* Loading Spinner Start */
+
+/* Loading Status Animation */
 .loading-container {
   display: flex;
   overflow: hidden;
@@ -102,4 +107,3 @@ select {
     transform: rotate(360deg);
   }
 }
-/* Loading Spinner End */

@@ -1,7 +1,37 @@
 import { ALL_STATE_UT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
-import CustomAllianceModal from "./modals/CustomAllianceModal"
-import SwingsModal from "./modals/SwingsModal"
+import { CustomAllianceModal, SwingsModal } from "./modals/index"
 
+/**
+ * Control setting options of Dashboard
+ * @component
+ * @param {Function} updateElectionViewType Function to update electionViewType on parent component
+ * @param {Function} updateCompareElection Function to update compareElection on parent component
+ * @param {Function} updateSelectedElection Function to update selectedElection on parent component
+ * @param {Function} updateSelectedRegion Function to update selectedRegion on parent component
+ * @param {Function} updateGroupType Function to update groupType on parent component
+ * @param {Function} updateSelectedStateUT Function to update selectedStateUT on parent component
+ * @param {Function} updateSelectedConstituency Function to update selectedConstituency on parent component
+ * @param {Function} doAdvanceReset Functoin to reset advance options values
+ * @param {Function} customAlliance Function to update partyAlliance on parent component
+ * @param {Function} handleColorPartyAlliance Function to update colorPartyAlliance on parent component
+ * @param {Function} handleSwingParams Function to update swingParams on parent component
+ * @param {Function} updateSelectedSeatType Function to update selectedSeatType on parent component
+ * @param {Array<Object>} electionOptions List of elections to be selected
+ * @param {Array<String>} stateUTOptions List of state/UT options to be selected
+ * @param {Array<Object>} constituencyOptions List of constituencies and their code to be selected
+ * @param {Array<String>} regionOptions List of regio option to be selected
+ * @param {Array<Object>} compareOptions List of comparable elections to be selected
+ * @param {String} electionViewType assembly/general
+ * @param {Object} selectedElection Selected election: {type: "assembly"/"general", year: "year"}
+ * @param {String} selectedStateUT Name of selected state/UT
+ * @param {String} selectedConstituency Name of selected constituency
+ * @param {String} selectedRegion Name of selected region in a state/UT
+ * @param {String} seatType Selected seat type: All Seats/Reserve/Unreserved
+ * @param {Object} compareElection Selected election to be compared with :{type: "assembly"/"general", year: "year"}
+ * @param {Array<Object>} partyAlliance List of parties and their respective alliances
+ * @param {Boolean} advanceReset Reset advance options values to default when its value toggle
+ * @returns {JSX.Element} Control setting options of Dashboard
+ */
 const DashboardOptions = ({
   updateElectionViewType,
   updateCompareElection,
@@ -30,7 +60,6 @@ const DashboardOptions = ({
   partyAlliance,
   advanceReset
 }) => {
-
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsDashboard")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -160,8 +189,8 @@ const DashboardOptions = ({
               alt="Show Advance Options"
               className="w-3 h-3 md:ml-14 m-1.5"
             />
+          </div>
         </div>
-      </div>
       </div>
       <div
         id="advanceOptionsDashboard"
@@ -180,7 +209,7 @@ const DashboardOptions = ({
             <img
               id="showHideAdvance-btn-icon"
               src="../img/close-btn.svg"
-              alt="Close Button"
+              alt="Close Advance Options"
               className="w-4 h-4"
             />
           </div>
@@ -188,7 +217,7 @@ const DashboardOptions = ({
         <div className="mx-auto max-w-4xl justify-center">
           <div>
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-              {electionViewType === "assembly" &&
+              {electionViewType === "assembly" && (
                 <div>
                   <select
                     name="region"
@@ -204,7 +233,7 @@ const DashboardOptions = ({
                     ))}
                   </select>
                 </div>
-              }
+              )}
               <div>
                 <select
                   name="seatType"
@@ -221,21 +250,23 @@ const DashboardOptions = ({
                 </select>
               </div>
             </div>
-            {(selectedStateUT !== ALL_STATE_UT && selectedStateUT !== SELECT_STATE_UT) &&
-              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-              <div
-                onClick={openCustomAllianceModal}
-                className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-              >
-                Customise Alliances
-              </div>
-              <div
-                onClick={openSwingModal}
-                className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-              >
-                Add Swings
-              </div>
-            </div>}
+            {selectedStateUT !== ALL_STATE_UT &&
+              selectedStateUT !== SELECT_STATE_UT && (
+                <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+                  <div
+                    onClick={openCustomAllianceModal}
+                    className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                  >
+                    Customise Alliances
+                  </div>
+                  <div
+                    onClick={openSwingModal}
+                    className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                  >
+                    Add Swings
+                  </div>
+                </div>
+              )}
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
               <div className="flex flex-wrap">
                 <div className="inline-block align-text-bottom my-auto text-right">

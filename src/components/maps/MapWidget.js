@@ -4,8 +4,7 @@ import { GeoJsonLayer } from "@deck.gl/layers"
 import {
   _MapContext as MapContext,
   StaticMap,
-  NavigationControl,
-  AttributionControl
+  NavigationControl
 } from "react-map-gl"
 import {
   STATE_COORDINATES,
@@ -29,7 +28,19 @@ import { getFilteredGeoJson } from "../../helpers/reservedSeats"
 /**
  * Plot Map and Deckgl Layers
  * @component
- * @param {Object} param0 - Dashboard Objects (GeoJSON)
+ * @param {GeoJSON} stateGeojson - Geojson of States & UTs
+ * @param {GeoJSON} constituenciesGeojson - Geojson of constituencies
+ * @param {Function} onMapUpdate - To update selectedState on parent component when selected throufh click on map
+ * @param {String} electionViewType - assembly/general
+ * @param {Array} stateUTOptions - List of States & UTs
+ * @param {String} selectedStateUT - Name of selected state/UT
+ * @param {String} selectedConstituency - Name of selected constituency
+ * @param {Object} mapData - Top four contestants stats for every constituency of every states/UT
+ * @param {Object} constituenciesResults - Winner of every constituency of every states/UT
+ * @param {Boolean} mapWidgetLoading - When true loading animation appears
+ * @param {String} seatType - All Seats/Reserved/Unreserved
+ * @param {String} selectedRegion - Name of selected region in a state
+ * @param {Object} selectedElection - Name of selected election {type: "assembly"/"general", year: "year"}
  * @return {JSX.Element} Map Widget
  */
 const MapWidget = ({
@@ -108,9 +119,7 @@ const MapWidget = ({
     const state = selectedStateUT
     if (state !== ALL_STATE_UT && state !== SELECT_STATE_UT) {
       const stateObject = STATE_COORDINATES.filter((row) => {
-        if (state == row.state) {
-          return row
-        }
+        if (state == row.state) return row
       })
       if (stateObject.length !== 0) {
         setStateName(state)
@@ -252,9 +261,7 @@ const MapWidget = ({
   const _handleMap = (object) => {
     const state = object.properties.ST_NAME
     const stateObject = STATE_COORDINATES.filter((row) => {
-      if (state == row.state) {
-        return row
-      }
+      if (state == row.state) return row
     })
     setStateName(state)
     setInitialViewState({
@@ -276,13 +283,11 @@ const MapWidget = ({
     results =
       constituenciesResults[sortByStateKey] &&
       constituenciesResults[sortByStateKey][sortByConstituencyKey]
-    let hexColor
     if (results && results.color) {
-      if (results.candidate === "N/A") {
-        hexColor = MAP_TRANSPARENT_NA_COLOR
-      } else {
-        hexColor = hexRgb(results.color)
-      }
+      const hexColor =
+        results.candidate === "N/A"
+          ? MAP_TRANSPARENT_NA_COLOR
+          : hexRgb(results.color)
       return [hexColor.red, hexColor.green, hexColor.blue, hexColor.alpha * 255]
     } else {
       return DEFAULT_DISTRICT_FILL_COLOR
@@ -292,9 +297,7 @@ const MapWidget = ({
   const _fillInitGeoJsonColor = (d) => {
     const sortByKey = d.properties.ST_NAME
     const results = initialstateColors.find((row) => {
-      if (row.state === sortByKey) {
-        return row
-      }
+      if (row.state === sortByKey) return row
     })
     if (results && results.color) {
       const hexColor = hexRgb(results.color)
@@ -325,8 +328,6 @@ const MapWidget = ({
                 voteShare +
                 `<div><b>${d.party}</b>: ${indPlaceVal(d.votesReceived)}</div>`
             })
-          if (results) {
-          }
           return (
             results &&
             results[0].votesReceived != 0 && {
@@ -435,11 +436,19 @@ const MapWidget = ({
             attributionControl={false}
           />
         )}
-        <div id='map' className="absolute">
+        <div id="map" className="absolute">
           <div className="mapbox-attribution-container relative flex row-reverse">
-              <div className="flex justify-end" style={{placeItems: "baseline"}}>
-                <img src="img/newsclick-copyright.jpg" className="m-1" width="35%" height="auto" />
-              </div>
+            <div
+              className="flex justify-end"
+              style={{ placeItems: "baseline" }}
+            >
+              <img
+                src="img/newsclick-copyright.jpg"
+                className="m-1"
+                width="35%"
+                height="auto"
+              />
+            </div>
           </div>
         </div>
       </DeckGL>

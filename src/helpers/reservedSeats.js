@@ -7,11 +7,13 @@ import {
 import { getDistricts } from "../helpers/regions"
 
 /**
- * To filter GeoJSON with respect   to seatType
- * @param {Object} geoJson Constituencies GeoJSON
+ * To filter GeoJSON
+ * @param {GeoJSON} geoJson Constituencies GeoJSON
+ * @param {Array<String>} stateUTOptions List of state/UT options to be selected
  * @param {String} seatType All Seats/Reserved/Unreserved
- * @param {String} electionViewType assembly/general
- * @returns {Object} - Filtered GeoJson with respect to seatType
+ * @param {String} selectedStateUT Name of selected state/UT
+ * @param {String} selectedRegion Name of selected region in a state/UT
+ * @returns {GeoJSON} - Filtered GeoJson
  */
 export const getFilteredGeoJson = (
   geoJson,
@@ -41,16 +43,19 @@ export const getFilteredGeoJson = (
       )
     }
   }
-  if (seatType !== SEAT_DEFAULT_SELECT) {
-    filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => {
-      if (seatType === "Unreserved") {
-        return d.properties.RES === "GEN"
-      } else {
-        return d.properties.RES !== "GEN"
-      }
-    })
-  } else {
-    filteredBySeatGeoJson = filteredByStateGeoJSON
+  switch (seatType) {
+    case "Reserved":
+      filteredBySeatGeoJson = filteredByStateGeoJSON.filter(
+        (d) => d.properties.RES !== "GEN"
+      )
+      break
+    case "Unreserved":
+      filteredBySeatGeoJson = filteredByStateGeoJSON.filter(
+        (d) => d.properties.RES === "GEN"
+      )
+      break
+    default:
+      filteredBySeatGeoJson = filteredByStateGeoJSON
   }
   if (selectedRegion === REGION_DEFAULT_SELECT) {
     filteredByRegionGeoJSON = filteredBySeatGeoJson
