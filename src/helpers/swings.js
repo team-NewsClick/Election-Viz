@@ -50,10 +50,10 @@ export const calculateSwings = (
   electionViewType
 ) => {
   if (
-    filteredGeoJSON.length !== 0
-    && partiesSwing.length !== 0
-    && selectedStateUT !== ALL_STATE_UT
-    && selectedYearData.length !== 0
+    filteredGeoJSON.length !== 0 &&
+    partiesSwing.length !== 0 &&
+    selectedStateUT !== ALL_STATE_UT &&
+    selectedYearData.length !== 0
   ) {
     let constituencies, selectedStateUTData, constituencyOptions
     selectedStateUTData = getDataStateUT(selectedYearData, selectedStateUT)
@@ -64,16 +64,22 @@ export const calculateSwings = (
       filteredGeoJSON
     )
     constituencyOptions.length > 1
-      ? constituencies = constituencyOptions.slice(1)
-      : constituencies = constituencyOptions
-    const totalVotesPolledData = calculateConstituencyVotesPolled(selectedStateUTData, constituencies, electionViewType)
+      ? (constituencies = constituencyOptions.slice(1))
+      : (constituencies = constituencyOptions)
+    const totalVotesPolledData = calculateConstituencyVotesPolled(
+      selectedStateUTData,
+      constituencies,
+      electionViewType
+    )
     const swingState = calculateVoteShare(
       totalVotesPolledData,
       constituencies,
       partiesSwing,
       electionViewType
     )
-    const allStates = selectedYearData.filter((state) => state.ST_NAME !== selectedStateUT)
+    const allStates = selectedYearData.filter(
+      (state) => state.ST_NAME !== selectedStateUT
+    )
     const swings = [...swingState, ...allStates]
     return swings
   }
@@ -94,7 +100,9 @@ const calculateConstituencyVotesPolled = (
   let totalVotes = []
   if (electionViewType === "general") {
     totalVotes = constituencies.map((constituency) => {
-      const assemblyFilter = selectedStateUTData.filter((row) => row.PC_NO == constituency.code)
+      const assemblyFilter = selectedStateUTData.filter(
+        (row) => row.PC_NO == constituency.code
+      )
       const total = assemblyFilter
         .map((row) => row.VOTES)
         .reduce((prev, next) => Number(prev) + Number(next), 0)
@@ -105,7 +113,9 @@ const calculateConstituencyVotesPolled = (
     })
   } else {
     totalVotes = constituencies.map((constituency) => {
-      const assemblyFilter = selectedStateUTData.filter((row) => row.AC_NO == constituency.code)
+      const assemblyFilter = selectedStateUTData.filter(
+        (row) => row.AC_NO == constituency.code
+      )
       const total = assemblyFilter
         .map((row) => row.VOTES)
         .reduce((prev, next) => Number(prev) + Number(next), 0)
@@ -136,11 +146,16 @@ const calculateVoteShare = (
   let updateVotes = []
   if (electionViewType === "general") {
     updateVotes = constituencies.map((constituency) => {
-      const assemblyFilter = totalVotesPolledData.filter((row) => row.PC_NO == constituency.code)
+      const assemblyFilter = totalVotesPolledData.filter(
+        (row) => row.PC_NO == constituency.code
+      )
       const newVoteShare = assemblyFilter.map((row) => {
         const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)
         let swingVotes = 0
-        if (swingParty) swingVotes = Math.round((Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100)
+        if (swingParty)
+          swingVotes = Math.round(
+            (Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100
+          )
         return {
           ...row,
           VOTES:
@@ -153,11 +168,16 @@ const calculateVoteShare = (
     })
   } else {
     updateVotes = constituencies.map((constituency) => {
-      const assemblyFilter = totalVotesPolledData.filter((row) => row.AC_NO == constituency.code)
+      const assemblyFilter = totalVotesPolledData.filter(
+        (row) => row.AC_NO == constituency.code
+      )
       const newVoteShare = assemblyFilter.map((row) => {
         const swingParty = partiesSwing.find((d) => d.PARTY === row.PARTY)
         let swingVotes = 0
-        if (swingParty) swingVotes = Math.round((Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100)
+        if (swingParty)
+          swingVotes = Math.round(
+            (Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100
+          )
         return {
           ...row,
           VOTES:

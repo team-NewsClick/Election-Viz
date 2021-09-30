@@ -1,7 +1,4 @@
-import {
-  DEFAULT_PARTY_ALLIANCE_COLOR,
-  SELECT_STATE_UT
-} from "../constants"
+import { DEFAULT_PARTY_ALLIANCE_COLOR, SELECT_STATE_UT } from "../constants"
 
 /**
  * To Calculate list of Parties/Alliances and their seats won in a region
@@ -23,26 +20,36 @@ export const getRegionStatsSVGData = (
   if (selectedStateUT === SELECT_STATE_UT) return filteredData
   if (electionViewType === "general") {
     filteredGeoJSON.features.map((d) => {
-      if(data[d.properties.ST_NAME] && data[d.properties.ST_NAME][d.properties.PC_NO]) {
-        if(filteredData[`${d.properties.ST_NAME}`]) {
-          filteredData[`${d.properties.ST_NAME}`][`${d.properties.PC_NO}`] = data[d.properties.ST_NAME][d.properties.PC_NO]
+      if (
+        data[d.properties.ST_NAME] &&
+        data[d.properties.ST_NAME][d.properties.PC_NO]
+      ) {
+        if (filteredData[`${d.properties.ST_NAME}`]) {
+          filteredData[`${d.properties.ST_NAME}`][`${d.properties.PC_NO}`] =
+            data[d.properties.ST_NAME][d.properties.PC_NO]
         } else {
           filteredData[`${d.properties.ST_NAME}`] = {}
-          filteredData[`${d.properties.ST_NAME}`][`${d.properties.PC_NO}`] = data[d.properties.ST_NAME][d.properties.PC_NO]
+          filteredData[`${d.properties.ST_NAME}`][`${d.properties.PC_NO}`] =
+            data[d.properties.ST_NAME][d.properties.PC_NO]
         }
       }
     })
   } else {
-      filteredGeoJSON.features.map((d) => {
-        if(data[d.properties.ST_NAME] && data[d.properties.ST_NAME][d.properties.AC_NO]) {
-          if(filteredData[`${d.properties.ST_NAME}`]) {
-            filteredData[`${d.properties.ST_NAME}`][`${d.properties.AC_NO}`] = data[d.properties.ST_NAME][d.properties.AC_NO]
-          } else {
-            filteredData[`${d.properties.ST_NAME}`] = {}
-            filteredData[`${d.properties.ST_NAME}`][`${d.properties.AC_NO}`] = data[d.properties.ST_NAME][d.properties.AC_NO]
-          }
+    filteredGeoJSON.features.map((d) => {
+      if (
+        data[d.properties.ST_NAME] &&
+        data[d.properties.ST_NAME][d.properties.AC_NO]
+      ) {
+        if (filteredData[`${d.properties.ST_NAME}`]) {
+          filteredData[`${d.properties.ST_NAME}`][`${d.properties.AC_NO}`] =
+            data[d.properties.ST_NAME][d.properties.AC_NO]
+        } else {
+          filteredData[`${d.properties.ST_NAME}`] = {}
+          filteredData[`${d.properties.ST_NAME}`][`${d.properties.AC_NO}`] =
+            data[d.properties.ST_NAME][d.properties.AC_NO]
         }
-      })
+      }
+    })
   }
   const count = seatsCount(filteredData, groupType)
   return count
@@ -55,26 +62,35 @@ export const getRegionStatsSVGData = (
  * @returns {Array<Object>} - Party/Alliance and their respective seats won
  */
 export const seatsCount = (data, groupType) => {
-  let groups = {}, finalData = {}
+  let groups = {},
+    finalData = {}
   if (groupType === "party") {
-    for(const state in data) {
-      for(const row in data[state]) {
+    for (const state in data) {
+      for (const row in data[state]) {
         groups[data[state][row].party]
-          ? groups[data[state][row].party].seats += 1
-          : groups[data[state][row].party] = { seats: 1, colour: data[state][row].color }
+          ? (groups[data[state][row].party].seats += 1)
+          : (groups[data[state][row].party] = {
+              seats: 1,
+              colour: data[state][row].color
+            })
       }
     }
   } else {
-    for(const state in data) {
-      for(const row in data[state]) {
+    for (const state in data) {
+      for (const row in data[state]) {
         groups[data[state][row].alliance]
-          ? groups[data[state][row].alliance].seats += 1
-          : groups[data[state][row].alliance] = { seats: 1, colour: data[state][row].color }
+          ? (groups[data[state][row].alliance].seats += 1)
+          : (groups[data[state][row].alliance] = {
+              seats: 1,
+              colour: data[state][row].color
+            })
       }
     }
   }
   const preSort = Object.entries(groups)
-  const sortedData = preSort.sort((a, b) =>a[1].seats < b[1].seats ? 1 : b[1].seats < a[1].seats ? -1 : 0)
+  const sortedData = preSort.sort((a, b) =>
+    a[1].seats < b[1].seats ? 1 : b[1].seats < a[1].seats ? -1 : 0
+  )
   let topTen = []
   if (sortedData.length <= 10) {
     topTen = sortedData
@@ -84,18 +100,23 @@ export const seatsCount = (data, groupType) => {
       topTen.push(...tempDataOTHERS)
     }
   } else {
-    if(sortedData.length < 10) {
-      sortedData.map((d, index) => topTen[index] = d)
+    if (sortedData.length < 10) {
+      sortedData.map((d, index) => (topTen[index] = d))
     } else {
       sortedData.map((d, index) => {
-        if(index < 9) topTen[index] = d
+        if (index < 9) topTen[index] = d
       })
-      topTen.push(["OTHERS", { seats: 0, colour: DEFAULT_PARTY_ALLIANCE_COLOR }])
+      topTen.push([
+        "OTHERS",
+        { seats: 0, colour: DEFAULT_PARTY_ALLIANCE_COLOR }
+      ])
       sortedData.map((d, index) => {
         if (index >= 9) topTen[9][1].seats += parseInt(d[1].seats)
       })
     }
   }
-  topTen.map((d) => finalData[d[0]] = { seats: d[1].seats, colour: d[1].colour })
+  topTen.map(
+    (d) => (finalData[d[0]] = { seats: d[1].seats, colour: d[1].colour })
+  )
   return finalData
 }

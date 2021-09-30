@@ -27,16 +27,14 @@ const SwingsModal = ({
   }, [selectedStateUT, advanceReset])
 
   useEffect(() => {
-    if(partyAlliance.length !== 0) {
+    if (partyAlliance.length !== 0) {
       setSwingUpdate([])
       const initParmas = getParams(partyAlliance)
       const tempParams = []
       initParmas.map((d) => {
         const thumbLeft = document.getElementById(d.thumbId)
         const range = document.getElementById(d.rangeId)
-        const valueSwingDisaply = document.getElementById(
-          d.valueSwingDisaplyId
-        )
+        const valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
         thumbLeft.style.left = "50%"
         valueSwingDisaply.style.left = "50%"
         range.style.right = "50%"
@@ -47,12 +45,11 @@ const SwingsModal = ({
       setPartyAllianceParams([...tempParams])
     }
   }, [selectedStateUT, advanceReset])
-  
 
   useEffect(() => {
     let temp = 0
     if (selectedStateUT !== ALL_STATE_UT) {
-      partyAllianceParams.map((d) => temp = temp + parseInt(d.swing))
+      partyAllianceParams.map((d) => (temp = temp + parseInt(d.swing)))
       setSwingTotal(temp)
     }
   }, [partyAllianceParams])
@@ -63,16 +60,21 @@ const SwingsModal = ({
 
   useEffect(() => {
     const tempNewParams = []
-    const tempPartyAllianceParams = partyAllianceParams.filter((d) => 
-      partyAlliance.findIndex((e) => e.ALLIANCE === d.alliance) !== -1
+    const tempPartyAllianceParams = partyAllianceParams.filter(
+      (d) => partyAlliance.findIndex((e) => e.ALLIANCE === d.alliance) !== -1
     )
     partyAlliance &&
       partyAlliance.map((d) => {
-        if (partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1) {
+        if (
+          partyAllianceParams.findIndex((e) => e.alliance === d.ALLIANCE) === -1
+        ) {
           let temp = []
           temp = addParams([d.ALLIANCE])
           temp[0].newAlliance = true
-          if (tempNewParams.findIndex((p) => p.alliance === temp[0].alliance) === -1) {
+          if (
+            tempNewParams.findIndex((p) => p.alliance === temp[0].alliance) ===
+            -1
+          ) {
             tempNewParams.push(...temp)
           }
         }
@@ -86,7 +88,9 @@ const SwingsModal = ({
     let input = document.getElementById(temp[index].inputId)
     let thumbLeft = document.getElementById(temp[index].thumbId)
     let range = document.getElementById(temp[index].rangeId)
-    let valueSwingDisaply = document.getElementById(temp[index].valueSwingDisaplyId)
+    let valueSwingDisaply = document.getElementById(
+      temp[index].valueSwingDisaplyId
+    )
     let min = parseInt(input.min)
     let max = parseInt(input.max)
     let value = parseInt(input.value)
@@ -104,7 +108,7 @@ const SwingsModal = ({
     }
     setPartyAllianceParams([...temp])
   }
-  
+
   const _reset = () => {
     if (partyAllianceParams.length !== 0 && partyAlliance.length !== 0) {
       const tempPartyAlliance = partyAlliance
@@ -118,7 +122,9 @@ const SwingsModal = ({
         ) {
           const thumbLeft = document.getElementById(d.thumbId)
           const range = document.getElementById(d.rangeId)
-          const valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
+          const valueSwingDisaply = document.getElementById(
+            d.valueSwingDisaplyId
+          )
           thumbLeft.style.left = "50%"
           valueSwingDisaply.style.left = "50%"
           range.style.right = "50%"
@@ -200,12 +206,20 @@ const SwingsModal = ({
                     />
                     <div
                       className="absolute w-4 h-4 bg-gray-300 rounded-full opacity-100 right-1/4"
-                      style={{ transform: "translate(0.5rem, -0.25rem)", right: "50%", zIndex: 3 }}
+                      style={{
+                        transform: "translate(0.5rem, -0.25rem)",
+                        right: "50%",
+                        zIndex: 3
+                      }}
                     />
                     <div
                       id={d.thumbId}
                       className="absolute w-4 h-4 bg-blue-800 rounded-full opacity-100 left-1/4"
-                      style={{ transform: "translate(-0.5rem, -0.25rem)", left: "50%", zIndex: 3 }}
+                      style={{
+                        transform: "translate(-0.5rem, -0.25rem)",
+                        left: "50%",
+                        zIndex: 3
+                      }}
                     />
                     <div
                       className="absolute text-gray-400"
@@ -215,20 +229,29 @@ const SwingsModal = ({
                     </div>
                     <div
                       className="absolute text-gray-400"
-                      style={{ transform: "translate(-0.5rem, 1rem)", left: "50%" }}
+                      style={{
+                        transform: "translate(-0.5rem, 1rem)",
+                        left: "50%"
+                      }}
                     >
                       0%
                     </div>
                     <div
                       className="absolute text-gray-400"
-                      style={{ transform: "translate(-1.5rem, 1rem)", left: "100%" }}
+                      style={{
+                        transform: "translate(-1.5rem, 1rem)",
+                        left: "100%"
+                      }}
                     >
                       +25%
                     </div>
                     <div
                       id={d.valueSwingDisaplyId}
                       className="absolute rounded-full left-1/4 font-bold"
-                      style={{ transform: "translate(-0.5rem, -2rem)", left: "50%" }}
+                      style={{
+                        transform: "translate(-0.5rem, -2rem)",
+                        left: "50%"
+                      }}
                     >
                       {d.swing > 0 ? "+" + d.swing : d.swing}%
                     </div>
@@ -237,7 +260,9 @@ const SwingsModal = ({
               </div>
             ))}
           <div style={swingTotal !== 0 ? { color: "#d11143" } : {}}>
-            <div className="text-3xl font-bold">Total Swing: {swingTotal}% </div>
+            <div className="text-3xl font-bold">
+              Total Swing: {swingTotal}%{" "}
+            </div>
             <div>
               Total Swing must be 0%, otherwise it will reset to default.
             </div>

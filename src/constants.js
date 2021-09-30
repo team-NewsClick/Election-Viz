@@ -56,22 +56,28 @@ export const LIVE_ELECTION_STATEUT = ["Bihar"]
 /**
  * Upcoming Election Type
  */
- export const UPCOMING_ELECTION_TYPE = "assembly"
+export const UPCOMING_ELECTION_TYPE = "assembly"
 
 /**
  * Upcoming Election Year
  */
- export const UPCOMING_ELECTION_YEAR = "2017"
+export const UPCOMING_ELECTION_YEAR = "2017"
 
 /**
  * Upcoming Election
  */
- export const UPCOMING_ELECTION = "Upcoming"
+export const UPCOMING_ELECTION = "Upcoming"
 
 /**
  * Upcoming Elections
  */
-const UPCOMING_ELECTIONS_STATEUT = ["Uttar Pradesh", "Uttarakhand", "Goa", "Punjab", "Manipur"]
+const UPCOMING_ELECTIONS_STATEUT = [
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "Goa",
+  "Punjab",
+  "Manipur"
+]
 
 /**
  * Public GEOJSON URL
@@ -101,7 +107,7 @@ export const NA_ALLIANCE_DATA = {
 /**
  * Public CSV URL
  */
- export const CSV_PATH = "/data/csv"
+export const CSV_PATH = "/data/csv"
 
 /**
  * Election details: their type, year and state/UTs that had the election
@@ -220,7 +226,7 @@ export const STATE_COLORS = [
   "#B0A433",
   "#986B27",
   "#A54B6C",
-  "#B65857",
+  "#B65857"
 ]
 
 /**
@@ -299,7 +305,7 @@ export const SEAT_DEFAULT_SELECT = "All Seats"
 /**
  * Options for Seat Type
  */
- export const SEAT_TYPE_OPTIONS = ["All Seats", "Reserved", "Unreserved"]
+export const SEAT_TYPE_OPTIONS = ["All Seats", "Reserved", "Unreserved"]
 
 /**
  * Geojson Default State Fill Color
@@ -324,18 +330,22 @@ export const DEFAULT_DISTRICT_LINE_COLOR_GENERAL = [255, 255, 255, 255]
 /**
  * Geojson District line Color for Assembly Elections
  */
- export const DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY = [0, 0, 0, 255]
+export const DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY = [0, 0, 0, 255]
 
 /**
  * Geojson Transparent Color
  */
 export const TRANSPARENT_COLOR = [255, 255, 255, 0]
 
-
 /**
  * Geojson Transparent color when no data is available
  */
-export const MAP_TRANSPARENT_NA_COLOR = {red: 255, green: 255, blue: 255, alpha: 0}
+export const MAP_TRANSPARENT_NA_COLOR = {
+  red: 255,
+  green: 255,
+  blue: 255,
+  alpha: 0
+}
 
 /**
  * Default Party or Alliance Color
@@ -573,7 +583,7 @@ export const STATE_COORDINATES = [
 /**
  * Default Party/Alliance Color
  */
-export const PARTY_ALLIANCE_COLORS = {
+ export const PARTY_ALLIANCE_COLORS = {
   "BJP": "#ED8918",
   "SP": "#E64A1D",
   "BSP": "#4171FE",

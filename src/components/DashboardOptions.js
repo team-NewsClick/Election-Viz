@@ -1,5 +1,5 @@
 import { ALL_STATE_UT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
-import {CustomAllianceModal, SwingsModal} from "./modals/index"
+import { CustomAllianceModal, SwingsModal } from "./modals/index"
 
 /**
  * Control setting options of Dashboard
@@ -20,11 +20,11 @@ import {CustomAllianceModal, SwingsModal} from "./modals/index"
  * @param {Array<String>} stateUTOptions List of state/UT options to be selected
  * @param {Array<Object>} constituencyOptions List of constituencies and their code to be selected
  * @param {Array<String>} regionOptions List of regio option to be selected
- * @param {Array<Object>} compareOptions List of comparable elections to be selected 
+ * @param {Array<Object>} compareOptions List of comparable elections to be selected
  * @param {String} electionViewType assembly/general
  * @param {Object} selectedElection Selected election: {type: "assembly"/"general", year: "year"}
  * @param {String} selectedStateUT Name of selected state/UT
- * @param {String} selectedConstituency Name of selected constituency 
+ * @param {String} selectedConstituency Name of selected constituency
  * @param {String} selectedRegion Name of selected region in a state/UT
  * @param {String} seatType Selected seat type: All Seats/Reserve/Unreserved
  * @param {Object} compareElection Selected election to be compared with :{type: "assembly"/"general", year: "year"}
@@ -60,7 +60,6 @@ const DashboardOptions = ({
   partyAlliance,
   advanceReset
 }) => {
-
   const showHideAdvanceOptions = () => {
     const options = document.getElementById("advanceOptionsDashboard")
     const btnText = document.getElementById("showHideAdvance-btn")
@@ -190,8 +189,8 @@ const DashboardOptions = ({
               alt="Show Advance Options"
               className="w-3 h-3 md:ml-14 m-1.5"
             />
+          </div>
         </div>
-      </div>
       </div>
       <div
         id="advanceOptionsDashboard"
@@ -218,7 +217,7 @@ const DashboardOptions = ({
         <div className="mx-auto max-w-4xl justify-center">
           <div>
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-              {electionViewType === "assembly" &&
+              {electionViewType === "assembly" && (
                 <div>
                   <select
                     name="region"
@@ -234,7 +233,7 @@ const DashboardOptions = ({
                     ))}
                   </select>
                 </div>
-              }
+              )}
               <div>
                 <select
                   name="seatType"
@@ -251,21 +250,23 @@ const DashboardOptions = ({
                 </select>
               </div>
             </div>
-            {(selectedStateUT !== ALL_STATE_UT && selectedStateUT !== SELECT_STATE_UT) &&
-              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-              <div
-                onClick={openCustomAllianceModal}
-                className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-              >
-                Customise Alliances
-              </div>
-              <div
-                onClick={openSwingModal}
-                className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-              >
-                Add Swings
-              </div>
-            </div>}
+            {selectedStateUT !== ALL_STATE_UT &&
+              selectedStateUT !== SELECT_STATE_UT && (
+                <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+                  <div
+                    onClick={openCustomAllianceModal}
+                    className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                  >
+                    Customise Alliances
+                  </div>
+                  <div
+                    onClick={openSwingModal}
+                    className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                  >
+                    Add Swings
+                  </div>
+                </div>
+              )}
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
               <div className="flex flex-wrap">
                 <div className="inline-block align-text-bottom my-auto text-right">

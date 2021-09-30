@@ -23,24 +23,36 @@ const RegionStatsTable = ({
     <div className="text-sm md:text-base">
       <div className="flex justify-center -mt-7 pb-1">
         <div className="flex flex-row">
-          <div className="capitalize">{selectedElection.type} {selectedElection.year}</div>
+          <div className="capitalize">
+            {selectedElection.type} {selectedElection.year}
+          </div>
           <div className="lowercase">&nbsp;v/s&nbsp;</div>
-          {
-          compareElection.type === "none"
-            ? <div className="capitalize">{compareElection.type}</div>
-            : <div className="capitalize">{compareElection.type} {compareElection.year}</div>
-          }
+          {compareElection.type === "none" ? (
+            <div className="capitalize">{compareElection.type}</div>
+          ) : (
+            <div className="capitalize">
+              {compareElection.type} {compareElection.year}
+            </div>
+          )}
         </div>
       </div>
       <div className="flex bg-gray-300 border-b border-gray-400 font-semibold">
         <div className="w-2/12 border-r border-gray-400 px-1 py-2"></div>
         <div className="w-3/12 px-1 py-2 text-center">Seats</div>
         <div className="w-2/12 px-3 border-r border-gray-400 py-2">
-          <img src="img/plus-minus.svg" alt="difference of" className="float-right" />
+          <img
+            src="img/plus-minus.svg"
+            alt="difference of"
+            className="float-right"
+          />
         </div>
         <div className="w-3/12 px-1 py-2 text-center">Vote%</div>
         <div className="w-2/12 px-3 py-2">
-          <img src="img/plus-minus.svg" alt="difference of" className="float-right" />
+          <img
+            src="img/plus-minus.svg"
+            alt="difference of"
+            className="float-right"
+          />
         </div>
       </div>
       {regionStatsTableData.map((row, index) => (
@@ -69,7 +81,11 @@ const RegionStatsTable = ({
                 : Math.abs(row.votesPercentDiff)}
             </div>
             <img
-              src={row.votesPercentDiff <= 0 ? "img/down-red.svg" : "img/up-green.svg"}
+              src={
+                row.votesPercentDiff <= 0
+                  ? "img/down-red.svg"
+                  : "img/up-green.svg"
+              }
               alt={row.votesPercentDiff <= 0 ? "decreased by" : "increased by"}
               className="w-4 mr-2"
             />

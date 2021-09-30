@@ -42,9 +42,9 @@ import {
 /**
  * Election Dashboard
  * @component
- * @param {GeoJSON} stateGeojson 
- * @param {GeoJSON} assemblyConstituenciesGeojson 
- * @param {GeoJSON} parliamentaryConstituenciesGeojson 
+ * @param {GeoJSON} stateGeojson
+ * @param {GeoJSON} assemblyConstituenciesGeojson
+ * @param {GeoJSON} parliamentaryConstituenciesGeojson
  * @returns {JSX.Element} Election Dashboard
  */
 const Dashboard = ({
@@ -53,13 +53,18 @@ const Dashboard = ({
   parliamentaryConstituenciesGeojson
 }) => {
   const windowWidth = window.innerWidth
-  const [electionViewType, SetElectionViewType] = useState(ELECTION_VIEW_TYPE_ASSEMBLY)
-  const [selectedElection, setSelectedElection] = useState(ELECTION_DEFAULT_SELECT)
+  const [electionViewType, SetElectionViewType] = useState(
+    ELECTION_VIEW_TYPE_ASSEMBLY
+  )
+  const [selectedElection, setSelectedElection] = useState(
+    ELECTION_DEFAULT_SELECT
+  )
   const [electionOptions, setElectionOptions] = useState([SELECT_ELECTION])
   const [compareElection, setCompareElection] = useState()
   const [selectedYearData, setSelectedYearData] = useState([])
   const [selectedStateUT, setSelectedStateUT] = useState(SELECT_STATE_UT)
-  const [selectedConstituency, setSelectedConstituency] = useState(NO_CONSTITUENCIES)
+  const [selectedConstituency, setSelectedConstituency] =
+    useState(NO_CONSTITUENCIES)
   const [selectedStateUTData, setSelectedStateUTData] = useState([])
   const [mapData, setMapData] = useState({})
   const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
@@ -75,13 +80,16 @@ const Dashboard = ({
   const [compareOptions, setCompareOptions] = useState([])
   const [filteredGeoJSON, setFilteredGeoJSON] = useState({})
   const [stateUTOptions, setStateUTOptions] = useState([ALL_STATE_UT])
-  const [constituencyOptions, setConstituencyOptions] = useState([{ name: NO_CONSTITUENCIES, code: NO_CONSTITUENCIES }])
+  const [constituencyOptions, setConstituencyOptions] = useState([
+    { name: NO_CONSTITUENCIES, code: NO_CONSTITUENCIES }
+  ])
   const [regionOptions, setRegionOptions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(REGION_DEFAULT_SELECT)
   const [swingParams, setSwingParams] = useState([])
   const [partiesSwing, setPartiesSwing] = useState([])
   const [advanceReset, setAdvanceReset] = useState(false)
-  const [getAssemblyStateElectionOptions, setGetAssemblyStateElectionOptions] = useState(false)
+  const [getAssemblyStateElectionOptions, setGetAssemblyStateElectionOptions] =
+    useState(false)
 
   useEffect(() => {
     setRegionStatsLoading(true)
@@ -96,7 +104,7 @@ const Dashboard = ({
     setColorPartyAlliance({})
     setPartiesSwing([])
   }, [electionViewType, selectedElection, selectedStateUT])
-  
+
   useEffect(() => {
     if (electionViewType === "general") {
       const tempElectionOptions = getElectionOptions(
@@ -136,19 +144,22 @@ const Dashboard = ({
 
   useEffect(() => {
     if (
-      selectedElection.year === UPCOMING_ELECTION
-      && selectedStateUT !== SELECT_STATE_UT
+      selectedElection.year === UPCOMING_ELECTION &&
+      selectedStateUT !== SELECT_STATE_UT
     ) {
-      setSelectedElection({ type: UPCOMING_ELECTION_TYPE, year: UPCOMING_ELECTION_YEAR })
+      setSelectedElection({
+        type: UPCOMING_ELECTION_TYPE,
+        year: UPCOMING_ELECTION_YEAR
+      })
       setGetAssemblyStateElectionOptions(false)
     }
   }, [selectedStateUT])
 
   useEffect(() => {
     if (
-      electionViewType === "assembly"
-      && selectedStateUT === SELECT_STATE_UT
-      && selectedElection === SELECT_ELECTION
+      electionViewType === "assembly" &&
+      selectedStateUT === SELECT_STATE_UT &&
+      selectedElection === SELECT_ELECTION
     ) {
       const tempStateUTOptions = getStateUTs(
         selectedElection,
@@ -156,15 +167,25 @@ const Dashboard = ({
         electionViewType,
         assemblyConstituenciesGeojson
       )
-      const tempElectionOptions = getElectionOptions(electionViewType, selectedStateUT, selectedElection)
+      const tempElectionOptions = getElectionOptions(
+        electionViewType,
+        selectedStateUT,
+        selectedElection
+      )
       setStateUTOptions(tempStateUTOptions)
       setElectionOptions(tempElectionOptions)
     }
   }, [selectedElection, selectedStateUT])
 
   useEffect(() => {
-    if (getAssemblyStateElectionOptions === true && electionViewType === "assembly") {
-      const tempElectionOptions = getElectionOptions(electionViewType, selectedStateUT)
+    if (
+      getAssemblyStateElectionOptions === true &&
+      electionViewType === "assembly"
+    ) {
+      const tempElectionOptions = getElectionOptions(
+        electionViewType,
+        selectedStateUT
+      )
       setElectionOptions(tempElectionOptions)
       const tempStateUTOptions = getStateUTs(
         selectedElection,
@@ -216,12 +237,12 @@ const Dashboard = ({
       )
     }
   }, [
-      seatType,
-      selectedElection,
-      selectedRegion,
-      selectedStateUT,
-      stateUTOptions
-    ])
+    seatType,
+    selectedElection,
+    selectedRegion,
+    selectedStateUT,
+    stateUTOptions
+  ])
 
   useEffect(() => {
     if (electionViewType === "general") {
@@ -233,23 +254,18 @@ const Dashboard = ({
         )
       }
     }
-  }, [
-      selectedYearData,
-      seatType,
-      filteredGeoJSON,
-      stateUTOptions
-    ])
+  }, [selectedYearData, seatType, filteredGeoJSON, stateUTOptions])
 
   useEffect(() => {
     if (selectedElection === LIVE_ELECTION) {
       const interval = setInterval(() => {
         axios
-        .get(`${process.env.LIVE_ELECTION}`)
-        .then((response) => {
-          const parsedData = csvParse(response.data)
-          setSelectedYearData(parsedData)
-        })
-        .catch((e) => setSelectedYearData([]))
+          .get(`${process.env.LIVE_ELECTION}`)
+          .then((response) => {
+            const parsedData = csvParse(response.data)
+            setSelectedYearData(parsedData)
+          })
+          .catch((e) => setSelectedYearData([]))
       }, 1000 * 60 * DELAY_INTERVAL_MINUTES)
       return () => clearInterval(interval)
     }
@@ -259,9 +275,11 @@ const Dashboard = ({
     if (compareOptions.length !== 0) {
       const electionType = selectedElection.type
       const year = selectedElection.year
-      if(electionViewType === "assembly") {
-        const filteredCompareOptions = electionOptions.filter((a) => a.value.type === "assembly")
-        if(selectedElection.type === "assembly") {
+      if (electionViewType === "assembly") {
+        const filteredCompareOptions = electionOptions.filter(
+          (a) => a.value.type === "assembly"
+        )
+        if (selectedElection.type === "assembly") {
           filteredCompareOptions.length > 1
             ? filteredCompareOptions[1].value.year == selectedElection.year
               ? setCompareElection(compareOptions[0].value)
@@ -273,14 +291,16 @@ const Dashboard = ({
             : setCompareElection(compareOptions[0].value)
         }
       } else {
-        const filteredCompareOptions = electionOptions.filter((a) => a.value.type === "general")
+        const filteredCompareOptions = electionOptions.filter(
+          (a) => a.value.type === "general"
+        )
         filteredCompareOptions.length > 1
           ? filteredCompareOptions[1].value.year == selectedElection.year
             ? setCompareElection(compareOptions[0].value)
             : setCompareElection(filteredCompareOptions[1].value)
           : setCompareElection(compareOptions[0].value)
       }
-      if(selectedElection === SELECT_ELECTION) {
+      if (selectedElection === SELECT_ELECTION) {
         setSelectedYearData([])
         setCompareElection(compareOptions[0].value)
       } else {
@@ -298,25 +318,27 @@ const Dashboard = ({
 
   useEffect(() => {
     if (compareElection) {
-      if(
-        compareElection.year === compareOptions[0].value.year
-        && selectedYearData.length == 0
-        ) {
+      if (
+        compareElection.year === compareOptions[0].value.year &&
+        selectedYearData.length == 0
+      ) {
         setCompareYearData([])
       } else {
         let compareElectionType = compareElection.type
         let compareYear = compareElection.year
-        if(
-          ELECTION_YEAR_STATEUT[compareElectionType]
-          && compareYear in ELECTION_YEAR_STATEUT[compareElectionType]
-          ) {
-            axios
-              .get(`${CSV_PATH}/${electionViewType}/${compareElectionType}_${compareYear}.csv`)
-              .then((response) => {
-                const parsedData = csvParse(response.data)
-                setCompareYearData(parsedData)
-              })
-              .catch((e) => setCompareYearData([]))
+        if (
+          ELECTION_YEAR_STATEUT[compareElectionType] &&
+          compareYear in ELECTION_YEAR_STATEUT[compareElectionType]
+        ) {
+          axios
+            .get(
+              `${CSV_PATH}/${electionViewType}/${compareElectionType}_${compareYear}.csv`
+            )
+            .then((response) => {
+              const parsedData = csvParse(response.data)
+              setCompareYearData(parsedData)
+            })
+            .catch((e) => setCompareYearData([]))
         } else {
           setCompareYearData([])
         }
@@ -355,12 +377,12 @@ const Dashboard = ({
     filteredGeoJSON
   ])
 
-  useEffect(() => {    
-    if(
-      selectedStateUT !== SELECT_STATE_UT
-      && Object.keys(colorPartyAlliance).length !== 0
-      && Object.keys(partyAlliance).length !== 0
-      ) {
+  useEffect(() => {
+    if (
+      selectedStateUT !== SELECT_STATE_UT &&
+      Object.keys(colorPartyAlliance).length !== 0 &&
+      Object.keys(partyAlliance).length !== 0
+    ) {
       setMapData(
         getMapData(
           selectedYearData,
@@ -380,10 +402,10 @@ const Dashboard = ({
 
   useEffect(() => {
     if (
-      selectedStateUT !== SELECT_STATE_UT
-      && Object.keys(colorPartyAlliance).length !== 0
-      && Object.keys(partyAlliance).length !== 0
-      ) {
+      selectedStateUT !== SELECT_STATE_UT &&
+      Object.keys(colorPartyAlliance).length !== 0 &&
+      Object.keys(partyAlliance).length !== 0
+    ) {
       setConstituenciesResults(
         getConstituenciesResults(
           selectedYearData,
@@ -402,16 +424,13 @@ const Dashboard = ({
     } else {
       setConstituenciesResults({})
     }
-    if(selectedStateUT === SELECT_STATE_UT || selectedElection === SELECT_ELECTION) {
+    if (
+      selectedStateUT === SELECT_STATE_UT ||
+      selectedElection === SELECT_ELECTION
+    ) {
       setMapWidgetLoading(false)
     }
-  }, [
-      mapData,
-      selectedConstituency,
-      selectedStateUT,
-      groupType,
-      partyAlliance
-    ])
+  }, [mapData, selectedConstituency, selectedStateUT, groupType, partyAlliance])
 
   useEffect(() => {
     if (Object.keys(constituenciesResults).length !== 0) {
@@ -430,10 +449,10 @@ const Dashboard = ({
 
   useEffect(() => {
     if (
-      compareElection
-      && Object.keys(regionStatsSVGData).length !== 0
-      && constituencyOptions.find((d) => d.code === selectedConstituency)
-      && Object.keys(mapData).length !== 0
+      compareElection &&
+      Object.keys(regionStatsSVGData).length !== 0 &&
+      constituencyOptions.find((d) => d.code === selectedConstituency) &&
+      Object.keys(mapData).length !== 0
     ) {
       let constituencyMapData = []
       if (selectedConstituency !== FIRST_SELECT_STATEUT) {
@@ -508,7 +527,7 @@ const Dashboard = ({
     const electionType = selectedElection.type
     const year = selectedElection.year
     if (partiesSwing.length !== 0) {
-      if (year !== LIVE_ELECTION ) {
+      if (year !== LIVE_ELECTION) {
         axios
           .get(`${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`)
           .then((response) => {
@@ -529,18 +548,22 @@ const Dashboard = ({
           .catch((e) => setSelectedYearData([]))
       } else {
         axios
-        .get(`${process.env.LIVE_ELECTION}`)
-        .then((response) => {
-          const parsedData = csvParse(response.data)
-          setSelectedYearData(parsedData)
-        })
-        .catch((e) => setSelectedYearData([]))
+          .get(`${process.env.LIVE_ELECTION}`)
+          .then((response) => {
+            const parsedData = csvParse(response.data)
+            setSelectedYearData(parsedData)
+          })
+          .catch((e) => setSelectedYearData([]))
       }
     }
   }, [partiesSwing, filteredGeoJSON])
 
   useEffect(() => {
-    const temp = getCompareOptions(electionViewType, selectedElection, selectedStateUT)
+    const temp = getCompareOptions(
+      electionViewType,
+      selectedElection,
+      selectedStateUT
+    )
     setCompareOptions(temp)
   }, [selectedStateUT, electionViewType, selectedElection])
 
@@ -650,10 +673,9 @@ const Dashboard = ({
           style={windowWidth < 800 ? {} : { width: windowWidth * 0.28 }}
           className="bg-gray-50 rounded border border-gray-300 py-0.5 lg:pt-8 px-2 lg:ml-2.5 mb-4"
         >
-          {
-          electionViewType === "assembly"
-            && (selectedStateUT === SELECT_STATE_UT || selectedElection === SELECT_ELECTION)
-            && (
+          {electionViewType === "assembly" &&
+            (selectedStateUT === SELECT_STATE_UT ||
+              selectedElection === SELECT_ELECTION) && (
               <div className="flex h-full">
                 <div className="text-center m-auto text-xl px-4 py-10">
                   Please select a region from the drop-down or by clicking on
@@ -661,32 +683,29 @@ const Dashboard = ({
                 </div>
               </div>
             )}
-          {
-          selectedStateUT !== SELECT_STATE_UT
-          && selectedElection !== SELECT_ELECTION
-          && (
-            Object.keys(regionStatsSVGData).length === 0 && !regionStatsLoading
-              ? (
-                <div className="flex h-full">
-                  <div className="text-center m-auto text-xl px-4 py-10">
-                    Data for selected options does not exist.
-                  </div>
+          {selectedStateUT !== SELECT_STATE_UT &&
+            selectedElection !== SELECT_ELECTION &&
+            (Object.keys(regionStatsSVGData).length === 0 &&
+            !regionStatsLoading ? (
+              <div className="flex h-full">
+                <div className="text-center m-auto text-xl px-4 py-10">
+                  Data for selected options does not exist.
                 </div>
-                )
-              : (
-                <div>
-                  <RegionStatsSVG
-                    regionStatsSVGData={regionStatsSVGData}
-                    selectedConstituency={selectedConstituency}
-                    regionStatsLoading={regionStatsLoading}
-                  />
-                  <RegionStatsTable
-                    regionStatsTableData={regionStatsTableData}
-                    regionStatsLoading={regionStatsLoading}
-                    selectedElection={selectedElection}
-                    compareElection={compareElection}
-                  />
-                </div>
+              </div>
+            ) : (
+              <div>
+                <RegionStatsSVG
+                  regionStatsSVGData={regionStatsSVGData}
+                  selectedConstituency={selectedConstituency}
+                  regionStatsLoading={regionStatsLoading}
+                />
+                <RegionStatsTable
+                  regionStatsTableData={regionStatsTableData}
+                  regionStatsLoading={regionStatsLoading}
+                  selectedElection={selectedElection}
+                  compareElection={compareElection}
+                />
+              </div>
             ))}
         </div>
         <div

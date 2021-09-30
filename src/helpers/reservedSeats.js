@@ -22,26 +22,37 @@ export const getFilteredGeoJson = (
   selectedStateUT,
   selectedRegion
 ) => {
-  let filteredBySeatGeoJson = [], filteredByRegionGeoJSON = [], filteredByStateGeoJSON = [], districts = []
+  let filteredBySeatGeoJson = [],
+    filteredByRegionGeoJSON = [],
+    filteredByStateGeoJSON = [],
+    districts = []
   if (geoJson.length !== 0) {
     if (
-      selectedStateUT === ALL_STATE_UT
-      || selectedStateUT === SELECT_STATE_UT
+      selectedStateUT === ALL_STATE_UT ||
+      selectedStateUT === SELECT_STATE_UT
     ) {
       geoJson.features.findIndex((d) => {
-        const tempBoolean = d.properties.ST_NAME === stateUTOptions.find((st) => st === d.properties.ST_NAME)
+        const tempBoolean =
+          d.properties.ST_NAME ===
+          stateUTOptions.find((st) => st === d.properties.ST_NAME)
         if (tempBoolean) filteredByStateGeoJSON.push(d)
       })
     } else {
-      filteredByStateGeoJSON = geoJson.features.filter((d) => d.properties.ST_NAME === selectedStateUT)
+      filteredByStateGeoJSON = geoJson.features.filter(
+        (d) => d.properties.ST_NAME === selectedStateUT
+      )
     }
   }
-  switch(seatType) {
+  switch (seatType) {
     case "Reserved":
-      filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => d.properties.RES !== "GEN")
+      filteredBySeatGeoJson = filteredByStateGeoJSON.filter(
+        (d) => d.properties.RES !== "GEN"
+      )
       break
     case "Unreserved":
-      filteredBySeatGeoJson = filteredByStateGeoJSON.filter((d) => d.properties.RES === "GEN")
+      filteredBySeatGeoJson = filteredByStateGeoJSON.filter(
+        (d) => d.properties.RES === "GEN"
+      )
       break
     default:
       filteredBySeatGeoJson = filteredByStateGeoJSON
@@ -51,7 +62,10 @@ export const getFilteredGeoJson = (
   } else {
     districts = getDistricts(selectedStateUT, selectedRegion)
     filteredByRegionGeoJSON = filteredBySeatGeoJson.filter((d) => {
-      if (districts && districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0) {
+      if (
+        districts &&
+        districts.findIndex((e) => e === d.properties.DIST_NAME) >= 0
+      ) {
         return d
       }
     })

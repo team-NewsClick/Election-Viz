@@ -1,4 +1,8 @@
-import { PARTY_ALLIANCE_COLORS, DEFAULT_PARTY_ALLIANCE_COLOR, ALL_STATE_UT } from "../constants"
+import {
+  PARTY_ALLIANCE_COLORS,
+  DEFAULT_PARTY_ALLIANCE_COLOR,
+  ALL_STATE_UT
+} from "../constants"
 
 /**
  * To get the list of winnning parties in a state/UT of a election
@@ -12,41 +16,44 @@ export const getWinningParties = (
   selectedStateUT,
   electionViewType
 ) => {
-  let statsData = {}, parties = new Set()
+  let statsData = {},
+    parties = new Set()
   const stateUTData =
     selectedStateUT === ALL_STATE_UT
       ? yearData
       : yearData.filter((row) => row.ST_NAME === selectedStateUT)
-  if(electionViewType === "general") {
+  if (electionViewType === "general") {
     stateUTData.map((d) => {
-      if(statsData[d.ST_NAME] && statsData[d.ST_NAME][d.PC_NO]) {
+      if (statsData[d.ST_NAME] && statsData[d.ST_NAME][d.PC_NO]) {
         statsData[d.ST_NAME][d.PC_NO].push(d)
-      } else if(statsData[d.ST_NAME]){
+      } else if (statsData[d.ST_NAME]) {
         statsData[d.ST_NAME][d.PC_NO] = []
         statsData[d.ST_NAME][d.PC_NO].push(d)
       } else {
-        statsData[d.ST_NAME] ={}
+        statsData[d.ST_NAME] = {}
         statsData[d.ST_NAME][d.PC_NO] = []
         statsData[d.ST_NAME][d.PC_NO].push(d)
       }
     })
   } else {
     stateUTData.map((d) => {
-      if(statsData[d.ST_NAME] && statsData[d.ST_NAME][d.AC_NO]) {
+      if (statsData[d.ST_NAME] && statsData[d.ST_NAME][d.AC_NO]) {
         statsData[d.ST_NAME][d.AC_NO].push(d)
-      } else if(statsData[d.ST_NAME]){
+      } else if (statsData[d.ST_NAME]) {
         statsData[d.ST_NAME][d.AC_NO] = []
         statsData[d.ST_NAME][d.AC_NO].push(d)
       } else {
-        statsData[d.ST_NAME] ={}
+        statsData[d.ST_NAME] = {}
         statsData[d.ST_NAME][d.AC_NO] = []
         statsData[d.ST_NAME][d.AC_NO].push(d)
       }
     })
   }
-  for(const state in statsData) {
-    for(const constituencies in statsData[state]) {
-      const tempCandidateStats = statsData[state][constituencies].sort((a,b) => (parseInt(b.VOTES) - parseInt(a.VOTES)))
+  for (const state in statsData) {
+    for (const constituencies in statsData[state]) {
+      const tempCandidateStats = statsData[state][constituencies].sort(
+        (a, b) => parseInt(b.VOTES) - parseInt(a.VOTES)
+      )
       parties.add(tempCandidateStats[0].PARTY)
     }
   }
@@ -61,7 +68,8 @@ export const getWinningParties = (
  * @returns List of alliances and an array of their respective parties
  */
 export const getPartyAlliance = (parties, defaultPartyAlliance) => {
-  let alliances = new Set(), alliancePartyData = []
+  let alliances = new Set(),
+    alliancePartyData = []
   defaultPartyAlliance.map((d) => alliances.add(d.ALLIANCE))
   alliances = [...alliances]
   alliances.map((d) => {
@@ -72,7 +80,7 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
   })
   parties.map((d) => {
     let tempAlliance = defaultPartyAlliance.find((p) => p.PARTY === d)
-    if(tempAlliance !== undefined) {
+    if (tempAlliance !== undefined) {
       tempAlliance = tempAlliance.ALLIANCE
       const tempIndex = alliancePartyData.findIndex(
         (r) => r.alliance === tempAlliance
@@ -85,10 +93,12 @@ export const getPartyAlliance = (parties, defaultPartyAlliance) => {
       })
     }
   })
-  alliancePartyData.push({alliance: "Unaligned", parties: []})
+  alliancePartyData.push({ alliance: "Unaligned", parties: [] })
   alliancePartyData.map((d) => {
-    if(d.parties.length === 1) {
-      alliancePartyData[alliancePartyData.length - 1].parties.push(d.parties.pop())
+    if (d.parties.length === 1) {
+      alliancePartyData[alliancePartyData.length - 1].parties.push(
+        d.parties.pop()
+      )
     }
   })
   alliancePartyData = alliancePartyData.filter((d) => d.parties.length !== 0)
@@ -104,7 +114,7 @@ export const getColorPartyAlliance = (rows) => {
   let colorPartyAlliance = {}
   rows.map((d) => {
     const color = PARTY_ALLIANCE_COLORS[d.alliance]
-    if(color) {
+    if (color) {
       colorPartyAlliance[d.alliance] = color
     } else {
       colorPartyAlliance[d.alliance] = PARTY_ALLIANCE_COLORS[d.parties[0]]
@@ -129,7 +139,9 @@ export const getPartiesAlliancesFromRows = (rows) => {
   let partyAlliance = []
   rows.map((a) => {
     a.alliance !== "Unaligned"
-      ? a.parties.map((p) => partyAlliance.push({ PARTY: p, ALLIANCE: a.alliance }))
+      ? a.parties.map((p) =>
+          partyAlliance.push({ PARTY: p, ALLIANCE: a.alliance })
+        )
       : a.parties.map((p) => partyAlliance.push({ PARTY: p, ALLIANCE: p }))
   })
   return partyAlliance
