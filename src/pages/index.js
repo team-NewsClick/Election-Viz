@@ -71,7 +71,7 @@ const Elections = () => {
             <meta property="og:title" content="Indian Elections" key="title" />
             <meta
               name="og:description"
-              content="Visual analysis of Indian elections party and alliance wise of both lok sabha and assembly electionswith options to customise alliance and swing vote share."
+              content="Visual analysis of Indian elections in terms of party and alliance wise of both lok sabha and assembly electionswith options to customise alliance and swing vote share."
             />
             <meta
               property="og:site_name"
