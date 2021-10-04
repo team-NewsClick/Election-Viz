@@ -1,9 +1,8 @@
 import _Document, { Html, Head, Main, NextScript } from "next/document"
-
 export default class Document extends _Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script

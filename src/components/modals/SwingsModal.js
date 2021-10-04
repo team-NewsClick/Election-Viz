@@ -173,8 +173,12 @@ const SwingsModal = ({
               className="w-4 h-4"
             />
           </div>
-          <div className="flex justify-center font-bold text-2xl">
+          <div className="flex justify-center text-center font-bold text-2xl">
             Swing Distribution of {selectedStateUT}
+          </div>
+          <div className="p-8 text-justify mx-auto lg:w-11/12">
+            By changing the swing percent of the alliance, the vote share of the alliance changes by that percent of votes in a constituency.
+            Total of swing should always be zero.
           </div>
         </div>
         <div className="w-10/12 mx-auto">

@@ -188,6 +188,8 @@ const DashboardOptions = ({
               src="../img/down-arrow.svg"
               alt="Show Advance Options"
               className="w-3 h-3 md:ml-14 m-1.5"
+              width="100%"
+              height="100%"
             />
           </div>
         </div>
@@ -211,6 +213,8 @@ const DashboardOptions = ({
               src="../img/close-btn.svg"
               alt="Close Advance Options"
               className="w-4 h-4"
+              width="100%"
+              height="100%"
             />
           </div>
         </div>

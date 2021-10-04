@@ -281,6 +281,12 @@ const CustomAllianceModal = ({
           <div className="flex justify-center font-bold text-2xl">
             Customise Alliances
           </div>
+          <div className="p-8 text-justify mx-auto lg:w-11/12">
+            Below are the alliances and their respective parties. You can customise the alliances by dragging and dropping parties from one alliance to another.<br />
+            Unaligned represnts parties which don't have any alliance.<br />
+            You can also create new alliances from the option at the bottom, maximum number of new alliances that can be created is three.
+
+          </div>
         </div>
         <DragDropContext onDragEnd={(result) => _ondragEnd(result)}>
           {rows.map((d) => {
