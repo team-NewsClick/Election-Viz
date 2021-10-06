@@ -59,14 +59,16 @@ export const getRegionStatsTable = (
           if (filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === d.PC_NAME) > -1) return d
         }))
   } else {
-    filteredPresData =
-      presentYearData && presentYearData.length !== 0
-      && presentYearData.filter((d) => {
-        if (filteredGeoJSON.features.findIndex((e) => e.properties.AC_NAME === d.AC_NAME) > -1) return d
+    if(presentYearData && presentYearData.length !== 0) {
+      const filteredPresStateData = presentYearData.filter((d) => d.ST_NAME === selectedStateUT)
+      const filteredCompStateData = compareYearData.filter((d) => d.ST_NAME === selectedStateUT)
+      filteredPresData = filteredPresStateData.filter((d) => {
+        if (filteredGeoJSON.features.findIndex((e) => e.properties.AC_NO == d.AC_NO) > -1) return d
       })
-    filteredCompareData = compareYearData.filter((d) => {
-      if (filteredGeoJSON.features.findIndex((e) => e.properties.AC_NAME === d.AC_NAME) > -1) return d
-    })
+      filteredCompareData = filteredCompStateData.filter((d) => {
+        if (filteredGeoJSON.features.findIndex((e) => e.properties.AC_NO == d.AC_NO) > -1) return d
+      })
+    }
   }
 
   // sending data to function for calculation
