@@ -50,14 +50,41 @@ export const getRegionStatsTable = (
 
   // Filter data by geojson
   if (electionViewType === "general") {
-    filteredPresData = presentYearData.filter((d) => {
-      if (filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === d.PC_NAME) > -1) return d
+    let stateWisePresData = {}, stateWiseCompData = {}, stateWiseGeoJson = {}
+    presentYearData.map((d) => {
+      if(stateWisePresData[d.ST_NAME]) {
+        stateWisePresData[d.ST_NAME].push(d)
+      } else {
+        stateWisePresData[d.ST_NAME] = []
+        stateWisePresData[d.ST_NAME].push(d)
+      }
     })
-    selectedStateUT === ALL_STATE_UT && compareElectionType !== electionViewType
-      ? (filteredCompareData = [])
-      : (filteredCompareData = compareYearData.filter((d) => {
-          if (filteredGeoJSON.features.findIndex((e) => e.properties.PC_NAME === d.PC_NAME) > -1) return d
-        }))
+    compareYearData.map((d) => {
+      if(stateWiseCompData[d.ST_NAME]) {
+        stateWiseCompData[d.ST_NAME].push(d)
+      } else {
+        stateWiseCompData[d.ST_NAME] = []
+        stateWiseCompData[d.ST_NAME].push(d)
+      }
+    })
+    filteredGeoJSON.features.map((d) => {
+      if(stateWiseGeoJson[d.properties.ST_NAME]) {
+        stateWiseGeoJson[d.properties.ST_NAME].push(d.properties)
+      } else {
+        stateWiseGeoJson[d.properties.ST_NAME] = []
+        stateWiseGeoJson[d.properties.ST_NAME].push(d.properties)
+      }
+    })
+    for(const stateUT in stateWisePresData) {
+      stateWisePresData[stateUT].filter((d) => {
+        if (stateWiseGeoJson[stateUT].findIndex((e) => e.PC_NO == d.PC_NO) > -1) filteredPresData.push(d)
+      })
+    }
+    for(const stateUT in stateWiseCompData) {
+      stateWiseCompData[stateUT].filter((d) => {
+        if (stateWiseGeoJson[stateUT] && stateWiseGeoJson[stateUT].findIndex((e) => e.PC_NO == d.PC_NO) > -1) filteredCompareData.push(d)
+      })
+    }
   } else {
     if(presentYearData && presentYearData.length !== 0) {
       const filteredPresStateData = presentYearData.filter((d) => d.ST_NAME === selectedStateUT)
