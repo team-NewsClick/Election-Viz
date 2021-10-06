@@ -110,6 +110,18 @@ export const NA_ALLIANCE_DATA = {
 export const CSV_PATH = "/data/csv"
 
 /**
+ * Custom Alliance Text
+ */
+export const CUSTOM_ALLIANCE_TEXT =
+  "After customizing alliances, clicking on the Alliance tab in the main page will display Alliance results."
+
+/**
+ * Swings Text
+ */
+export const SWINGS_TEXT =
+  "Adjust vote shares percentages by assigning swings. Total of all swings should be zero."
+
+/**
  * Election details: their type, year and state/UTs that had the election
  */
 export const ELECTION_YEAR_STATEUT = {
@@ -583,7 +595,7 @@ export const STATE_COORDINATES = [
 /**
  * Default Party/Alliance Color
  */
- export const PARTY_ALLIANCE_COLORS = {
+export const PARTY_ALLIANCE_COLORS = {
   "BJP": "#ED8918",
   "SP": "#E64A1D",
   "BSP": "#4171FE",

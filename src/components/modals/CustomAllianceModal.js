@@ -14,7 +14,8 @@ import {
   CSV_PATH,
   SELECT_ELECTION,
   SELECT_STATE_UT,
-  ALL_STATE_UT
+  ALL_STATE_UT,
+  CUSTOM_ALLIANCE_TEXT
 } from "../../constants"
 import { getElectionURL } from "../../helpers/utils"
 
@@ -282,14 +283,7 @@ const CustomAllianceModal = ({
             Customise Alliances
           </div>
           <div className="p-8 text-justify mx-auto lg:w-11/12">
-            Below are the alliances and their respective parties. You can
-            customise the alliances by dragging and dropping parties from one
-            alliance to another.
-            <br />
-            Unaligned represnts parties which don't have any alliance.
-            <br />
-            You can also create new alliances from the option at the bottom,
-            maximum number of new alliances that can be created is three.
+            {CUSTOM_ALLIANCE_TEXT}
           </div>
         </div>
         <DragDropContext onDragEnd={(result) => _ondragEnd(result)}>

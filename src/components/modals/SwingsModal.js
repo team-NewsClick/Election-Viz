@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { ALL_STATE_UT } from "../../constants"
+import { ALL_STATE_UT, SWINGS_TEXT } from "../../constants"
 import { getParams, addParams } from "../../helpers/swings"
 
 /**
@@ -177,9 +177,7 @@ const SwingsModal = ({
             Swing Distribution of {selectedStateUT}
           </div>
           <div className="p-8 text-justify mx-auto lg:w-11/12">
-            By changing the swing percent of the alliance, the vote share of the
-            alliance changes by that percent of votes in a constituency. Total
-            of swing should always be zero.
+            {SWINGS_TEXT}
           </div>
         </div>
         <div className="w-10/12 mx-auto">
