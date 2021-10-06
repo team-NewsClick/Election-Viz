@@ -1,6 +1,5 @@
 import {
   REGION_DEFAULT_SELECT,
-  SEAT_DEFAULT_SELECT,
   SELECT_STATE_UT,
   ALL_STATE_UT
 } from "../constants"
