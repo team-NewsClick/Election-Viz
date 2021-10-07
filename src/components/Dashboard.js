@@ -742,7 +742,13 @@ const Dashboard = ({
                 }
           }
         >
-          <img src="img/home-icon.svg" alt="inital config" width="100%" height="100%" className="w-3/5" />
+          <img
+            src="img/home-icon.svg"
+            alt="inital config"
+            width="100%"
+            height="100%"
+            className="w-3/5"
+          />
         </div>
         <div>
           {regionStatsSVGData && (
