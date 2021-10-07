@@ -48,47 +48,78 @@ export const getRegionStatsTable = (
     filteredPresData = [],
     filteredCompareData = []
 
+  // Filter data by geojson
   if (electionViewType === "general") {
-    filteredPresData = presentYearData.filter((d) => {
-      if (
-        filteredGeoJSON.features.findIndex(
-          (e) => e.properties.PC_NAME === d.PC_NAME
-        ) > -1
-      )
-        return d
+    let stateWisePresData = {},
+      stateWiseCompData = {},
+      stateWiseGeoJson = {}
+    presentYearData.map((d) => {
+      if (stateWisePresData[d.ST_NAME]) {
+        stateWisePresData[d.ST_NAME].push(d)
+      } else {
+        stateWisePresData[d.ST_NAME] = []
+        stateWisePresData[d.ST_NAME].push(d)
+      }
     })
-    selectedStateUT === ALL_STATE_UT && compareElectionType !== electionViewType
-      ? (filteredCompareData = [])
-      : (filteredCompareData = compareYearData.filter((d) => {
-          if (
-            filteredGeoJSON.features.findIndex(
-              (e) => e.properties.PC_NAME === d.PC_NAME
-            ) > -1
-          )
-            return d
-        }))
+    compareYearData.map((d) => {
+      if (stateWiseCompData[d.ST_NAME]) {
+        stateWiseCompData[d.ST_NAME].push(d)
+      } else {
+        stateWiseCompData[d.ST_NAME] = []
+        stateWiseCompData[d.ST_NAME].push(d)
+      }
+    })
+    filteredGeoJSON.features.map((d) => {
+      if (stateWiseGeoJson[d.properties.ST_NAME]) {
+        stateWiseGeoJson[d.properties.ST_NAME].push(d.properties)
+      } else {
+        stateWiseGeoJson[d.properties.ST_NAME] = []
+        stateWiseGeoJson[d.properties.ST_NAME].push(d.properties)
+      }
+    })
+    for (const stateUT in stateWisePresData) {
+      stateWisePresData[stateUT].filter((d) => {
+        if (stateWiseGeoJson[stateUT].findIndex((e) => e.PC_NO == d.PC_NO) > -1)
+          filteredPresData.push(d)
+      })
+    }
+    for (const stateUT in stateWiseCompData) {
+      stateWiseCompData[stateUT].filter((d) => {
+        if (
+          stateWiseGeoJson[stateUT] &&
+          stateWiseGeoJson[stateUT].findIndex((e) => e.PC_NO == d.PC_NO) > -1
+        )
+          filteredCompareData.push(d)
+      })
+    }
   } else {
-    filteredPresData =
-      presentYearData &&
-      presentYearData.length !== 0 &&
-      presentYearData.filter((d) => {
+    if (presentYearData && presentYearData.length !== 0) {
+      const filteredPresStateData = presentYearData.filter(
+        (d) => d.ST_NAME === selectedStateUT
+      )
+      const filteredCompStateData = compareYearData.filter(
+        (d) => d.ST_NAME === selectedStateUT
+      )
+      filteredPresData = filteredPresStateData.filter((d) => {
         if (
           filteredGeoJSON.features.findIndex(
-            (e) => e.properties.AC_NAME === d.AC_NAME
+            (e) => e.properties.AC_NO == d.AC_NO
           ) > -1
         )
           return d
       })
-    filteredCompareData = compareYearData.filter((d) => {
-      if (
-        filteredGeoJSON.features.findIndex(
-          (e) => e.properties.AC_NAME === d.AC_NAME
-        ) > -1
-      )
-        return d
-    })
+      filteredCompareData = filteredCompStateData.filter((d) => {
+        if (
+          filteredGeoJSON.features.findIndex(
+            (e) => e.properties.AC_NO == d.AC_NO
+          ) > -1
+        )
+          return d
+      })
+    }
   }
 
+  // sending data to function for calculation
   presentYearDataTable = getCurrYearDataTable(
     filteredPresData,
     mapDataConstituencies,
@@ -114,6 +145,8 @@ export const getRegionStatsTable = (
       colorPartyAlliance,
       filteredGeoJSON
     )
+
+  // arranging data for table
   if (
     filteredCompareData.length === 0 ||
     (compareYearDataTable && compareYearDataTable.length === 0)
@@ -170,6 +203,7 @@ export const getRegionStatsTable = (
             })
       })
   }
+
   return tableData
 }
 
@@ -200,6 +234,7 @@ const getCurrYearDataTable = (
     selectedConstituency === NO_CONSTITUENCIES ||
     selectedStateUT === ALL_STATE_UT
   ) {
+    // Adding seats number to current table data
     if (groupType === "party") {
       for (const property in SVGData) {
         tableData.push({
@@ -241,6 +276,8 @@ const getCurrYearDataTable = (
         })
       }
     }
+
+    // Adding votes to the table
     if (groupType === "party") {
       data
         ? data.map((d) => {
@@ -256,19 +293,19 @@ const getCurrYearDataTable = (
                 (tableData[tableData.length - 1].votes += parseInt(d.VOTES))
             }
           })
-        : (tableData[0].votes = 0)
+        : ""
     } else {
       data
         ? data.map((d) => {
-            let temp =
-              partyAlliance.find((e) => e.PARTY == d.PARTY) &&
-              tableData.indexOf(
-                tableData.find(
-                  ({ alliance }) =>
-                    alliance ==
-                    partyAlliance.find((e) => e.PARTY == d.PARTY).ALLIANCE
+            let temp = partyAlliance.find((e) => e.PARTY == d.PARTY)
+              ? tableData.indexOf(
+                  tableData.find(
+                    ({ alliance }) =>
+                      alliance ==
+                      partyAlliance.find((e) => e.PARTY == d.PARTY).ALLIANCE
+                  )
                 )
-              )
+              : tableData.length - 1
             if (temp > -1 && !Number.isNaN(parseInt(d.VOTES))) {
               tableData[temp].votes += parseInt(d.VOTES)
             }
@@ -278,7 +315,7 @@ const getCurrYearDataTable = (
                 (tableData[tableData.length - 1].votes += parseInt(d.VOTES))
             }
           })
-        : (tableData[0].votes = 0)
+        : ""
     }
   } else {
     if (groupType === "party") {
@@ -310,6 +347,7 @@ const getCurrYearDataTable = (
           votesPercent: 0
         })
       })
+
       mapDataConstituencies &&
         mapDataConstituencies.map((d) => {
           let tempAlliance = partyAlliance.find((e) => e.PARTY == d.party)
@@ -323,10 +361,12 @@ const getCurrYearDataTable = (
         })
     }
   }
+
   tableData.map((d) => (totalVotes += d.votes))
   tableData.map(
     (d) => (d.votesPercent = ((d.votes / totalVotes) * 100).toFixed(2))
   )
+
   return tableData
 }
 
@@ -480,7 +520,9 @@ const compareSeatsVotesCount = (
   ) {
     const groups = Object.keys(SVGData)
     groups.indexOf("OTHERS") === -1 ? groups.push("OTHERS") : ""
+
     if (groupType === "party") {
+      // Setting up format for compare table
       groups.map((d) =>
         stats.push({
           party: d,
@@ -489,6 +531,8 @@ const compareSeatsVotesCount = (
           votesPercent: 0
         })
       )
+
+      // Adding Votes
       data.map((d) => {
         const temp =
           stats.findIndex(
@@ -501,6 +545,8 @@ const compareSeatsVotesCount = (
         if (!Number.isNaN(parseInt(d.VOTES)))
           stats[temp].votes += parseInt(d.VOTES)
       })
+
+      // Adding Seats
       for (const stateUT in constituenciesResults) {
         for (const row in constituenciesResults[stateUT]) {
           const tempIndex = stats.findIndex(
@@ -511,6 +557,7 @@ const compareSeatsVotesCount = (
         }
       }
     } else {
+      //Setting up format for compare table
       groups.map((d) =>
         stats.push({
           alliance: d,
@@ -519,6 +566,8 @@ const compareSeatsVotesCount = (
           votesPercent: 0
         })
       )
+
+      // Adding votes to the compare table
       data.map((d) => {
         const allianceTemp = partyAlliance.find((e) => e.PARTY == d.PARTY)
           ? partyAlliance.find((e) => e.PARTY === d.PARTY).ALLIANCE
@@ -535,6 +584,8 @@ const compareSeatsVotesCount = (
         if (!Number.isNaN(parseInt(d.VOTES)))
           stats[temp].votes += parseInt(d.VOTES)
       })
+
+      // Adding seats to the compare table
       for (const stateUT in constituenciesResults) {
         for (const row in constituenciesResults[stateUT]) {
           const tempIndex = stats.findIndex(
@@ -546,6 +597,7 @@ const compareSeatsVotesCount = (
         }
       }
     }
+
     stats &&
       stats.map((d) => {
         if (!Number.isNaN(parseInt(d.votes))) totalVotes += parseInt(d.votes)
@@ -557,10 +609,10 @@ const compareSeatsVotesCount = (
     return stats
   } else {
     if (selectedConstituency) {
-      let groups = [],
-        compareStats = []
+      let groups = []
       if (mapDataConstituencies.length != 0) {
         if (groupType === "party") {
+          // Setting format for compare data
           groups = mapDataConstituencies.map((d) => d.party)
           groups.indexOf("OTHERS") === -1 ? groups.push("OTHERS") : ""
           groups.map((d) =>
@@ -571,6 +623,8 @@ const compareSeatsVotesCount = (
               votesPercent: 0
             })
           )
+
+          // Adding votes and seats count to the compare data
           data.map((d) => {
             const tempIndex = stats.findIndex((e) => e.party === d.party)
             tempIndex !== -1
@@ -584,6 +638,7 @@ const compareSeatsVotesCount = (
             ? (stats[tempIndex].seats = 1)
             : (stats[stats.length - 1].seats = 1)
         } else {
+          //setting up format for the table
           let tempGroups = new Set()
           mapDataConstituencies.map((d) => {
             const tempPartyAlliance = partyAlliance.find(
@@ -602,6 +657,8 @@ const compareSeatsVotesCount = (
               votesPercent: 0
             })
           )
+
+          // Adding votes
           data.map((d) => {
             const tempPartyAlliance = partyAlliance.find(
               (p) => p.PARTY === d.party
@@ -616,6 +673,8 @@ const compareSeatsVotesCount = (
               ? (stats[tempIndex].votes += d.votesReceived)
               : (stats[stats.length - 1].votes += d.votesReceived)
           })
+
+          // Adding seats count
           const sortedData = data.sort((a, b) => a.votes - b.votes)
           const winningParty = sortedData[0].party
           const tempPartyAlliance = partyAlliance.find(
@@ -630,11 +689,13 @@ const compareSeatsVotesCount = (
             : (stats[stats.length - 1].seats = 1)
         }
       }
+
       stats && stats.map((d) => (totalVotes += d.votes))
       stats &&
         stats.map(
           (d) => (d.votesPercent = ((d.votes / totalVotes) * 100).toFixed(2))
         )
+
       return stats
     }
   }

@@ -61,7 +61,8 @@ select {
 }
 
 /* DeckGL Map */
-#deckgl-overlay, #deckgl-wrapper {
+#deckgl-overlay,
+#deckgl-wrapper {
   position: relative !important;
 }
 .deck-tooltip {
@@ -102,6 +103,7 @@ select {
   border-radius: 50%;
   margin: auto !important;
 }
+
 @keyframes spinner {
   to {
     transform: rotate(360deg);

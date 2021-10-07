@@ -15,7 +15,7 @@ const Elections = () => {
     useState([])
   const [
     parliamentaryConstituenciesGeojson,
-    setParliamentaryConstituenciesGeojson
+    setParliamentaryConstituenciesGeojson,
   ] = useState([])
 
   useEffect(() => {
@@ -61,6 +61,21 @@ const Elections = () => {
             <meta
               name="viewport"
               content="initial-scale=1.0, width=device-width"
+            />
+            <meta
+              name="description"
+              content="Visual analysis of Indian elections party and alliance wise of both lok sabha and assembly electionswith options to customise alliance and swing vote share."
+            />
+            <meta name="robots" content="index, follow" />
+            <meta property="og:type" content="article, visualisation" />
+            <meta property="og:title" content="Indian Elections" key="title" />
+            <meta
+              name="og:description"
+              content="Visual analysis of Indian elections in terms of party and alliance wise of both lok sabha and assembly electionswith options to customise alliance and swing vote share."
+            />
+            <meta
+              property="og:site_name"
+              content="NewsClick's Indian Elections Visualisatioin Page"
             />
           </Head>
           <div className="col-span-2 sm:inline-block hidden"></div>

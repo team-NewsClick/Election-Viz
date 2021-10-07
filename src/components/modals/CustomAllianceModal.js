@@ -14,7 +14,8 @@ import {
   CSV_PATH,
   SELECT_ELECTION,
   SELECT_STATE_UT,
-  ALL_STATE_UT
+  ALL_STATE_UT,
+  CUSTOM_ALLIANCE_TEXT
 } from "../../constants"
 import { getElectionURL } from "../../helpers/utils"
 
@@ -280,6 +281,9 @@ const CustomAllianceModal = ({
           </div>
           <div className="flex justify-center font-bold text-2xl">
             Customise Alliances
+          </div>
+          <div className="p-8 text-justify mx-auto lg:w-11/12">
+            {CUSTOM_ALLIANCE_TEXT}
           </div>
         </div>
         <DragDropContext onDragEnd={(result) => _ondragEnd(result)}>

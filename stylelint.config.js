@@ -16,6 +16,7 @@ module.exports = {
       "declaration-block-trailing-semicolon": null,
       "no-descending-specificity": null,
       "rule-empty-line-before":null,
+      "no-duplicate-selectors":null
     },
   };
   

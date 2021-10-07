@@ -444,9 +444,10 @@ const MapWidget = ({
             >
               <img
                 src="img/newsclick-copyright.jpg"
+                alt="copyright newsclick dot in"
                 className="m-1"
                 width="35%"
-                height="auto"
+                height="100%"
               />
             </div>
           </div>

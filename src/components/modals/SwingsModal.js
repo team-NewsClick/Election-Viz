@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { ALL_STATE_UT } from "../../constants"
+import { ALL_STATE_UT, SWINGS_TEXT } from "../../constants"
 import { getParams, addParams } from "../../helpers/swings"
 
 /**
@@ -173,8 +173,11 @@ const SwingsModal = ({
               className="w-4 h-4"
             />
           </div>
-          <div className="flex justify-center font-bold text-2xl">
+          <div className="flex justify-center text-center font-bold text-2xl">
             Swing Distribution of {selectedStateUT}
+          </div>
+          <div className="p-8 text-justify mx-auto lg:w-11/12">
+            {SWINGS_TEXT}
           </div>
         </div>
         <div className="w-10/12 mx-auto">
