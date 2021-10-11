@@ -413,3 +413,37 @@ export const getConstituencyContestantsStatsData = (data, constituency) => {
     return { stats, totalStats }
   } else return null
 }
+
+/**
+ * To get position and style of home icon on map
+ * @param {Number} windowWidth windows's width
+ * @returns Style for home icon on map
+ */
+export const getMapHomeIconStyle = (windowWidth) => {
+return windowWidth < 800
+  ? windowWidth > 700
+    ? {
+        top: "90px",
+        left: "95%",
+        width: "29px",
+        height: "29px",
+        zIndex: "1",
+        boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+      }
+    : {
+        top: "90px",
+        left: "90.5%",
+        width: "29px",
+        height: "29px",
+        zIndex: "1",
+        boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+      }
+  : {
+      top: "60px",
+      left: "-30px",
+      width: "37px",
+      height: "29px",
+      zIndex: "1",
+      boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
+    }
+}

@@ -1,9 +1,24 @@
 import Head from "next/head"
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Loading from "../components/helpers/Loading"
 import Dashboard from "../components/Dashboard"
 import { GEOJSON_PATH } from "../constants"
+
+/**
+ * Parliamentary Constituencies GeoJson
+ */
+export const PCGeojsonContext = React.createContext()
+
+/**
+ * Assembly Constituencies GeoJson
+ */
+export const ACGeojsonContext = React.createContext()
+
+/**
+ * States & UTs GeoJson
+ */
+export const StateGeojsonContext = React.createContext()
 
 /**
  * Electon Viz Page
@@ -83,13 +98,17 @@ const Elections = () => {
             <div className="my-4 text-center text-2xl font-bold">
               Election Maps
             </div>
-            <Dashboard
-              stateGeojson={stateGeojson}
-              assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-              parliamentaryConstituenciesGeojson={
-                parliamentaryConstituenciesGeojson
-              }
-            />
+            <StateGeojsonContext.Provider value={stateGeojson}>
+              <ACGeojsonContext.Provider value={assemblyConstituenciesGeojson}>
+                <PCGeojsonContext.Provider value={parliamentaryConstituenciesGeojson}>
+                  <Dashboard
+                    stateGeojson={stateGeojson}
+                    assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
+                    parliamentaryConstituenciesGeojson={parliamentaryConstituenciesGeojson}
+                  />
+                </PCGeojsonContext.Provider>
+              </ACGeojsonContext.Provider>
+            </StateGeojsonContext.Provider>
           </div>
           <div className="col-span-2 sm:inline-block hidden"></div>
         </div>

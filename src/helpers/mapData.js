@@ -5,7 +5,7 @@ import {
   NO_CONSTITUENCIES,
   LIVE_ELECTION,
   NA_ALLIANCE_DATA,
-  NA_PARTY_DATA
+  NA_PARTY_DATA,
 } from "../constants"
 
 /**
@@ -86,7 +86,7 @@ export const getContestantStats = (
             votesReceived: parseInt(row.VOTES),
             color: colorPartyAlliance[row.PARTY]
               ? colorPartyAlliance[row.PARTY]
-              : DEFAULT_PARTY_ALLIANCE_COLOR
+              : DEFAULT_PARTY_ALLIANCE_COLOR,
           }
         })
         if (groupType === "alliance") {
@@ -111,7 +111,7 @@ export const getContestantStats = (
                   votesReceived: d.votesReceived,
                   color: colorPartyAlliance[alliance]
                     ? colorPartyAlliance[alliance]
-                    : DEFAULT_PARTY_ALLIANCE_COLOR
+                    : DEFAULT_PARTY_ALLIANCE_COLOR,
                 })
           })
           constituencyStatsTemp = tempAllianceStats
@@ -171,7 +171,7 @@ export const getContestantStats = (
             ][d.properties.PC_NO]
               ? result[selectedStateUT][d.properties.PC_NO]
               : (result[selectedStateUT][d.properties.PC_NO] = [
-                  NA_ALLIANCE_DATA
+                  NA_ALLIANCE_DATA,
                 ])
           })
         } else {
@@ -181,7 +181,7 @@ export const getContestantStats = (
             ][d.properties.AC_NO]
               ? result[selectedStateUT][d.properties.AC_NO]
               : (result[selectedStateUT][d.properties.AC_NO] = [
-                  NA_ALLIANCE_DATA
+                  NA_ALLIANCE_DATA,
                 ])
           })
         }
@@ -284,7 +284,7 @@ export const getConstituenciesResults = (
               ? (stateUTData[constituency] = {
                   candidate: mapData[stateUT][constituency][0].candidate,
                   party: mapData[stateUT][constituency][0].party,
-                  color: mapData[stateUT][constituency][0].color
+                  color: mapData[stateUT][constituency][0].color,
                 })
               : (stateUTData[constituency] = NA_PARTY_DATA)
           }
@@ -298,7 +298,7 @@ export const getConstituenciesResults = (
               ? (stateUTData[constituency] = {
                   candidate: mapData[stateUT][constituency][0].candidate,
                   alliance: mapData[stateUT][constituency][0].alliance,
-                  color: mapData[stateUT][constituency][0].color
+                  color: mapData[stateUT][constituency][0].color,
                 })
               : (stateUTData[constituency] = NA_ALLIANCE_DATA)
           }
@@ -319,14 +319,14 @@ export const getConstituenciesResults = (
               candidate:
                 mapData[selectedStateUT][selectedConstituency][0].candidate,
               party: mapData[selectedStateUT][selectedConstituency][0].party,
-              color: mapData[selectedStateUT][selectedConstituency][0].color
+              color: mapData[selectedStateUT][selectedConstituency][0].color,
             })
           : (result[selectedStateUT][selectedConstituency] = {
               candidate:
                 mapData[selectedStateUT][selectedConstituency][0].candidate,
               alliance:
                 mapData[selectedStateUT][selectedConstituency][0].alliance,
-              color: mapData[selectedStateUT][selectedConstituency][0].color
+              color: mapData[selectedStateUT][selectedConstituency][0].color,
             })
       } else {
         groupType === "party"
@@ -338,4 +338,35 @@ export const getConstituenciesResults = (
   } else {
     return {}
   }
+}
+
+/**
+ * To get initial view state of map
+ * @param {NUmber} windowWidth window's width
+ * @returns Initial view state for map
+ */
+export const getInitialViewState = (windowWidth) => {
+  return windowWidth < 800
+    ? windowWidth > 700
+      ? {
+          latitude: 23,
+          longitude: 83,
+          zoom: 3.6,
+          pitch: 0,
+          bearing: 0,
+        }
+      : {
+          latitude: 23,
+          longitude: 82.5,
+          zoom: 3,
+          pitch: 0,
+          bearing: 0,
+        }
+    : {
+        latitude: 23,
+        longitude: 83,
+        zoom: 4,
+        pitch: 0,
+        bearing: 0,
+      }
 }
