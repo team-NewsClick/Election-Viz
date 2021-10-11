@@ -79,18 +79,18 @@ const Elections = () => {
             />
             <meta
               name="description"
-              content="Visual analysis of Indian elections party and alliance wise of both lok sabha and assembly electionswith options to customise alliance and swing vote share."
+              content="Interactive Maps of Indian elections. Lets you visualize Assembly and Lok Sabha elections on maps, customize alliances and assign swings to vote shares of parties. Updated with upcoming UP, Punjab, Uttarakhand, Goa and Manipur election data."
             />
             <meta name="robots" content="index, follow" />
-            <meta property="og:type" content="article, visualisation" />
-            <meta property="og:title" content="Indian Elections" key="title" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="Indian Election Maps" />
             <meta
               name="og:description"
-              content="Visual analysis of Indian elections in terms of party and alliance wise of both lok sabha and assembly electionswith options to customise alliance and swing vote share."
+              content="Interactive Maps of Indian elections"
             />
             <meta
               property="og:site_name"
-              content="NewsClick's Indian Elections Visualisatioin Page"
+              content="NewsClick Indian Elections Maps"
             />
           </Head>
           <div className="col-span-2 sm:inline-block hidden"></div>
