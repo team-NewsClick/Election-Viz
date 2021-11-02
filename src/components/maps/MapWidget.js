@@ -19,7 +19,8 @@ import {
   DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY,
   SELECT_ELECTION,
   DEFAULT_DISTRICT_LINE_COLOR_GENERAL,
-  LIVE_ELECTION
+  LIVE_ELECTION,
+  BASE_PATH
 } from "../../constants"
 import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
@@ -407,7 +408,7 @@ const MapWidget = ({
               style={{ placeItems: "baseline" }}
             >
               <img
-                src="img/newsclick-copyright.jpg"
+                src={`${BASE_PATH}/img/newsclick-copyright.jpg`}
                 alt="copyright newsclick dot in"
                 className="m-1"
                 width="35%"

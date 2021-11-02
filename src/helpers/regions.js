@@ -1,9 +1,9 @@
 import axios from "axios"
-import { REGION_DEFAULT_SELECT, ALL_STATE_UT } from "../constants"
+import { REGION_DEFAULT_SELECT, ALL_STATE_UT, BASE_PATH } from "../constants"
 
 let allRegions = {}
 axios
-  .get(`/data/json/regions.json`)
+  .get(`${BASE_PATH}/data/json/regions.json`)
   .then((response) => (allRegions = response.data))
   .catch((e) => (allRegions = {}))
 

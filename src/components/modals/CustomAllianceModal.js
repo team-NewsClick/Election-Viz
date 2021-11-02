@@ -15,7 +15,8 @@ import {
   SELECT_ELECTION,
   SELECT_STATE_UT,
   ALL_STATE_UT,
-  CUSTOM_ALLIANCE_TEXT
+  CUSTOM_ALLIANCE_TEXT,
+  BASE_PATH
 } from "../../constants"
 import { getElectionURL } from "../../helpers/utils"
 
@@ -274,7 +275,7 @@ const CustomAllianceModal = ({
           >
             <img
               id="openCustomAllianceModal-btn-icon"
-              src="../img/close-btn.svg"
+              src={`${BASE_PATH}/img/close-btn.svg`}
               alt="Close custom alliance modal box"
               className="w-4 h-4"
             />

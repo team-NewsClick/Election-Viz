@@ -1,4 +1,4 @@
-import { ALL_STATE_UT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
+import { ALL_STATE_UT, BASE_PATH, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
 import { CustomAllianceModal, SwingsModal } from "./modals/index"
 
 /**
@@ -185,7 +185,7 @@ const DashboardOptions = ({
           <div>
             <img
               id="showHideAdvance-btn-icon"
-              src="../img/down-arrow.svg"
+              src={`${BASE_PATH}/img/down-arrow.svg`}
               alt="Show Advance Options"
               className="w-3 h-3 md:ml-14 m-1.5"
               width="100%"
@@ -210,7 +210,7 @@ const DashboardOptions = ({
           >
             <img
               id="showHideAdvance-btn-icon"
-              src="../img/close-btn.svg"
+              src={`${BASE_PATH}/img/close-btn.svg`}
               alt="Close Advance Options"
               className="w-4 h-4"
               width="100%"

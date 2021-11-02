@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { ALL_STATE_UT, SWINGS_TEXT } from "../../constants"
+import { ALL_STATE_UT, BASE_PATH, SWINGS_TEXT } from "../../constants"
 import { getParams, addParams } from "../../helpers/swings"
 
 /**
@@ -168,7 +168,7 @@ const SwingsModal = ({
           <div className="flex justify-end cursor-pointer" onClick={_update}>
             <img
               id="openSwingModal-btn-icon"
-              src="../img/close-btn.svg"
+              src={`${BASE_PATH}/img/close-btn.svg`}
               alt="Close swings modal box"
               className="w-4 h-4"
             />

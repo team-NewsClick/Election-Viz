@@ -29,7 +29,8 @@ import {
   UPCOMING_ELECTION,
   UPCOMING_ELECTION_TYPE,
   ELECTION_YEAR_STATEUT,
-  CSV_PATH
+  CSV_PATH,
+  BASE_PATH
 } from "../constants"
 import {
   getDataStateUT,
@@ -699,7 +700,7 @@ const Dashboard = () => {
           style={getMapHomeIconStyle(windowWidth)}
         >
           <img
-            src="img/home-icon.svg"
+            src={`${BASE_PATH}/img/home-icon.svg`}
             alt="inital config"
             width="100%"
             height="100%"
