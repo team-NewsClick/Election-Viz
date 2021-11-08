@@ -34,11 +34,10 @@ Following are the environment variables used in the project:
 
 ## Deployement
 
-
 ---
 While deploying on netlify:
-- Publish directory must **.next**.
-- Providing environment variable on netlify.
+- Publish directory should be **.next**.
+- Provide environment variable on netlify.
 
 Please refer to the [Netlify Blog post](https://www.netlify.com/blog/2020/11/30/how-to-deploy-next.js-sites-to-netlify/) for more information 
 ## License
