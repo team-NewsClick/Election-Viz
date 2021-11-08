@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { StateGeojsonContext, ACGeojsonContext, PCGeojsonContext } from "../../pages/index"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import {
@@ -24,12 +25,11 @@ import { indPlaceVal, getInitalStateUTcolors } from "../../helpers/utils"
 import hexRgb from "hex-rgb"
 import Loading from "../helpers/Loading"
 import { getFilteredGeoJson } from "../../helpers/reservedSeats"
+import { getInitialViewState } from "../../helpers/mapData"
 
 /**
  * Plot Map and Deckgl Layers
  * @component
- * @param {GeoJSON} stateGeojson - Geojson of States & UTs
- * @param {GeoJSON} constituenciesGeojson - Geojson of constituencies
  * @param {Function} onMapUpdate - To update selectedState on parent component when selected throufh click on map
  * @param {String} electionViewType - assembly/general
  * @param {Array} stateUTOptions - List of States & UTs
@@ -44,8 +44,6 @@ import { getFilteredGeoJson } from "../../helpers/reservedSeats"
  * @return {JSX.Element} Map Widget
  */
 const MapWidget = ({
-  stateGeojson,
-  constituenciesGeojson,
   onMapUpdate,
   electionViewType,
   stateUTOptions,
@@ -58,7 +56,14 @@ const MapWidget = ({
   selectedRegion,
   selectedElection
 }) => {
+  
   const windowWidth = window.innerWidth
+    
+  const stateGeojson = useContext(StateGeojsonContext)
+  const assemblyConstituenciesGeojson = useContext(ACGeojsonContext)
+  const parliamentaryConstituenciesGeojson = useContext(PCGeojsonContext)
+
+  const [constituenciesGeojson, setConstituenciesGeojson] = useState(assemblyConstituenciesGeojson)
   const [stateName, setStateName] = useState("")
   const [initialstateColors, setInitialStateColors] = useState([])
   const [layers, setLayers] = useState([])
@@ -66,31 +71,14 @@ const MapWidget = ({
     constituenciesGeojson
   )
   const [stateData, setStateData] = useState(stateGeojson)
-  const [initialViewState, setInitialViewState] = useState(
-    windowWidth < 800
-      ? windowWidth > 700
-        ? {
-            latitude: 23,
-            longitude: 83,
-            zoom: 3.6,
-            pitch: 0,
-            bearing: 0
-          }
-        : {
-            latitude: 23,
-            longitude: 82.5,
-            zoom: 3,
-            pitch: 0,
-            bearing: 0
-          }
-      : {
-          latitude: 23,
-          longitude: 83,
-          zoom: 4,
-          pitch: 0,
-          bearing: 0
-        }
-  )
+  const [initialViewState, setInitialViewState] = useState(getInitialViewState(windowWidth))
+
+  useEffect(() => {
+    const temp = electionViewType === "general"
+      ? parliamentaryConstituenciesGeojson
+      : assemblyConstituenciesGeojson
+    setConstituenciesGeojson(temp)
+  }, [electionViewType])
 
   useEffect(() => {
     const tempInitialStateColors = getInitalStateUTcolors(
@@ -133,31 +121,7 @@ const MapWidget = ({
       }
     } else {
       setStateName(state)
-      setInitialViewState(
-        windowWidth < 800
-          ? windowWidth > 700
-            ? {
-                latitude: 23,
-                longitude: 83,
-                zoom: 3.6,
-                pitch: 0,
-                bearing: 0
-              }
-            : {
-                latitude: 23,
-                longitude: 82.5,
-                zoom: 3,
-                pitch: 0,
-                bearing: 0
-              }
-          : {
-              latitude: 23,
-              longitude: 83,
-              zoom: 4,
-              pitch: 0,
-              bearing: 0
-            }
-      )
+      setInitialViewState(getInitialViewState(windowWidth))
     }
   }, [selectedStateUT, electionViewType, constituenciesResults])
 

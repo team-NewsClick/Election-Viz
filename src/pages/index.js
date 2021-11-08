@@ -1,9 +1,24 @@
 import Head from "next/head"
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Loading from "../components/helpers/Loading"
 import Dashboard from "../components/Dashboard"
 import { GEOJSON_PATH } from "../constants"
+
+/**
+ * Parliamentary Constituencies GeoJson
+ */
+export const PCGeojsonContext = React.createContext()
+
+/**
+ * Assembly Constituencies GeoJson
+ */
+export const ACGeojsonContext = React.createContext()
+
+/**
+ * States & UTs GeoJson
+ */
+export const StateGeojsonContext = React.createContext()
 
 /**
  * Electon Viz Page
@@ -64,18 +79,18 @@ const Elections = () => {
             />
             <meta
               name="description"
-              content="Visual analysis of Indian elections party and alliance wise of both lok sabha and assembly electionswith options to customise alliance and swing vote share."
+              content="Interactive Maps of Indian elections. Lets you visualize Assembly and Lok Sabha elections on maps, customize alliances and assign swings to vote shares of parties. Updated with upcoming UP, Punjab, Uttarakhand, Goa and Manipur election data."
             />
             <meta name="robots" content="index, follow" />
-            <meta property="og:type" content="article, visualisation" />
-            <meta property="og:title" content="Indian Elections" key="title" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="Indian Election Maps" />
             <meta
               name="og:description"
-              content="Visual analysis of Indian elections in terms of party and alliance wise of both lok sabha and assembly electionswith options to customise alliance and swing vote share."
+              content="Interactive Maps of Indian elections"
             />
             <meta
               property="og:site_name"
-              content="NewsClick's Indian Elections Visualisatioin Page"
+              content="NewsClick Indian Elections Maps"
             />
           </Head>
           <div className="col-span-2 sm:inline-block hidden"></div>
@@ -83,13 +98,17 @@ const Elections = () => {
             <div className="my-4 text-center text-2xl font-bold">
               Election Maps
             </div>
-            <Dashboard
-              stateGeojson={stateGeojson}
-              assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
-              parliamentaryConstituenciesGeojson={
-                parliamentaryConstituenciesGeojson
-              }
-            />
+            <StateGeojsonContext.Provider value={stateGeojson}>
+              <ACGeojsonContext.Provider value={assemblyConstituenciesGeojson}>
+                <PCGeojsonContext.Provider value={parliamentaryConstituenciesGeojson}>
+                  <Dashboard
+                    stateGeojson={stateGeojson}
+                    assemblyConstituenciesGeojson={assemblyConstituenciesGeojson}
+                    parliamentaryConstituenciesGeojson={parliamentaryConstituenciesGeojson}
+                  />
+                </PCGeojsonContext.Provider>
+              </ACGeojsonContext.Provider>
+            </StateGeojsonContext.Provider>
           </div>
           <div className="col-span-2 sm:inline-block hidden"></div>
         </div>
