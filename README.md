@@ -1,11 +1,8 @@
-# Project Title 
-Election-Viz
+# Election-Viz
 
-## Project Description
----
-A web-app to visually anaylse Indian general and assembly election.
+Netlify Deployement Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/b1fe2eb7-d510-4352-b955-a37d521f3cd4/deploy-status)](https://app.netlify.com/sites/elections-viz/deploys)
 
-It has an interactive map and a dashboard with options where one can make custom alliances, apply swings and compare election results on a selected region and seats.
+A web-app to visually anaylse Indian general and assembly election. It has an interactive map and a dashboard with options where one can make custom alliances, apply swings and compare election results on a selected region and seats.
 
 ## Environment Variables
 ---
@@ -13,7 +10,7 @@ Place the environment variables in **.env** file in the root of the project fold
 
 Following are the environment variables used in the project:
 - Mapbox Access Token: This can be obtained by signing in to [Mapbox](https://www.mapbox.com).
-- Live Election's Link: A link thriugh which data for live election's result can be accessed.
+- Live Election's Link: A link through which data for live election's result can be accessed.
 
 ## Getting Started
 ---
@@ -36,15 +33,14 @@ Following are the environment variables used in the project:
 - Open [http://localhost:3000/elections](http://localhost:3000/elections) from the browser to see the result.
 
 ## Deployement
+
+
 ---
 While deploying on netlify:
 - Publish directory must **.next**.
 - Providing environment variable on netlify.
 
-## Netlify Deploy Status
----
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b1fe2eb7-d510-4352-b955-a37d521f3cd4/deploy-status)](https://app.netlify.com/sites/elections-viz/deploys)
-
+Please refer to the [Netlify Blog post](https://www.netlify.com/blog/2020/11/30/how-to-deploy-next.js-sites-to-netlify/) for more information 
 ## License
 ---
 AGPL-3.0 License
