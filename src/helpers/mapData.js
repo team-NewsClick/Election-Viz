@@ -102,10 +102,11 @@ export const getContestantStats = (
             const tempAllianceStatsIndex = tempAllianceStats.findIndex(
               (i) => i.alliance === alliance
             )
-            tempAllianceStatsIndex > -1
-              ? (tempAllianceStats[tempAllianceStatsIndex].votesReceived +=
-                  d.votesReceived)
-              : tempAllianceStats.push({
+            if(alliance === "IND") {
+              tempAllianceStatsIndex > -1
+                ? (tempAllianceStats[tempAllianceStatsIndex].votesReceived =
+                  Math.max(parseInt(d.votesReceived), parseInt(tempAllianceStats[tempAllianceStatsIndex].votesReceived)))
+                : tempAllianceStats.push({
                   candidate: alliance,
                   alliance,
                   votesReceived: d.votesReceived,
@@ -113,6 +114,19 @@ export const getContestantStats = (
                     ? colorPartyAlliance[alliance]
                     : DEFAULT_PARTY_ALLIANCE_COLOR,
                 })
+            } else {
+              tempAllianceStatsIndex > -1
+                ? (tempAllianceStats[tempAllianceStatsIndex].votesReceived +=
+                    d.votesReceived)
+                : tempAllianceStats.push({
+                    candidate: alliance,
+                    alliance,
+                    votesReceived: d.votesReceived,
+                    color: colorPartyAlliance[alliance]
+                      ? colorPartyAlliance[alliance]
+                      : DEFAULT_PARTY_ALLIANCE_COLOR,
+                  })
+            }
           })
           constituencyStatsTemp = tempAllianceStats
         }
