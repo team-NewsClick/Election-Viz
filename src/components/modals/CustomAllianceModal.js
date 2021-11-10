@@ -312,6 +312,7 @@ const CustomAllianceModal = ({
                         className="h-auto w-10/12 lg:w-11/12 flex flex-wrap"
                       >
                         {d.parties.map((e, index) => {
+                          if(e === "IND") return
                           return (
                             <Draggable key={e} draggableId={e} index={index}>
                               {(provided, snapshot) => {
@@ -351,6 +352,9 @@ const CustomAllianceModal = ({
             )
           })}
         </DragDropContext>
+        <div className="italic">
+          Indpendent(IND) candidates cannot be aligned with any alliance and is not provided in the option.
+        </div>
         <div>
           <div className="flex justify-center mt-10">
             <input
