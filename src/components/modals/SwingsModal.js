@@ -158,6 +158,8 @@ const SwingsModal = ({
       : (swingModal.style.display = "none")
   }
 
+  console.log({partyAllianceParams})
+
   return (
     <div
       className="flex h-full min-h-screen justify-center bg-white bg-opacity-70 overscroll-contain overflow-scroll"
@@ -183,6 +185,7 @@ const SwingsModal = ({
         <div className="w-10/12 mx-auto">
           {partyAllianceParams.length != 0 &&
             partyAllianceParams.map((d, index) => (
+              (d.alliance !== "IND" &&
               <div key={index} className="flex flex-row relative w-full my-16">
                 <div className="w-1/12 font-bold">{d.alliance}</div>
                 <div className="relative w-11/12">
@@ -260,7 +263,7 @@ const SwingsModal = ({
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>)
             ))}
           <div style={swingTotal !== 0 ? { color: "#d11143" } : {}}>
             <div className="text-3xl font-bold">
