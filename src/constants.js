@@ -365,6 +365,11 @@ export const MAP_TRANSPARENT_NA_COLOR = {
 export const DEFAULT_PARTY_ALLIANCE_COLOR = "#606060"
 
 /**
+ * Default Prediction Mode
+ */
+export const DEFAULT_PREDICTION_MODE = "off"
+
+/**
  * State/UT names and their coordinates
  */
 export const STATE_COORDINATES = [

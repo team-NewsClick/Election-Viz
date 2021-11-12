@@ -29,6 +29,7 @@ export const getContestantStats = (
   colorPartyAlliance,
   selectedElection,
   groupType,
+  predictionMode,
   selectedStateUT,
   filteredGeoJSON
 ) => {
@@ -91,18 +92,56 @@ export const getContestantStats = (
         })
         if (groupType === "alliance") {
           let tempAllianceStats = []
-          constituencyStatsTemp.map((d) => {
-            const allianceIndex = partyAlliance.findIndex(
-              (i) => i.PARTY === d.party
-            )
-            const alliance =
-              allianceIndex > -1
-                ? partyAlliance[allianceIndex].ALLIANCE
-                : d.party
-            const tempAllianceStatsIndex = tempAllianceStats.findIndex(
-              (i) => i.alliance === alliance
-            )
-            if(alliance === "IND") {
+          if(predictionMode === "on") {
+            constituencyStatsTemp.map((d) => {
+              const allianceIndex = partyAlliance.findIndex(
+                (i) => i.PARTY === d.party
+              )
+              const alliance =
+                allianceIndex > -1
+                  ? partyAlliance[allianceIndex].ALLIANCE
+                  : d.party
+              const tempAllianceStatsIndex = tempAllianceStats.findIndex(
+                (i) => i.alliance === alliance
+              )
+              if(alliance === "IND") {
+                tempAllianceStatsIndex > -1
+                  ? (tempAllianceStats[tempAllianceStatsIndex].votesReceived =
+                    Math.max(parseInt(d.votesReceived), parseInt(tempAllianceStats[tempAllianceStatsIndex].votesReceived)))
+                  : tempAllianceStats.push({
+                    candidate: alliance,
+                    alliance,
+                    votesReceived: d.votesReceived,
+                    color: colorPartyAlliance[alliance]
+                      ? colorPartyAlliance[alliance]
+                      : DEFAULT_PARTY_ALLIANCE_COLOR,
+                  })
+              } else {
+                tempAllianceStatsIndex > -1
+                  ? (tempAllianceStats[tempAllianceStatsIndex].votesReceived +=
+                      d.votesReceived)
+                  : tempAllianceStats.push({
+                      candidate: alliance,
+                      alliance,
+                      votesReceived: d.votesReceived,
+                      color: colorPartyAlliance[alliance]
+                        ? colorPartyAlliance[alliance]
+                        : DEFAULT_PARTY_ALLIANCE_COLOR,
+                    })
+              }
+            })
+          } else {
+            constituencyStatsTemp.map((d) => {
+              const allianceIndex = partyAlliance.findIndex(
+                (i) => i.PARTY === d.party
+              )
+              const alliance =
+                allianceIndex > -1
+                  ? partyAlliance[allianceIndex].ALLIANCE
+                  : d.party
+              const tempAllianceStatsIndex = tempAllianceStats.findIndex(
+                (i) => i.alliance === alliance
+              )
               tempAllianceStatsIndex > -1
                 ? (tempAllianceStats[tempAllianceStatsIndex].votesReceived =
                   Math.max(parseInt(d.votesReceived), parseInt(tempAllianceStats[tempAllianceStatsIndex].votesReceived)))
@@ -114,20 +153,8 @@ export const getContestantStats = (
                     ? colorPartyAlliance[alliance]
                     : DEFAULT_PARTY_ALLIANCE_COLOR,
                 })
-            } else {
-              tempAllianceStatsIndex > -1
-                ? (tempAllianceStats[tempAllianceStatsIndex].votesReceived +=
-                    d.votesReceived)
-                : tempAllianceStats.push({
-                    candidate: alliance,
-                    alliance,
-                    votesReceived: d.votesReceived,
-                    color: colorPartyAlliance[alliance]
-                      ? colorPartyAlliance[alliance]
-                      : DEFAULT_PARTY_ALLIANCE_COLOR,
-                  })
-            }
-          })
+            })
+          }
           constituencyStatsTemp = tempAllianceStats
         }
         let constituencyStatsSorted = constituencyStatsTemp.sort(
@@ -235,6 +262,7 @@ export const getMapData = (
     colorPartyAlliance,
     selectedElection,
     "party",
+    "off",
     selectedStateUT,
     filteredGeoJSON
   )
@@ -263,6 +291,7 @@ export const getConstituenciesResults = (
   selectedStateUT,
   selectedConstituency,
   groupType,
+  predictionMode,
   partyAlliance,
   colorPartyAlliance,
   filteredGeoJSON
@@ -277,6 +306,7 @@ export const getConstituenciesResults = (
     colorPartyAlliance,
     selectedElection,
     groupType,
+    predictionMode,
     selectedStateUT,
     filteredGeoJSON
   )

@@ -33,6 +33,7 @@ export const getRegionStatsTable = (
   selectedElection,
   compareElection,
   groupType,
+  predictionMode,
   partyAlliance,
   selectedStateUT,
   stateUTOptions,
@@ -137,6 +138,7 @@ export const getRegionStatsTable = (
       electionViewType,
       selectedElection,
       groupType,
+      predictionMode,
       partyAlliance,
       selectedStateUT,
       stateUTOptions,
@@ -392,6 +394,7 @@ const getCompareYearDataTable = (
   electionViewType,
   selectedElection,
   groupType,
+  predictionMode,
   partyAlliance,
   selectedStateUT,
   stateUTOptions,
@@ -428,9 +431,10 @@ const getCompareYearDataTable = (
         selectedStateUT,
         selectedConstituency,
         groupType,
+        predictionMode,
         partyAlliance,
         colorPartyAlliance,
-        filteredGeoJSON
+        filteredGeoJSON,
       )
     if (electionViewType === "general") {
       if (
