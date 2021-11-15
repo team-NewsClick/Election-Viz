@@ -365,6 +365,11 @@ export const MAP_TRANSPARENT_NA_COLOR = {
 export const DEFAULT_PARTY_ALLIANCE_COLOR = "#606060"
 
 /**
+ * Default Prediction Mode
+ */
+export const DEFAULT_PREDICTION_MODE = "off"
+
+/**
  * State/UT names and their coordinates
  */
 export const STATE_COORDINATES = [
@@ -667,5 +672,6 @@ export const PARTY_ALLIANCE_COLORS = {
   "KEC(J)": "#f76940",
   "KEC(B)": "f76940",
   "GOJAM": "#7CD11B",
-  "HAMS": "#4B8204"
+  "HAMS": "#4B8204",
+  "MGB": "#E64A1D"
 }

@@ -428,9 +428,10 @@ const getCompareYearDataTable = (
         selectedStateUT,
         selectedConstituency,
         groupType,
+        "off",
         partyAlliance,
         colorPartyAlliance,
-        filteredGeoJSON
+        filteredGeoJSON,
       )
     if (electionViewType === "general") {
       if (

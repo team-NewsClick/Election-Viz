@@ -114,7 +114,7 @@ export const getColorPartyAlliance = (rows) => {
   let colorPartyAlliance = {}
   rows.map((d) => {
     const color = PARTY_ALLIANCE_COLORS[d.alliance]
-    if (color) {
+    if (color !== undefined) {
       colorPartyAlliance[d.alliance] = color
     } else {
       colorPartyAlliance[d.alliance] = PARTY_ALLIANCE_COLORS[d.parties[0]]
