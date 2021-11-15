@@ -189,6 +189,5 @@ const calculateVoteShare = (
       return newVoteShare
     })
   }
-  console.log({updateVotes})
   return updateVotes.flat()
 }
