@@ -158,8 +158,6 @@ const SwingsModal = ({
       : (swingModal.style.display = "none")
   }
 
-  console.log({partyAllianceParams})
-
   return (
     <div
       className="flex h-full min-h-screen justify-center bg-white bg-opacity-70 overscroll-contain overflow-scroll"

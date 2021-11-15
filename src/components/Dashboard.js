@@ -261,7 +261,9 @@ const Dashboard = () => {
   })
   useEffect(() => {
     setRegionStatsLoading(true)
-    if (compareOptions.length !== 0) {
+    if(predictionMode === "on") {
+      setCompareElection(compareOptions[1].value)
+    } else if (compareOptions.length !== 0) {
       const electionType = selectedElection.type
       const year = selectedElection.year
       if (electionViewType === "assembly") {
@@ -270,9 +272,7 @@ const Dashboard = () => {
         )
         if (selectedElection.type === "assembly") {
           filteredCompareOptions.length > 1
-            ? filteredCompareOptions[1].value.year == selectedElection.year
-              ? setCompareElection(compareOptions[0].value)
-              : setCompareElection(filteredCompareOptions[1].value)
+            ? setCompareElection(filteredCompareOptions[1].value)
             : setCompareElection(compareOptions[0].value)
         } else {
           filteredCompareOptions.length > 0
@@ -456,7 +456,6 @@ const Dashboard = () => {
         selectedElection,
         compareElection,
         groupType,
-        predictionMode,
         partyAlliance,
         selectedStateUT,
         stateUTOptions,
@@ -470,7 +469,7 @@ const Dashboard = () => {
     } else {
       setRegionStatsTableData([])
     }
-  }, [regionStatsSVGData, compareYearData, partiesSwing])
+  }, [regionStatsSVGData, compareYearData, partiesSwing, predictionMode])
 
   useEffect(() => {
     setRegionOptions(getRegions(selectedStateUT))
@@ -560,10 +559,11 @@ const Dashboard = () => {
     const temp = getCompareOptions(
       electionViewType,
       selectedElection,
-      selectedStateUT
+      selectedStateUT,
+      predictionMode
     )
     setCompareOptions(temp)
-  }, [selectedStateUT, electionViewType, selectedElection])
+  }, [selectedStateUT, electionViewType, selectedElection, predictionMode])
 
   useEffect(() => {
     setSelectedRegion(REGION_DEFAULT_SELECT)
@@ -707,6 +707,7 @@ const Dashboard = () => {
                   regionStatsLoading={regionStatsLoading}
                   selectedElection={selectedElection}
                   compareElection={compareElection}
+                  predictionMode={predictionMode}
                 />
               </div>
             ))}

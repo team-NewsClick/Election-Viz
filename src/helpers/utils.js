@@ -297,7 +297,8 @@ export const getDataStateUT = (data, stateUT) => {
 export const getCompareOptions = (
   electionViewType,
   selectedElection,
-  selectedStateUT
+  selectedStateUT,
+  predictionMode
 ) => {
   const electionType = selectedElection.type
   const selectedYear = selectedElection.year
@@ -309,6 +310,12 @@ export const getCompareOptions = (
     selectedElection === SELECT_ELECTION
   )
     return compareOptions
+  if(predictionMode === "on") {
+    let tempValue = { type: selectedElection.type, year: selectedElection.year }
+    let tempLabel = selectedElection.type + " Election " + selectedElection.year
+    tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
+    compareOptions.push({ value: tempValue, label: tempLabel })
+  }
   if (electionViewType === "general") {
     for (const ELECTION in ELECTION_YEAR_STATEUT) {
       for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
