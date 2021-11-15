@@ -156,12 +156,12 @@ const calculateVoteShare = (
           swingVotes = Math.round(
             (Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100
           )
+        let newVotes = swingVotes !== 0
+            ? Number(row.VOTES) + swingVotes
+            : Number(row.VOTES)
         return {
           ...row,
-          VOTES:
-            swingVotes !== 0
-              ? Number(row.VOTES) + swingVotes
-              : Number(row.VOTES)
+          VOTES: newVotes <= 0 ? 0 : newVotes
         }
       })
       return newVoteShare
@@ -178,16 +178,17 @@ const calculateVoteShare = (
           swingVotes = Math.round(
             (Number(row.TOTAL_VOTES_POLLED) * swingParty.swing) / 100
           )
+        let newVotes = swingVotes !== 0
+            ? Number(row.VOTES) + swingVotes
+            : Number(row.VOTES)
         return {
           ...row,
-          VOTES:
-            swingVotes !== 0
-              ? Number(row.VOTES) + swingVotes
-              : Number(row.VOTES)
+          VOTES: newVotes <= 0 ? 0 : newVotes
         }
       })
       return newVoteShare
     })
   }
+  console.log({updateVotes})
   return updateVotes.flat()
 }
