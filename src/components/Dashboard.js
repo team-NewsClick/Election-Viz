@@ -95,6 +95,7 @@ const Dashboard = () => {
   useEffect(() => {
     setRegionStatsLoading(true)
     setMapWidgetLoading(true)
+    setPredictionMode("off")
     setSelectedYearData([])
     setSelectedStateUTData([])
     setFilteredGeoJSON({})

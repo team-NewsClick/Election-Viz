@@ -35,12 +35,14 @@ const SwingsModal = ({
         const thumbLeft = document.getElementById(d.thumbId)
         const range = document.getElementById(d.rangeId)
         const valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
-        thumbLeft.style.left = "50%"
-        valueSwingDisaply.style.left = "50%"
-        range.style.right = "50%"
-        range.style.left = "50%"
-        d.swing = 0
-        tempParams.push(d)
+        if(thumbLeft && range && valueSwingDisaply) {
+          thumbLeft.style.left = "50%"
+          valueSwingDisaply.style.left = "50%"
+          range.style.right = "50%"
+          range.style.left = "50%"
+          d.swing = 0
+          tempParams.push(d)
+        }
       })
       setPartyAllianceParams([...tempParams])
     }
