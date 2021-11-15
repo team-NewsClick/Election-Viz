@@ -30,7 +30,8 @@ import {
   UPCOMING_ELECTION_TYPE,
   ELECTION_YEAR_STATEUT,
   CSV_PATH,
-  BASE_PATH
+  BASE_PATH,
+  DEFAULT_PREDICTION_MODE
 } from "../constants"
 import {
   getDataStateUT,
@@ -70,6 +71,7 @@ const Dashboard = () => {
   const [seatType, setSeatType] = useState(SEAT_DEFAULT_SELECT)
   const [regionStatsSVGData, setRegionStatsSVGData] = useState({})
   const [regionStatsTableData, setRegionStatsTableData] = useState([])
+  const [predictionMode, setPredictionMode] = useState(DEFAULT_PREDICTION_MODE)
   const [groupType, setGroupType] = useState(DEFAULT_GROUP_TYPE)
   const [partyAlliance, setPartyAlliance] = useState([])
   const [colorPartyAlliance, setColorPartyAlliance] = useState({})
@@ -94,6 +96,7 @@ const Dashboard = () => {
   useEffect(() => {
     setRegionStatsLoading(true)
     setMapWidgetLoading(true)
+    setPredictionMode("off")
     setSelectedYearData([])
     setSelectedStateUTData([])
     setFilteredGeoJSON({})
@@ -260,7 +263,9 @@ const Dashboard = () => {
   })
   useEffect(() => {
     setRegionStatsLoading(true)
-    if (compareOptions.length !== 0) {
+    if(predictionMode === "on") {
+      setCompareElection(compareOptions[1].value)
+    } else if (compareOptions.length !== 0) {
       const electionType = selectedElection.type
       const year = selectedElection.year
       if (electionViewType === "assembly") {
@@ -269,9 +274,7 @@ const Dashboard = () => {
         )
         if (selectedElection.type === "assembly") {
           filteredCompareOptions.length > 1
-            ? filteredCompareOptions[1].value.year == selectedElection.year
-              ? setCompareElection(compareOptions[0].value)
-              : setCompareElection(filteredCompareOptions[1].value)
+            ? setCompareElection(filteredCompareOptions[1].value)
             : setCompareElection(compareOptions[0].value)
         } else {
           filteredCompareOptions.length > 0
@@ -399,6 +402,7 @@ const Dashboard = () => {
         selectedStateUT,
         selectedConstituency,
         groupType,
+        predictionMode,
         partyAlliance,
         colorPartyAlliance,
         filteredGeoJSON
@@ -414,7 +418,7 @@ const Dashboard = () => {
     ) {
       setMapWidgetLoading(false)
     }
-  }, [mapData, selectedConstituency, selectedStateUT, groupType, partyAlliance])
+  }, [mapData, selectedConstituency, selectedStateUT, groupType, partyAlliance, predictionMode])
 
   useEffect(() => {
     if (Object.keys(constituenciesResults).length !== 0) {
@@ -467,7 +471,7 @@ const Dashboard = () => {
     } else {
       setRegionStatsTableData([])
     }
-  }, [regionStatsSVGData, compareYearData, partiesSwing])
+  }, [regionStatsSVGData, compareYearData, partiesSwing, predictionMode])
 
   useEffect(() => {
     setRegionOptions(getRegions(selectedStateUT))
@@ -476,19 +480,7 @@ const Dashboard = () => {
   useEffect(() => {
     let result = []
     if (partyAlliance && swingParams) {
-      if (swingParams.length !== 0) {
-        partyAlliance.map((d) => {
-          const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
-          if (tempSwing) {
-            result.push({
-              PARTY: d.PARTY,
-              ALLIANCE: d.ALLIANCE,
-              swing: tempSwing.swing,
-              newParty: tempSwing.newParty
-            })
-          }
-        })
-      } else {
+      if(predictionMode === "off") {
         partyAlliance.map((d) => {
           result.push({
             PARTY: d.PARTY,
@@ -497,10 +489,33 @@ const Dashboard = () => {
             newParty: false
           })
         })
+      } else {
+        if (swingParams.length !== 0) {
+          partyAlliance.map((d) => {
+            const tempSwing = swingParams.find((e) => e.alliance === d.ALLIANCE)
+            if (tempSwing) {
+              result.push({
+                PARTY: d.PARTY,
+                ALLIANCE: d.ALLIANCE,
+                swing: tempSwing.swing,
+                newParty: tempSwing.newParty
+              })
+            }
+          })
+        } else {
+          partyAlliance.map((d) => {
+            result.push({
+              PARTY: d.PARTY,
+              ALLIANCE: d.ALLIANCE,
+              swing: 0,
+              newParty: false
+            })
+          })
+        }
       }
       setPartiesSwing([...result])
     }
-  }, [swingParams, partyAlliance])
+  }, [swingParams, partyAlliance, predictionMode])
 
   useEffect(() => {
     const temp = getDataStateUT(selectedYearData, selectedStateUT)
@@ -546,10 +561,11 @@ const Dashboard = () => {
     const temp = getCompareOptions(
       electionViewType,
       selectedElection,
-      selectedStateUT
+      selectedStateUT,
+      predictionMode
     )
     setCompareOptions(temp)
-  }, [selectedStateUT, electionViewType, selectedElection])
+  }, [selectedStateUT, electionViewType, selectedElection, predictionMode])
 
   useEffect(() => {
     setSelectedRegion(REGION_DEFAULT_SELECT)
@@ -617,6 +633,9 @@ const Dashboard = () => {
   const _handleSelectedSeatType = (v) => {
     setSeatType(v)
   }
+  const _handlePredictionMode = (v) => {
+    setPredictionMode(v)
+  }
   const doAdvanceReset = () => {
     setAdvanceReset(!advanceReset)
   }
@@ -632,6 +651,7 @@ const Dashboard = () => {
         updateSelectedStateUT={_handleSelectedStateUT}
         updateSelectedConstituency={_handleSelectedConstituency}
         updateSelectedSeatType={_handleSelectedSeatType}
+        updatePredictionMode={_handlePredictionMode}
         doAdvanceReset={doAdvanceReset}
         customAlliance={customAlliance}
         handleColorPartyAlliance={handleColorPartyAlliance}
@@ -649,6 +669,7 @@ const Dashboard = () => {
         seatType={seatType}
         compareElection={compareElection}
         partyAlliance={partyAlliance}
+        predictionMode={predictionMode}
         advanceReset={advanceReset}
       />
       <div className="lg:flex lg:flex-row-reverse relative py-8">
@@ -688,6 +709,7 @@ const Dashboard = () => {
                   regionStatsLoading={regionStatsLoading}
                   selectedElection={selectedElection}
                   compareElection={compareElection}
+                  predictionMode={predictionMode}
                 />
               </div>
             ))}

@@ -14,7 +14,8 @@ const RegionStatsTable = ({
   regionStatsTableData,
   regionStatsLoading,
   selectedElection,
-  compareElection
+  compareElection,
+  predictionMode
 }) => {
   return regionStatsTableData.length === 0 || regionStatsLoading == true ? (
     <div className="h-1/2 my-40">
@@ -25,7 +26,7 @@ const RegionStatsTable = ({
       <div className="flex justify-center -mt-7 pb-1">
         <div className="flex flex-row">
           <div className="capitalize">
-            {selectedElection.type} {selectedElection.year}
+            {selectedElection.type} {selectedElection.year}{predictionMode === "on" && "(Predicted)"}
           </div>
           <div className="lowercase">&nbsp;v/s&nbsp;</div>
           {compareElection.type === "none" ? (

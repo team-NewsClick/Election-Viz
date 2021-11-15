@@ -35,12 +35,14 @@ const SwingsModal = ({
         const thumbLeft = document.getElementById(d.thumbId)
         const range = document.getElementById(d.rangeId)
         const valueSwingDisaply = document.getElementById(d.valueSwingDisaplyId)
-        thumbLeft.style.left = "50%"
-        valueSwingDisaply.style.left = "50%"
-        range.style.right = "50%"
-        range.style.left = "50%"
-        d.swing = 0
-        tempParams.push(d)
+        if(thumbLeft && range && valueSwingDisaply) {
+          thumbLeft.style.left = "50%"
+          valueSwingDisaply.style.left = "50%"
+          range.style.right = "50%"
+          range.style.left = "50%"
+          d.swing = 0
+          tempParams.push(d)
+        }
       })
       setPartyAllianceParams([...tempParams])
     }
@@ -183,6 +185,7 @@ const SwingsModal = ({
         <div className="w-10/12 mx-auto">
           {partyAllianceParams.length != 0 &&
             partyAllianceParams.map((d, index) => (
+              (d.alliance !== "IND" &&
               <div key={index} className="flex flex-row relative w-full my-16">
                 <div className="w-1/12 font-bold">{d.alliance}</div>
                 <div className="relative w-11/12">
@@ -260,7 +263,7 @@ const SwingsModal = ({
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>)
             ))}
           <div style={swingTotal !== 0 ? { color: "#d11143" } : {}}>
             <div className="text-3xl font-bold">

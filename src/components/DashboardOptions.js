@@ -40,6 +40,7 @@ const DashboardOptions = ({
   updateGroupType,
   updateSelectedStateUT,
   updateSelectedConstituency,
+  updatePredictionMode,
   doAdvanceReset,
   customAlliance,
   handleColorPartyAlliance,
@@ -58,6 +59,7 @@ const DashboardOptions = ({
   seatType,
   compareElection,
   partyAlliance,
+  predictionMode,
   advanceReset
 }) => {
   const showHideAdvanceOptions = () => {
@@ -220,6 +222,36 @@ const DashboardOptions = ({
         </div>
         <div className="mx-auto max-w-4xl justify-center">
           <div>
+            {selectedStateUT !== SELECT_STATE_UT && selectedStateUT !== ALL_STATE_UT &&
+              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+              <div className="flex flex-wrap">
+                <div className="inline-block align-text-bottom my-auto text-right">
+                  Prediction Mode:&nbsp;
+                </div>
+                <div className="flex flex-wrap justify-center mx-auto">
+                  <div className="radio-toolbar md:mx-2 my-2">
+                    <input
+                      type="radio"
+                      id="prediction-on"
+                      name="prediction"
+                      value="on"
+                      onChange={(e) => updatePredictionMode(e.currentTarget.value)}
+                      />
+                    <label htmlFor="prediction-on">On</label>
+                    <input
+                      type="radio"
+                      id="prediction-off"
+                      name="prediction"
+                      value="off"
+                      defaultChecked
+                      onChange={(e) => updatePredictionMode(e.currentTarget.value)}
+                      />
+                    <label htmlFor="prediction-off">Off</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            }           
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
               {electionViewType === "assembly" && (
                 <div>
@@ -263,12 +295,14 @@ const DashboardOptions = ({
                   >
                     Customise Alliances
                   </div>
-                  <div
-                    onClick={openSwingModal}
-                    className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
-                  >
-                    Add Swings
-                  </div>
+                  {predictionMode === "on" &&
+                    <div
+                      onClick={openSwingModal}
+                      className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
+                    >
+                      Add Swings
+                    </div>
+                  }
                 </div>
               )}
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
