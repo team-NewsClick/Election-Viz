@@ -96,7 +96,6 @@ const Dashboard = () => {
   useEffect(() => {
     setRegionStatsLoading(true)
     setMapWidgetLoading(true)
-    setPredictionMode("off")
     setSelectedYearData([])
     setSelectedStateUTData([])
     setFilteredGeoJSON({})
@@ -605,6 +604,7 @@ const Dashboard = () => {
     setSelectedRegion(REGION_DEFAULT_SELECT)
     setSeatType(SEAT_DEFAULT_SELECT)
     SetElectionViewType(v)
+    setPredictionMode("off")
     if (electionViewType === "assembly") {
       setGetAssemblyStateElectionOptions(false)
     }
