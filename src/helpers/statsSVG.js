@@ -19,7 +19,7 @@ export const getRegionStatsSVGData = (
   let filteredData = {}
   if (selectedStateUT === SELECT_STATE_UT) return filteredData
   if (electionViewType === "general") {
-    filteredGeoJSON.features.map((d) => {
+    filteredGeoJSON && filteredGeoJSON.features && filteredGeoJSON.features.map((d) => {
       if (
         data[d.properties.ST_NAME] &&
         data[d.properties.ST_NAME][d.properties.PC_NO]
@@ -35,7 +35,7 @@ export const getRegionStatsSVGData = (
       }
     })
   } else {
-    filteredGeoJSON.features.map((d) => {
+    filteredGeoJSON && filteredGeoJSON.features && filteredGeoJSON.features.map((d) => {
       if (
         data[d.properties.ST_NAME] &&
         data[d.properties.ST_NAME][d.properties.AC_NO]

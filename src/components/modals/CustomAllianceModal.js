@@ -86,8 +86,7 @@ const CustomAllianceModal = ({
 
   useEffect(() => {
     let tempParties,
-      oldUnalignedParties = [],
-      newUnalignedParties = new Set()
+      unalignedParties = new Set()
     if (selectedStateUT !== SELECT_STATE_UT) {
       const electionType = selectedElection.type
       const year = selectedElection.year
@@ -102,11 +101,6 @@ const CustomAllianceModal = ({
             selectedStateUT,
             electionViewType
           )
-          rows.map(
-            (d) =>
-              d.alliance === "Unaligned" &&
-              d.parties.map((p) => oldUnalignedParties.push(p))
-          )
           tempParties.map((p) => {
             let presentInOldRow = false
             rows.map((row) => {
@@ -115,12 +109,11 @@ const CustomAllianceModal = ({
                 if (tempIndex >= 0) presentInOldRow = true
               }
             })
-            if (!presentInOldRow) newUnalignedParties.add(p)
+            if (!presentInOldRow) unalignedParties.add(p)
           })
-          oldUnalignedParties.map((d) => newUnalignedParties.add(d))
-          newUnalignedParties = [...newUnalignedParties]
+          unalignedParties = [...unalignedParties]
           const tempNewPartyAlliance = getPartyAlliance(
-            newUnalignedParties,
+            unalignedParties,
             defaultPartyAlliance
           )
           const oldRows = rows.filter((d) => d.alliance !== "Unaligned")

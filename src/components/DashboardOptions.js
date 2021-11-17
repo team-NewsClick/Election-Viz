@@ -1,4 +1,4 @@
-import { ALL_STATE_UT, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
+import { ALL_STATE_UT, DEFAULT_PREDICTION_MODE, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
 import { CustomAllianceModal, SwingsModal } from "./modals/index"
 
 /**
@@ -235,6 +235,7 @@ const DashboardOptions = ({
                       id="prediction-on"
                       name="prediction"
                       value="on"
+                      checked={predictionMode === "on" ? true : false}
                       onChange={(e) => updatePredictionMode(e.currentTarget.value)}
                       />
                     <label htmlFor="prediction-on">On</label>
@@ -244,6 +245,7 @@ const DashboardOptions = ({
                       name="prediction"
                       value="off"
                       defaultChecked
+                      checked = {predictionMode === "off" ? true : false}
                       onChange={(e) => updatePredictionMode(e.currentTarget.value)}
                       />
                     <label htmlFor="prediction-off">Off</label>
