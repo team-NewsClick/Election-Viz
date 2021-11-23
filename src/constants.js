@@ -212,7 +212,8 @@ export const ELECTION_YEAR_STATEUT = {
       "Goa",
       "Uttarakhand",
       "Gujarat",
-      "Punjab"
+      "Punjab",
+      "Karnataka"
     ],
     2019: ["Jharkhand"],
     2020: ["Bihar", "Delhi"],
