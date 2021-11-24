@@ -213,7 +213,17 @@ export const ELECTION_YEAR_STATEUT = {
       "Uttarakhand",
       "Gujarat",
       "Punjab",
-      "Karnataka"
+    ],
+    2018:[
+      "Tripura",
+      "Meghalaya",
+      "Nagaland",
+      "Karnataka",
+      // "Chhattisgarh",
+      // "Madhya Pradesh",
+      // "Mizoram",
+      // "Rajasthan",
+      // "Telangana",
     ],
     2019: ["Jharkhand"],
     2020: ["Bihar", "Delhi"],
