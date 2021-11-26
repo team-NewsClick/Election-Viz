@@ -1,8 +1,3 @@
-/**
- * Next.js project basePath
- */
- export const BASE_PATH = "indian-elections"
-
  /**
   * Default selection from general or assembly election
   */
@@ -87,7 +82,7 @@
  /**
   * Public GEOJSON URL
   */
- export const GEOJSON_PATH = `${BASE_PATH}/data/geojson`
+ export const GEOJSON_PATH = `/data/geojson`
  
  /**
   * Candidate data of a party when no data is available
@@ -112,7 +107,7 @@
  /**
   * Public CSV URL
   */
- export const CSV_PATH = `${BASE_PATH}/data/csv`
+ export const CSV_PATH = `/data/csv`
  
  /**
   * Custom Alliance Text

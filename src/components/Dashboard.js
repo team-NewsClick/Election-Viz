@@ -30,7 +30,6 @@ import {
   UPCOMING_ELECTION_TYPE,
   ELECTION_YEAR_STATEUT,
   CSV_PATH,
-  BASE_PATH,
   DEFAULT_PREDICTION_MODE
 } from "../constants"
 import {
@@ -722,7 +721,7 @@ const Dashboard = () => {
           style={getMapHomeIconStyle(windowWidth)}
         >
           <img
-            src={`${BASE_PATH}/img/home-icon.svg`}
+            src={`/img/home-icon.svg`}
             alt="inital config"
             width="100%"
             height="100%"

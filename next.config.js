@@ -2,7 +2,6 @@ const path = require("path")
 
 module.exports = {
   target: "serverless",
-  basePath: "/indian-elections",
   webpack: (config) => {
     config.resolve.alias["~"] = path.resolve(__dirname, "src")
     return config

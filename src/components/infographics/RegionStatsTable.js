@@ -1,4 +1,3 @@
-import { BASE_PATH } from "../../constants"
 import Loading from "../helpers/Loading"
 
 /**
@@ -43,7 +42,7 @@ const RegionStatsTable = ({
         <div className="w-3/12 px-1 py-2 text-center">Seats</div>
         <div className="w-2/12 px-3 border-r border-gray-400 py-2">
           <img
-            src={`${BASE_PATH}/img/plus-minus.svg`}
+            src={`/img/plus-minus.svg`}
             alt="difference of"
             className="float-right"
           />
@@ -51,7 +50,7 @@ const RegionStatsTable = ({
         <div className="w-3/12 px-1 py-2 text-center">Vote%</div>
         <div className="w-2/12 px-3 py-2">
           <img
-            src={`${BASE_PATH}/img/plus-minus.svg`}
+            src={`/img/plus-minus.svg`}
             alt="difference of"
             className="float-right"
           />
@@ -70,7 +69,7 @@ const RegionStatsTable = ({
                 : Math.abs(row.seatsDiff)}
             </div>
             <img
-              src={row.seatsDiff <= 0 ? `${BASE_PATH}/img/down-red.svg` : `${BASE_PATH}/img/up-green.svg`}
+              src={row.seatsDiff <= 0 ? `/img/down-red.svg` : `/img/up-green.svg`}
               alt={row.seatsDiff <= 0 ? "decreased by" : "increased by"}
               className="w-4 mr-2"
             />
@@ -85,8 +84,8 @@ const RegionStatsTable = ({
             <img
               src={
                 row.votesPercentDiff <= 0
-                  ? `${BASE_PATH}/img/down-red.svg`
-                  : `${BASE_PATH}/img/up-green.svg`
+                  ? `/img/down-red.svg`
+                  : `/img/up-green.svg`
               }
               alt={row.votesPercentDiff <= 0 ? "decreased by" : "increased by"}
               className="w-4 mr-2"
