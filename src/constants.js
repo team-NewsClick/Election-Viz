@@ -211,7 +211,7 @@ export const ELECTION_YEAR_STATEUT = {
       "Himachal Pradesh",
       "Goa",
       "Uttarakhand",
-      "Gujarat",
+      // "Gujarat",
       "Punjab",
     ],
     2018:[
