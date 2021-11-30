@@ -1,370 +1,381 @@
- /**
-  * Default selection from general or assembly election
-  */
- export const ELECTION_VIEW_TYPE_DEFAULT = "general"
- 
- /**
-  * Assembly Election
-  */
- export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
- 
- /**
-  * Default selected election
-  */
- export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "Upcoming" }
- 
- /**
-  * Option when no particular State/UT is selected
-  */
- export const FIRST_SELECT_STATEUT = "First select a State/UT"
- 
- /**
-  * Value of selectedStateUT when no State/UT is Selected
-  */
- export const SELECT_STATE_UT = "Select a State/UT"
- 
- /**
-  * Value of selectedElection when no Election is Selected
-  */
- export const SELECT_ELECTION = "Select an Election"
- 
- /**
-  * Value of selectedConstituencies when no constituencies is Available
-  */
- export const NO_CONSTITUENCIES = "No Constituencies"
- 
- /**
-  * Live Election
-  */
- export const LIVE_ELECTION = "Live"
- 
- /**
-  * Live Election Year
-  */
- export const LIVE_ELECTION_YEAR = "2021"
- 
- /**
-  * Live Election Type
-  */
- export const LIVE_ELECTION_TYPE = "assembly"
- 
- /**
-  * Live Election States/UTs
-  */
- export const LIVE_ELECTION_STATEUT = ["Bihar"]
- 
- /**
-  * Upcoming Election Type
-  */
- export const UPCOMING_ELECTION_TYPE = "assembly"
- 
- /**
-  * Upcoming Election Year
-  */
- export const UPCOMING_ELECTION_YEAR = "2017"
- 
- /**
-  * Upcoming Election
-  */
- export const UPCOMING_ELECTION = "Upcoming"
- 
- /**
-  * Upcoming Elections
-  */
- const UPCOMING_ELECTIONS_STATEUT = [
-   "Uttar Pradesh",
-   "Uttarakhand",
-   "Goa",
-   "Punjab",
-   "Manipur"
- ]
- 
- /**
-  * Public GEOJSON URL
-  */
- export const GEOJSON_PATH = `/data/geojson`
- 
- /**
-  * Candidate data of a party when no data is available
-  */
- export const NA_PARTY_DATA = {
-   candidate: "N/A",
-   party: "N/A",
-   color: "#dddddd",
-   votesReceived: 0
- }
- 
- /**
-  * Candidate data of a alliance when no data is available
-  */
- export const NA_ALLIANCE_DATA = {
-   candidate: "N/A",
-   alliance: "N/A",
-   color: "#dddddd",
-   votesReceived: 0
- }
- 
- /**
-  * Public CSV URL
-  */
- export const CSV_PATH = `/data/csv`
- 
- /**
-  * Custom Alliance Text
-  */
- export const CUSTOM_ALLIANCE_TEXT =
-   "After customizing alliances, clicking on the Alliance tab in the main page will display Alliance results."
- 
- /**
-  * Swings Text
-  */
- export const SWINGS_TEXT =
-   "Adjust vote shares percentages by assigning swings. Total of all swings should be zero."
- 
- /**
-  * Election details: their type, year and state/UTs that had the election
-  */
- export const ELECTION_YEAR_STATEUT = {
-   general: {
-     2019: [
-       "Andhra Pradesh",
-       "Arunachal Pradesh",
-       "Assam",
-       "Bihar",
-       "Goa",
-       "Gujarat",
-       "Haryana",
-       "Himachal Pradesh",
-       "Jammu & Kashmir",
-       "Karnataka",
-       "Kerala",
-       "Madhya Pradesh",
-       "Maharashtra",
-       "Manipur",
-       "Meghalaya",
-       "Mizoram",
-       "Nagaland",
-       "Odisha",
-       "Punjab",
-       "Rajasthan",
-       "Sikkim",
-       "Tamil Nadu",
-       "Tripura",
-       "Uttar Pradesh",
-       "West Bengal",
-       "Chhattisgarh",
-       "Jharkhand",
-       "Uttarakhand",
-       "Telangana",
-       "Andaman & Nicobar Islands",
-       "Chandigarh",
-       "Dadra & Nagar Haveli",
-       "Daman & Diu",
-       "NCT of Delhi",
-       "Lakshadweep",
-       "Puducherry"
-     ],
-     2014: [
-       "Andhra Pradesh",
-       "Arunachal Pradesh",
-       "Assam",
-       "Bihar",
-       "Goa",
-       "Gujarat",
-       "Haryana",
-       "Himachal Pradesh",
-       "Jammu & Kashmir",
-       "Karnataka",
-       "Kerala",
-       "Madhya Pradesh",
-       "Maharashtra",
-       "Manipur",
-       "Meghalaya",
-       "Mizoram",
-       "Nagaland",
-       "Odisha",
-       "Punjab",
-       "Rajasthan",
-       "Sikkim",
-       "Tamil Nadu",
-       "Tripura",
-       "Uttar Pradesh",
-       "West Bengal",
-       "Chhattisgarh",
-       "Jharkhand",
-       "Uttarakhand",
-       "Andaman & Nicobar Islands",
-       "Chandigarh",
-       "Dadra & Nagar Haveli",
-       "Daman & Diu",
-       "NCT of Delhi",
-       "Lakshadweep",
-       "Puducherry"
-     ]
-   },
-   assembly: {
-     2015: ["Bihar"],
-     2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
-     2017: [
-       "Uttar Pradesh",
-       "Manipur",
-       "Himachal Pradesh",
-       "Goa",
-       "Uttarakhand",
-       "Gujarat",
-       "Punjab"
-     ],
-     2019: ["Jharkhand"],
-     2020: ["Bihar", "Delhi"],
-     2021: ["West Bengal", "Assam", "Puducherry"],
-     Upcoming: UPCOMING_ELECTIONS_STATEUT,
-     Live: LIVE_ELECTION_STATEUT
-   }
- }
- 
- /**
-  * Distinct colors for states
-  */
- export const STATE_COLORS = [
-   "#A0A0A0",
-   "#195F75",
-   "#4E874E",
-   "#E5993E",
-   "#8A553F",
-   "#9556AF",
-   "#C53F3E",
-   "#1582A5",
-   "#60C361",
-   "#B0A433",
-   "#986B27",
-   "#A54B6C",
-   "#B65857"
- ]
- 
- /**
-  * List of all States and UTs
-  */
- export const STATE_UT_LIST = [
-   "Andhra Pradesh",
-   "Arunachal Pradesh",
-   "Assam",
-   "Bihar",
-   "Goa",
-   "Gujarat",
-   "Haryana",
-   "Himachal Pradesh",
-   "Jammu & Kashmir",
-   "Karnataka",
-   "Kerala",
-   "Madhya Pradesh",
-   "Maharashtra",
-   "Manipur",
-   "Meghalaya",
-   "Mizoram",
-   "Nagaland",
-   "Odisha",
-   "Punjab",
-   "Rajasthan",
-   "Sikkim",
-   "Tamil Nadu",
-   "Tripura",
-   "Uttar Pradesh",
-   "West Bengal",
-   "Chhattisgarh",
-   "Jharkhand",
-   "Uttarakhand",
-   "Telangana",
-   "Andaman & Nicobar Islands",
-   "Chandigarh",
-   "Dadra & Nagar Haveli",
-   "Daman & Diu",
-   "NCT of Delhi",
-   "Lakshadweep",
-   "Puducherry"
- ]
- 
- /**
-  * Time interval for Live Update in Minutes
-  */
- 
- export const DELAY_INTERVAL_MINUTES = 3
- 
- /**
-  * Default Group type
-  */
- export const DEFAULT_GROUP_TYPE = "party"
- 
- /**
-  * Default Selection for Region
-  */
- export const REGION_DEFAULT_SELECT = "All Regions"
- 
- /**
-  * Default Selection for States/UTs
-  */
- export const ALL_STATE_UT = "All States & UTs"
- 
- /**
-  * Default Selection for Constituencies
-  */
- export const ALL_CONSTITUENCIES = "All Constituencies"
- 
- /**
-  * Default Selection for Seats Types
-  */
- export const SEAT_DEFAULT_SELECT = "All Seats"
- 
- /**
-  * Options for Seat Type
-  */
- export const SEAT_TYPE_OPTIONS = ["All Seats", "Reserved", "Unreserved"]
- 
- /**
-  * Geojson Default State Fill Color
-  */
- export const DEFAULT_STATE_FILL_COLOR = [255, 255, 255, 0]
- 
- /**
-  * Geojson Default State Line Color
-  */
- export const DEFAULT_STATE_LINE_COLOR = [60, 60, 60, 255]
- 
- /**
-  * Geojson District Fill Color
-  */
- export const DEFAULT_DISTRICT_FILL_COLOR = [255, 255, 255, 125]
- 
- /**
-  * Geojson District line Color for General Elections
-  */
- export const DEFAULT_DISTRICT_LINE_COLOR_GENERAL = [255, 255, 255, 255]
- 
- /**
-  * Geojson District line Color for Assembly Elections
-  */
- export const DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY = [0, 0, 0, 255]
- 
- /**
-  * Geojson Transparent Color
-  */
- export const TRANSPARENT_COLOR = [255, 255, 255, 0]
- 
- /**
-  * Geojson Transparent color when no data is available
-  */
- export const MAP_TRANSPARENT_NA_COLOR = {
-   red: 255,
-   green: 255,
-   blue: 255,
-   alpha: 0
- }
- 
- /**
-  * Default Party or Alliance Color
-  */
- export const DEFAULT_PARTY_ALLIANCE_COLOR = "#606060"
+/**
+ * Default selection from general or assembly election
+ */
+export const ELECTION_VIEW_TYPE_DEFAULT = "general"
 
- /**
+/**
+ * Assembly Election
+ */
+export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
+
+/**
+ * Default selected election
+ */
+export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "Upcoming" }
+
+/**
+ * Option when no particular State/UT is selected
+ */
+export const FIRST_SELECT_STATEUT = "First select a State/UT"
+
+/**
+ * Value of selectedStateUT when no State/UT is Selected
+ */
+export const SELECT_STATE_UT = "Select a State/UT"
+
+/**
+ * Value of selectedElection when no Election is Selected
+ */
+export const SELECT_ELECTION = "Select an Election"
+
+/**
+ * Value of selectedConstituencies when no constituencies is Available
+ */
+export const NO_CONSTITUENCIES = "No Constituencies"
+
+/**
+ * Live Election
+ */
+export const LIVE_ELECTION = "Live"
+
+/**
+ * Live Election Year
+ */
+export const LIVE_ELECTION_YEAR = "2021"
+
+/**
+ * Live Election Type
+ */
+export const LIVE_ELECTION_TYPE = "assembly"
+
+/**
+ * Live Election States/UTs
+ */
+export const LIVE_ELECTION_STATEUT = ["Bihar"]
+
+/**
+ * Upcoming Election Type
+ */
+export const UPCOMING_ELECTION_TYPE = "assembly"
+
+/**
+ * Upcoming Election Year
+ */
+export const UPCOMING_ELECTION_YEAR = "2017"
+
+/**
+ * Upcoming Election
+ */
+export const UPCOMING_ELECTION = "Upcoming"
+
+/**
+ * Upcoming Elections
+ */
+const UPCOMING_ELECTIONS_STATEUT = [
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "Goa",
+  "Punjab",
+  "Manipur"
+]
+
+/**
+ * Public GEOJSON URL
+ */
+export const GEOJSON_PATH = "/data/geojson"
+
+/**
+ * Candidate data of a party when no data is available
+ */
+export const NA_PARTY_DATA = {
+  candidate: "N/A",
+  party: "N/A",
+  color: "#dddddd",
+  votesReceived: 0
+}
+
+/**
+ * Candidate data of a alliance when no data is available
+ */
+export const NA_ALLIANCE_DATA = {
+  candidate: "N/A",
+  alliance: "N/A",
+  color: "#dddddd",
+  votesReceived: 0
+}
+
+/**
+ * Public CSV URL
+ */
+export const CSV_PATH = "/data/csv"
+
+/**
+ * Custom Alliance Text
+ */
+export const CUSTOM_ALLIANCE_TEXT =
+  "After customizing alliances, clicking on the Alliance tab in the main page will display Alliance results."
+
+/**
+ * Swings Text
+ */
+export const SWINGS_TEXT =
+  "Adjust vote shares percentages by assigning swings. Total of all swings should be zero."
+
+/**
+ * Election details: their type, year and state/UTs that had the election
+ */
+export const ELECTION_YEAR_STATEUT = {
+  general: {
+    2019: [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu & Kashmir",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Tripura",
+      "Uttar Pradesh",
+      "West Bengal",
+      "Chhattisgarh",
+      "Jharkhand",
+      "Uttarakhand",
+      "Telangana",
+      "Andaman & Nicobar Islands",
+      "Chandigarh",
+      "Dadra & Nagar Haveli",
+      "Daman & Diu",
+      "NCT of Delhi",
+      "Lakshadweep",
+      "Puducherry"
+    ],
+    2014: [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu & Kashmir",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Tripura",
+      "Uttar Pradesh",
+      "West Bengal",
+      "Chhattisgarh",
+      "Jharkhand",
+      "Uttarakhand",
+      "Andaman & Nicobar Islands",
+      "Chandigarh",
+      "Dadra & Nagar Haveli",
+      "Daman & Diu",
+      "NCT of Delhi",
+      "Lakshadweep",
+      "Puducherry"
+    ]
+  },
+  assembly: {
+    2015: ["Bihar"],
+    2016: ["Assam", "Kerala", "Tamil Nadu", "West Bengal", "Puducherry"],
+    2017: [
+      "Uttar Pradesh",
+      "Manipur",
+      "Himachal Pradesh",
+      "Goa",
+      "Uttarakhand",
+      // "Gujarat",
+      "Punjab",
+    ],
+    2018:[
+      "Tripura",
+      "Meghalaya",
+      "Nagaland",
+      "Karnataka",
+      "Chhattisgarh",
+      "Madhya Pradesh",
+      "Mizoram",
+      "Rajasthan",
+      "Telangana",
+    ],
+    2019: ["Jharkhand"],
+    2020: ["Bihar", "Delhi"],
+    2021: ["West Bengal", "Assam", "Puducherry"],
+    Upcoming: UPCOMING_ELECTIONS_STATEUT,
+    Live: LIVE_ELECTION_STATEUT
+  }
+}
+
+/**
+ * Distinct colors for states
+ */
+export const STATE_COLORS = [
+  "#A0A0A0",
+  "#195F75",
+  "#4E874E",
+  "#E5993E",
+  "#8A553F",
+  "#9556AF",
+  "#C53F3E",
+  "#1582A5",
+  "#60C361",
+  "#B0A433",
+  "#986B27",
+  "#A54B6C",
+  "#B65857"
+]
+
+/**
+ * List of all States and UTs
+ */
+export const STATE_UT_LIST = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu & Kashmir",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Tripura",
+  "Uttar Pradesh",
+  "West Bengal",
+  "Chhattisgarh",
+  "Jharkhand",
+  "Uttarakhand",
+  "Telangana",
+  "Andaman & Nicobar Islands",
+  "Chandigarh",
+  "Dadra & Nagar Haveli",
+  "Daman & Diu",
+  "NCT of Delhi",
+  "Lakshadweep",
+  "Puducherry"
+]
+
+/**
+ * Time interval for Live Update in Minutes
+ */
+
+export const DELAY_INTERVAL_MINUTES = 3
+
+/**
+ * Default Group type
+ */
+export const DEFAULT_GROUP_TYPE = "party"
+
+/**
+ * Default Selection for Region
+ */
+export const REGION_DEFAULT_SELECT = "All Regions"
+
+/**
+ * Default Selection for States/UTs
+ */
+export const ALL_STATE_UT = "All States & UTs"
+
+/**
+ * Default Selection for Constituencies
+ */
+export const ALL_CONSTITUENCIES = "All Constituencies"
+
+/**
+ * Default Selection for Seats Types
+ */
+export const SEAT_DEFAULT_SELECT = "All Seats"
+
+/**
+ * Options for Seat Type
+ */
+export const SEAT_TYPE_OPTIONS = ["All Seats", "Reserved", "Unreserved"]
+
+/**
+ * Geojson Default State Fill Color
+ */
+export const DEFAULT_STATE_FILL_COLOR = [255, 255, 255, 0]
+
+/**
+ * Geojson Default State Line Color
+ */
+export const DEFAULT_STATE_LINE_COLOR = [60, 60, 60, 255]
+
+/**
+ * Geojson District Fill Color
+ */
+export const DEFAULT_DISTRICT_FILL_COLOR = [255, 255, 255, 125]
+
+/**
+ * Geojson District line Color for General Elections
+ */
+export const DEFAULT_DISTRICT_LINE_COLOR_GENERAL = [255, 255, 255, 255]
+
+/**
+ * Geojson District line Color for Assembly Elections
+ */
+export const DEFAULT_DISTRICT_LINE_COLOR_ASSEMBLY = [0, 0, 0, 255]
+
+/**
+ * Geojson Transparent Color
+ */
+export const TRANSPARENT_COLOR = [255, 255, 255, 0]
+
+/**
+ * Geojson Transparent color when no data is available
+ */
+export const MAP_TRANSPARENT_NA_COLOR = {
+  red: 255,
+  green: 255,
+  blue: 255,
+  alpha: 0
+}
+
+/**
+ * Default Party or Alliance Color
+ */
+export const DEFAULT_PARTY_ALLIANCE_COLOR = "#606060"
+
+/**
  * Default Prediction Mode
  */
 export const DEFAULT_PREDICTION_MODE = "off"
