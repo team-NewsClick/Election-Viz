@@ -308,7 +308,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (compareElection) {
       if (
-        compareElection.year === compareOptions[0].value.year &&
+        compareElection.year === (compareOptions[0].value.year && UPCOMING_ELECTION) &&
         selectedYearData.length == 0
       ) {
         setCompareYearData([])
@@ -524,9 +524,10 @@ const Dashboard = () => {
     const electionType = selectedElection.type
     const year = selectedElection.year
     if (partiesSwing.length !== 0) {
+      let electionURL = getElectionURL(electionViewType, electionType, year)
       if (year !== LIVE_ELECTION) {
         axios
-          .get(`${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`)
+          .get(electionURL)
           .then((response) => {
             const parsedData = csvParse(response.data)
             if (selectedStateUT === ALL_STATE_UT) {
@@ -545,7 +546,7 @@ const Dashboard = () => {
           .catch((e) => setSelectedYearData([]))
       } else {
         axios
-          .get(`${process.env.LIVE_ELECTION}`)
+          .get(electionURL)
           .then((response) => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)

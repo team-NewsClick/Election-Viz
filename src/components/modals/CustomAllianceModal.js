@@ -212,10 +212,11 @@ const CustomAllianceModal = ({
     selectedStateUT !== SELECT_STATE_UT
   ) {
     if (selectedStateUT === ALL_STATE_UT || rows.length === 0) {
+      const electionType = selectedElection.type
+      const year = selectedElection.year
+      let electionURL = getElectionURL(electionViewType, electionType, year)
       axios
-        .get(
-          `${CSV_PATH}/${electionViewType}/${selectedElection.type}_${selectedElection.year}.csv`
-        )
+        .get(electionURL)
         .then((response) => {
           const parsedData = csvParse(response.data)
           if (defaultPartyAlliance.length !== 0) {
