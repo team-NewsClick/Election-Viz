@@ -303,6 +303,10 @@ const Dashboard = () => {
           .catch((e) => setSelectedYearData([]))
       }
     }
+    if(selectedYearData.length === 0 && selectedElection.year === LIVE_ELECTION) {
+      setRegionStatsLoading(false)
+      setMapWidgetLoading(false)
+    }
   }, [compareOptions, selectedElection])
 
   useEffect(() => {

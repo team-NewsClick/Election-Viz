@@ -122,8 +122,8 @@ export const getElectionOptions = (
       if (ELECTION === electionViewType) {
         for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
           if (YEAR === LIVE_ELECTION) {
-            let tempValue = LIVE_ELECTION
-            let tempLabel = LIVE_ELECTION
+            let tempValue = {type: ELECTION, year: LIVE_ELECTION}
+            let tempLabel = "General " + LIVE_ELECTION
             electionOptions.push({
               value: tempValue,
               label: tempLabel
@@ -165,7 +165,14 @@ export const getElectionOptions = (
     } else {
       for (const ELECTION in ELECTION_YEAR_STATEUT) {
         for (const YEAR in ELECTION_YEAR_STATEUT[ELECTION]) {
-          if (YEAR !== LIVE_ELECTION) {
+          if (YEAR === LIVE_ELECTION) {
+            let tempValue = {type: ELECTION, year: LIVE_ELECTION}
+            let tempLabel = "Assembly " + LIVE_ELECTION
+            electionOptions.push({
+              value: tempValue,
+              label: tempLabel
+            })
+          } else {
             let tempValue = { type: ELECTION, year: YEAR }
             let tempLabel = ELECTION + " Election " + YEAR
             tempLabel = tempLabel.charAt(0).toUpperCase() + tempLabel.slice(1)
