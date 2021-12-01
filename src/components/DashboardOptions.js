@@ -1,4 +1,8 @@
-import { ALL_STATE_UT, DEFAULT_PREDICTION_MODE, SEAT_TYPE_OPTIONS, SELECT_STATE_UT } from "../constants"
+import {
+  ALL_STATE_UT,
+  SEAT_TYPE_OPTIONS,
+  SELECT_STATE_UT
+} from "../constants"
 import { CustomAllianceModal, SwingsModal } from "./modals/index"
 
 /**
@@ -187,7 +191,7 @@ const DashboardOptions = ({
           <div>
             <img
               id="showHideAdvance-btn-icon"
-              src="../img/down-arrow.svg"
+              src={`/img/down-arrow.svg`}
               alt="Show Advance Options"
               className="w-3 h-3 md:ml-14 m-1.5"
               width="100%"
@@ -212,7 +216,7 @@ const DashboardOptions = ({
           >
             <img
               id="showHideAdvance-btn-icon"
-              src="../img/close-btn.svg"
+              src={`/img/close-btn.svg`}
               alt="Close Advance Options"
               className="w-4 h-4"
               width="100%"
@@ -222,38 +226,43 @@ const DashboardOptions = ({
         </div>
         <div className="mx-auto max-w-4xl justify-center">
           <div>
-            {selectedStateUT !== SELECT_STATE_UT && selectedStateUT !== ALL_STATE_UT &&
-              <div className="flex flex-wrap mx-auto justify-around md:justify-center">
-              <div className="flex flex-wrap">
-                <div className="inline-block align-text-bottom my-auto text-right">
-                  Prediction Mode:&nbsp;
-                </div>
-                <div className="flex flex-wrap justify-center mx-auto">
-                  <div className="radio-toolbar md:mx-2 my-2">
-                    <input
-                      type="radio"
-                      id="prediction-on"
-                      name="prediction"
-                      value="on"
-                      checked={predictionMode === "on" ? true : false}
-                      onChange={(e) => updatePredictionMode(e.currentTarget.value)}
-                      />
-                    <label htmlFor="prediction-on">On</label>
-                    <input
-                      type="radio"
-                      id="prediction-off"
-                      name="prediction"
-                      value="off"
-                      defaultChecked
-                      checked = {predictionMode === "off" ? true : false}
-                      onChange={(e) => updatePredictionMode(e.currentTarget.value)}
-                      />
-                    <label htmlFor="prediction-off">Off</label>
+            {selectedStateUT !== SELECT_STATE_UT &&
+              selectedStateUT !== ALL_STATE_UT && (
+                <div className="flex flex-wrap mx-auto justify-around md:justify-center">
+                  <div className="flex flex-wrap">
+                    <div className="inline-block align-text-bottom my-auto text-right">
+                      Prediction Mode:&nbsp;
+                    </div>
+                    <div className="flex flex-wrap justify-center mx-auto">
+                      <div className="radio-toolbar md:mx-2 my-2">
+                        <input
+                          type="radio"
+                          id="prediction-on"
+                          name="prediction"
+                          value="on"
+                          checked={predictionMode === "on" ? true : false}
+                          onChange={(e) =>
+                            updatePredictionMode(e.currentTarget.value)
+                          }
+                        />
+                        <label htmlFor="prediction-on">On</label>
+                        <input
+                          type="radio"
+                          id="prediction-off"
+                          name="prediction"
+                          value="off"
+                          defaultChecked
+                          checked={predictionMode === "off" ? true : false}
+                          onChange={(e) =>
+                            updatePredictionMode(e.currentTarget.value)
+                          }
+                        />
+                        <label htmlFor="prediction-off">Off</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            }           
+              )}
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">
               {electionViewType === "assembly" && (
                 <div>
@@ -297,14 +306,14 @@ const DashboardOptions = ({
                   >
                     Customise Alliances
                   </div>
-                  {predictionMode === "on" &&
+                  {predictionMode === "on" && (
                     <div
                       onClick={openSwingModal}
                       className="max-w-sm justify-center flex cursor-pointer w-40 md:w-64 bg-gray-800 text-white rounded border border-gray-500 h-7 m-2 text-sm items-center"
                     >
                       Add Swings
                     </div>
-                  }
+                  )}
                 </div>
               )}
             <div className="flex flex-wrap mx-auto justify-around md:justify-center">

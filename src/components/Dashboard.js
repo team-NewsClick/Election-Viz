@@ -721,7 +721,7 @@ const Dashboard = () => {
           style={getMapHomeIconStyle(windowWidth)}
         >
           <img
-            src="img/home-icon.svg"
+            src={`/img/home-icon.svg`}
             alt="inital config"
             width="100%"
             height="100%"

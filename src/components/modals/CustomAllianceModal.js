@@ -267,7 +267,7 @@ const CustomAllianceModal = ({
           >
             <img
               id="openCustomAllianceModal-btn-icon"
-              src="../img/close-btn.svg"
+              src={`/img/close-btn.svg`}
               alt="Close custom alliance modal box"
               className="w-4 h-4"
             />

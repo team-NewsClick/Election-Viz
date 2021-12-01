@@ -407,7 +407,7 @@ const MapWidget = ({
               style={{ placeItems: "baseline" }}
             >
               <img
-                src="img/newsclick-copyright.jpg"
+                src={`/img/newsclick-copyright.jpg`}
                 alt="copyright newsclick dot in"
                 className="m-1"
                 width="35%"

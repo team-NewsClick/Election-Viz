@@ -170,7 +170,7 @@ const SwingsModal = ({
           <div className="flex justify-end cursor-pointer" onClick={_update}>
             <img
               id="openSwingModal-btn-icon"
-              src="../img/close-btn.svg"
+              src={`/img/close-btn.svg`}
               alt="Close swings modal box"
               className="w-4 h-4"
             />
