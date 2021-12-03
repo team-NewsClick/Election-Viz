@@ -267,26 +267,14 @@ const Dashboard = () => {
       const electionType = selectedElection.type
       const year = selectedElection.year
       if (electionViewType === "assembly") {
-        const filteredCompareOptions = electionOptions.filter(
-          (a) => a.value.type === "assembly"
-        )
-        if (selectedElection.type === "assembly") {
-          filteredCompareOptions.length > 1
-            ? setCompareElection(filteredCompareOptions[1].value)
-            : setCompareElection(compareOptions[0].value)
-        } else {
+        const filteredCompareOptions = compareOptions.filter((a) => a.value.type === "assembly")
           filteredCompareOptions.length > 0
             ? setCompareElection(filteredCompareOptions[0].value)
             : setCompareElection(compareOptions[0].value)
-        }
       } else {
-        const filteredCompareOptions = electionOptions.filter(
-          (a) => a.value.type === "general"
-        )
-        filteredCompareOptions.length > 1
-          ? filteredCompareOptions[1].value.year == selectedElection.year
-            ? setCompareElection(compareOptions[0].value)
-            : setCompareElection(filteredCompareOptions[1].value)
+        const filteredCompareOptions = compareOptions.filter((a) => a.value.type === "general")
+        filteredCompareOptions.length > 0
+          ? setCompareElection(filteredCompareOptions[0].value)
           : setCompareElection(compareOptions[0].value)
       }
       if (selectedElection === SELECT_ELECTION) {
@@ -538,7 +526,7 @@ const Dashboard = () => {
               setSelectedYearData(parsedData)
             } else {
               const temp = calculateSwings(
-                parsedData,+
+                parsedData,
                 selectedStateUT,
                 filteredGeoJSON,
                 partiesSwing,
