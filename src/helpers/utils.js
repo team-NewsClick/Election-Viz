@@ -461,3 +461,17 @@ return windowWidth < 800
       boxShadow: "0 0 0 2px rgb(0 0 0 / 10%)"
     }
 }
+
+/**
+ * To handle axios error msg
+ * @param {Object} err Error passed from catch function of axios
+ */
+export const handleAxiosError = (err) => {
+  if(err.response) {
+    console.error({"Response error": err.response})
+  } else if(err.request) {
+    console.error({"Request error": err.request})
+  } else if(err.request) {
+    console.error({"Request error": err.request})
+  }
+}

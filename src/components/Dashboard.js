@@ -39,7 +39,8 @@ import {
   getElectionOptions,
   getCompareOptions,
   getElectionURL,
-  getMapHomeIconStyle
+  getMapHomeIconStyle,
+  handleAxiosError
 } from "../helpers/utils"
 
 /**
@@ -254,7 +255,10 @@ const Dashboard = () => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)
           })
-          .catch((e) => setSelectedYearData([]))
+          .catch((e) => {
+            handleAxiosError(e)
+            setSelectedYearData([])
+          })
       }, 1000 * 60 * DELAY_INTERVAL_MINUTES)
       return () => clearInterval(interval)
     }
@@ -300,7 +304,10 @@ const Dashboard = () => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)
           })
-          .catch((e) => setSelectedYearData([]))
+          .catch((e) => {
+            handleAxiosError(e)
+            setSelectedYearData([])
+          })
       }
     }
     if(selectedYearData.length === 0 && selectedElection.year === LIVE_ELECTION) {
@@ -547,7 +554,10 @@ const Dashboard = () => {
               setSelectedYearData([...temp])
             }
           })
-          .catch((e) => setSelectedYearData([]))
+          .catch((e) => {
+            handleAxiosError(e)
+            setSelectedYearData([])
+          })
       } else {
         axios
           .get(electionURL)
@@ -555,7 +565,10 @@ const Dashboard = () => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)
           })
-          .catch((e) => setSelectedYearData([]))
+          .catch((e) => {
+            handleAxiosError(e)
+            setSelectedYearData([])
+          })
       }
     }
   }, [partiesSwing, filteredGeoJSON])

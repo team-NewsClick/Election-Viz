@@ -17,7 +17,7 @@ import {
   ALL_STATE_UT,
   CUSTOM_ALLIANCE_TEXT
 } from "../../constants"
-import { getElectionURL } from "../../helpers/utils"
+import { getElectionURL, handleAxiosError } from "../../helpers/utils"
 
 /**
  * A modal box with customizable alliances
@@ -57,7 +57,10 @@ const CustomAllianceModal = ({
           const parsedData = csvParse(response.data)
           setYearData(parsedData)
         })
-        .catch((e) => setYearData([]))
+        .catch((e) => {
+          handleAxiosError(e)
+          setYearData([])
+        })
       axios.get(`${CSV_PATH}/party_alliance.csv`).then((response) => {
         const parsedData = csvParse(response.data)
         setDefaultPartyAlliance(parsedData)
