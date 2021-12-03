@@ -39,8 +39,7 @@ import {
   getElectionOptions,
   getCompareOptions,
   getElectionURL,
-  getMapHomeIconStyle,
-  handleAxiosError
+  getMapHomeIconStyle
 } from "../helpers/utils"
 
 /**
@@ -255,10 +254,7 @@ const Dashboard = () => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)
           })
-          .catch((e) => {
-            handleAxiosError(e)
-            setSelectedYearData([])
-          })
+          .catch((e) => setSelectedYearData([]))
       }, 1000 * 60 * DELAY_INTERVAL_MINUTES)
       return () => clearInterval(interval)
     }
@@ -304,10 +300,7 @@ const Dashboard = () => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)
           })
-          .catch((e) => {
-            handleAxiosError(e)
-            setSelectedYearData([])
-          })
+          .catch((e) => setSelectedYearData([]))
       }
     }
     if(selectedYearData.length === 0 && selectedElection.year === LIVE_ELECTION) {
@@ -545,7 +538,7 @@ const Dashboard = () => {
               setSelectedYearData(parsedData)
             } else {
               const temp = calculateSwings(
-                parsedData,
+                parsedData,+
                 selectedStateUT,
                 filteredGeoJSON,
                 partiesSwing,
@@ -554,10 +547,7 @@ const Dashboard = () => {
               setSelectedYearData([...temp])
             }
           })
-          .catch((e) => {
-            handleAxiosError(e)
-            setSelectedYearData([])
-          })
+          .catch((e) => setSelectedYearData([]))
       } else {
         axios
           .get(electionURL)
@@ -565,10 +555,7 @@ const Dashboard = () => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)
           })
-          .catch((e) => {
-            handleAxiosError(e)
-            setSelectedYearData([])
-          })
+          .catch((e) => setSelectedYearData([]))
       }
     }
   }, [partiesSwing, filteredGeoJSON])
