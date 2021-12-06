@@ -267,26 +267,14 @@ const Dashboard = () => {
       const electionType = selectedElection.type
       const year = selectedElection.year
       if (electionViewType === "assembly") {
-        const filteredCompareOptions = electionOptions.filter(
-          (a) => a.value.type === "assembly"
-        )
-        if (selectedElection.type === "assembly") {
-          filteredCompareOptions.length > 1
-            ? setCompareElection(filteredCompareOptions[1].value)
-            : setCompareElection(compareOptions[0].value)
-        } else {
+        const filteredCompareOptions = compareOptions.filter((a) => a.value.type === "assembly")
           filteredCompareOptions.length > 0
             ? setCompareElection(filteredCompareOptions[0].value)
             : setCompareElection(compareOptions[0].value)
-        }
       } else {
-        const filteredCompareOptions = electionOptions.filter(
-          (a) => a.value.type === "general"
-        )
-        filteredCompareOptions.length > 1
-          ? filteredCompareOptions[1].value.year == selectedElection.year
-            ? setCompareElection(compareOptions[0].value)
-            : setCompareElection(filteredCompareOptions[1].value)
+        const filteredCompareOptions = compareOptions.filter((a) => a.value.type === "general")
+        filteredCompareOptions.length > 0
+          ? setCompareElection(filteredCompareOptions[0].value)
           : setCompareElection(compareOptions[0].value)
       }
       if (selectedElection === SELECT_ELECTION) {
@@ -303,12 +291,16 @@ const Dashboard = () => {
           .catch((e) => setSelectedYearData([]))
       }
     }
+    if(selectedYearData.length === 0 && selectedElection.year === LIVE_ELECTION) {
+      setRegionStatsLoading(false)
+      setMapWidgetLoading(false)
+    }
   }, [compareOptions, selectedElection])
 
   useEffect(() => {
     if (compareElection) {
       if (
-        compareElection.year === compareOptions[0].value.year &&
+        compareElection.year === (compareOptions[0].value.year && UPCOMING_ELECTION) &&
         selectedYearData.length == 0
       ) {
         setCompareYearData([])
@@ -524,9 +516,10 @@ const Dashboard = () => {
     const electionType = selectedElection.type
     const year = selectedElection.year
     if (partiesSwing.length !== 0) {
+      let electionURL = getElectionURL(electionViewType, electionType, year)
       if (year !== LIVE_ELECTION) {
         axios
-          .get(`${CSV_PATH}/${electionViewType}/${electionType}_${year}.csv`)
+          .get(electionURL)
           .then((response) => {
             const parsedData = csvParse(response.data)
             if (selectedStateUT === ALL_STATE_UT) {
@@ -545,7 +538,7 @@ const Dashboard = () => {
           .catch((e) => setSelectedYearData([]))
       } else {
         axios
-          .get(`${process.env.LIVE_ELECTION}`)
+          .get(electionURL)
           .then((response) => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)

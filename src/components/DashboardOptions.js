@@ -251,7 +251,6 @@ const DashboardOptions = ({
                           id="prediction-off"
                           name="prediction"
                           value="off"
-                          defaultChecked
                           checked={predictionMode === "off" ? true : false}
                           onChange={(e) =>
                             updatePredictionMode(e.currentTarget.value)
