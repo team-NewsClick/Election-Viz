@@ -234,8 +234,8 @@ export const ELECTION_YEAR_STATEUT = {
     2019: ["Jharkhand"],
     2020: ["Bihar", "Delhi"],
     2021: ["West Bengal", "Assam", "Puducherry"],
-    Live: LIVE_ELECTIONS_STATEUT,
-    // Live: LIVE_ELECTION_STATEUT
+    // Upcoming : UPCOMING_ELECTIONS_STATEUT,
+    Live: LIVE_ELECTION_STATEUT
   }
 }
 
