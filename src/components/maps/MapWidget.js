@@ -156,8 +156,7 @@ const MapWidget = ({
       if (
         selectedStateUT === SELECT_STATE_UT &&
         (selectedElection === SELECT_ELECTION ||
-          selectedElection.type === "general" ||
-          selectedElection.year === LIVE_ELECTION)
+          selectedElection.type === "general")
       ) {
         tempLayers = [
           new GeoJsonLayer({
