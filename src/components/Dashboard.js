@@ -249,7 +249,7 @@ const Dashboard = () => {
     if (selectedElection === LIVE_ELECTION) {
       const interval = setInterval(() => {
         axios
-          .get(`${process.env.LIVE_ELECTION}`)
+          .get(`${process.env.LIVE_ELECTION_URL}`)
           .then((response) => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)
