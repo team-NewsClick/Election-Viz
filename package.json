@@ -9,6 +9,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "autoprefixer": "^10.2.4",
     "axios": "^0.21.1",
     "d3-dsv": "^2.0.0",
     "deck.gl": "^8.4.9",
@@ -17,8 +18,10 @@
     "next": "10.0.6",
     "next-on-netlify": "^2.8.6",
     "parliament-svg": "^2.1.4",
+    "postcss": "^8.2.4",
     "react": "17.0.1",
     "react-beautiful-dnd": "^13.1.0",
+    "react-dom": "17.0.1",
     "react-map-gl": "^6.1.10",
     "tailwindcss": "^2.0.2",
     "virtual-dom-stringify": "^3.0.1"
