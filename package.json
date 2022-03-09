@@ -23,7 +23,6 @@
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "17.0.1",
     "react-map-gl": "^6.1.10",
-    "react-vis": "^1.11.7",
     "tailwindcss": "^2.0.2",
     "virtual-dom-stringify": "^3.0.1"
   },
