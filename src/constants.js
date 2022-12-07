@@ -11,7 +11,7 @@ export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
 /**
  * Default selected election
  */
-export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "Upcoming" }
+export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "Live" }
 
 /**
  * Option when no particular State/UT is selected
@@ -229,8 +229,8 @@ export const ELECTION_YEAR_STATEUT = {
     2020: ["Bihar", "NCT of Delhi"],
     2021: ["Assam", "Kerala", "Puducherry", "Tamil Nadu", "West Bengal"],
     2022: ["Goa", "Manipur", "Punjab", "Uttar Pradesh", "Uttarakhand"],
-    Upcoming : UPCOMING_ELECTIONS_STATEUT
-    // Live: LIVE_ELECTION_STATEUT
+    // Upcoming : UPCOMING_ELECTIONS_STATEUT
+    Live: LIVE_ELECTION_STATEUT
   }
 }
 
