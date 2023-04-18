@@ -11,7 +11,7 @@ export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
 /**
  * Default selected election
  */
-export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "Live" }
+export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "Upcoming" }
 
 /**
  * Option when no particular State/UT is selected
@@ -52,9 +52,7 @@ export const LIVE_ELECTION_TYPE = "assembly"
  * Live Election States/UTs
  */
 export const LIVE_ELECTION_STATEUT = [
-  "Meghalaya",
-  "Nagaland",
-  "Tripura"
+	"Karnataka"
 ]
 
 /**
@@ -76,9 +74,7 @@ export const UPCOMING_ELECTION = "Upcoming"
  * Upcoming Elections
  */
 const UPCOMING_ELECTIONS_STATEUT = [
-  "Meghalaya",
-  "Nagaland",
-  "Tripura"
+	"Karnataka"
 ]
 
 /**
@@ -231,8 +227,9 @@ export const ELECTION_YEAR_STATEUT = {
     2020: ["Bihar", "NCT of Delhi"],
     2021: ["Assam", "Kerala", "Puducherry", "Tamil Nadu", "West Bengal"],
     2022: ["Goa", "Gujarat", "Himachal Pradesh", "Manipur", "Punjab", "Uttar Pradesh", "Uttarakhand"],
-    // Upcoming : UPCOMING_ELECTIONS_STATEUT
-    Live: LIVE_ELECTION_STATEUT
+    2023: ["Meghalaya", "Nagaland", "Tripura"],
+    Upcoming : UPCOMING_ELECTIONS_STATEUT
+    // Live: LIVE_ELECTION_STATEUT
   }
 }
 

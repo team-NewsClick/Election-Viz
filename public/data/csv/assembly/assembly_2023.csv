@@ -1,0 +1,991 @@
+ST_CODE,ST_NAME,AC_NO,AC_NAME,CANDIDATE,CANDIDATE_SEX,CANDIDATE_CATEGORY,CANDIDATE_AGE,PARTY,VOTES
+S23,Tripura,1,Simna (ST),Brishaketu Debbarma,MALE,43.0,ST,TMP,22757
+S23,Tripura,1,Simna (ST),Kumodh Debbarma,MALE,34.0,ST,CPM,5811
+S23,Tripura,1,Simna (ST),Binod Debbarma,MALE,29.0,ST,BJP,5663
+S23,Tripura,1,Simna (ST),Nota,NOTA,NOTA,NOTA,NOTA,422
+S23,Tripura,1,Simna (ST),Jiten Debbarma,MALE,36.0,ST,IND,418
+S23,Tripura,2,Mohanpur,Ratan Lal Nath,MALE,72.0,GENERAL,BJP,19663
+S23,Tripura,2,Mohanpur,Tapas Dey,MALE,78.0,GENERAL,TMP,12278
+S23,Tripura,2,Mohanpur,Prasanta Sen Chowdhury,MALE,64.0,GENERAL,INC,10588
+S23,Tripura,2,Mohanpur,Joy Kumar Deb,MALE,70.0,GENERAL,IND,483
+S23,Tripura,2,Mohanpur,Nota,NOTA,NOTA,NOTA,NOTA,352
+S23,Tripura,3,Bamutia (SC),Nayan Sarkar,MALE,32.0,SC,CPM,20119
+S23,Tripura,3,Bamutia (SC),Krishnadhan Das,MALE,47.0,SC,BJP,18093
+S23,Tripura,3,Bamutia (SC),Nitai Sarkar,MALE,38.0,SC,TMP,3478
+S23,Tripura,3,Bamutia (SC),Nihar Ranjan Sarkar,MALE,55.0,SC,AITC,635
+S23,Tripura,3,Bamutia (SC),Nota,NOTA,NOTA,NOTA,NOTA,473
+S23,Tripura,3,Bamutia (SC),Biplab Das,MALE,37.0,SC,IND,402
+S23,Tripura,3,Bamutia (SC),Babul Bairagi,MALE,62.0,SC,IND,165
+S23,Tripura,4,Barjala (SC),Sudip Sarkar,MALE,49.0,SC,CPM,21486
+S23,Tripura,4,Barjala (SC),Dr. Dilip Kumar Das,MALE,70.0,SC,BJP,19697
+S23,Tripura,4,Barjala (SC),Nota,NOTA,NOTA,NOTA,NOTA,1001
+S23,Tripura,5,Khayerpur,Ratan Chakraborty,MALE,72.0,GENERAL,BJP,22453
+S23,Tripura,5,Khayerpur,Pabitra Kar,MALE,73.0,GENERAL,CPM,18343
+S23,Tripura,5,Khayerpur,Lakshmi Nag (barman),FEMALE,72.0,GENERAL,TMP,5147
+S23,Tripura,5,Khayerpur,Tejen Das,MALE,74.0,GENERAL,AITC,830
+S23,Tripura,5,Khayerpur,Nota,NOTA,NOTA,NOTA,NOTA,520
+S23,Tripura,6,Agartala,Sudip Roy Barman,MALE,59.0,GENERAL,INC,26435
+S23,Tripura,6,Agartala,Papia Dutta,FEMALE,42.0,GENERAL,BJP,18273
+S23,Tripura,6,Agartala,Nota,NOTA,NOTA,NOTA,NOTA,562
+S23,Tripura,6,Agartala,Goutam Deb,MALE,36.0,GENERAL,IND,255
+S23,Tripura,6,Agartala,Malin Debbarma,MALE,63.0,ST,IND,241
+S23,Tripura,6,Agartala,Arnab Roy,MALE,44.0,GENERAL,RPI(A),220
+S23,Tripura,6,Agartala,Mangal Mia,MALE,38.0,GENERAL,IND,106
+S23,Tripura,7,Ramnagar,Surajit Datta,MALE,71.0,GENERAL,BJP,17455
+S23,Tripura,7,Ramnagar,Purushuttam Roy Barman,MALE,62.0,GENERAL,IND,16558
+S23,Tripura,7,Ramnagar,Pujan Biswas,MALE,37.0,GENERAL,AITC,2079
+S23,Tripura,7,Ramnagar,Dulal Ghosh,MALE,55.0,GENERAL,IND,1005
+S23,Tripura,7,Ramnagar,Nota,NOTA,NOTA,NOTA,NOTA,685
+S23,Tripura,8,Town Bardowali,Manik Saha,MALE,70.0,GENERAL,BJP,19586
+S23,Tripura,8,Town Bardowali,Asish Kumar Saha,MALE,64.0,GENERAL,INC,18329
+S23,Tripura,8,Town Bardowali,Ananta Banerjee,MALE,72.0,GENERAL,AITC,639
+S23,Tripura,8,Town Bardowali,Nota,NOTA,NOTA,NOTA,NOTA,351
+S23,Tripura,8,Town Bardowali,Ramkrishna Debnath,MALE,53.0,GENERAL,IND,198
+S23,Tripura,8,Town Bardowali,Arnab Roy,MALE,44.0,GENERAL,RPI(A),130
+S23,Tripura,8,Town Bardowali,Shibani Bhowmik,FEMALE,63.0,SC,IND,117
+S23,Tripura,9,Banamalipur,Gopal Chandra Roy,MALE,72.0,GENERAL,INC,17128
+S23,Tripura,9,Banamalipur,Rajib Bhattacharjee,MALE,51.0,GENERAL,BJP,15759
+S23,Tripura,9,Banamalipur,Santanu Saha,MALE,29.0,GENERAL,AITC,732
+S23,Tripura,9,Banamalipur,Nota,NOTA,NOTA,NOTA,NOTA,479
+S23,Tripura,9,Banamalipur,Sujata Datta,FEMALE,63.0,GENERAL,IND,288
+S23,Tripura,9,Banamalipur,Brajalal Debnath,MALE,76.0,GENERAL,IND,162
+S23,Tripura,10,Majlishpur,Sushanta Chowdhury,MALE,43.0,GENERAL,BJP,21349
+S23,Tripura,10,Majlishpur,Sanjoy Das,MALE,46.0,SC,CPM,16177
+S23,Tripura,10,Majlishpur,Samir Basu,MALE,49.0,GENERAL,TMP,6996
+S23,Tripura,10,Majlishpur,Nirmal Majumder,MALE,58.0,GENERAL,AITC,608
+S23,Tripura,10,Majlishpur,Nota,NOTA,NOTA,NOTA,NOTA,492
+S23,Tripura,11,Mandaibazar (ST),Swapna Debbarma,FEMALE,49.0,ST,TMP,28726
+S23,Tripura,11,Mandaibazar (ST),Radhacharan Debbarma,MALE,60.0,ST,CPM,7077
+S23,Tripura,11,Mandaibazar (ST),Tarit Debbarma,MALE,51.0,ST,BJP,6603
+S23,Tripura,11,Mandaibazar (ST),Nota,NOTA,NOTA,NOTA,NOTA,444
+S23,Tripura,11,Mandaibazar (ST),Hiramuni Debbarma,MALE,41.0,ST,IND,443
+S23,Tripura,12,Takarjala (ST),Biswajit Kalai,MALE,41.0,ST,TMP,34717
+S23,Tripura,12,Takarjala (ST),Bidhan Debbarma,MALE,52.0,ST,IPFT,2262
+S23,Tripura,12,Takarjala (ST),Shyamal Debbarma,MALE,37.0,ST,CPM,1796
+S23,Tripura,12,Takarjala (ST),Nota,NOTA,NOTA,NOTA,NOTA,676
+S23,Tripura,12,Takarjala (ST),Ananta Debbarma,MALE,56.0,ST,RPPRINAT,542
+S23,Tripura,13,Pratapgarh (SC),Ramu Das,MALE,42.0,SC,CPM,26422
+S23,Tripura,13,Pratapgarh (SC),Rebati Mohan Das,MALE,72.0,SC,BJP,24336
+S23,Tripura,13,Pratapgarh (SC),Kuheli Das,FEMALE,44.0,SC,AITC,1181
+S23,Tripura,13,Pratapgarh (SC),Ashok Kumar Das,MALE,69.0,SC,IND,761
+S23,Tripura,13,Pratapgarh (SC),Nota,NOTA,NOTA,NOTA,NOTA,555
+S23,Tripura,14,Badharghat (SC),Mina Rani Sarkar,FEMALE,58.0,SC,BJP,27427
+S23,Tripura,14,Badharghat (SC),Partha Ranjan Sarkar,MALE,54.0,SC,AIFB,26138
+S23,Tripura,14,Badharghat (SC),Sushil Chandra Das,MALE,34.0,SC,IND,1036
+S23,Tripura,14,Badharghat (SC),Mridul Kanti Sarkar,MALE,44.0,SC,IND,723
+S23,Tripura,14,Badharghat (SC),Nota,NOTA,NOTA,NOTA,NOTA,720
+S23,Tripura,15,Kamalasagar,Antara Sarkar Deb,FEMALE,53.0,GENERAL,BJP,19052
+S23,Tripura,15,Kamalasagar,Hiranmay Narayan Debnath,MALE,37.0,GENERAL,CPM,17308
+S23,Tripura,15,Kamalasagar,Ashis Das,MALE,44.0,SC,TMP,2311
+S23,Tripura,15,Kamalasagar,Sutapa Ghosh,FEMALE,48.0,GENERAL,AITC,858
+S23,Tripura,15,Kamalasagar,Nota,NOTA,NOTA,NOTA,NOTA,670
+S23,Tripura,16,Bishalgarh,Sushanta Deb,MALE,33.0,GENERAL,BJP,22314
+S23,Tripura,16,Bishalgarh,Partha Pratim Majumder,MALE,55.0,GENERAL,CPM,20988
+S23,Tripura,16,Bishalgarh,Md. Saha Alam Miah,MALE,40.0,GENERAL,TMP,1606
+S23,Tripura,16,Bishalgarh,Haradhan Deb Nath,MALE,46.0,GENERAL,AITC,599
+S23,Tripura,16,Bishalgarh,Nota,NOTA,NOTA,NOTA,NOTA,478
+S23,Tripura,17,Golaghati (ST),Manab Debbarma,MALE,42.0,ST,TMP,19800
+S23,Tripura,17,Golaghati (ST),Himani Debbarma,FEMALE,50.0,ST,BJP,10602
+S23,Tripura,17,Golaghati (ST),Brinda Rani Debbarma,FEMALE,50.0,ST,CPM,7606
+S23,Tripura,17,Golaghati (ST),Nota,NOTA,NOTA,NOTA,NOTA,524
+S23,Tripura,17,Golaghati (ST),Amit Kumar Debbarma,MALE,29.0,ST,RPPRINAT,449
+S23,Tripura,18,Suryamaninagar,Ram Prasad Paul,MALE,55.0,GENERAL,BJP,24991
+S23,Tripura,18,Suryamaninagar,Susanta Chakraborty,MALE,43.0,GENERAL,INC,23083
+S23,Tripura,18,Suryamaninagar,Mohanta Barman,MALE,68.0,SC,IND,756
+S23,Tripura,18,Suryamaninagar,Nota,NOTA,NOTA,NOTA,NOTA,730
+S23,Tripura,18,Suryamaninagar,Biplab Majumder,MALE,33.0,GENERAL,IND,503
+S23,Tripura,19,Charilam (ST),Subodh Deb Barma,MALE,51.0,ST,TMP,13657
+S23,Tripura,19,Charilam (ST),Jishnu Dev Varma,MALE,64.0,ST,BJP,12799
+S23,Tripura,19,Charilam (ST),Ashok Deb Barma,MALE,72.0,ST,INC,9627
+S23,Tripura,19,Charilam (ST),Nota,NOTA,NOTA,NOTA,NOTA,496
+S23,Tripura,20,Boxanagar,Samsul Haque,MALE,67.0,GENERAL,CPM,19404
+S23,Tripura,20,Boxanagar,Tafajjal Hossain,MALE,49.0,GENERAL,BJP,14555
+S23,Tripura,20,Boxanagar,Abu Khayer Miah,MALE,40.0,GENERAL,TMP,3010
+S23,Tripura,20,Boxanagar,Joydal Hossain,MALE,47.0,GENERAL,AITC,916
+S23,Tripura,20,Boxanagar,Nota,NOTA,NOTA,NOTA,NOTA,342
+S23,Tripura,20,Boxanagar,Safiqul Islam,MALE,57.0,GENERAL,IND,316
+S23,Tripura,21,Nalchar (SC),Kishor Barman,MALE,42.0,SC,BJP,20836
+S23,Tripura,21,Nalchar (SC),Tapan Ch. Das,MALE,56.0,SC,CPM,18452
+S23,Tripura,21,Nalchar (SC),Lutan Das,MALE,38.0,SC,AITC,889
+S23,Tripura,21,Nalchar (SC),Nota,NOTA,NOTA,NOTA,NOTA,725
+S23,Tripura,21,Nalchar (SC),Bimal Das,MALE,63.0,SC,IND,486
+S23,Tripura,21,Nalchar (SC),Sunil Chandra Das,MALE,60.0,SC,IND,324
+S23,Tripura,22,Sonamura,Shyamal Chakraborty,MALE,67.0,GENERAL,CPM,20039
+S23,Tripura,22,Sonamura,Debabrata Bhattacharjee,MALE,43.0,GENERAL,BJP,17624
+S23,Tripura,22,Sonamura,Neel Kamal Saha,MALE,33.0,GENERAL,AITC,1046
+S23,Tripura,22,Sonamura,Nota,NOTA,NOTA,NOTA,NOTA,617
+S23,Tripura,22,Sonamura,Premjit Sinha,MALE,42.0,GENERAL,IND,377
+S23,Tripura,23,Dhanpur,Pratima Bhoumik,FEMALE,53.0,GENERAL,BJP,19148
+S23,Tripura,23,Dhanpur,Kaushik Chanda,MALE,41.0,GENERAL,CPM,15648
+S23,Tripura,23,Dhanpur,Amiya Dayal Noatia,MALE,30.0,ST,TMP,8671
+S23,Tripura,23,Dhanpur,Habil Mia,MALE,54.0,GENERAL,AITC,651
+S23,Tripura,23,Dhanpur,Nota,NOTA,NOTA,NOTA,NOTA,538
+S23,Tripura,23,Dhanpur,Rakesh Sukla Das,MALE,26.0,SC,IND,405
+S23,Tripura,23,Dhanpur,Bappi Debnath,MALE,32.0,GENERAL,IND,258
+S23,Tripura,24,Ramchandraghat (ST),Ranjit Debbarma,MALE,59.0,ST,TMP,23143
+S23,Tripura,24,Ramchandraghat (ST),Ranjit Debbarma,MALE,72.0,ST,CPM,6941
+S23,Tripura,24,Ramchandraghat (ST),Sanjib Debbarma,MALE,54.0,ST,IND,6010
+S23,Tripura,24,Ramchandraghat (ST),Prasanta Debbarma,MALE,47.0,ST,IPFT,932
+S23,Tripura,24,Ramchandraghat (ST),Sahajit Debbarma,MALE,28.0,ST,IND,598
+S23,Tripura,24,Ramchandraghat (ST),Nota,NOTA,NOTA,NOTA,NOTA,394
+S23,Tripura,25,Khowai,Nirmal Biswas,MALE,48.0,GENERAL,CPM,19696
+S23,Tripura,25,Khowai,Subrata Majumdar,MALE,48.0,GENERAL,BJP,18656
+S23,Tripura,25,Khowai,Kishore Roy,MALE,49.0,GENERAL,IND,670
+S23,Tripura,25,Khowai,Nota,NOTA,NOTA,NOTA,NOTA,587
+S23,Tripura,26,Asharambari (ST),Animesh Debbarma,MALE,53.0,ST,TMP,23838
+S23,Tripura,26,Asharambari (ST),Jayanti Deb Barma,FEMALE,42.0,ST,IPFT,5510
+S23,Tripura,26,Asharambari (ST),Dilip Debbarma,MALE,48.0,ST,CPM,4420
+S23,Tripura,26,Asharambari (ST),Archana Urang,FEMALE,35.0,ST,IND,1125
+S23,Tripura,26,Asharambari (ST),Nota,NOTA,NOTA,NOTA,NOTA,490
+S23,Tripura,26,Asharambari (ST),Jappu Debbarma,MALE,35.0,ST,IND,432
+S23,Tripura,27,Kalyanpur-Pramodnagar,Pinaki Das Chowdhury,MALE,46.0,SC,BJP,17903
+S23,Tripura,27,Kalyanpur-Pramodnagar,Manihar Debbarma,FEMALE,52.0,ST,TMP,11290
+S23,Tripura,27,Kalyanpur-Pramodnagar,Manindra Chandra Das,MALE,54.0,SC,CPM,10981
+S23,Tripura,27,Kalyanpur-Pramodnagar,Nagendra Chandra Shil,MALE,59.0,GENERAL,IND,529
+S23,Tripura,27,Kalyanpur-Pramodnagar,Nota,NOTA,NOTA,NOTA,NOTA,372
+S23,Tripura,28,Teliamura,Kalyani Saha Roy,FEMALE,55.0,GENERAL,BJP,16755
+S23,Tripura,28,Teliamura,Ashok Kr. Baidya,MALE,61.0,GENERAL,INC,12603
+S23,Tripura,28,Teliamura,Abhijit Sarkar,MALE,42.0,SC,TMP,8904
+S23,Tripura,28,Teliamura,Narayan Debnath,MALE,41.0,GENERAL,IND,604
+S23,Tripura,28,Teliamura,Rabi Chowdhury,MALE,46.0,SC,AITC,575
+S23,Tripura,28,Teliamura,Nota,NOTA,NOTA,NOTA,NOTA,358
+S23,Tripura,29,Krishnapur (ST),Bikash Debbarma,MALE,54.0,ST,BJP,13800
+S23,Tripura,29,Krishnapur (ST),Mahendra Debbarma,MALE,37.0,ST,TMP,11162
+S23,Tripura,29,Krishnapur (ST),Swasti Debbarma,MALE,54.0,ST,CPM,8679
+S23,Tripura,29,Krishnapur (ST),Nota,NOTA,NOTA,NOTA,NOTA,471
+S23,Tripura,29,Krishnapur (ST),Atul Debbarma,MALE,58.0,ST,IND,413
+S23,Tripura,30,Bagma (ST),Ram Pada Jamatia,MALE,66.0,ST,BJP,19482
+S23,Tripura,30,Bagma (ST),Purna Ch. Jamatia,MALE,46.0,ST,TMP,17399
+S23,Tripura,30,Bagma (ST),Naresh Chandra Jamatia,MALE,63.0,ST,CPM,12613
+S23,Tripura,30,Bagma (ST),Nota,NOTA,NOTA,NOTA,NOTA,793
+S23,Tripura,31,Radhakishorpur,Pranajit Singha Roy,MALE,62.0,GENERAL,BJP,24421
+S23,Tripura,31,Radhakishorpur,Srikanta Datta,MALE,53.0,GENERAL,RSP,17007
+S23,Tripura,31,Radhakishorpur,Partha Karmakar,MALE,54.0,GENERAL,CPI(ML)(L),1020
+S23,Tripura,31,Radhakishorpur,Nota,NOTA,NOTA,NOTA,NOTA,568
+S23,Tripura,31,Radhakishorpur,Bibhu Lal Dey,MALE,67.0,GENERAL,IND,377
+S23,Tripura,31,Radhakishorpur,Ratan Debbarma,MALE,40.0,GENERAL,IND,159
+S23,Tripura,32,Matarbari,Abhishek Debroy,MALE,40.0,GENERAL,BJP,25494
+S23,Tripura,32,Matarbari,Pranajit Roy,MALE,31.0,GENERAL,INC,16453
+S23,Tripura,32,Matarbari,Biralal Noatia,MALE,32.0,ST,TMP,7101
+S23,Tripura,32,Matarbari,Nota,NOTA,NOTA,NOTA,NOTA,576
+S23,Tripura,32,Matarbari,Tarmin Uddin,MALE,36.0,GENERAL,IND,309
+S23,Tripura,33,Kakraban-Shalgara (SC),Jitendra Majumder,MALE,69.0,SC,BJP,23625
+S23,Tripura,33,Kakraban-Shalgara (SC),Ratan Kr. Bhowmik,MALE,62.0,SC,CPM,18574
+S23,Tripura,33,Kakraban-Shalgara (SC),Kshir Mohan Das,MALE,46.0,SC,TMP,5896
+S23,Tripura,33,Kakraban-Shalgara (SC),Nota,NOTA,NOTA,NOTA,NOTA,637
+S23,Tripura,33,Kakraban-Shalgara (SC),Uttam Das,MALE,55.0,SC,IND,316
+S23,Tripura,34,Rajnagar (SC),Swapna Majumder,FEMALE,48.0,SC,BJP,20849
+S23,Tripura,34,Rajnagar (SC),Sudhan Das,MALE,61.0,SC,CPM,19514
+S23,Tripura,34,Rajnagar (SC),Abhijit Malakar,MALE,30.0,SC,TMP,2267
+S23,Tripura,34,Rajnagar (SC),Nota,NOTA,NOTA,NOTA,NOTA,738
+S23,Tripura,35,Belonia,Dipankar Sen,MALE,59.0,GENERAL,CPM,20016
+S23,Tripura,35,Belonia,Goutam Sarkar,MALE,57.0,GENERAL,BJP,19613
+S23,Tripura,35,Belonia,Dilip Kumar Chowdhury,MALE,59.0,GENERAL,AITC,760
+S23,Tripura,35,Belonia,Nota,NOTA,NOTA,NOTA,NOTA,670
+S23,Tripura,35,Belonia,Gouri Sankar Nandi,MALE,68.0,GENERAL,IND,407
+S23,Tripura,36,Santirbazar (ST),Pramod Reang,MALE,42.0,ST,BJP,18709
+S23,Tripura,36,Santirbazar (ST),Harendra Reang,MALE,40.0,ST,TMP,14615
+S23,Tripura,36,Santirbazar (ST),Satyajit Reang,MALE,39.0,ST,CPI,12063
+S23,Tripura,36,Santirbazar (ST),Narendra Reang,MALE,44.0,ST,AITC,697
+S23,Tripura,36,Santirbazar (ST),Nota,NOTA,NOTA,NOTA,NOTA,636
+S23,Tripura,37,Hrishyamukh,Asoke Ch. Mitra,MALE,74.0,GENERAL,CPM,19986
+S23,Tripura,37,Hrishyamukh,Dipayan Choudhury,MALE,47.0,GENERAL,BJP,18568
+S23,Tripura,37,Hrishyamukh,Arup Deb,MALE,46.0,GENERAL,TMP,3856
+S23,Tripura,37,Hrishyamukh,Nota,NOTA,NOTA,NOTA,NOTA,694
+S23,Tripura,38,Jolaibari (ST),Sukla Charan Noatia,MALE,30.0,ST,IPFT,17621
+S23,Tripura,38,Jolaibari (ST),Debendra Tripura,MALE,47.0,ST,CPM,17246
+S23,Tripura,38,Jolaibari (ST),Gaurab Mog Choudhury,MALE,26.0,ST,TMP,8833
+S23,Tripura,38,Jolaibari (ST),Kangjari Mog,MALE,42.0,ST,AITC,1131
+S23,Tripura,38,Jolaibari (ST),Nota,NOTA,NOTA,NOTA,NOTA,888
+S23,Tripura,39,Manu (ST),Mailafru Mog,MALE,52.0,ST,BJP,15469
+S23,Tripura,39,Manu (ST),Pravat Chowdhury,MALE,46.0,ST,CPM,14922
+S23,Tripura,39,Manu (ST),Dhananjoy Tripura,MALE,33.0,ST,TMP,13650
+S23,Tripura,39,Manu (ST),Nota,NOTA,NOTA,NOTA,NOTA,794
+S23,Tripura,40,Sabroom,Jitendra Chaudhury,MALE,64.0,ST,CPM,21801
+S23,Tripura,40,Sabroom,Sankar Roy,MALE,65.0,GENERAL,BJP,21405
+S23,Tripura,40,Sabroom,Nota,NOTA,NOTA,NOTA,NOTA,1265
+S23,Tripura,41,Ampinagar (ST),Pathan Lal Jamatia,MALE,41.0,ST,TMP,21525
+S23,Tripura,41,Ampinagar (ST),Patal Kanya Jamatia,FEMALE,48.0,ST,BJP,9339
+S23,Tripura,41,Ampinagar (ST),Parikhit Kalai,MALE,39.0,ST,CPM,4151
+S23,Tripura,41,Ampinagar (ST),Sindhu Chandra Jamatia,MALE,46.0,ST,IPFT,2068
+S23,Tripura,41,Ampinagar (ST),Nota,NOTA,NOTA,NOTA,NOTA,341
+S23,Tripura,41,Ampinagar (ST),Pabitra Mohan Jamatia,MALE,63.0,ST,IND,319
+S23,Tripura,42,Amarpur,Ranjit Das,MALE,58.0,SC,BJP,17989
+S23,Tripura,42,Amarpur,Parimal Debnath,MALE,64.0,GENERAL,CPM,13395
+S23,Tripura,42,Amarpur,Ashiram Reang,MALE,36.0,ST,TMP,8116
+S23,Tripura,42,Amarpur,Biplab Kumar Saha,MALE,50.0,GENERAL,AITC,431
+S23,Tripura,42,Amarpur,Nota,NOTA,NOTA,NOTA,NOTA,350
+S23,Tripura,42,Amarpur,Amal Majumder,MALE,43.0,GENERAL,RPI(A),272
+S23,Tripura,42,Amarpur,Anil Reang,MALE,51.0,ST,IND,140
+S23,Tripura,43,Karbook (ST),Sanjoy Manik Tripura,MALE,44.0,ST,TMP,16647
+S23,Tripura,43,Karbook (ST),Ashim Kumar Tripura,MALE,30.0,ST,BJP,12200
+S23,Tripura,43,Karbook (ST),Priyamani Debbarma,MALE,48.0,ST,CPM,6934
+S23,Tripura,43,Karbook (ST),Milton Chakma,MALE,42.0,ST,AITC,683
+S23,Tripura,43,Karbook (ST),Nota,NOTA,NOTA,NOTA,NOTA,625
+S23,Tripura,44,Raima Valley (ST),Nandita Debbarma(reang),FEMALE,40.0,ST,TMP,19269
+S23,Tripura,44,Raima Valley (ST),Bikash Chakma,MALE,46.0,ST,BJP,15827
+S23,Tripura,44,Raima Valley (ST),Pabin Tripura,MALE,30.0,ST,CPM,11339
+S23,Tripura,44,Raima Valley (ST),Nota,NOTA,NOTA,NOTA,NOTA,958
+S23,Tripura,45,Kamalpur,Manoj Kanti Deb,MALE,52.0,GENERAL,BJP,18287
+S23,Tripura,45,Kamalpur,Rubi Ghosh,FEMALE,48.0,GENERAL,INC,13027
+S23,Tripura,45,Kamalpur,Meri Debbarma,FEMALE,40.0,ST,TMP,7534
+S23,Tripura,45,Kamalpur,Sumen Dey,MALE,44.0,GENERAL,AITC,612
+S23,Tripura,45,Kamalpur,Nota,NOTA,NOTA,NOTA,NOTA,534
+S23,Tripura,45,Kamalpur,Premtosh Deb,MALE,66.0,GENERAL,IND,502
+S23,Tripura,46,Surma (SC),Swapna Das Paul,FEMALE,48.0,SC,BJP,17313
+S23,Tripura,46,Surma (SC),Anjan Das,MALE,50.0,SC,CPM,12475
+S23,Tripura,46,Surma (SC),Shyamal Sarkar,MALE,44.0,SC,TMP,11467
+S23,Tripura,46,Surma (SC),Arjun Namasudra,MALE,34.0,SC,AITC,610
+S23,Tripura,46,Surma (SC),Pranesh Das,MALE,48.0,SC,IND,416
+S23,Tripura,46,Surma (SC),Nota,NOTA,NOTA,NOTA,NOTA,373
+S23,Tripura,46,Surma (SC),Niranjan Das,MALE,40.0,SC,IND,310
+S23,Tripura,47,Ambassa (ST),Chitta Ranjan Debbarma,MALE,62.0,ST,TMP,15317
+S23,Tripura,47,Ambassa (ST),Suchitra Debbarma,FEMALE,37.0,ST,BJP,14824
+S23,Tripura,47,Ambassa (ST),Amalendu Debbarma,MALE,50.0,ST,CPM,13373
+S23,Tripura,47,Ambassa (ST),Karna Dhan Chakma,MALE,51.0,ST,IND,821
+S23,Tripura,47,Ambassa (ST),Chandan Mog Choudhury,MALE,61.0,ST,AITC,751
+S23,Tripura,47,Ambassa (ST),Nota,NOTA,NOTA,NOTA,NOTA,583
+S23,Tripura,47,Ambassa (ST),Krishna Kumar Debbarma,MALE,80.0,ST,IND,376
+S23,Tripura,48,Karamchara (ST),Paul Dangshu,MALE,31.0,ST,TMP,20496
+S23,Tripura,48,Karamchara (ST),Braja Lal Tripura,MALE,36.0,ST,BJP,9901
+S23,Tripura,48,Karamchara (ST),Dibachandra Hrangkhawl,MALE,67.0,ST,INC,7344
+S23,Tripura,48,Karamchara (ST),Bishwanath Debbarma,MALE,58.0,ST,TRIPP,397
+S23,Tripura,48,Karamchara (ST),Nota,NOTA,NOTA,NOTA,NOTA,367
+S23,Tripura,48,Karamchara (ST),Indrakhela Chakma,FEMALE,41.0,ST,IND,366
+S23,Tripura,49,Chawmanu (ST),Sambhu Lal Chakma,MALE,33.0,ST,BJP,16644
+S23,Tripura,49,Chawmanu (ST),Hangsa Kumar Tripura,MALE,40.0,ST,TMP,13745
+S23,Tripura,49,Chawmanu (ST),Jiban Mohan Tripura,MALE,48.0,ST,CPM,7402
+S23,Tripura,49,Chawmanu (ST),Rupayan Chakma,MALE,40.0,ST,AITC,566
+S23,Tripura,49,Chawmanu (ST),Barjeda Tripura,MALE,62.0,ST,NCPN,536
+S23,Tripura,49,Chawmanu (ST),Nota,NOTA,NOTA,NOTA,NOTA,500
+S23,Tripura,49,Chawmanu (ST),Tushar Kanti Chakma,MALE,31.0,ST,IND,379
+S23,Tripura,50,Pabiachara (SC),Bhagaban Chandra Das,MALE,49.0,SC,BJP,19542
+S23,Tripura,50,Pabiachara (SC),Satyaban Das,MALE,58.0,SC,INC,19134
+S23,Tripura,50,Pabiachara (SC),Gobinda Das,MALE,29.0,SC,TMP,4331
+S23,Tripura,50,Pabiachara (SC),Nota,NOTA,NOTA,NOTA,NOTA,490
+S23,Tripura,50,Pabiachara (SC),Arjun Nama,MALE,30.0,SC,IND,455
+S23,Tripura,51,Fatikroy (SC),Sudhangshu Das,MALE,35.0,SC,BJP,19570
+S23,Tripura,51,Fatikroy (SC),Subrata Das,MALE,53.0,SC,CPM,14458
+S23,Tripura,51,Fatikroy (SC),Bilas Bindu Malakar,MALE,60.0,SC,TMP,4298
+S23,Tripura,51,Fatikroy (SC),Nota,NOTA,NOTA,NOTA,NOTA,358
+S23,Tripura,51,Fatikroy (SC),Pranesh Das,MALE,48.0,SC,IND,256
+S23,Tripura,51,Fatikroy (SC),Sajal Das,MALE,42.0,SC,TRIPP,230
+S23,Tripura,52,Chandipur,Tinku Roy,MALE,47.0,GENERAL,BJP,17395
+S23,Tripura,52,Chandipur,Krishnendu Choudhury,MALE,59.0,GENERAL,CPM,16818
+S23,Tripura,52,Chandipur,Ranjan Singha,MALE,40.0,GENERAL,TMP,5379
+S23,Tripura,52,Chandipur,Nota,NOTA,NOTA,NOTA,NOTA,587
+S23,Tripura,52,Chandipur,Bidyut Bikas Sinha,MALE,57.0,GENERAL,AITC,582
+S23,Tripura,53,Kailashahar,Birajit Sinha,MALE,71.0,GENERAL,INC,25300
+S23,Tripura,53,Kailashahar,Moboshar Ali,MALE,49.0,GENERAL,BJP,15614
+S23,Tripura,53,Kailashahar,Md. Abdul Matin,MALE,37.0,GENERAL,AITC,696
+S23,Tripura,53,Kailashahar,Nota,NOTA,NOTA,NOTA,NOTA,537
+S23,Tripura,53,Kailashahar,Jahangir Ali,MALE,51.0,GENERAL,NCPN,286
+S23,Tripura,54,Kadamtala-Kurti,Islam Uddin,MALE,49.0,GENERAL,CPM,20012
+S23,Tripura,54,Kadamtala-Kurti,Dilip Tanti,MALE,41.0,GENERAL,BJP,18120
+S23,Tripura,54,Kadamtala-Kurti,Abdul Hasim,MALE,39.0,GENERAL,AITC,1061
+S23,Tripura,54,Kadamtala-Kurti,Gopal Krishna Deb,MALE,73.0,GENERAL,IND,636
+S23,Tripura,54,Kadamtala-Kurti,Nota,NOTA,NOTA,NOTA,NOTA,480
+S23,Tripura,55,Bagbassa,Jadab Lal Debnath,MALE,55.0,GENERAL,BJP,18905
+S23,Tripura,55,Bagbassa,Bijita Nath,FEMALE,55.0,GENERAL,CPM,17444
+S23,Tripura,55,Bagbassa,Kalpana Sinha,FEMALE,37.0,GENERAL,TMP,2281
+S23,Tripura,55,Bagbassa,Bimal Nath,MALE,54.0,GENERAL,AITC,731
+S23,Tripura,55,Bagbassa,Nota,NOTA,NOTA,NOTA,NOTA,517
+S23,Tripura,56,Dharmanagar,Biswa Bandhu Sen,MALE,69.0,GENERAL,BJP,18684
+S23,Tripura,56,Dharmanagar,Chayan Bhattacharya,MALE,59.0,GENERAL,INC,17586
+S23,Tripura,56,Dharmanagar,Saurabh Goswami,MALE,42.0,GENERAL,IND,658
+S23,Tripura,56,Dharmanagar,Nota,NOTA,NOTA,NOTA,NOTA,444
+S23,Tripura,56,Dharmanagar,Bibash Ranjan Das,MALE,58.0,SC,IND,203
+S23,Tripura,56,Dharmanagar,Narendu Das,MALE,45.0,SC,IND,158
+S23,Tripura,56,Dharmanagar,Sanjay Chaudhury,MALE,58.0,GENERAL,IND,128
+S23,Tripura,57,Jubarajnagar,Sailendra Chandra Nath,MALE,56.0,GENERAL,CPM,19386
+S23,Tripura,57,Jubarajnagar,Malina Debnath,FEMALE,47.0,GENERAL,BJP,19090
+S23,Tripura,57,Jubarajnagar,Nota,NOTA,NOTA,NOTA,NOTA,853
+S23,Tripura,58,Panisagar,Binay Bhushan Das,MALE,63.0,GENERAL,BJP,15745
+S23,Tripura,58,Panisagar,Sital Das,MALE,50.0,SC,CPM,13247
+S23,Tripura,58,Panisagar,Joy Chuangthang Halam,MALE,53.0,ST,TMP,7612
+S23,Tripura,58,Panisagar,Arun Nath,MALE,51.0,GENERAL,IND,648
+S23,Tripura,58,Panisagar,Nota,NOTA,NOTA,NOTA,NOTA,591
+S23,Tripura,59,Pecharthal (ST),Santana Chakma,FEMALE,38.0,ST,BJP,17781
+S23,Tripura,59,Pecharthal (ST),Sadhan Kumar Chakma,MALE,51.0,ST,CPM,9808
+S23,Tripura,59,Pecharthal (ST),Hollywood Chakma,MALE,37.0,ST,TMP,9644
+S23,Tripura,59,Pecharthal (ST),Purnita Chakma,FEMALE,43.0,ST,AITC,767
+S23,Tripura,59,Pecharthal (ST),Karnadhan Chakma,MALE,51.0,ST,IND,551
+S23,Tripura,59,Pecharthal (ST),Nota,NOTA,NOTA,NOTA,NOTA,527
+S23,Tripura,60,Kanchanpur (ST),Philip Kumar Reang,MALE,38.0,ST,TMP,15413
+S23,Tripura,60,Kanchanpur (ST),Rajendra Reang,MALE,48.0,ST,CPM,10522
+S23,Tripura,60,Kanchanpur (ST),Bimanjoy Reang,MALE,42.0,ST,IND,10014
+S23,Tripura,60,Kanchanpur (ST),Prem Kumar Reang,MALE,49.0,ST,IPFT,3445
+S23,Tripura,60,Kanchanpur (ST),Shankar Reang,MALE,32.0,ST,TLSP,1454
+S23,Tripura,60,Kanchanpur (ST),Indrakhela Chakma,FEMALE,41.0,ST,IND,796
+S23,Tripura,60,Kanchanpur (ST),Nota,NOTA,NOTA,NOTA,NOTA,651
+S15,Meghalaya,1,Nartiang (ST),Sniawbhalang Dhar,MALE,41.0,ST,NPEP,16969
+S15,Meghalaya,1,Nartiang (ST),Emlang Laloo,MALE,58.0,ST,INC,14846
+S15,Meghalaya,1,Nartiang (ST),Generous Paslein,MALE,26.0,ST,IND,7404
+S15,Meghalaya,1,Nartiang (ST),Dawan Lyngdoh,MALE,29.0,ST,UDP,893
+S15,Meghalaya,1,Nartiang (ST),Nota,NOTA,NOTA,NOTA,NOTA,433
+S15,Meghalaya,1,Nartiang (ST),Rimiki Sari,MALE,32.0,ST,BJP,282
+S15,Meghalaya,2,Jowai (ST),Wailadmiki Shylla,MALE,31.0,ST,NPEP,14079
+S15,Meghalaya,2,Jowai (ST),Awhai Andrew Shullai,MALE,40.0,ST,AITC,11412
+S15,Meghalaya,2,Jowai (ST),Moonlight Pariat,MALE,60.0,ST,UDP,10260
+S15,Meghalaya,2,Jowai (ST),Nota,NOTA,NOTA,NOTA,NOTA,423
+S15,Meghalaya,2,Jowai (ST),Allan Keith Suchiang,MALE,56.0,ST,BJP,326
+S15,Meghalaya,2,Jowai (ST),Daniel Dann,MALE,59.0,ST,INC,216
+S15,Meghalaya,3,Raliang (ST),Coming One Ymbon,MALE,51.0,ST,NPEP,13626
+S15,Meghalaya,3,Raliang (ST),Lakhon Biam,MALE,47.0,ST,BJP,8289
+S15,Meghalaya,3,Raliang (ST),J Treilang Suchiang,MALE,38.0,ST,UDP,5250
+S15,Meghalaya,3,Raliang (ST),Richard Singh Lyngdoh,MALE,59.0,ST,INC,4154
+S15,Meghalaya,3,Raliang (ST),Shemhok Garod,MALE,48.0,ST,PDF,2513
+S15,Meghalaya,3,Raliang (ST),Robinus Syngkon,MALE,58.0,ST,AITC,1269
+S15,Meghalaya,3,Raliang (ST),Nota,NOTA,NOTA,NOTA,NOTA,360
+S15,Meghalaya,4,Mowkaiaw (ST),Nujorki Sungoh,MALE,34.0,ST,UDP,14508
+S15,Meghalaya,4,Mowkaiaw (ST),Habahun Dkhar,MALE,36.0,ST,NPEP,10607
+S15,Meghalaya,4,Mowkaiaw (ST),Nehemayah Tyngkan,MALE,38.0,ST,INC,10290
+S15,Meghalaya,4,Mowkaiaw (ST),Lasting Suchiang,MALE,44.0,ST,AITC,872
+S15,Meghalaya,4,Mowkaiaw (ST),Nota,NOTA,NOTA,NOTA,NOTA,360
+S15,Meghalaya,4,Mowkaiaw (ST),Currentis Rabon,MALE,50.0,ST,BJP,110
+S15,Meghalaya,5,Sutnga Saipung (ST),Santa Mary Shylla,FEMALE,39.0,ST,NPEP,16974
+S15,Meghalaya,5,Sutnga Saipung (ST),Vincent .h. Pala,MALE,54.0,ST,INC,15146
+S15,Meghalaya,5,Sutnga Saipung (ST),Shitlang Pale,MALE,55.0,ST,UDP,10453
+S15,Meghalaya,5,Sutnga Saipung (ST),Krison Langstang,MALE,31.0,ST,BJP,424
+S15,Meghalaya,5,Sutnga Saipung (ST),Nota,NOTA,NOTA,NOTA,NOTA,416
+S15,Meghalaya,6,Khliehriat (ST),Kyrmen Shylla,MALE,34.0,ST,UDP,23514
+S15,Meghalaya,6,Khliehriat (ST),Nehlang Lyngdoh,MALE,64.0,ST,NPEP,17908
+S15,Meghalaya,6,Khliehriat (ST),Damewanhi L Rymbai,MALE,35.0,ST,VOTPP,861
+S15,Meghalaya,6,Khliehriat (ST),Bhayes Chyrmang,MALE,51.0,ST,BJP,174
+S15,Meghalaya,6,Khliehriat (ST),Nota,NOTA,NOTA,NOTA,NOTA,115
+S15,Meghalaya,6,Khliehriat (ST),Jhanika Siangshai,FEMALE,29.0,ST,INC,114
+S15,Meghalaya,6,Khliehriat (ST),Sunida Bareh,MALE,31.0,ST,AITC,109
+S15,Meghalaya,7,Amlarem (ST),Lahkmen Rymbui,MALE,54.0,ST,UDP,17803
+S15,Meghalaya,7,Amlarem (ST),Stephanson Mukhim,MALE,45.0,ST,NPEP,17746
+S15,Meghalaya,7,Amlarem (ST),Nota,NOTA,NOTA,NOTA,NOTA,328
+S15,Meghalaya,7,Amlarem (ST),Arbiangkam Kharsohmat,MALE,38.0,ST,INC,138
+S15,Meghalaya,7,Amlarem (ST),Firstborn Manner,MALE,51.0,ST,BJP,108
+S15,Meghalaya,7,Amlarem (ST),Alban K. Gashnga,MALE,38.0,ST,AITC,100
+S15,Meghalaya,8,Mawhati (ST),Charles Marngar,MALE,38.0,ST,INC,13273
+S15,Meghalaya,8,Mawhati (ST),Shemphang Lyngdoh,MALE,48.0,ST,NPEP,8029
+S15,Meghalaya,8,Mawhati (ST),Baiahunlang Makdoh,MALE,57.0,ST,UDP,6556
+S15,Meghalaya,8,Mawhati (ST),Evalyni Kharbani,FEMALE,39.0,ST,HSPDP,4590
+S15,Meghalaya,8,Mawhati (ST),Dr. Evarist Myrsing,MALE,36.0,ST,BJP,1376
+S15,Meghalaya,8,Mawhati (ST),Dr. Saralin Dorphang,FEMALE,44.0,ST,AITC,729
+S15,Meghalaya,8,Mawhati (ST),Roswel Shadap,MALE,46.0,ST,PDF,560
+S15,Meghalaya,8,Mawhati (ST),Osbert B. Rynjah,MALE,42.0,ST,IND,208
+S15,Meghalaya,8,Mawhati (ST),Nota,NOTA,NOTA,NOTA,NOTA,191
+S15,Meghalaya,9,Nongpoh (ST),Mayralborn Syiem,MALE,42.0,ST,UDP,14940
+S15,Meghalaya,9,Nongpoh (ST),Rona Khymdeit,FEMALE,44.0,ST,INC,8254
+S15,Meghalaya,9,Nongpoh (ST),Macdalyn Sawkmie Mawlong,FEMALE,36.0,ST,NPEP,7446
+S15,Meghalaya,9,Nongpoh (ST),Marian Maring,FEMALE,36.0,ST,BJP,1079
+S15,Meghalaya,9,Nongpoh (ST),Long Singh Bey,MALE,56.0,ST,AITC,661
+S15,Meghalaya,9,Nongpoh (ST),Nota,NOTA,NOTA,NOTA,NOTA,300
+S15,Meghalaya,9,Nongpoh (ST),Bismo Ingtih,MALE,34.0,ST,IND,195
+S15,Meghalaya,10,Jirang (ST),Sosthenes Sohtun,MALE,48.0,ST,NPEP,12690
+S15,Meghalaya,10,Jirang (ST),Adrian Lambert Mylliem,MALE,29.0,ST,INC,11067
+S15,Meghalaya,10,Jirang (ST),Badhok Nongmalieh,MALE,49.0,ST,UDP,4107
+S15,Meghalaya,10,Jirang (ST),Sunmoon D. Marak,MALE,43.0,ST,AITC,3928
+S15,Meghalaya,10,Jirang (ST),Riya Sangma,FEMALE,36.0,ST,BJP,2075
+S15,Meghalaya,10,Jirang (ST),Nota,NOTA,NOTA,NOTA,NOTA,315
+S15,Meghalaya,10,Jirang (ST),Forcaster Nongrang,MALE,42.0,ST,IND,268
+S15,Meghalaya,10,Jirang (ST),Lee Trevor Bareh,MALE,38.0,ST,IND,226
+S15,Meghalaya,10,Jirang (ST),Serimina D. Marak,FEMALE,53.0,ST,RPI(A),175
+S15,Meghalaya,11,Umsning (ST),Dr. Celestine Lyngdoh,MALE,51.0,ST,INC,9907
+S15,Meghalaya,11,Umsning (ST),Sunshine Makri,MALE,31.0,ST,UDP,8743
+S15,Meghalaya,11,Umsning (ST),Jason Sawkmie Mawlong,MALE,33.0,ST,NPEP,7945
+S15,Meghalaya,11,Umsning (ST),Dr. Ricky A. J. Syngkon,MALE,51.0,ST,VOTPP,5456
+S15,Meghalaya,11,Umsning (ST),Donlang Sohkhlet,MALE,48.0,ST,PDF,585
+S15,Meghalaya,11,Umsning (ST),Primson Makdoh,MALE,37.0,ST,HSPDP,353
+S15,Meghalaya,11,Umsning (ST),Duruth Majaw,MALE,50.0,ST,BJP,324
+S15,Meghalaya,11,Umsning (ST),Gilbert Nongrum,MALE,39.0,ST,AITC,296
+S15,Meghalaya,11,Umsning (ST),Nota,NOTA,NOTA,NOTA,NOTA,195
+S15,Meghalaya,12,Umroi (ST),Damanbait Lamare,MALE,26.0,ST,NPEP,14213
+S15,Meghalaya,12,Umroi (ST),George B. Lyngdoh,MALE,44.0,ST,AITC,12527
+S15,Meghalaya,12,Umroi (ST),Stanlywiss Rymbai,MALE,61.0,ST,INC,1081
+S15,Meghalaya,12,Umroi (ST),Shanbor Ramde,MALE,54.0,ST,BJP,404
+S15,Meghalaya,12,Umroi (ST),Nota,NOTA,NOTA,NOTA,NOTA,197
+S15,Meghalaya,12,Umroi (ST),Baiateilang Lapang,MALE,30.0,ST,PDF,118
+S15,Meghalaya,13,Mawryngkneng (ST),Heaving Stone Kharpran,MALE,60.0,ST,VOTPP,11424
+S15,Meghalaya,13,Mawryngkneng (ST),Osaphi Smithson Jyrwa,MALE,51.0,ST,UDP,10182
+S15,Meghalaya,13,Mawryngkneng (ST),Pyniaid Sing Syiem,MALE,36.0,ST,NPEP,9541
+S15,Meghalaya,13,Mawryngkneng (ST),Banshanlang Lawai,MALE,47.0,ST,AITC,1559
+S15,Meghalaya,13,Mawryngkneng (ST),Highlander Kharmalki,MALE,52.0,ST,BJP,968
+S15,Meghalaya,13,Mawryngkneng (ST),Esron Marwein,MALE,44.0,ST,INC,433
+S15,Meghalaya,13,Mawryngkneng (ST),Nota,NOTA,NOTA,NOTA,NOTA,282
+S15,Meghalaya,13,Mawryngkneng (ST),Wyraiwan Sohtun,MALE,38.0,ST,HSPDP,136
+S15,Meghalaya,14,Pynthorumkhrah,Alexander Laloo Hek,MALE,56.0,ST,BJP,9321
+S15,Meghalaya,14,Pynthorumkhrah,Pynshngainlang Syiem,MALE,49.0,ST,INC,6783
+S15,Meghalaya,14,Pynthorumkhrah,Mayborn Grace Lyngdoh,MALE,30.0,ST,VOTPP,5720
+S15,Meghalaya,14,Pynthorumkhrah,Rocky Hek,MALE,38.0,ST,NPEP,3356
+S15,Meghalaya,14,Pynthorumkhrah,Nota,NOTA,NOTA,NOTA,NOTA,337
+S15,Meghalaya,14,Pynthorumkhrah,Raymond Basaiawmoit,MALE,50.0,ST,AITC,247
+S15,Meghalaya,14,Pynthorumkhrah,Samborlang Diengdoh,MALE,39.0,ST,IND,168
+S15,Meghalaya,14,Pynthorumkhrah,Jubanlang Kharbihkhiew,MALE,36.0,ST,IND,102
+S15,Meghalaya,14,Pynthorumkhrah,Rup Pariat,MALE,49.0,ST,IND,74
+S15,Meghalaya,15,Mawlai (ST),Brightstarwell Marbaniang,MALE,43.0,ST,VOTPP,24262
+S15,Meghalaya,15,Mawlai (ST),Teiborlang Pathaw,MALE,45.0,ST,NPEP,8614
+S15,Meghalaya,15,Mawlai (ST),Process T. Sawkmie,MALE,59.0,ST,UDP,5142
+S15,Meghalaya,15,Mawlai (ST),Marbud Dkhar,MALE,39.0,ST,INC,1506
+S15,Meghalaya,15,Mawlai (ST),Wandonbok Jyrwa,MALE,39.0,ST,BJP,450
+S15,Meghalaya,15,Mawlai (ST),Tarcisious Mawlot,MALE,54.0,ST,IND,264
+S15,Meghalaya,15,Mawlai (ST),Stepbournekupar Ryndem,MALE,42.0,ST,AITC,255
+S15,Meghalaya,15,Mawlai (ST),Nota,NOTA,NOTA,NOTA,NOTA,254
+S15,Meghalaya,16,East Shillong (ST),Dr. Mazel Ampareen Lyngdoh,FEMALE,57.0,ST,NPEP,6637
+S15,Meghalaya,16,East Shillong (ST),Manuel Badwar,MALE,44.0,ST,INC,4926
+S15,Meghalaya,16,East Shillong (ST),Wankitbok Pohshna,MALE,42.0,ST,BJP,2643
+S15,Meghalaya,16,East Shillong (ST),Avner Medon Pariat,MALE,36.0,ST,VOTPP,1974
+S15,Meghalaya,16,East Shillong (ST),Ajoy Nongrum,MALE,55.0,ST,AITC,264
+S15,Meghalaya,16,East Shillong (ST),Nota,NOTA,NOTA,NOTA,NOTA,259
+S15,Meghalaya,16,East Shillong (ST),Wanpynhun Kharsyntiew,FEMALE,42.0,ST,IND,243
+S15,Meghalaya,16,East Shillong (ST),Romeo Phira Rani,MALE,55.0,ST,PDF,90
+S15,Meghalaya,17,North Shillong (ST),Adelbert Nongrum,MALE,46.0,ST,VOTPP,5583
+S15,Meghalaya,17,North Shillong (ST),Mariahom Kharkrang,MALE,58.0,ST,BJP,4550
+S15,Meghalaya,17,North Shillong (ST),Dr. Aman Warr,MALE,58.0,ST,UDP,3791
+S15,Meghalaya,17,North Shillong (ST),Ransom Sutnga,MALE,53.0,ST,NPEP,1975
+S15,Meghalaya,17,North Shillong (ST),J. Antonius Lyngdoh,MALE,66.0,ST,INC,1555
+S15,Meghalaya,17,North Shillong (ST),Elgiva Gwyneth Rynjah,FEMALE,31.0,ST,AITC,816
+S15,Meghalaya,17,North Shillong (ST),L. Michael Kharsyntiew,MALE,35.0,ST,IND,385
+S15,Meghalaya,17,North Shillong (ST),Nota,NOTA,NOTA,NOTA,NOTA,191
+S15,Meghalaya,17,North Shillong (ST),Kyrsoibor Pyrtuh,MALE,49.0,ST,IND,111
+S15,Meghalaya,18,West Shillong,Paul Lyngdoh,MALE,50.0,ST,UDP,7917
+S15,Meghalaya,18,West Shillong,Mohendro Rapsang,MALE,58.0,ST,NPEP,4432
+S15,Meghalaya,18,West Shillong,Ernest Mawrie,MALE,51.0,ST,BJP,3771
+S15,Meghalaya,18,West Shillong,Raja Jyrwa,MALE,33.0,ST,VOTPP,1859
+S15,Meghalaya,18,West Shillong,Bethleen Dkhar,FEMALE,50.0,ST,INC,417
+S15,Meghalaya,18,West Shillong,Nota,NOTA,NOTA,NOTA,NOTA,204
+S15,Meghalaya,18,West Shillong,Iwan Maria,MALE,38.0,ST,AITC,187
+S15,Meghalaya,19,South Shillong,Sanbor Shullai,MALE,56.0,ST,BJP,14213
+S15,Meghalaya,19,South Shillong,Danny Langstieh,MALE,42.0,ST,VOTPP,2604
+S15,Meghalaya,19,South Shillong,Angela G. Rangad,FEMALE,47.0,ST,IND,1714
+S15,Meghalaya,19,South Shillong,Ian Andrew Lyngdoh Nongkynrih,MALE,55.0,ST,AITC,1560
+S15,Meghalaya,19,South Shillong,Venetia Pearl Mawlong,FEMALE,48.0,ST,INC,1086
+S15,Meghalaya,19,South Shillong,Nota,NOTA,NOTA,NOTA,NOTA,444
+S15,Meghalaya,20,Mylliem (ST),Ronnie V. Lyngdoh,MALE,63.0,ST,INC,8904
+S15,Meghalaya,20,Mylliem (ST),Aibandaplin F. Lyngdoh,FEMALE,32.0,ST,VOTPP,8866
+S15,Meghalaya,20,Mylliem (ST),Hamletson Dohling,MALE,47.0,ST,NPEP,8712
+S15,Meghalaya,20,Mylliem (ST),Mitchel Wankhar,MALE,51.0,ST,UDP,2619
+S15,Meghalaya,20,Mylliem (ST),Pynshai Manik Syiem,MALE,62.0,ST,IND,614
+S15,Meghalaya,20,Mylliem (ST),Gilbert Guidingstar Laloo,MALE,52.0,ST,AITC,566
+S15,Meghalaya,20,Mylliem (ST),Samuel Hashah,MALE,36.0,ST,BJP,435
+S15,Meghalaya,20,Mylliem (ST),Nota,NOTA,NOTA,NOTA,NOTA,248
+S15,Meghalaya,20,Mylliem (ST),Richard Nongbsap,MALE,27.0,ST,IND,75
+S15,Meghalaya,21,Nongthymmai (ST),Charles Pyngrope,MALE,62.0,ST,AITC,7452
+S15,Meghalaya,21,Nongthymmai (ST),Jemino Mawthoh,MALE,58.0,ST,UDP,6253
+S15,Meghalaya,21,Nongthymmai (ST),Winston Tony Lyngdoh,MALE,45.0,ST,VOTPP,4473
+S15,Meghalaya,21,Nongthymmai (ST),David Kharsati,MALE,54.0,ST,BJP,3274
+S15,Meghalaya,21,Nongthymmai (ST),Jasmine Mary Lyngdoh,FEMALE,54.0,ST,NPEP,2054
+S15,Meghalaya,21,Nongthymmai (ST),Banida Shisha Kharkongor,FEMALE,45.0,ST,INC,1045
+S15,Meghalaya,21,Nongthymmai (ST),Nota,NOTA,NOTA,NOTA,NOTA,364
+S15,Meghalaya,21,Nongthymmai (ST),Wankit Kupar Kharumnuid,MALE,33.0,ST,IND,108
+S15,Meghalaya,22,Nongkrem (ST),Ardent Miller Basaiawmoit,MALE,50.0,ST,VOTPP,13286
+S15,Meghalaya,22,Nongkrem (ST),Lambor Malngiang,MALE,44.0,ST,UDP,9099
+S15,Meghalaya,22,Nongkrem (ST),Dasakhiatbha Lamare,MALE,30.0,ST,NPEP,7491
+S15,Meghalaya,22,Nongkrem (ST),Egenstar Kurkalang,MALE,37.0,ST,PDF,1375
+S15,Meghalaya,22,Nongkrem (ST),David T. Kharkongor,MALE,46.0,ST,BJP,531
+S15,Meghalaya,22,Nongkrem (ST),Sardonik Nongkhlaw,MALE,26.0,ST,INC,293
+S15,Meghalaya,22,Nongkrem (ST),Nota,NOTA,NOTA,NOTA,NOTA,196
+S15,Meghalaya,22,Nongkrem (ST),Joannes J.t.l. Lamare,MALE,37.0,ST,AITC,176
+S15,Meghalaya,22,Nongkrem (ST),B. M. Lanong,MALE,74.0,ST,IND,138
+S15,Meghalaya,24,Mawphlang (ST),Matthew Beyondstar Kurbah,MALE,58.0,ST,UDP,6690
+S15,Meghalaya,24,Mawphlang (ST),Auspicious Lyngdoh Mawphlang,MALE,31.0,ST,PDF,6586
+S15,Meghalaya,24,Mawphlang (ST),Dannyson Kurbah,MALE,42.0,ST,INC,5594
+S15,Meghalaya,24,Mawphlang (ST),Doristar Marbaniang,MALE,62.0,ST,VOTPP,4811
+S15,Meghalaya,24,Mawphlang (ST),Kennedy Cornelius Khyriem,MALE,56.0,ST,NPEP,4733
+S15,Meghalaya,24,Mawphlang (ST),Mawkordor Rynjah,MALE,49.0,ST,AITC,1507
+S15,Meghalaya,24,Mawphlang (ST),Wossarroi Rani,MALE,38.0,ST,BJP,1196
+S15,Meghalaya,24,Mawphlang (ST),Nota,NOTA,NOTA,NOTA,NOTA,142
+S15,Meghalaya,25,Mawsynram (ST),Ollan Singh Suin,MALE,55.0,ST,UDP,10987
+S15,Meghalaya,25,Mawsynram (ST),Himalaya Muktan Shangpliang,MALE,60.0,ST,BJP,10032
+S15,Meghalaya,25,Mawsynram (ST),Alvin Khyriem Sawkmie,MALE,32.0,ST,NPEP,10002
+S15,Meghalaya,25,Mawsynram (ST),Gopal Stone Hynniewta,MALE,51.0,ST,INC,1056
+S15,Meghalaya,25,Mawsynram (ST),Vincent T Sangma,MALE,28.0,ST,AITC,689
+S15,Meghalaya,25,Mawsynram (ST),Nota,NOTA,NOTA,NOTA,NOTA,191
+S15,Meghalaya,25,Mawsynram (ST),Starfing Jove Langpen Pdahkasiej,MALE,49.0,ST,HSPDP,105
+S15,Meghalaya,26,Shella (ST),Balajied Kupar Synrem,MALE,34.0,ST,UDP,13274
+S15,Meghalaya,26,Shella (ST),Grace Mary Kharpuri,FEMALE,55.0,ST,NPEP,12840
+S15,Meghalaya,26,Shella (ST),Arena Hynniewta,FEMALE,43.0,ST,BJP,2670
+S15,Meghalaya,26,Shella (ST),Playness Khiewtam,MALE,60.0,ST,AITC,882
+S15,Meghalaya,26,Shella (ST),Wellborn Bynnud,MALE,46.0,ST,INC,592
+S15,Meghalaya,26,Shella (ST),Nota,NOTA,NOTA,NOTA,NOTA,358
+S15,Meghalaya,27,Pynursla (ST),Prestone Tynsong,MALE,57.0,ST,NPEP,13745
+S15,Meghalaya,27,Pynursla (ST),Nehru Suting,MALE,62.0,ST,INC,5605
+S15,Meghalaya,27,Pynursla (ST),Anthony Justine Kongwang,MALE,49.0,ST,UDP,5377
+S15,Meghalaya,27,Pynursla (ST),Don Kupar Massar,MALE,54.0,ST,IND,4828
+S15,Meghalaya,27,Pynursla (ST),Manbhalang Thabah,MALE,26.0,ST,VOTPP,3482
+S15,Meghalaya,27,Pynursla (ST),Edmund Khongngai,MALE,29.0,ST,AITC,1204
+S15,Meghalaya,27,Pynursla (ST),Rowelly Khongsni,MALE,39.0,ST,BJP,377
+S15,Meghalaya,27,Pynursla (ST),Nota,NOTA,NOTA,NOTA,NOTA,148
+S15,Meghalaya,28,Sohra (ST),Gavin Miguel Mylliem,MALE,31.0,ST,PDF,11358
+S15,Meghalaya,28,Sohra (ST),Titosstar Well Chyne,MALE,55.0,ST,UDP,11343
+S15,Meghalaya,28,Sohra (ST),Alan West Kharkongor,MALE,49.0,ST,NPEP,1598
+S15,Meghalaya,28,Sohra (ST),Harold Firming Khongsit,MALE,60.0,ST,AITC,1137
+S15,Meghalaya,28,Sohra (ST),G.phaiyolin Nongrum,FEMALE,60.0,ST,VOTPP,916
+S15,Meghalaya,28,Sohra (ST),Lakyntiew Sohkhlet,FEMALE,35.0,ST,INC,229
+S15,Meghalaya,28,Sohra (ST),Michael Ronnie Kshiar,MALE,50.0,ST,BJP,142
+S15,Meghalaya,28,Sohra (ST),Nota,NOTA,NOTA,NOTA,NOTA,124
+S15,Meghalaya,29,Mawkynrew (ST),Banteidor Lyngdoh,MALE,45.0,ST,PDF,11789
+S15,Meghalaya,29,Mawkynrew (ST),Martle N. Mukhim,MALE,73.0,ST,HSPDP,7652
+S15,Meghalaya,29,Mawkynrew (ST),Kansing Lyngshiang,MALE,39.0,ST,NPEP,7360
+S15,Meghalaya,29,Mawkynrew (ST),Remington Pyngrope,MALE,53.0,ST,UDP,5385
+S15,Meghalaya,29,Mawkynrew (ST),Pynhunlang Nongrum,FEMALE,33.0,ST,INC,465
+S15,Meghalaya,29,Mawkynrew (ST),Dondor Marbaniang,MALE,38.0,ST,AITC,463
+S15,Meghalaya,29,Mawkynrew (ST),Nota,NOTA,NOTA,NOTA,NOTA,247
+S15,Meghalaya,29,Mawkynrew (ST),Counsellor Mukhim,MALE,28.0,ST,BJP,93
+S15,Meghalaya,30,Mairang (ST),Metbah Lyngdoh,MALE,53.0,ST,UDP,19066
+S15,Meghalaya,30,Mairang (ST),Batskhem Ryntathiang,MALE,40.0,ST,INC,18911
+S15,Meghalaya,30,Mairang (ST),Shanlang Warjri,MALE,37.0,ST,VOTPP,944
+S15,Meghalaya,30,Mairang (ST),Mark Rinaldy Sawkmie,MALE,26.0,ST,BJP,245
+S15,Meghalaya,30,Mairang (ST),Nota,NOTA,NOTA,NOTA,NOTA,116
+S15,Meghalaya,31,Mawthadraishan (ST),Shakliar Warjri,MALE,26.0,ST,HSPDP,17366
+S15,Meghalaya,31,Mawthadraishan (ST),Brolding Nongsiej,MALE,55.0,ST,UDP,15013
+S15,Meghalaya,31,Mawthadraishan (ST),Biolinda L.nonglait,FEMALE,36.0,ST,NPEP,7658
+S15,Meghalaya,31,Mawthadraishan (ST),Nota,NOTA,NOTA,NOTA,NOTA,316
+S15,Meghalaya,31,Mawthadraishan (ST),Fourteenson Lyngkhoi,MALE,47.0,ST,INC,260
+S15,Meghalaya,31,Mawthadraishan (ST),Darikmen L.marshillong,FEMALE,33.0,ST,BJP,123
+S15,Meghalaya,32,Nongstoin (ST),Gabriel Wahlang,MALE,45.0,ST,INC,13847
+S15,Meghalaya,32,Nongstoin (ST),Macmillan Byrsat,MALE,49.0,ST,NPEP,11223
+S15,Meghalaya,32,Nongstoin (ST),Polestar Nongsiej,MALE,36.0,ST,UDP,7505
+S15,Meghalaya,32,Nongstoin (ST),Bobby Boldrick Kharchandy,MALE,46.0,ST,VOTPP,3755
+S15,Meghalaya,32,Nongstoin (ST),Sanjied Kynsai Shangrit,MALE,43.0,ST,HSPDP,1390
+S15,Meghalaya,32,Nongstoin (ST),Macmillan Kharbani,MALE,46.0,ST,AITC,1091
+S15,Meghalaya,32,Nongstoin (ST),Diosstarness Jyndiang,MALE,37.0,ST,BJP,253
+S15,Meghalaya,32,Nongstoin (ST),Stainbinel Wanniang,MALE,31.0,ST,IND,209
+S15,Meghalaya,32,Nongstoin (ST),Nota,NOTA,NOTA,NOTA,NOTA,95
+S15,Meghalaya,33,Rambrai Jyrngam (ST),Remington Gabil Momin,MALE,51.0,ST,IND,9057
+S15,Meghalaya,33,Rambrai Jyrngam (ST),K. Phlastingwel Pangniang,MALE,53.0,ST,HSPDP,8947
+S15,Meghalaya,33,Rambrai Jyrngam (ST),Kimfa Sidney Marbaniang,MALE,43.0,ST,NPEP,7272
+S15,Meghalaya,33,Rambrai Jyrngam (ST),A Goldenstar Nonglong,MALE,44.0,ST,INC,5805
+S15,Meghalaya,33,Rambrai Jyrngam (ST),Fernandez S. Dkhar,MALE,35.0,ST,AITC,1554
+S15,Meghalaya,33,Rambrai Jyrngam (ST),Spasterlin Nongrem,MALE,43.0,ST,BJP,689
+S15,Meghalaya,33,Rambrai Jyrngam (ST),Francis Pondit R. Sangma,MALE,54.0,ST,IND,373
+S15,Meghalaya,33,Rambrai Jyrngam (ST),Nota,NOTA,NOTA,NOTA,NOTA,196
+S15,Meghalaya,33,Rambrai Jyrngam (ST),Sillash M. Sangma,MALE,56.0,ST,IND,159
+S15,Meghalaya,34,Mawshynrut (ST),Methodius Dkhar,MALE,47.0,ST,HSPDP,19368
+S15,Meghalaya,34,Mawshynrut (ST),Gigur Myrthong,MALE,47.0,ST,NPEP,14181
+S15,Meghalaya,34,Mawshynrut (ST),Justine G. Momin,MALE,38.0,ST,AITC,2515
+S15,Meghalaya,34,Mawshynrut (ST),Nota,NOTA,NOTA,NOTA,NOTA,321
+S15,Meghalaya,34,Mawshynrut (ST),Beejoy Kynter,MALE,39.0,ST,BJP,286
+S15,Meghalaya,34,Mawshynrut (ST),Andrew Charles Gare,MALE,54.0,ST,INC,220
+S15,Meghalaya,35,Ranikor (ST),Pius Marwein,MALE,31.0,ST,UDP,16502
+S15,Meghalaya,35,Ranikor (ST),Martin M. Danggo,MALE,63.0,ST,BJP,10853
+S15,Meghalaya,35,Ranikor (ST),Mighter Marwein,MALE,43.0,ST,IND,3035
+S15,Meghalaya,35,Ranikor (ST),Overlin Imiong,MALE,29.0,ST,VOTPP,988
+S15,Meghalaya,35,Ranikor (ST),Victorealness Syiemlieh,FEMALE,59.0,ST,INC,494
+S15,Meghalaya,35,Ranikor (ST),Tengsim G. Momin,MALE,45.0,ST,AITC,152
+S15,Meghalaya,35,Ranikor (ST),Krenath N. Marak,MALE,52.0,ST,IND,142
+S15,Meghalaya,35,Ranikor (ST),Nota,NOTA,NOTA,NOTA,NOTA,128
+S15,Meghalaya,35,Ranikor (ST),Savio Phrangsngi Dkhar,MALE,32.0,ST,IND,115
+S15,Meghalaya,35,Ranikor (ST),Bichitro Hajong,MALE,39.0,ST,IND,114
+S15,Meghalaya,36,Mawkyrwat (ST),Renikton Lyngdoh Tongkhar,MALE,50.0,ST,UDP,10678
+S15,Meghalaya,36,Mawkyrwat (ST),Carnes Sohshang,MALE,43.0,ST,INC,9406
+S15,Meghalaya,36,Mawkyrwat (ST),Medalsing Lyngdoh,MALE,47.0,ST,HSPDP,6082
+S15,Meghalaya,36,Mawkyrwat (ST),Sounder Strong Cajee,MALE,57.0,ST,AITC,4579
+S15,Meghalaya,36,Mawkyrwat (ST),H. Stalyne Diengdoh,MALE,59.0,ST,NPEP,3207
+S15,Meghalaya,36,Mawkyrwat (ST),Bity Jyrwa,FEMALE,56.0,ST,BJP,151
+S15,Meghalaya,36,Mawkyrwat (ST),Nota,NOTA,NOTA,NOTA,NOTA,130
+S15,Meghalaya,36,Mawkyrwat (ST),Banpynskhemlang Wahlang,MALE,37.0,ST,IND,67
+S15,Meghalaya,37,Kharkutta (ST),Rupert Momin,MALE,48.0,ST,NPEP,17426
+S15,Meghalaya,37,Kharkutta (ST),Cherak Watre Momin,MALE,44.0,ST,AITC,15896
+S15,Meghalaya,37,Kharkutta (ST),Chireng Peter R. Marak,MALE,31.0,ST,INC,1746
+S15,Meghalaya,37,Kharkutta (ST),Elstone D. Marak,MALE,62.0,ST,BJP,932
+S15,Meghalaya,37,Kharkutta (ST),Nota,NOTA,NOTA,NOTA,NOTA,526
+S15,Meghalaya,37,Kharkutta (ST),Luderberg Ch. Momin,MALE,66.0,ST,UDP,525
+S15,Meghalaya,38,Mendipathar (ST),Marthon J Sangma,MALE,58.0,ST,NPEP,9363
+S15,Meghalaya,38,Mendipathar (ST),Timjim K. Momin,MALE,30.0,ST,INC,5538
+S15,Meghalaya,38,Mendipathar (ST),Sengnab Momin,MALE,41.0,ST,BJP,4132
+S15,Meghalaya,38,Mendipathar (ST),Pardinand D. Shira,MALE,48.0,ST,AITC,3312
+S15,Meghalaya,38,Mendipathar (ST),Elbarth Marak,MALE,52.0,ST,GNASURKP,1375
+S15,Meghalaya,38,Mendipathar (ST),Subrotho G Marak,MALE,46.0,ST,UDP,1017
+S15,Meghalaya,38,Mendipathar (ST),Nota,NOTA,NOTA,NOTA,NOTA,194
+S15,Meghalaya,39,Resubelpara (ST),Timothy D. Shira,MALE,77.0,ST,NPEP,10948
+S15,Meghalaya,39,Resubelpara (ST),Rinaldo K. Sangma,MALE,31.0,ST,AITC,7483
+S15,Meghalaya,39,Resubelpara (ST),Tweel K. Marak,MALE,38.0,ST,INC,5064
+S15,Meghalaya,39,Resubelpara (ST),Sukharam K. Sangma,MALE,59.0,ST,BJP,1957
+S15,Meghalaya,39,Resubelpara (ST),Starline Momin,MALE,64.0,ST,IND,602
+S15,Meghalaya,39,Resubelpara (ST),Taposh D. Marak,MALE,57.0,ST,UDP,292
+S15,Meghalaya,39,Resubelpara (ST),Nota,NOTA,NOTA,NOTA,NOTA,164
+S15,Meghalaya,40,Bajengdoba (ST),Pongseng Marak,MALE,38.0,ST,NPEP,9900
+S15,Meghalaya,40,Bajengdoba (ST),Brigady Napak Marak,MALE,55.0,ST,INC,7584
+S15,Meghalaya,40,Bajengdoba (ST),Tengrak R. Marak,MALE,39.0,ST,AITC,7431
+S15,Meghalaya,40,Bajengdoba (ST),Chadambe Tengkam B Marak,MALE,26.0,ST,IND,1996
+S15,Meghalaya,40,Bajengdoba (ST),Rocky R Marak,MALE,39.0,ST,IND,744
+S15,Meghalaya,40,Bajengdoba (ST),Henendra A. Sangma,MALE,59.0,ST,BJP,537
+S15,Meghalaya,40,Bajengdoba (ST),Rakman Ch Marak,MALE,42.0,ST,UDP,491
+S15,Meghalaya,40,Bajengdoba (ST),Nota,NOTA,NOTA,NOTA,NOTA,241
+S15,Meghalaya,41,Songsak (ST),Dr. Mukul Sangma,MALE,57.0,ST,AITC,12689
+S15,Meghalaya,41,Songsak (ST),Nihim D Shira,MALE,45.0,ST,NPEP,12317
+S15,Meghalaya,41,Songsak (ST),Champion R. Sangma,MALE,43.0,ST,INC,2232
+S15,Meghalaya,41,Songsak (ST),Thomas Marak,MALE,47.0,ST,BJP,776
+S15,Meghalaya,41,Songsak (ST),Sarenni Marak,FEMALE,46.0,ST,RPI,296
+S15,Meghalaya,41,Songsak (ST),Nota,NOTA,NOTA,NOTA,NOTA,196
+S15,Meghalaya,42,Rongjeng (ST),Jim M Sangma,MALE,46.0,ST,NPEP,8836
+S15,Meghalaya,42,Rongjeng (ST),Walseng M. Sangma,MALE,41.0,ST,IND,8708
+S15,Meghalaya,42,Rongjeng (ST),Sengnam M. Marak,MALE,45.0,ST,AITC,4400
+S15,Meghalaya,42,Rongjeng (ST),Rapiush Ch. Sangma,MALE,42.0,ST,BJP,3302
+S15,Meghalaya,42,Rongjeng (ST),Jebing G Momin,MALE,53.0,ST,INC,3131
+S15,Meghalaya,42,Rongjeng (ST),Andreash G. Momin,MALE,59.0,ST,UDP,1306
+S15,Meghalaya,42,Rongjeng (ST),Nota,NOTA,NOTA,NOTA,NOTA,456
+S15,Meghalaya,43,William Nagar (ST),Marcuise N Marak,MALE,54.0,ST,NPEP,10976
+S15,Meghalaya,43,William Nagar (ST),Deborah C. Marak,FEMALE,57.0,ST,INC,7133
+S15,Meghalaya,43,William Nagar (ST),Rudreswar Ch. Momin,MALE,42.0,ST,IND,5137
+S15,Meghalaya,43,William Nagar (ST),Alphonsush R. Marak,MALE,41.0,ST,AITC,4809
+S15,Meghalaya,43,William Nagar (ST),Robinus T Sangma,MALE,54.0,ST,JD(U),733
+S15,Meghalaya,43,William Nagar (ST),Raknang Ch. Momin,MALE,25.0,ST,BJP,457
+S15,Meghalaya,43,William Nagar (ST),Nota,NOTA,NOTA,NOTA,NOTA,366
+S15,Meghalaya,43,William Nagar (ST),Ballensing Ch Marak,MALE,53.0,ST,RPI,138
+S15,Meghalaya,44,Raksamgre (ST),Limison D. Sangma,MALE,56.0,ST,NPEP,12184
+S15,Meghalaya,44,Raksamgre (ST),Benedic R. Marak,MALE,38.0,ST,BJP,9366
+S15,Meghalaya,44,Raksamgre (ST),Dr. Prabir D. Sangma,MALE,46.0,ST,AITC,4075
+S15,Meghalaya,44,Raksamgre (ST),Frederick D. Sangma,MALE,34.0,ST,INC,1413
+S15,Meghalaya,44,Raksamgre (ST),Sushil Gayary,MALE,42.0,ST,UDP,261
+S15,Meghalaya,44,Raksamgre (ST),Nota,NOTA,NOTA,NOTA,NOTA,184
+S15,Meghalaya,44,Raksamgre (ST),Thosengcheba A. Sangma,MALE,32.0,ST,RPI(A),168
+S15,Meghalaya,45,Tikrikilla (ST),Jimmy D. Sangma,MALE,49.0,ST,NPEP,13218
+S15,Meghalaya,45,Tikrikilla (ST),Dr. Mukul Sangma,MALE,57.0,ST,AITC,7905
+S15,Meghalaya,45,Tikrikilla (ST),Rahinath Barchung,MALE,58.0,ST,BJP,7849
+S15,Meghalaya,45,Tikrikilla (ST),Dr. Kapin Ch. Boro,MALE,66.0,ST,INC,1233
+S15,Meghalaya,45,Tikrikilla (ST),Noor Nongrum,MALE,53.0,ST,IND,1098
+S15,Meghalaya,45,Tikrikilla (ST),Julius T. Sangma,MALE,30.0,ST,UDP,313
+S15,Meghalaya,45,Tikrikilla (ST),Nota,NOTA,NOTA,NOTA,NOTA,298
+S15,Meghalaya,46,Phulbari,Abu Taher Mondal,MALE,56.0,GENERAL,NPEP,14969
+S15,Meghalaya,46,Phulbari,S G Esmatur Mominin,MALE,47.0,GENERAL,AITC,11729
+S15,Meghalaya,46,Phulbari,Edmund K. Sangma,MALE,63.0,ST,BJP,1856
+S15,Meghalaya,46,Phulbari,Zinbaward N. Sangma,MALE,37.0,ST,UDP,400
+S15,Meghalaya,46,Phulbari,Sailendra R. Sangma,MALE,66.0,ST,INC,318
+S15,Meghalaya,46,Phulbari,Nota,NOTA,NOTA,NOTA,NOTA,219
+S15,Meghalaya,46,Phulbari,Ful Boksha Sheikh,MALE,43.0,GENERAL,JD(U),68
+S15,Meghalaya,47,Rajabala,Dr. Mizanur Rahman Kazi,MALE,47.0,GENERAL,AITC,12628
+S15,Meghalaya,47,Rajabala,Md Abdus Saleh,MALE,54.0,GENERAL,NPEP,12618
+S15,Meghalaya,47,Rajabala,Ashahel D. Shira,MALE,35.0,ST,UDP,6870
+S15,Meghalaya,47,Rajabala,Bakul Chandra Hajong,MALE,62.0,ST,BJP,439
+S15,Meghalaya,47,Rajabala,Nijum Sangma,MALE,47.0,ST,IND,419
+S15,Meghalaya,47,Rajabala,Carla R. Sangma,MALE,27.0,ST,INC,193
+S15,Meghalaya,47,Rajabala,Nota,NOTA,NOTA,NOTA,NOTA,158
+S15,Meghalaya,48,Selsella (ST),Arbinstone B Marak,MALE,39.0,ST,NPEP,16595
+S15,Meghalaya,48,Selsella (ST),Agassi R. Marak,MALE,32.0,ST,AITC,7854
+S15,Meghalaya,48,Selsella (ST),Ferlin C.a. Sangma,FEMALE,62.0,ST,BJP,6954
+S15,Meghalaya,48,Selsella (ST),Reynold M Sangma,MALE,40.0,ST,INC,1184
+S15,Meghalaya,48,Selsella (ST),Tengsrang Marak,MALE,35.0,ST,IND,206
+S15,Meghalaya,48,Selsella (ST),Pollop R Marak,MALE,47.0,ST,IND,185
+S15,Meghalaya,48,Selsella (ST),Nota,NOTA,NOTA,NOTA,NOTA,179
+S15,Meghalaya,48,Selsella (ST),Subhankar Koch,MALE,31.0,ST,UDP,128
+S15,Meghalaya,49,Dadenggre (ST),Rupa M. Marak,MALE,36.0,ST,AITC,15702
+S15,Meghalaya,49,Dadenggre (ST),James Pangsang Kongkal Sangma,MALE,47.0,ST,NPEP,15684
+S15,Meghalaya,49,Dadenggre (ST),Braining R. Marak,MALE,37.0,ST,BJP,481
+S15,Meghalaya,49,Dadenggre (ST),Chesterfield Sangma,MALE,44.0,ST,INC,367
+S15,Meghalaya,49,Dadenggre (ST),Witjeng N. Sangma,MALE,26.0,ST,RPI(A),359
+S15,Meghalaya,49,Dadenggre (ST),Nota,NOTA,NOTA,NOTA,NOTA,171
+S15,Meghalaya,50,North Tura (ST),Thomas A. Sangma,MALE,61.0,ST,NPEP,11386
+S15,Meghalaya,50,North Tura (ST),Adam Kid M. Sangma,MALE,41.0,ST,BJP,7501
+S15,Meghalaya,50,North Tura (ST),Rupert M. Sangma,MALE,39.0,ST,AITC,4743
+S15,Meghalaya,50,North Tura (ST),Billykid A. Sangma,MALE,58.0,ST,INC,2113
+S15,Meghalaya,50,North Tura (ST),Dr. Pilne A. Sangma,FEMALE,47.0,ST,UDP,665
+S15,Meghalaya,50,North Tura (ST),Nota,NOTA,NOTA,NOTA,NOTA,262
+S15,Meghalaya,50,North Tura (ST),Bina Rosaline A. Sangma,FEMALE,61.0,ST,JD(U),224
+S15,Meghalaya,51,South Tura (ST),Conrad Kongkal Sangma,MALE,44.0,ST,NPEP,13342
+S15,Meghalaya,51,South Tura (ST),Bernard N. Marak,MALE,47.0,ST,BJP,8326
+S15,Meghalaya,51,South Tura (ST),Richard M Marak,MALE,37.0,ST,AITC,2312
+S15,Meghalaya,51,South Tura (ST),John Leslee K. Sangma,MALE,57.0,ST,UDP,776
+S15,Meghalaya,51,South Tura (ST),Brenzield Ch Marak,MALE,49.0,ST,INC,572
+S15,Meghalaya,51,South Tura (ST),Nota,NOTA,NOTA,NOTA,NOTA,310
+S15,Meghalaya,52,Rangsakona (ST),Subir Marak,MALE,48.0,ST,NPEP,13605
+S15,Meghalaya,52,Rangsakona (ST),Zenith .m. Sangma,MALE,51.0,ST,AITC,12817
+S15,Meghalaya,52,Rangsakona (ST),Dipul R. Marak,MALE,56.0,ST,BJP,4571
+S15,Meghalaya,52,Rangsakona (ST),Edmund S Sangma,MALE,42.0,ST,INC,820
+S15,Meghalaya,52,Rangsakona (ST),Indrash M. Marak,MALE,42.0,ST,RPI(A),353
+S15,Meghalaya,52,Rangsakona (ST),Bipul Ch. Sangma,MALE,59.0,ST,UDP,255
+S15,Meghalaya,52,Rangsakona (ST),Nota,NOTA,NOTA,NOTA,NOTA,190
+S15,Meghalaya,53,Ampati (ST),Miani D. Shira,FEMALE,32.0,ST,AITC,13446
+S15,Meghalaya,53,Ampati (ST),Stevie M. Marak,MALE,33.0,ST,NPEP,11169
+S15,Meghalaya,53,Ampati (ST),Premananda Koch,MALE,50.0,ST,BJP,4762
+S15,Meghalaya,53,Ampati (ST),Uttora Guri Sangma,FEMALE,55.0,ST,INC,476
+S15,Meghalaya,53,Ampati (ST),Nota,NOTA,NOTA,NOTA,NOTA,233
+S15,Meghalaya,54,Mahendraganj (ST),Sanjay A. Sangma,MALE,48.0,ST,NPEP,13560
+S15,Meghalaya,54,Mahendraganj (ST),Dikkanchi D Shira,FEMALE,57.0,ST,AITC,11842
+S15,Meghalaya,54,Mahendraganj (ST),Tingku N Marak,MALE,40.0,ST,BJP,6701
+S15,Meghalaya,54,Mahendraganj (ST),Sayeedullah Nongrum,MALE,72.0,ST,INC,331
+S15,Meghalaya,54,Mahendraganj (ST),Nota,NOTA,NOTA,NOTA,NOTA,173
+S15,Meghalaya,54,Mahendraganj (ST),Aditya Hajong,MALE,29.0,ST,IND,163
+S15,Meghalaya,54,Mahendraganj (ST),Serazul H Kharkongor,MALE,65.0,ST,IND,100
+S15,Meghalaya,55,Salmanpara (ST),Ian Botham K. Sangma,MALE,36.0,ST,NPEP,11352
+S15,Meghalaya,55,Salmanpara (ST),Winnerson D. Sangma,MALE,52.0,ST,AITC,6114
+S15,Meghalaya,55,Salmanpara (ST),Boston Marak,MALE,43.0,ST,BJP,5600
+S15,Meghalaya,55,Salmanpara (ST),Ronald Rikman Sangma,MALE,54.0,ST,UDP,2766
+S15,Meghalaya,55,Salmanpara (ST),Sinbath Ch Marak,MALE,30.0,ST,INC,1029
+S15,Meghalaya,55,Salmanpara (ST),Nota,NOTA,NOTA,NOTA,NOTA,270
+S15,Meghalaya,56,Gambegre (ST),Saleng A. Sangma,MALE,44.0,ST,INC,11252
+S15,Meghalaya,56,Gambegre (ST),Sadhiarani M. Sangma,FEMALE,51.0,ST,AITC,8381
+S15,Meghalaya,56,Gambegre (ST),Rakesh Sangma,MALE,40.0,ST,NPEP,7628
+S15,Meghalaya,56,Gambegre (ST),Jhim Carter .m. Sangma,MALE,36.0,ST,RPI(A),367
+S15,Meghalaya,56,Gambegre (ST),Daniel M Sangma,MALE,49.0,ST,BJP,315
+S15,Meghalaya,56,Gambegre (ST),Sairill D. Marak,MALE,31.0,ST,GNC,198
+S15,Meghalaya,56,Gambegre (ST),Sukberline S. Sangma,MALE,49.0,ST,IND,161
+S15,Meghalaya,56,Gambegre (ST),Nota,NOTA,NOTA,NOTA,NOTA,131
+S15,Meghalaya,57,Dalu (ST),Brening A. Sangma,MALE,60.0,ST,NPEP,5834
+S15,Meghalaya,57,Dalu (ST),Akki A Sangma,MALE,30.0,ST,BJP,5307
+S15,Meghalaya,57,Dalu (ST),Sengkal A Sangma,MALE,46.0,ST,AITC,3104
+S15,Meghalaya,57,Dalu (ST),Sarbha R. Marak,MALE,32.0,ST,IND,2069
+S15,Meghalaya,57,Dalu (ST),Promod S. Koch,MALE,51.0,ST,IND,694
+S15,Meghalaya,57,Dalu (ST),Kenethson Sangma,MALE,60.0,ST,UDP,635
+S15,Meghalaya,57,Dalu (ST),Panseng R. Marak,MALE,43.0,ST,RPI(A),447
+S15,Meghalaya,57,Dalu (ST),Diraj D. Marak,MALE,42.0,ST,IND,355
+S15,Meghalaya,57,Dalu (ST),Roger Benny A Sangma,MALE,36.0,ST,INC,333
+S15,Meghalaya,57,Dalu (ST),Nota,NOTA,NOTA,NOTA,NOTA,162
+S15,Meghalaya,58,Rongara Siju (ST),Rakkam A. Sangma,MALE,40.0,ST,NPEP,11569
+S15,Meghalaya,58,Rongara Siju (ST),Rophul S Marak,MALE,43.0,ST,INC,8311
+S15,Meghalaya,58,Rongara Siju (ST),Dr Rajesh M Marak,MALE,40.0,ST,AITC,7938
+S15,Meghalaya,58,Rongara Siju (ST),Calis G Momin,MALE,31.0,ST,BJP,1279
+S15,Meghalaya,58,Rongara Siju (ST),Teseng A Sangma,MALE,33.0,ST,UDP,197
+S15,Meghalaya,58,Rongara Siju (ST),Nota,NOTA,NOTA,NOTA,NOTA,137
+S15,Meghalaya,59,Chokpot (ST),Sengchim N. Sangma,MALE,38.0,ST,NPEP,9503
+S15,Meghalaya,59,Chokpot (ST),Nikman Ch. Marak,MALE,31.0,ST,GNC,9150
+S15,Meghalaya,59,Chokpot (ST),Lazarus M Sangma,MALE,44.0,ST,AITC,5615
+S15,Meghalaya,59,Chokpot (ST),Karak R. Sangma,MALE,28.0,ST,INC,3293
+S15,Meghalaya,59,Chokpot (ST),Novembirth Ch. Marak,MALE,46.0,ST,BJP,618
+S15,Meghalaya,59,Chokpot (ST),Nota,NOTA,NOTA,NOTA,NOTA,331
+S15,Meghalaya,60,Baghmara (ST),Kartush R. Marak,MALE,46.0,ST,IND,9013
+S15,Meghalaya,60,Baghmara (ST),Samuel M Sangma,MALE,56.0,ST,BJP,6788
+S15,Meghalaya,60,Baghmara (ST),Satto R. Marak,MALE,45.0,ST,NPEP,5493
+S15,Meghalaya,60,Baghmara (ST),Nathawal S. Marak,MALE,37.0,ST,IND,4658
+S15,Meghalaya,60,Baghmara (ST),Dr. Saljagringrang R. Marak,MALE,34.0,ST,AITC,2759
+S15,Meghalaya,60,Baghmara (ST),Alphonse Ch. Sangma,MALE,52.0,ST,INC,257
+S15,Meghalaya,60,Baghmara (ST),Nota,NOTA,NOTA,NOTA,NOTA,205
+S17,Nagaland,1,Dimapur-I,H. Tovihoto Ayemi,MALE,44.0,ST,BJP,13325
+S17,Nagaland,1,Dimapur-I,Kewekhape Therie,MALE,69.0,ST,INC,6366
+S17,Nagaland,1,Dimapur-I,Nota,NOTA,NOTA,NOTA,NOTA,195
+S17,Nagaland,2,Dimapur-II (ST),Moatoshi Longkumer,MALE,65.0,ST,NDPP,23856
+S17,Nagaland,2,Dimapur-II (ST),Y. Vikheho Awomi,MALE,54.0,ST,LJPRV,18709
+S17,Nagaland,2,Dimapur-II (ST),S. Amento Chishi,MALE,38.0,ST,INC,1784
+S17,Nagaland,2,Dimapur-II (ST),Nota,NOTA,NOTA,NOTA,NOTA,505
+S17,Nagaland,3,Dimapur-III (ST),Hekani Jakhalu,FEMALE,48.0,ST,NDPP,14395
+S17,Nagaland,3,Dimapur-III (ST),Azheto Zhimomi,MALE,67.0,ST,LJPRV,12859
+S17,Nagaland,3,Dimapur-III (ST),Lun Tungnung,MALE,45.0,ST,IND,2445
+S17,Nagaland,3,Dimapur-III (ST),Kahuto Chishi Sumi,MALE,57.0,ST,IND,1671
+S17,Nagaland,3,Dimapur-III (ST),Vetetso Lasuh,MALE,72.0,ST,INC,370
+S17,Nagaland,3,Dimapur-III (ST),Nota,NOTA,NOTA,NOTA,NOTA,134
+S17,Nagaland,4,Ghaspani-I (ST),N. Jacob Zhimomi,MALE,42.0,ST,BJP,32037
+S17,Nagaland,4,Ghaspani-I (ST),V. Phushika Aomi,MALE,46.0,ST,IND,11941
+S17,Nagaland,4,Ghaspani-I (ST),Imsumongba Pongen,MALE,48.0,ST,JD(U),8228
+S17,Nagaland,4,Ghaspani-I (ST),Akavi N. Zhimomi,MALE,31.0,ST,INC,4513
+S17,Nagaland,4,Ghaspani-I (ST),Vikato Aye,MALE,37.0,ST,NPF,277
+S17,Nagaland,4,Ghaspani-I (ST),Nota,NOTA,NOTA,NOTA,NOTA,264
+S17,Nagaland,5,Ghaspani-II (ST),Zhaleo Rio,MALE,69.0,ST,NDPP,11405
+S17,Nagaland,5,Ghaspani-II (ST),Z. Kasheto Yeptho,MALE,48.0,ST,RPPRINAT,7230
+S17,Nagaland,5,Ghaspani-II (ST),Kitoho S. Rotokha,MALE,49.0,ST,LJPRV,5793
+S17,Nagaland,5,Ghaspani-II (ST),Nota,NOTA,NOTA,NOTA,NOTA,111
+S17,Nagaland,6,Tenning (ST),Namri Nchang,MALE,56.0,ST,NCP,6736
+S17,Nagaland,6,Tenning (ST),Tarie Zeliang,MALE,60.0,ST,NDPP,6399
+S17,Nagaland,6,Tenning (ST),Dr. Tumda Newme,MALE,50.0,ST,IND,5530
+S17,Nagaland,6,Tenning (ST),Zandi Domta,MALE,60.0,ST,NPEP,2467
+S17,Nagaland,6,Tenning (ST),Rosy Thomson,FEMALE,58.0,ST,INC,1704
+S17,Nagaland,6,Tenning (ST),Nota,NOTA,NOTA,NOTA,NOTA,42
+S17,Nagaland,6,Tenning (ST),Henry Zeliang,MALE,63.0,ST,NPF,39
+S17,Nagaland,7,Peren (ST),Taditui Rangkau Zeliang,MALE,70.0,ST,NDPP,16800
+S17,Nagaland,7,Peren (ST),Kingudi Joseph,MALE,48.0,ST,NPF,6885
+S17,Nagaland,7,Peren (ST),K. Kengim Kulimbe,MALE,56.0,ST,IND,1116
+S17,Nagaland,7,Peren (ST),Nota,NOTA,NOTA,NOTA,NOTA,140
+S17,Nagaland,8,Western Angami (ST),Salhoutuonuo Kruse,FEMALE,56.0,ST,NDPP,7078
+S17,Nagaland,8,Western Angami (ST),Keneizhakho Nakhro,MALE,56.0,ST,IND,7071
+S17,Nagaland,8,Western Angami (ST),Nota,NOTA,NOTA,NOTA,NOTA,80
+S17,Nagaland,9,Kohima Town (ST),Dr. Tseilhoutuo Rhutso (dr. Ato),MALE,49.0,ST,NPEP,9844
+S17,Nagaland,9,Kohima Town (ST),Dr. Neikiesalie Nicky Kire,MALE,71.0,ST,NDPP,8502
+S17,Nagaland,9,Kohima Town (ST),Er. Meshenlo Kath,MALE,33.0,ST,INC,1413
+S17,Nagaland,9,Kohima Town (ST),Nota,NOTA,NOTA,NOTA,NOTA,103
+S17,Nagaland,10,Northern Angami-I (ST),Dr.kekhrielhoulie Yhome,MALE,46.0,ST,NDPP,7724
+S17,Nagaland,10,Northern Angami-I (ST),Khriehu Liezietsu,MALE,56.0,ST,NPF,6034
+S17,Nagaland,10,Northern Angami-I (ST),Nota,NOTA,NOTA,NOTA,NOTA,72
+S17,Nagaland,11,Northern Angami-II (ST),Neiphiu Rio,MALE,72.0,ST,NDPP,17045
+S17,Nagaland,11,Northern Angami-II (ST),Seyievilie Sachu,MALE,37.0,ST,INC,1221
+S17,Nagaland,11,Northern Angami-II (ST),Nota,NOTA,NOTA,NOTA,NOTA,87
+S17,Nagaland,12,Tseminyu (ST),Jwenga Seb,MALE,45.0,ST,JD(U),8096
+S17,Nagaland,12,Tseminyu (ST),Loguseng Semp,MALE,46.0,ST,RPPRINAT,5533
+S17,Nagaland,12,Tseminyu (ST),R. Khing,MALE,73.0,ST,NDPP,4781
+S17,Nagaland,12,Tseminyu (ST),Joel Naga,MALE,48.0,ST,RSNPLSP,3718
+S17,Nagaland,12,Tseminyu (ST),Er. Levi Rengma,MALE,64.0,ST,LJPRV,352
+S17,Nagaland,12,Tseminyu (ST),Nota,NOTA,NOTA,NOTA,NOTA,71
+S17,Nagaland,13,Pughoboto (ST),Dr. Sukhato A. Sema,MALE,65.0,ST,LJPRV,7808
+S17,Nagaland,13,Pughoboto (ST),Y. Vikheho Swu,MALE,57.0,ST,NDPP,6958
+S17,Nagaland,13,Pughoboto (ST),Nota,NOTA,NOTA,NOTA,NOTA,23
+S17,Nagaland,14,Southern Angami-I (ST),Kevipodi Sophie,MALE,59.0,ST,IND,6643
+S17,Nagaland,14,Southern Angami-I (ST),Medo Yhokha,MALE,45.0,ST,NDPP,6466
+S17,Nagaland,14,Southern Angami-I (ST),Nota,NOTA,NOTA,NOTA,NOTA,38
+S17,Nagaland,15,Southern Angami-II (ST),Kropol Vitsu,MALE,58.0,ST,BJP,5985
+S17,Nagaland,15,Southern Angami-II (ST),Zale Neikha,MALE,46.0,ST,NCP,5535
+S17,Nagaland,15,Southern Angami-II (ST),Vipopal Kintso,MALE,52.0,ST,JD(U),4624
+S17,Nagaland,15,Southern Angami-II (ST),Nota,NOTA,NOTA,NOTA,NOTA,44
+S17,Nagaland,16,Pfutsero (ST),Dr.neisatuo Mero,MALE,49.0,ST,IND,7995
+S17,Nagaland,16,Pfutsero (ST),Neiba Kronu,MALE,55.0,ST,NDPP,7891
+S17,Nagaland,16,Pfutsero (ST),Vivolie Kezo,MALE,48.0,ST,NPF,3059
+S17,Nagaland,16,Pfutsero (ST),Nota,NOTA,NOTA,NOTA,NOTA,62
+S17,Nagaland,17,Chizami (ST),K. G Kenye,MALE,62.0,ST,NDPP,7088
+S17,Nagaland,17,Chizami (ST),Kevechutso Doulo,MALE,53.0,ST,LJPRV,5809
+S17,Nagaland,17,Chizami (ST),Vevoyi Wideo,MALE,41.0,ST,NPEP,3310
+S17,Nagaland,17,Chizami (ST),Kezhienyi Khalo,MALE,64.0,ST,NPF,104
+S17,Nagaland,17,Chizami (ST),Nota,NOTA,NOTA,NOTA,NOTA,65
+S17,Nagaland,18,Chazouba (ST),Kudecho Khamo,MALE,47.0,ST,NDPP,9485
+S17,Nagaland,18,Chazouba (ST),Dr. Chotisuh Sazo,MALE,61.0,ST,LJPRV,7247
+S17,Nagaland,18,Chazouba (ST),Sovenyi,MALE,62.0,ST,NPF,3433
+S17,Nagaland,18,Chazouba (ST),Thepuphi Kapuh,MALE,50.0,ST,IND,2452
+S17,Nagaland,18,Chazouba (ST),Veprasa Nyekha,MALE,67.0,ST,NPEP,397
+S17,Nagaland,18,Chazouba (ST),Nota,NOTA,NOTA,NOTA,NOTA,38
+S17,Nagaland,19,Phek (ST),Kuzholuzo Nienu,MALE,57.0,ST,NPF,9489
+S17,Nagaland,19,Phek (ST),Kupota Khesoh,MALE,63.0,ST,NDPP,9441
+S17,Nagaland,19,Phek (ST),Zacilhu Ringa Vadeo,MALE,71.0,ST,INC,427
+S17,Nagaland,19,Phek (ST),Nota,NOTA,NOTA,NOTA,NOTA,39
+S17,Nagaland,20,Meluri (ST),Z.nyusietho Nyuthe,MALE,57.0,ST,NDPP,11256
+S17,Nagaland,20,Meluri (ST),Yitachu,MALE,56.0,ST,LJPRV,7676
+S17,Nagaland,20,Meluri (ST),S.akho Leyri,MALE,61.0,ST,NPF,304
+S17,Nagaland,20,Meluri (ST),Hopeson Snock,MALE,48.0,ST,RJD,102
+S17,Nagaland,20,Meluri (ST),Nota,NOTA,NOTA,NOTA,NOTA,55
+S17,Nagaland,21,Tuli (ST),A. Pangjung Jamir,MALE,56.0,ST,BJP,10319
+S17,Nagaland,21,Tuli (ST),Amenba Yaden,MALE,70.0,ST,NCP,7290
+S17,Nagaland,21,Tuli (ST),Nota,NOTA,NOTA,NOTA,NOTA,38
+S17,Nagaland,22,Arkakong (ST),Nuklutoshi,MALE,56.0,ST,NPEP,9387
+S17,Nagaland,22,Arkakong (ST),Imnatiba,MALE,43.0,ST,NDPP,8184
+S17,Nagaland,22,Arkakong (ST),Nota,NOTA,NOTA,NOTA,NOTA,21
+S17,Nagaland,23,Impur (ST),T. N. Mannen,MALE,73.0,ST,NDPP,6825
+S17,Nagaland,23,Impur (ST),Bendangkokba,MALE,63.0,ST,INC,5730
+S17,Nagaland,23,Impur (ST),Nota,NOTA,NOTA,NOTA,NOTA,31
+S17,Nagaland,24,Angetyongpang (ST),Tongpang Ozukum,MALE,42.0,ST,NDPP,8046
+S17,Nagaland,24,Angetyongpang (ST),Er. K. Wati,MALE,54.0,ST,IND,5826
+S17,Nagaland,24,Angetyongpang (ST),S. Maongkaba Ozukum,MALE,47.0,ST,NPEP,1842
+S17,Nagaland,24,Angetyongpang (ST),Nota,NOTA,NOTA,NOTA,NOTA,20
+S17,Nagaland,25,Mongoya (ST),Imkongmar,MALE,47.0,ST,NDPP,6818
+S17,Nagaland,25,Mongoya (ST),S. Supongmeren Jamir,MALE,59.0,ST,INC,5776
+S17,Nagaland,25,Mongoya (ST),Moasangba Jamir,MALE,59.0,ST,NPF,3640
+S17,Nagaland,25,Mongoya (ST),Nota,NOTA,NOTA,NOTA,NOTA,34
+S17,Nagaland,26,Aonglenden (ST),Sharingain Longkumer,MALE,42.0,ST,NDPP,7363
+S17,Nagaland,26,Aonglenden (ST),Toshipokba,MALE,62.0,ST,INC,2843
+S17,Nagaland,26,Aonglenden (ST),Nota,NOTA,NOTA,NOTA,NOTA,35
+S17,Nagaland,27,Mokokchung Town (ST),Metsubo Jamir,MALE,63.0,ST,NDPP,5318
+S17,Nagaland,27,Mokokchung Town (ST),Alem Jongshi,MALE,65.0,ST,INC,1407
+S17,Nagaland,27,Mokokchung Town (ST),Nota,NOTA,NOTA,NOTA,NOTA,36
+S17,Nagaland,28,Koridang (ST),Imkong L. Imchen,MALE,72.0,ST,BJP,8340
+S17,Nagaland,28,Koridang (ST),Maj. Toshikaba (retd),MALE,42.0,ST,NPF,7930
+S17,Nagaland,28,Koridang (ST),I. Talitsuba Imchen,MALE,57.0,ST,IND,2696
+S17,Nagaland,28,Koridang (ST),T. Chalukumba Ao,MALE,63.0,ST,JD(U),138
+S17,Nagaland,28,Koridang (ST),Nota,NOTA,NOTA,NOTA,NOTA,41
+S17,Nagaland,29,Jangpetkong (ST),Temjenmenba,MALE,49.0,ST,NDPP,6238
+S17,Nagaland,29,Jangpetkong (ST),Imjongwati Longkumer,MALE,48.0,ST,NPF,4237
+S17,Nagaland,29,Jangpetkong (ST),Longrineken,MALE,55.0,ST,LJPRV,777
+S17,Nagaland,29,Jangpetkong (ST),Nota,NOTA,NOTA,NOTA,NOTA,10
+S17,Nagaland,30,Alongtaki (ST),Temjen Imna Along,MALE,42.0,ST,BJP,9274
+S17,Nagaland,30,Alongtaki (ST),J. Lanu Longchar,MALE,59.0,ST,JD(U),5526
+S17,Nagaland,30,Alongtaki (ST),Nota,NOTA,NOTA,NOTA,NOTA,38
+S17,Nagaland,31,Akuluto (ST),Kazheto,MALE,68.0,ST,BJP,0
+S17,Nagaland,32,Atoizu (ST),Picto,MALE,69.0,ST,NCP,8294
+S17,Nagaland,32,Atoizu (ST),Er Kahuli Sema,FEMALE,57.0,ST,BJP,7692
+S17,Nagaland,32,Atoizu (ST),Nota,NOTA,NOTA,NOTA,NOTA,16
+S17,Nagaland,33,Suruhuto (ST),S. Toiho Yeptho,MALE,50.0,ST,NCP,6919
+S17,Nagaland,33,Suruhuto (ST),H. Khehovi,MALE,57.0,ST,BJP,6850
+S17,Nagaland,33,Suruhuto (ST),Nota,NOTA,NOTA,NOTA,NOTA,18
+S17,Nagaland,34,Aghunato (ST),G. Ikuto Zhimomi,MALE,62.0,ST,NDPP,7133
+S17,Nagaland,34,Aghunato (ST),Hukiye N. Tissica,MALE,58.0,ST,LJPRV,6541
+S17,Nagaland,34,Aghunato (ST),Nota,NOTA,NOTA,NOTA,NOTA,32
+S17,Nagaland,35,Zunheboto (ST),K. Tokugha Sukhalu,MALE,68.0,ST,NDPP,15921
+S17,Nagaland,35,Zunheboto (ST),Akavi Sumi,MALE,46.0,ST,NPF,3893
+S17,Nagaland,35,Zunheboto (ST),Nota,NOTA,NOTA,NOTA,NOTA,77
+S17,Nagaland,36,Satakha (ST),G. Kaito Aye,MALE,70.0,ST,NDPP,8875
+S17,Nagaland,36,Satakha (ST),Zheito Chophy,MALE,47.0,ST,LJPRV,7524
+S17,Nagaland,36,Satakha (ST),Nota,NOTA,NOTA,NOTA,NOTA,39
+S17,Nagaland,37,Tyui (ST),Yanthungo Patton,MALE,66.0,ST,BJP,16641
+S17,Nagaland,37,Tyui (ST),Senchumo Lotha,MALE,52.0,ST,JD(U),7800
+S17,Nagaland,37,Tyui (ST),Y.kikon,MALE,58.0,ST,RJD,41
+S17,Nagaland,37,Tyui (ST),Hayithung Tungoe Lotha,MALE,42.0,ST,IND,31
+S17,Nagaland,37,Tyui (ST),Nota,NOTA,NOTA,NOTA,NOTA,21
+S17,Nagaland,38,Wokha (ST),Y. Mhonbemo Humtsoe,MALE,64.0,ST,NCP,15949
+S17,Nagaland,38,Wokha (ST),Renponthung Ezung,MALE,55.0,ST,BJP,12888
+S17,Nagaland,38,Wokha (ST),N. Wobenthung Lotha,MALE,58.0,ST,INC,324
+S17,Nagaland,38,Wokha (ST),Nota,NOTA,NOTA,NOTA,NOTA,26
+S17,Nagaland,39,Sanis (ST),Mhathung Yanthan,MALE,63.0,ST,NDPP,15076
+S17,Nagaland,39,Sanis (ST),Senkathung Jami,MALE,62.0,ST,RJD,5563
+S17,Nagaland,39,Sanis (ST),Dr. Roland Lotha,MALE,49.0,ST,NPF,1754
+S17,Nagaland,39,Sanis (ST),Y. Sulanthung H Lotha,MALE,61.0,ST,LJPRV,289
+S17,Nagaland,39,Sanis (ST),Mhonbemo,MALE,39.0,ST,IND,105
+S17,Nagaland,39,Sanis (ST),Yanchamo Ovung,MALE,41.0,ST,INC,94
+S17,Nagaland,39,Sanis (ST),Nota,NOTA,NOTA,NOTA,NOTA,15
+S17,Nagaland,40,Bhandari (ST),Achumbemo Kikon,MALE,47.0,ST,NPF,13867
+S17,Nagaland,40,Bhandari (ST),Mmhonlumo Kikon,MALE,44.0,ST,BJP,10278
+S17,Nagaland,40,Bhandari (ST),Tsungro Kithan,MALE,55.0,ST,NPEP,1072
+S17,Nagaland,40,Bhandari (ST),Chenithung Humtsoe,MALE,58.0,ST,INC,325
+S17,Nagaland,40,Bhandari (ST),John Ovung,MALE,48.0,ST,IND,77
+S17,Nagaland,40,Bhandari (ST),Nota,NOTA,NOTA,NOTA,NOTA,7
+S17,Nagaland,41,Tizit (ST),P. Paiwang Konyak,MALE,45.0,ST,BJP,10428
+S17,Nagaland,41,Tizit (ST),T. Thomas Konyak,MALE,26.0,ST,INC,5825
+S17,Nagaland,41,Tizit (ST),Tahwang Angh,MALE,38.0,ST,NPF,3374
+S17,Nagaland,41,Tizit (ST),Nota,NOTA,NOTA,NOTA,NOTA,52
+S17,Nagaland,42,Wakching (ST),W. Chingang Konyak,MALE,60.0,ST,NDPP,9166
+S17,Nagaland,42,Wakching (ST),M. Honang Jess,MALE,40.0,ST,NPEP,6433
+S17,Nagaland,42,Wakching (ST),Nota,NOTA,NOTA,NOTA,NOTA,52
+S17,Nagaland,43,Tapi (ST),Noke Wangnao,MALE,86.0,ST,NDPP,5864
+S17,Nagaland,43,Tapi (ST),Wanglem Konyak,MALE,41.0,ST,NPF,5782
+S17,Nagaland,43,Tapi (ST),Geihwang Konyak,MALE,30.0,ST,JD(U),2770
+S17,Nagaland,43,Tapi (ST),A. Epha,MALE,29.0,ST,NPEP,150
+S17,Nagaland,43,Tapi (ST),Nota,NOTA,NOTA,NOTA,NOTA,42
+S17,Nagaland,44,Phomching (ST),K Konngam Konyak,MALE,67.0,ST,BJP,9803
+S17,Nagaland,44,Phomching (ST),Pohwang Konyak,MALE,81.0,ST,NCP,6926
+S17,Nagaland,44,Phomching (ST),T Ngampai Konyak,MALE,42.0,ST,INC,84
+S17,Nagaland,44,Phomching (ST),Nota,NOTA,NOTA,NOTA,NOTA,51
+S17,Nagaland,44,Phomching (ST),H Chingsak Konyak,MALE,43.0,ST,NPF,11
+S17,Nagaland,45,Tehok (ST),C.l. John,MALE,57.0,ST,NDPP,9232
+S17,Nagaland,45,Tehok (ST),C. Kawang Konyak,MALE,58.0,ST,NPF,2162
+S17,Nagaland,45,Tehok (ST),Chingkai Konyak,MALE,39.0,ST,LJPRV,149
+S17,Nagaland,45,Tehok (ST),Shaboh Konyak,MALE,54.0,ST,INC,120
+S17,Nagaland,45,Tehok (ST),M. M. Throma Konyak,MALE,43.0,ST,CPI,47
+S17,Nagaland,45,Tehok (ST),Dr. Chingo Walim,MALE,43.0,ST,IND,24
+S17,Nagaland,45,Tehok (ST),Nota,NOTA,NOTA,NOTA,NOTA,19
+S17,Nagaland,46,Mon Town (ST),Y Mankhao Konyak,MALE,42.0,ST,NCP,10870
+S17,Nagaland,46,Mon Town (ST),Er. Cheong Konyak,MALE,52.0,ST,BJP,8259
+S17,Nagaland,46,Mon Town (ST),Nota,NOTA,NOTA,NOTA,NOTA,38
+S17,Nagaland,47,Aboi (ST),C. Manpon Konyak,MALE,42.0,ST,IND,6771
+S17,Nagaland,47,Aboi (ST),Wangka Konyak,MALE,39.0,ST,RPPRINAT,3247
+S17,Nagaland,47,Aboi (ST),E. Eshak Konyak,MALE,58.0,ST,NDPP,2766
+S17,Nagaland,47,Aboi (ST),Nota,NOTA,NOTA,NOTA,NOTA,42
+S17,Nagaland,48,Moka (ST),A Nyamnyei Konyak,MALE,68.0,ST,NPEP,8857
+S17,Nagaland,48,Moka (ST),Ee Pangteang,MALE,69.0,ST,NDPP,8301
+S17,Nagaland,48,Moka (ST),D Yongnyak Konyak,MALE,54.0,ST,NPF,288
+S17,Nagaland,48,Moka (ST),Nota,NOTA,NOTA,NOTA,NOTA,25
+S17,Nagaland,49,Tamlu (ST),B. Bangtick Phom,MALE,62.0,ST,IND,8646
+S17,Nagaland,49,Tamlu (ST),B.s. Nganlang Phom,MALE,52.0,ST,NDPP,7952
+S17,Nagaland,49,Tamlu (ST),H. Nyemli Phom,MALE,70.0,ST,RPPRINAT,259
+S17,Nagaland,49,Tamlu (ST),Nota,NOTA,NOTA,NOTA,NOTA,46
+S17,Nagaland,50,Longleng (ST),A Pongshi Phom,MALE,54.0,ST,NCP,16908
+S17,Nagaland,50,Longleng (ST),S. Pangnyu Phom,MALE,58.0,ST,BJP,11638
+S17,Nagaland,50,Longleng (ST),Phuyam,MALE,36.0,ST,IND,410
+S17,Nagaland,50,Longleng (ST),Denngan Y Avennoho,MALE,58.0,ST,INC,232
+S17,Nagaland,50,Longleng (ST),Nota,NOTA,NOTA,NOTA,NOTA,16
+S17,Nagaland,51,Noksen (ST),Y. Lima Onen Chang,MALE,53.0,ST,RPPRINAT,5151
+S17,Nagaland,51,Noksen (ST),H. Chuba Chang,MALE,71.0,ST,NDPP,4963
+S17,Nagaland,51,Noksen (ST),Nota,NOTA,NOTA,NOTA,NOTA,39
+S17,Nagaland,52,Longkhim Chare (ST),Sethrongkyu,MALE,45.0,ST,BJP,10187
+S17,Nagaland,52,Longkhim Chare (ST),Muthingnyuba Sangtam,MALE,64.0,ST,NCP,8564
+S17,Nagaland,52,Longkhim Chare (ST),Sethrichem Sangtam,MALE,40.0,ST,RPPRINAT,1450
+S17,Nagaland,52,Longkhim Chare (ST),Nota,NOTA,NOTA,NOTA,NOTA,38
+S17,Nagaland,53,Tuensang Sadar-I (ST),P. Bashangmongba Chang,MALE,44.0,ST,BJP,12638
+S17,Nagaland,53,Tuensang Sadar-I (ST),Toyang Chang,MALE,43.0,ST,NCP,6994
+S17,Nagaland,53,Tuensang Sadar-I (ST),C.n Yanchu Chang,MALE,40.0,ST,IND,287
+S17,Nagaland,53,Tuensang Sadar-I (ST),Nota,NOTA,NOTA,NOTA,NOTA,46
+S17,Nagaland,54,Tuensang Sadar-II (ST),Imtichoba,MALE,35.0,ST,RPPRINAT,5514
+S17,Nagaland,54,Tuensang Sadar-II (ST),K. Odibendang Chang,MALE,50.0,ST,NDPP,5114
+S17,Nagaland,54,Tuensang Sadar-II (ST),H. Zungkum Chang,MALE,49.0,ST,NPF,4487
+S17,Nagaland,54,Tuensang Sadar-II (ST),Z. Throngso,MALE,53.0,ST,INC,87
+S17,Nagaland,54,Tuensang Sadar-II (ST),Nota,NOTA,NOTA,NOTA,NOTA,35
+S17,Nagaland,55,Tobu (ST),Naiba Konyak,MALE,59.0,ST,LJPRV,10622
+S17,Nagaland,55,Tobu (ST),N. Bongkhao Konyak,MALE,46.0,ST,NDPP,10116
+S17,Nagaland,55,Tobu (ST),Nota,NOTA,NOTA,NOTA,NOTA,21
+S17,Nagaland,56,Noklak (ST),P. Longon,MALE,62.0,ST,NCP,8482
+S17,Nagaland,56,Noklak (ST),H. Haiying,MALE,50.0,ST,BJP,7748
+S17,Nagaland,56,Noklak (ST),Nota,NOTA,NOTA,NOTA,NOTA,24
+S17,Nagaland,57,Thonoknyu (ST),Benei M Lamthiu,MALE,40.0,ST,NPEP,10467
+S17,Nagaland,57,Thonoknyu (ST),S Heno Khiamniungan,MALE,76.0,ST,NDPP,8139
+S17,Nagaland,57,Thonoknyu (ST),L Khumo Khiamniungan,MALE,51.0,ST,LJPRV,47
+S17,Nagaland,57,Thonoknyu (ST),Nota,NOTA,NOTA,NOTA,NOTA,17
+S17,Nagaland,58,Shamator Chessore (ST),S. Keoshu Yimchunger,MALE,45.0,ST,NDPP,9065
+S17,Nagaland,58,Shamator Chessore (ST),R. Tohanba,MALE,57.0,ST,LJPRV,6770
+S17,Nagaland,58,Shamator Chessore (ST),H. Mukam,MALE,45.0,ST,NPF,146
+S17,Nagaland,58,Shamator Chessore (ST),W. Akum Yimkhiung,MALE,62.0,ST,INC,85
+S17,Nagaland,58,Shamator Chessore (ST),Nota,NOTA,NOTA,NOTA,NOTA,49
+S17,Nagaland,59,Seyochung Sitimi (ST),C. Kipili Sangtam,MALE,72.0,ST,NPEP,11694
+S17,Nagaland,59,Seyochung Sitimi (ST),V. Kashiho Sangtam,MALE,62.0,ST,BJP,10962
+S17,Nagaland,59,Seyochung Sitimi (ST),Nota,NOTA,NOTA,NOTA,NOTA,66
+S17,Nagaland,59,Seyochung Sitimi (ST),Khaseo Sangtam,MALE,46.0,ST,INC,18
+S17,Nagaland,60,Pungro Kiphire (ST),S. Kiusumew Yimchunger,MALE,62.0,ST,NDPP,16098
+S17,Nagaland,60,Pungro Kiphire (ST),T. Yangseo Sangtam,MALE,41.0,ST,RPPRINAT,13807
+S17,Nagaland,60,Pungro Kiphire (ST),Nota,NOTA,NOTA,NOTA,NOTA,71
+S17,Nagaland,60,Pungro Kiphire (ST),T. Atsuba,MALE,26.0,ST,INC,62
