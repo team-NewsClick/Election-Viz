@@ -250,6 +250,54 @@
       "UDHAM SINGH NAGAR"
     ]
   },
+  "Karnataka": {
+    "Bombay Karnataka": [
+      "BELGAUM",
+      "BAGALKOT",
+      "BIJAPUR",
+      "GADAG",
+      "GADAG *",
+      "DHARWAD",
+      "HAVERI",
+      "HAVERI *"
+    ],
+    "Hyderabad Karnataka": [
+      "BIDAR",
+      "RAICHUR",
+      "KOPPAL",
+      "KOPPAL *",
+      "BELLARY",
+      "GULBARGA"
+    ],
+    "Coastal Karnataka": [
+      "UTTARA KANNADA",
+      "DAKSHINA KANNADA",
+      "UDUPI",
+      "UDUPI *"
+    ],
+    "Central Karnataka": [
+      "CHITRADURGA",
+      "DAVANGERE",
+      "DAVANGERE*",
+      "SHIMOGGA",
+      "CHIKMAGALUR",
+      "KODAGU"
+    ],
+    "Old Mysore": [
+      "TUMKUR",
+      "CHIKKABALLAPUR",
+      "KOLAR",
+      "BANGALORE RURAL",
+      "RAMANAGARAM",
+      "MANDYA",
+      "HASSAN",
+      "MYSORE",
+      "CHAMRAJNAGAR"
+    ],
+    "Bangalore City": [
+      "BANGALORE"
+    ]
+  },
   "Manipur": {
     "Inner Manipur": [
       "BISHNUPUR",
