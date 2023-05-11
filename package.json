@@ -9,24 +9,24 @@
     "export": "next export"
   },
   "dependencies": {
-    "autoprefixer": "^10.2.4",
-    "axios": "^0.21.1",
+    "autoprefixer": "^10.4.14",
+    "axios": "^0.21.4",
     "d3-dsv": "^2.0.0",
-    "deck.gl": "^8.4.9",
-    "hex-rgb": "^4.2.0",
-    "html-react-parser": "^1.2.4",
-    "next": "10.0.6",
+    "deck.gl": "8.8.27",
+    "hex-rgb": "^4.3.0",
+    "html-react-parser": "^1.4.14",
+    "next": "^11.1.4",
     "parliament-svg": "^2.1.4",
-    "postcss": "^8.2.4",
-    "react": "17.0.1",
-    "react-beautiful-dnd": "^13.1.0",
-    "react-dom": "17.0.1",
-    "react-map-gl": "^6.1.10",
-    "tailwindcss": "^2.0.2",
+    "postcss": "^8.4.23",
+    "react": "^17.0.2",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dom": "^17.0.2",
+    "react-map-gl": "^6.1.21",
+    "tailwindcss": "^2.2.19",
     "virtual-dom-stringify": "^3.0.1"
   },
   "devDependencies": {
-    "stylelint": "^13.9.0",
-    "stylelint-config-standard": "^20.0.0"
+    "stylelint": "^14.9.0",
+    "stylelint-config-standard": "^26.0.0"
   }
 }
