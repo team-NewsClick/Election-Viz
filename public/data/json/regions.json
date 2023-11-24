@@ -312,5 +312,34 @@
       "NONEY",
       "PHERZAWL"
     ]
+  },
+  "Rajasthan" : {
+    "Hadodi" : ["BUNDI", "BARAN *", "JHALAWAR", "KOTA"],
+    "Marwad" : ["JAISALMER", "BIKANER", "BARMER", "JALOR", "JODHPUR", "NAGAUR", "PALI", "SIROHI"],
+    "Mewar"  : ["BHILWARA", "CHITTAURGARH", "RAJSAMAND *", "UDAIPUR"],
+    "Shekhawati" : ["JHUNJHUNUN", "SIKAR", "CHURU"],
+    "Jaipur" : ["JAIPUR","DAUSA *", "SAWAI MADHOPUR", "TONK", "KARAULI *", "BHARATPUR", "DHAULPUR", "ALWAR", "AJMER"],
+    "Green Belt" : ["GANGANAGAR", "HANUMANGARH *"],
+    "South Adivasi Belt" : ["DUNGARPUR", "BANSWARA", "PRATAPGARH"]
+  },
+  "Madhya Pradesh" : {
+    "Baghelkhand" : ["REWA", "SATNA", "SHAHDOL", "ANUPPUR", "SIDHI", "SINGRAULI"],
+    "Bhopal"      : ["BHOPAL", "RAISEN", "VIDISHA", "SAGAR", "DAMOH", "HOSHANGABAD", "HARDA", "BETUL"],
+    "Chambal"     : ["MORENA", "BHIND", "SHEOPUR"],
+    "Gwalior"     : ["GWALIOR", "GUNA", "ASHOK NAGAR", "SHIVPURI", "DATIA"],
+    "Bundelkhand" : ["TIKAMGARH", "CHHATARPUR", "PANNA"],
+    "Mahakaushal" : ["JABALPUR", "KATNI", "UMARIA", "NARSIMHAPUR", "MANDLA", "DINDORI", "SEONI", "CHHINDWARA", "BALAGHAT"],
+    "Nimar"       : ["BARWANI", "BURHANPUR", "EAST NIMAR", "WEST NIMAR"],
+    "Malwa"       : ["DEWAS", "DHAR", "INDORE", "JHABUA", "MANDSAUR", "NEEMUCH", "RAJGARH", "RATLAM", "SHAJAPUR", "UJJAIN", "SEHORE"]
+  },
+  "Chhattisgarh" : {
+    "Northern Hills" : ["BILASPUR", "KORBA", "JANJGIR - CHAMPA", "RAIGARH", "KORIYA", "JASHPUR", "SURGUJA"],
+    "Central Plains" : ["KAWARDHA", "DURG", "RAJNANDGAON", "MAHASAMUND", "RAIPUR", "DHAMTARI"],
+    "Bastar"         : ["KANKER", "BASTER", "DANTEWADA"]
+  },
+  "Telangana" : {
+    "North Zone"   : ["ADILABAD", "KARIMNAGAR", "NIZAMABAD"],
+    "Central Zone" : ["KHAMMAM", "WARANGAL", "MEDAK"],
+    "South Zone"   : ["NALGONDA", "RANGAREDDI", "HYDERABAD", "MAHBUBNAGAR"]
   }
 }
