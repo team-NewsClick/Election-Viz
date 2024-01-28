@@ -30,7 +30,8 @@ import {
   UPCOMING_ELECTION_TYPE,
   ELECTION_YEAR_STATEUT,
   CSV_PATH,
-  DEFAULT_PREDICTION_MODE
+  DEFAULT_PREDICTION_MODE,
+  ELECTION_DEFAULT_SELECT_ASSEMBLY
 } from "../constants"
 import {
   getDataStateUT,
@@ -138,7 +139,7 @@ const Dashboard = () => {
       setStateUTOptions(tempStateUTOptions)
       setSelectedStateUT(tempStateUTOptions[0])
       setElectionOptions(tempElectionOptions)
-      setSelectedElection(ELECTION_DEFAULT_SELECT)
+      setSelectedElection(ELECTION_DEFAULT_SELECT_ASSEMBLY)
     }
   }, [electionViewType])
 
