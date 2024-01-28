@@ -102,6 +102,7 @@ const DashboardOptions = ({
             id="general"
             name="election"
             value="general"
+            defaultChecked
             onChange={(e) => updateElectionViewType(e.currentTarget.value)}
           />
           <label htmlFor="general">General</label>
@@ -110,7 +111,6 @@ const DashboardOptions = ({
             id="assembly"
             name="election"
             value="assembly"
-            defaultChecked
             onChange={(e) => updateElectionViewType(e.currentTarget.value)}
           />
           <label htmlFor="assembly">Assembly</label>

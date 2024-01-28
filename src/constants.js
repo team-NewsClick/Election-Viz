@@ -4,14 +4,9 @@
 export const ELECTION_VIEW_TYPE_DEFAULT = "general"
 
 /**
- * Assembly Election
- */
-export const ELECTION_VIEW_TYPE_ASSEMBLY = "assembly"
-
-/**
  * Default selected election
  */
-export const ELECTION_DEFAULT_SELECT = { type: "assembly", year: "Upcoming" }
+export const ELECTION_DEFAULT_SELECT = { type: "general", year: "2019" }
 
 /**
  * Option when no particular State/UT is selected

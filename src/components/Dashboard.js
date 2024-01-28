@@ -16,7 +16,7 @@ import {
   ALL_CONSTITUENCIES,
   SEAT_DEFAULT_SELECT,
   REGION_DEFAULT_SELECT,
-  ELECTION_VIEW_TYPE_ASSEMBLY,
+  ELECTION_VIEW_TYPE_DEFAULT,
   DEFAULT_GROUP_TYPE,
   LIVE_ELECTION,
   DELAY_INTERVAL_MINUTES,
@@ -54,7 +54,7 @@ const Dashboard = () => {
 
   const windowWidth = window.innerWidth
   const [electionViewType, SetElectionViewType] = useState(
-    ELECTION_VIEW_TYPE_ASSEMBLY
+    ELECTION_VIEW_TYPE_DEFAULT
   )
   const [selectedElection, setSelectedElection] = useState(
     ELECTION_DEFAULT_SELECT

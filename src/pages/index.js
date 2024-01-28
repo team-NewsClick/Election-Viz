@@ -60,7 +60,8 @@ const Elections = () => {
   if (process.browser) {
     if (
       stateGeojson.length === 0 ||
-      assemblyConstituenciesGeojson.length === 0
+      assemblyConstituenciesGeojson.length === 0 ||
+      parliamentaryConstituenciesGeojson.length === 0
     ) {
       return (
         <div style={{ margin: "auto", paddingTop: "50vh" }}>
