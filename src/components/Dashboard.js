@@ -248,9 +248,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (selectedElection === LIVE_ELECTION) {
+      var electionURL
+      if (electionViewType === "general")
+        electionURL = `${process.env.LIVE_GEN_ELECTION_URL}`
+      else
+        electionURL = `${process.env.LIVE_ELECTION_URL}`
       const interval = setInterval(() => {
         axios
-          .get(`${process.env.LIVE_ELECTION_URL}`)
+          .get(electionURL)
           .then((response) => {
             const parsedData = csvParse(response.data)
             setSelectedYearData(parsedData)

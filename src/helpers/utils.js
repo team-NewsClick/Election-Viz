@@ -204,7 +204,10 @@ export const getElectionURL = (electionViewType, electionType, year) => {
   let electionURL
   switch (year) {
     case LIVE_ELECTION:
-      electionURL = `${process.env.LIVE_ELECTION_URL}`
+      if (electionViewType === "general")
+        electionURL = `${process.env.LIVE_GEN_ELECTION_URL}`
+      else
+        electionURL = `${process.env.LIVE_ELECTION_URL}`
       break
     case UPCOMING_ELECTION:
       electionURL = `${CSV_PATH}/${electionViewType}/${UPCOMING_ELECTION_TYPE}_${UPCOMING_ELECTION_YEAR}.csv`

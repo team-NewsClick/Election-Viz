@@ -6,8 +6,8 @@ export const ELECTION_VIEW_TYPE_DEFAULT = "general"
 /**
  * Default selected election
  */
-export const ELECTION_DEFAULT_SELECT = { type: "general", year: "2019" }
-export const ELECTION_DEFAULT_SELECT_ASSEMBLY = { type: "assembly", year: "Upcoming" }
+export const ELECTION_DEFAULT_SELECT = { type: "general", year: "Live" }
+export const ELECTION_DEFAULT_SELECT_ASSEMBLY = { type: "assembly", year: "Live" }
 
 /**
  * Option when no particular State/UT is selected
@@ -126,6 +126,44 @@ export const SWINGS_TEXT =
  */
 export const ELECTION_YEAR_STATEUT = {
   general: {
+    Live: [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu & Kashmir",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Tripura",
+      "Uttar Pradesh",
+      "West Bengal",
+      "Chhattisgarh",
+      "Jharkhand",
+      "Uttarakhand",
+      "Telangana",
+      "Andaman & Nicobar Islands",
+      "Chandigarh",
+      "Dadra & Nagar Haveli",
+      "Daman & Diu",
+      "NCT of Delhi",
+      "Lakshadweep",
+      "Puducherry"
+    ],
     2019: [
       "Andhra Pradesh",
       "Arunachal Pradesh",
@@ -230,8 +268,8 @@ export const ELECTION_YEAR_STATEUT = {
     2021: ["Assam", "Kerala", "Puducherry", "Tamil Nadu", "West Bengal"],
     2022: ["Goa", "Gujarat", "Himachal Pradesh", "Manipur", "Punjab", "Uttar Pradesh", "Uttarakhand"],
     2023: ["Meghalaya", "Nagaland", "Tripura", "Karnataka", "Chhattisgarh", "Madhya Pradesh", "Mizoram", "Rajasthan", "Telangana"],
-    Upcoming : UPCOMING_ELECTIONS_STATEUT
-    // Live: LIVE_ELECTION_STATEUT
+    // Upcoming : UPCOMING_ELECTIONS_STATEUT
+    Live: LIVE_ELECTION_STATEUT
   }
 }
 
