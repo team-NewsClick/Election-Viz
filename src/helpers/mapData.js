@@ -182,6 +182,7 @@ export const getContestantStats = (
         selectedElection.year === LIVE_ELECTION
       ) {
         if (electionViewType === "general") {
+          /*
           filteredGeoJSON.features.map((d) => {
             result[selectedStateUT][d.properties.PC_NO] = result[
               selectedStateUT
@@ -189,6 +190,7 @@ export const getContestantStats = (
               ? result[selectedStateUT][d.properties.PC_NO]
               : (result[selectedStateUT][d.properties.PC_NO] = [NA_PARTY_DATA])
           })
+          */
         } else {
           filteredGeoJSON.features.map((d) => {
             result[selectedStateUT][d.properties.AC_NO] = result[
