@@ -54,6 +54,8 @@ export const getRegionStatsTable = (
       stateWiseCompData = {},
       stateWiseGeoJson = {}
     presentYearData.map((d) => {
+      if (!d.ST_NAME)
+        d.ST_NAME = selectedStateUT
       if (stateWisePresData[d.ST_NAME]) {
         stateWisePresData[d.ST_NAME].push(d)
       } else {
