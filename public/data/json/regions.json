@@ -341,5 +341,9 @@
     "North Zone"   : ["ADILABAD", "KARIMNAGAR", "NIZAMABAD"],
     "Central Zone" : ["KHAMMAM", "WARANGAL", "MEDAK"],
     "South Zone"   : ["NALGONDA", "RANGAREDDI", "HYDERABAD", "MAHBUBNAGAR"]
+  },
+  "Jammu & Kashmir" : {
+    "Jammu"   : ["Jammu", "Udhampur", "Samba", "Doda", "Rajouri", "Reasi", "Kathua", "Ramban", "Poonch", "Kishtwar"],
+    "Kashmir" : ["Srinagar", "Budgam", "Kulgam", "Ganderbal", "Kupwara", "Baramulla", "Bandipora", "Pulwama", "Shopian", "Anantnag"]
   }
 }
