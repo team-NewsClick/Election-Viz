@@ -48,8 +48,8 @@ export const LIVE_ELECTION_TYPE = "assembly"
  * Live Election States/UTs
  */
 export const LIVE_ELECTION_STATEUT = [
-      "Haryana",
-      "Jammu & Kashmir"
+      "Jharkhand",
+      "Maharashtra"
 ]
 
 /**
@@ -71,8 +71,8 @@ export const UPCOMING_ELECTION = "Upcoming"
  * Upcoming Elections
  */
 const UPCOMING_ELECTIONS_STATEUT = [
-      "Haryana",
-      "Jammu & Kashmir"
+      "Jharkhand",
+      "Maharashtra"
 ]
 
 /**
@@ -264,7 +264,7 @@ export const ELECTION_YEAR_STATEUT = {
     2021: ["Assam", "Kerala", "Puducherry", "Tamil Nadu", "West Bengal"],
     2022: ["Goa", "Gujarat", "Himachal Pradesh", "Manipur", "Punjab", "Uttar Pradesh", "Uttarakhand"],
     2023: ["Meghalaya", "Nagaland", "Tripura", "Karnataka", "Chhattisgarh", "Madhya Pradesh", "Mizoram", "Rajasthan", "Telangana"],
-    2024: ["Andhra Pradesh", "Arunachal Pradesh", "Odisha", "Sikkim"],
+    2024: ["Andhra Pradesh", "Arunachal Pradesh", "Haryana", "Jammu & Kashmir", "Odisha", "Sikkim"],
     // Upcoming : UPCOMING_ELECTIONS_STATEUT
     Live: LIVE_ELECTION_STATEUT
   }
