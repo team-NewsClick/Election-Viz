@@ -345,5 +345,13 @@
   "Jammu & Kashmir" : {
     "Jammu"   : ["Jammu", "Udhampur", "Samba", "Doda", "Rajouri", "Reasi", "Kathua", "Ramban", "Poonch", "Kishtwar"],
     "Kashmir" : ["Srinagar", "Budgam", "Kulgam", "Ganderbal", "Kupwara", "Baramulla", "Bandipora", "Pulwama", "Shopian", "Anantnag"]
+  },
+  "Maharashtra" : {
+    "Mumbai"   : ["MUMBAI", "MUMBAI (SUBURBAN)"],
+    "Marathwada" : ["AURANGABAD", "JALNA", "BID", "HINGOLI", "PARBHANI", "NANDED", "LATUR", "OSMANABAD"],
+    "Konkan"   : ["PALAGHAR", "THANE", "RAIGARH", "RATNAGIRI", "SINDHUDURG"],
+    "North Maharashtra" : ["NANDURBAR", "DHULE", "JALGAON", "NASHIK", "AHMADNAGAR"],
+    "Western Maharashtra" : ["PUNE", "SATARA", "SOLAPUR", "SANGLI", "KOLHAPUR"],
+    "Vidarbha" : ["AKOLA", "AMRAVATI", "BULDANA", "WASHIM", "YAVATMAL", "BHANDARA", "CHANDRAPUR", "GADCHIROLI", "GONDIYA", "NAGPUR", "WARDHA"]
   }
 }
