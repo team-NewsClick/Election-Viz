@@ -48,7 +48,7 @@ export const LIVE_ELECTION_TYPE = "assembly"
  * Live Election States/UTs
  */
 export const LIVE_ELECTION_STATEUT = [
-      "NCT of Delhi"
+      "Bihar"
 ]
 
 /**
@@ -70,7 +70,7 @@ export const UPCOMING_ELECTION = "Upcoming"
  * Upcoming Elections
  */
 const UPCOMING_ELECTIONS_STATEUT = [
-      "NCT of Delhi"
+      "Bihar"
 ]
 
 /**
@@ -263,6 +263,7 @@ export const ELECTION_YEAR_STATEUT = {
     2022: ["Goa", "Gujarat", "Himachal Pradesh", "Manipur", "Punjab", "Uttar Pradesh", "Uttarakhand"],
     2023: ["Meghalaya", "Nagaland", "Tripura", "Karnataka", "Chhattisgarh", "Madhya Pradesh", "Mizoram", "Rajasthan", "Telangana"],
     2024: ["Andhra Pradesh", "Arunachal Pradesh", "Haryana", "Jammu & Kashmir", "Jharkhand", "Maharashtra", "Odisha", "Sikkim"],
+    2025: ["NCT of Delhi"],
     // Upcoming : UPCOMING_ELECTIONS_STATEUT
     Live: LIVE_ELECTION_STATEUT
   }
