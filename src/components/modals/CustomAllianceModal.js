@@ -123,10 +123,9 @@ const CustomAllianceModal = ({
               (o) => o.alliance === row.alliance
             )
             if (tempIndex >= 0) {
-              const newRowParties = new Set()
               row.parties.map((p) => newRowParties.add(p))
               o.parties.map((p) => newRowParties.add(p))
-              newRowParties = [...newRowParties]
+              const newRowParties = [...new Set([...row.parties, ...o.parties])]
               newRows.push({
                 alliance: row.alliancelliance,
                 parties: newRowParties
