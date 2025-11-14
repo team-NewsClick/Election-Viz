@@ -59,7 +59,7 @@ export const UPCOMING_ELECTION_TYPE = "assembly"
 /**
  * Upcoming Election Year
  */
-export const UPCOMING_ELECTION_YEAR = "2020"
+export const UPCOMING_ELECTION_YEAR = "2025"
 
 /**
  * Upcoming Election
@@ -669,6 +669,7 @@ export const DEFAULT_PREDICTION_MODE = "off"
    "CPI(M)": "#E64A1D",
    "CPM": "#E64A1D",
    "CPIM": "#E64A1D",
+   "CPI(ML)(L)": "#E64A1D",
    "AIFB": "#DA461B",
    "GJM": "#7CD11B",
    "RSP": "#E54E47",
@@ -684,14 +685,16 @@ export const DEFAULT_PREDICTION_MODE = "off"
    "SBSP": "#F5D50A",
    "AD(S)": "#E36FCB",
    "TDP": "#FBEC23",
+   "JSP": "#FBEC23",
    "YSRCP": "#084202",
    "SHS": "#E96D1F",
    "RJD": "#4B8204",
    "BJD": "#396502",
    "SAD": "#EF9716",
    "LJP": "#3294DD",
+   "LJPRV": "#3294DD",
    "JD(U)": "#255a8e",
-   "RLSP": "#999966",
+   "RLM": "#999966",
    "BLSP": "#999966",
    "JKPDP": "#4D8733",
    "JMM": "#447E5A",
@@ -719,7 +722,7 @@ export const DEFAULT_PREDICTION_MODE = "off"
    "KEC(J)": "#f76940",
    "KEC(B)": "f76940",
    "GOJAM": "#7CD11B",
-   "HAMS": "#4B8204",
+   "HAM": "#F5d62A",
    "MGB": "#E64A1D"
  }
  

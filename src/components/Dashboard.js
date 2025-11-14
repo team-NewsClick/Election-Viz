@@ -273,14 +273,14 @@ const Dashboard = () => {
       const electionType = selectedElection.type
       const year = selectedElection.year
       if (electionViewType === "assembly") {
-        const filteredCompareOptions = compareOptions.filter((a) => a.value.type === "assembly")
+        const filteredCompareOptions = compareOptions.filter((a) => a.value.type === "assembly" && a.value.year < year)
           filteredCompareOptions.length > 0
-            ? setCompareElection(filteredCompareOptions[0].value)
+            ? setCompareElection(filteredCompareOptions.at(-1).value)
             : setCompareElection(compareOptions[0].value)
       } else {
-        const filteredCompareOptions = compareOptions.filter((a) => a.value.type === "general")
+        const filteredCompareOptions = compareOptions.filter((a) => a.value.type === "general" && a.value.year < year)
         filteredCompareOptions.length > 0
-          ? setCompareElection(filteredCompareOptions[0].value)
+          ? setCompareElection(filteredCompareOptions.at(-1).value)
           : setCompareElection(compareOptions[0].value)
       }
       if (selectedElection === SELECT_ELECTION) {
